@@ -1,0 +1,444 @@
+@charset "UTF-8";
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.pager-hide-text nav div:nth-child(1) {
+  display: none;
+}
+
+.pager-hide-text nav div.pagination {
+  -webkit-box-pack: space-evenly !important;
+      -ms-flex-pack: space-evenly !important;
+          justify-content: space-evenly !important;
+}
+
+.homecard {
+  min-height: 200px;
+  width: 200px;
+  position: relative;
+  padding: 20px 0 0 0;
+}
+
+.homecard .editwrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.homecard .editwrapper svg {
+  width: 25px;
+  margin: 10px auto;
+}
+
+.homecard .svgwrapper svg {
+  width: 60px;
+  margin: 10px auto;
+}
+
+.commcard {
+  min-height: 200px;
+  width: 250px;
+  position: relative;
+  padding: 20px 0;
+}
+
+.commcard .editwrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50px;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.commcard .editwrapper svg {
+  width: 25px;
+  margin: 10px auto;
+}
+
+.commcard .svgwrapper svg {
+  width: 60px;
+  margin: 10px auto;
+}
+
+.cardbody {
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.newhousecard {
+  width: 100%;
+  height: 190px;
+}
+
+.housecard.house {
+  width: 100%;
+  height: 190px;
+}
+
+.housecard.house div:nth-child(1) {
+  height: 50%;
+  overflow: hidden;
+}
+
+.housecard.house div:nth-child(2) {
+  height: 20%;
+}
+
+.housecard.house div:nth-child(3) {
+  height: 30%;
+}
+
+.jumbotron {
+  height: 500px;
+}
+
+.jumbotron .landinglogo {
+  position: absolute;
+  height: 100%;
+  right: 100px;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+  width: 350px;
+}
+
+.owl-carousel#headercara {
+  height: 100%;
+}
+
+.owl-carousel#headercara div.owl-stage-outer {
+  height: 100%;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage {
+  height: 100%;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item {
+  height: 100%;
+  width: 100vw;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .black-overlay::before {
+  content: "";
+  position: absolute;
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content {
+  color: #fff;
+  z-index: 999;
+  margin: 0 auto;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content #services li p {
+  padding: 0;
+  margin: 0;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .topTitle,
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title,
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .btmTitle {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2.5vw;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title {
+  font-size: 10vw;
+  color: #fff !important;
+  font-weight: 900;
+  font-size: 3rem;
+}
+
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .btn:hover {
+  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+          box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+}
+
+#hitparent .phonepicwrap .hitwrapper div {
+  margin-bottom: 10px;
+}
+
+#hitparent .phonepicwrap .hitwrapper div .instring {
+  border: 3px solid black;
+  border-radius: 25px;
+  height: 25px;
+  width: 25px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+.instring {
+  border: 3px solid black;
+  border-radius: 25px;
+  height: 25px;
+  width: 25px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: center;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline-block;
+}
+
+/* Styling input radio button */
+#radioParent .radionBtns {
+  position: absolute;
+  bottom: 0;
+}
+
+#regularwrap,
+#weekDiv {
+  display: none;
+}
+
+#profile,
+.img-container {
+  display: none;
+}
+
+.showdiv {
+  display: block !important;
+}
+
+/* End */
+.adminPanelButton {
+  height: 100px;
+  line-height: 100px;
+}
+
+.radioBoxparent input[type="radio"] {
+  display: none;
+}
+
+.radioBoxparent label {
+  border: 1px solid #fff;
+  padding: 10px;
+  display: block;
+  position: relative;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.radioBoxparent label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid #e75480;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  z-index: 2;
+}
+
+.radioBoxparent label img {
+  height: auto;
+  width: auto;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+}
+
+.radioBoxparent :checked + label {
+  border-color: #e75480;
+}
+
+.radioBoxparent :checked + label:before {
+  content: "✓";
+  background-color: #e75480;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.radioBoxparent :checked + label img {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  z-index: -1;
+}
+
+.checkboxparent input[type="checkbox"] {
+  display: none;
+}
+
+.checkboxparent label {
+  border: 1px solid #fff;
+  padding: 10px;
+  display: block;
+  position: relative;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.checkboxparent label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid #e75480;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  z-index: 2;
+}
+
+.checkboxparent label img {
+  height: auto;
+  width: auto;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+}
+
+.checkboxparent :checked + label {
+  border-color: #e75480;
+}
+
+.checkboxparent :checked + label:before {
+  content: "✓";
+  background-color: #e75480;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.checkboxparent :checked + label img {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  z-index: -1;
+}
+
+.extraservdiv input[type="checkbox"][id^="service"] {
+  display: none;
+}
+
+.extraservdiv label {
+  border: 1px solid #fff;
+  padding: 10px;
+  display: block;
+  position: relative;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.extraservdiv label:before {
+  background-color: white;
+  color: white;
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  border: 1px solid #e75480;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 28px;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  z-index: 2;
+}
+
+.extraservdiv label img {
+  height: auto;
+  width: auto;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+}
+
+.extraservdiv :checked + label {
+  border-color: #e75480;
+}
+
+.extraservdiv :checked + label:before {
+  content: "✓";
+  background-color: #e75480;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.extraservdiv :checked + label img {
+  -webkit-transform: scale(0.9);
+          transform: scale(0.9);
+  z-index: -1;
+}
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .housecard.house {
+    width: 100%;
+    height: 190px;
+  }
+  .housecard.house div:nth-child(1) {
+    height: 50%;
+  }
+  .housecard.house div:nth-child(2) {
+    height: 30%;
+  }
+  .housecard.house div:nth-child(3) {
+    height: 20%;
+  }
+}
+/*# sourceMappingURL=style.css.map */
