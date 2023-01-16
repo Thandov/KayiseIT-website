@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -83,8 +84,20 @@ Route::middleware('auth')->group(function () {
 //Route::post('store-form',[QuotationController::class, 'store']);
 Route::get('/send',[QuotationController::class, 'index']);
 Route::post('submit-form',[QuotationController::class, 'submit']);
-
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
+
+
+//Admin 
+//Route::GET('admin.admin_dashboard',[AdminController::class, 'index'])->name('admin.admin_dashboard');
+
+//Route::get('/admin/admin_dashboard', 'AdminController@index');
+
+Route::group(['middleware' => ['auth', 'role:admin']], function() {
+    Route::get('/dashboard', 'App\http\Controllers\DashboardController@index')->name('dashboard');
+    Route::GET('/admin/admin_dashboard',[AdminController::class, 'index'])->name('admin.admin_dashboard');
+
+});
+
 
 
 require __DIR__.'/auth.php';
