@@ -61,7 +61,7 @@
                   </div>
                     
                   <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Send Message</button>
+                      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">Send Message</button>
                   </div>
           <!--  <div class="row m-3">
 
