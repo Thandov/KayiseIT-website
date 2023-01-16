@@ -34,7 +34,6 @@
 
         </div>
     </div>
-    @include('services-section')
 
 
 
