@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Mail\QuotationMail;
 use App\Mail\WebsiteMail;
+use App\Models\newQuotation;
+use App\Models\SubServices;
 
 class QuotationController extends Controller
 {
@@ -177,4 +179,21 @@ class QuotationController extends Controller
         return view('home'); 
 
     } 
+
+    public function quote(Request $request)
+{
+    $subserviceIds = ($request->input('subservices'));
+    $subservices = SubServices::whereIn('id', $subserviceIds)->get();
+    $totalPrice = $subservices->sum('price');
+
+    $quotation = new newQuotation();
+    $quotation->subservices = serialize($request->input('subservices'));
+    $quotation->total_price = $totalPrice;
+    $quotation->save();
+
+    return redirect('/navbar/services')->with('success', 'Quotation saved successfully');
+}
+
+    
+
 }

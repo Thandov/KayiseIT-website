@@ -42,6 +42,9 @@
                 </a>
             @endif
 
+            <input type="hidden" name="intended" value="{{ request()->input('intended',url()->previous()) }}">
+
+
             <x-primary-button class="ml-3">
                 {{ __('Log in') }}
             </x-primary-button>
