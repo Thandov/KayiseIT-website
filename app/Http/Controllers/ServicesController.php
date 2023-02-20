@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Service;
-use App\Models\SubServices;
+use App\Models\SubService;
 use Illuminate\Http\Request;
+use stdClass;
 
 class ServicesController extends Controller
 {
@@ -47,9 +48,59 @@ class ServicesController extends Controller
     public function show($id)
 {
     $service = Service::find($id);
-    $subservices = SubServices::where('service_id', $id)->get();
-  return view('viewservice', compact('service', 'subservices'));
+    $subservices = SubService::where('service_id', $id)->get();
+    return view('viewservice', compact('service', 'subservices'));
 }
+
+public function updateService(Request $request, $id)
+{
+    $service = Service::findOrFail($id);
+    $service->name = $request->input('name');
+    $service->description = $request->input('description');
+    $service->save();
+
+    foreach ($request->input('subservices') as $subserviceId => $subserviceData) {
+        $subservice = Subservice::findOrFail($subserviceId);
+        $subservice->name = $subserviceData['name'];
+        $subservice->description = $subserviceData['description'];
+
+        if ($subservice->price_type === 'dynamic') {
+            $optionName = [];
+            $optionPrice = [];
+
+            foreach ($subserviceData['option_name'] as $key => $value) {
+                if (!empty($value)) {
+                    $optionName[] = ['name' => $value];
+                }
+
+                if (!empty($subserviceData['option_price'][$key])) {
+                    $optionPrice[] = ['price' => $subserviceData['option_price'][$key]];
+                }
+            }
+
+            $subservice->option_name = json_encode($optionName);
+            $subservice->option_price = json_encode($optionPrice);
+        } else {
+            $subservice->price = $subserviceData['price'];
+        }
+
+        $subservice->save();
+    }
+
+    return redirect()->route('admin.services', $id)->with('success', 'Service updated successfully');
+}
+
+public function delete($id)
+{
+    $service = Service::find($id);
+    $service->delete();
+
+    return redirect()->back();
+}
+
+
+
+
 
     
 }

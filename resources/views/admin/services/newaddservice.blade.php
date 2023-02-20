@@ -50,11 +50,11 @@
     var subserviceCounter = 0;
 
     $('#addSubservice').click(function() {
-      var subserviceName = 'name' + subserviceCounter;
-      var subserviceDescription = 'description' + subserviceCounter;
-      var subservicePriceType = 'price_type' + subserviceCounter;
-      var subservicePrice = 'price' + subserviceCounter;
-      var subserviceOptionsContainer = 'subservice_options_container' + subserviceCounter;
+      var subserviceName = 'subservice_name_[]' + subserviceCounter;
+      var subserviceDescription = 'subservice_description_[]' + subserviceCounter;
+      var subservicePriceType = 'subservice_price_type_[]' + subserviceCounter;
+      var subservicePrice = 'subservice_price_[]' + subserviceCounter;
+      var subserviceOptionsContainer = 'subservice_options_container_' + subserviceCounter;
       $('#subservices').append(
         '<input type="text" name="' + subserviceName + '" placeholder="subservice name" class="form-control mb-2">' +
         '<textarea name="' + subserviceDescription + '" placeholder="subservice description" class="form-control mb-2"></textarea>' +
@@ -78,11 +78,11 @@
       
       var optionCounter = 0;
       $('.' + subserviceOptionsContainer).append(
-        '<button type="button" class="btn btn" id="addOption' + subserviceCounter + '" style="background-color : grey">Add Option</button><br><br>'
+        '<button type="button" class="btn btn" id="addOption_' + subserviceCounter + '" style="background-color : grey">Add Option</button><br><br>'
       );
-      $('#addOption' + subserviceCounter).click(function() {
-        var optionName = 'option_name' + subserviceCounter + '_' + optionCounter;
-        var optionPrice = 'option_price' + subserviceCounter + '_' + optionCounter;
+      $('#addOption_' + subserviceCounter).click(function() {
+        var optionName = 'subservice_option_name_[]' + subserviceCounter + '_' + optionCounter;
+        var optionPrice = 'subservice_option_price_[]' + subserviceCounter + '_' + optionCounter;
         $('.' + subserviceOptionsContainer).append(
           '<input type="text" name="' + optionName + '" placeholder="option name" class="form-control mb-2">' +
           '<input type="number" name="' + optionPrice + '" placeholder="option price" class="form-control mb-2">' +
@@ -94,5 +94,5 @@
       subserviceCounter++;
     });
   });
-</script>
 
+</script>

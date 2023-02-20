@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Website;
+use App\Models\Quotation;
 use App\Models\Service;
-use App\Models\SubServices;
+use App\Models\SubService;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,16 +19,15 @@ class AdminController extends Controller
 
     public function remove($id){
 
-        $websites = Website::find($id);
-        $websites->delete();
-        return view('admin/quotations')->with('status','Profile Deleted');
+        $quotation = Quotation::find($id);
+        $quotation->delete();
+        return redirect()->back()->with('success', 'User has been deleted!');
     }
 
     public function quotations()
     {
-        $websites = Website::all();
-        $users = User::all();
-        return view('admin.quotations', compact('websites', 'users'));
+        $quotations = Quotation::all();
+        return view('admin.quotations', compact('quotations'));
     }
 
     public function users()
@@ -35,17 +35,25 @@ class AdminController extends Controller
         $users = User::all();
         return view('admin.users', compact('users'));
     }
-    public function removeuser($id){
 
-        $users = User::find($id);
-        $users->delete();
-        return redirect('admin/users')->with('status','Profile Deleted');
+
+    public function destroy($id)
+{
+    $user = User::find($id);
+    
+    if (!$user) {
+        return redirect()->back()->with('error', 'User not found!');
     }
 
-    public function viewwebquotes($id)
+    $user->delete();
+    return redirect()->back()->with('success', 'User has been deleted!');
+}
+
+
+    public function viewquotations($id)
     {
-        $website = Website::find($id);
-        return view('admin/viewwebquotes', compact('website'));
+        $quotation = Quotation::find($id);
+        return view('admin/viewquotations', compact('quotation'));
     }
     public function viewuser($id)
     {
@@ -62,14 +70,8 @@ class AdminController extends Controller
     public function viewservice($id)
     {
         $service = Service::find($id);
-        $subservices = SubServices::where('service_id', $id)->get();
+        $subservices = SubService::where('service_id', $id)->get();
         return view('admin/viewservice', compact('service', 'subservices'));
     }
 
-    public function removeservice($id){
-
-        $services = Service::find($id);
-        $services->delete();
-        return redirect('admin/services')->with('status','service Deleted');
-    }
 }

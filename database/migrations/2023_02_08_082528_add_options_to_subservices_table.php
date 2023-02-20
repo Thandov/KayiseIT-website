@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::table('subservices', function (Blueprint $table) {
             //
-            $table->string('option_name');
-            $table->double('option_price');
-
+            $table->double('options');
         });
     }
 

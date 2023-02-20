@@ -5,16 +5,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\QuotationRequest;
 use App\Models\Website;
 use Illuminate\Http\Request;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\QuotationMail;
 use App\Mail\WebsiteMail;
 use App\Models\newQuotation;
+use App\Models\Quotation;
 use App\Models\SubServices;
+use App\Models\SubService;
+use App\Models\Service;
+
 
 class QuotationController extends Controller
 {
 
-    public function index()
+ /*   public function index()
     {
         
         Mail::to('excellentt7@gmail.com')->send(new QuotationMail());
@@ -178,9 +182,9 @@ class QuotationController extends Controller
         Mail::to(Auth::user()->email)->send(new WebsiteMail($request->type, $request->pages, $request->hosting, $request->maintenance, $pages_price, $hosting_price, $maintenance_price, $total));
         return view('home'); 
 
-    } 
+    }  */
 
-    public function quote(Request $request)
+   /* public function quote(Request $request)
 {
     $subserviceIds = ($request->input('subservices'));
     $subservices = SubServices::whereIn('id', $subserviceIds)->get();
@@ -193,7 +197,33 @@ class QuotationController extends Controller
 
     return redirect('/navbar/services')->with('success', 'Quotation saved successfully');
 }
+*/
 
-    
+public function quote(Request $request)
+    {
+        $quotation = new Quotation;
+$quotation->service_name = $request->service_name;
+$quotation->subservices = json_encode($request->subservices);
+$quotation->option_name = json_encode($request->option_name);
+$quotation->option_price = json_encode($request->option_price);
+$quotation->price = $request->input('total_price');
+$quotation->save();
 
+$data = [
+    'service_name' => $request->service_name,
+    'subservices' => $request->subservices,
+    'option_name' => $request->option_name,
+    'option_price' => $request->option_price,
+    'total_price' => $request->input('total_price')
+];
+
+Mail::send('emails.quotation', $data, function($message) {
+    $message->to('recipient@example.com', 'Recipient Name')
+            ->subject('Quotation Details');
+});
+
+
+        // Redirect back to the service view with a success message
+        return redirect('/navbar/services')->with('success', 'Quotation saved successfully');
+        }
 }

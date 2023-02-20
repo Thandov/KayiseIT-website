@@ -35,7 +35,7 @@
                                  <a href="{{ url('admin/viewuser/'.$user->id) }}" class="btn btn-success">view</a>
                               </div>
                               <div class="col-6">
-                                 <a href="{{ url('delete/'.$user->id) }}" class="btn btn-danger">Delete</a>
+                                 <a href="{{ url('users/delete/'.$user->id) }}" class="btn btn-danger">Delete</a>
                               </div>
                        </div>
                   </div>

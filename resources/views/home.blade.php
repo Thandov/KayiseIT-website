@@ -10,7 +10,7 @@
         <img src="/images/logo.png" alt="logo" srcset="/images/logo.svg"
             class="landinglogo animate__animated animate__fadeInUp">
         <div class="owl-carousel owl-theme" id="headercara">
-            <x-carousel-item pic="../images/landing-page/banner1.png" topTitle="Aaaa" mainTitle="asasA"
+            <x-carousel-item pic="../images/landing-page/banner4.jpeg" topTitle="Aaaa" mainTitle="asasA"
                 bottomTitle="dddd" />
             <x-carousel-item pic="../images/landing-page/banner2.png" topTitle="We specialize"
                 mainTitle="Software Development" bottomTitle="dddd" />

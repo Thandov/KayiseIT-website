@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::table('subservices', function (Blueprint $table) {
-            //
-            $table->string('option_name');
-            $table->double('option_price');
-
+            $table->foreign('service_id')
+                ->references('id')
+                ->on('services')
+                ->onDelete('cascade');
         });
     }
 
@@ -29,7 +29,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('subservices', function (Blueprint $table) {
-            //
+            $table->dropForeign('subservices_service_id_foreign');
         });
     }
 };

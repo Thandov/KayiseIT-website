@@ -8,11 +8,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
 
-        <div class="row">
+        <div class="row m-2">
              <div class="col">
                  <div class="d-flex align-items-center justify-content-start">
                  <a href="addservice" class="btn btn-primary me-3">ADD SERVICE</a>
-                 <a href="newaddservice" class="btn btn-primary me-3">NEW ADD SERVICE</a>
                 
                  </div>
              </div>
@@ -49,7 +48,7 @@
                               </div>
                               <div class="col-6">
                                  <a href="{{ url('delete/'.$service->id) }}" class="btn btn-danger">Delete</a>
-                              </div>
+                              </div> 
                        </div>
                   </div>
                </td>

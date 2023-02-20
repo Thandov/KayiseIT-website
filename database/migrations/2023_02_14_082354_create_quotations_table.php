@@ -12,20 +12,17 @@ return new class extends Migration
      * @return void
      */
     public function up()
-{
-    Schema::create('quotations', function (Blueprint $table) {
-        $table->id();
-        $table->string('quotation_number')->unique();
-        $table->unsignedBigInteger('user_id');
-        $table->date('quotation_date');
-        $table->decimal('total_amount', 15, 2);
-        $table->string('status');
-        $table->timestamps();
-
-        $table->foreign('user_id')->references('id')->on('users');
-    });
-}
-
+    {
+        Schema::create('quotations', function (Blueprint $table) {
+            $table->id();
+            $table->string('service_name');
+            $table->text('subservices');
+            $table->string('option_name')->nullable();
+            $table->decimal('option_price', 10, 2)->nullable();
+            $table->decimal('price', 10, 2);
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

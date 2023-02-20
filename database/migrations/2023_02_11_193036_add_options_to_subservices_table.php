@@ -17,7 +17,6 @@ return new class extends Migration
             //
             $table->string('option_name');
             $table->double('option_price');
-
         });
     }
 

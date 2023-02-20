@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::table('subservices', function (Blueprint $table) {
             //
-            $table->string('option_name');
-            $table->double('option_price');
-
+            
+            $table->dropColumn('option_name');
+            $table->dropColumn('option_price');
         });
     }
 
@@ -30,6 +30,8 @@ return new class extends Migration
     {
         Schema::table('subservices', function (Blueprint $table) {
             //
+            $table->addColumn('option_name', 'string');
+            $table->addColumn('option_price', 'double');
         });
     }
 };

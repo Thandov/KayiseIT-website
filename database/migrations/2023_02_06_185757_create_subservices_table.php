@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('price_type')->nullable();
             $table->double('price')->nullable();
             $table->unsignedBigInteger('service_id');
-            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->timestamps();
         });
         

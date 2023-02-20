@@ -88,6 +88,7 @@ Route::middleware('auth')->group(function () {
 //Route::post('store-form',[QuotationController::class, 'store']);
 Route::get('/send',[QuotationController::class, 'index']);
 Route::post('submit-form',[QuotationController::class, 'submit']);
+Route::post('quote-form',[QuotationController::class, 'quote']);
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
 
@@ -95,11 +96,11 @@ Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create
 
 Route::GET('/admin/admin_dashboard',[AdminController::class, 'index'])->name('admin.admin_dashboard');
 Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations');
-Route::GET('/admin/viewwebquotes/{id}',[AdminController::class, 'viewwebquotes'])->name('admin.viewwebquotes');
-Route::get('delete/{id}',[AdminController::class, 'remove'])->name('admin.remove');
+Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations');
+Route::get('quotations/delete/{id}',[AdminController::class, 'remove'])->name('admin.remove');
 Route::GET('/admin/users',[AdminController::class, 'users'])->name('admin.users');
 Route::GET('/admin/viewuser/{id}',[AdminController::class, 'viewuser'])->name('admin.viewuser');
-Route::get('delete/{id}',[AdminController::class, 'removeuser']);
+Route::get('users/delete/{id}',[AdminController::class, 'destroy'])->name('admin.destroy');
 Route::GET('/admin/services',[AdminController::class, 'services'])->name('admin.services');
 
 Route::GET('/admin/addservice',[ServicesController::class, 'addservice'])->name('admin.addservice');
@@ -109,15 +110,20 @@ Route::get('admin/services/newaddservice/{id}', [SubServicesController::class, '
 
 Route::GET('/admin/viewservice/{id}',[AdminController::class, 'viewservice'])->name('admin.viewservice');
 Route::post('store-form',[ServicesController::class, 'store']);
-Route::get('delete/{id}',[AdminController::class, 'removeservice'])->name('admin.removeservice');
+//Route::get('delete/{id}',[AdminController::class, 'removeservice'])->name('admin.removeservice');
+Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
+Route::get('delete/{id}', [ServicesController::class, 'delete']);
+
 
 Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
 Route::post('admin/services/newaddservice/{id}', [SubServicesController::class, 'storing'])->name('newaddservice.storing');
+Route::put('/service/{id}', [ServicesController::class, 'updateService'])->name('service.update');
+
 
 //Service Controller
 
 Route::get('viewservice/{id}',[ServicesController::class, 'show'])->name('show');
 
-Route::post('quotations',[QuotationController::class, 'quote'])->name('quotations.quote');
+Route::post('viewservice/quote',[QuotationController::class, 'quote'])->name('viewservice.quote');
 
 require __DIR__.'/auth.php';
