@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('subservices', function (Blueprint $table) {
-            $table->foreign('service_id')
-                ->references('id')
-                ->on('services')
-                ->onDelete('cascade');
+        Schema::table('quotations', function (Blueprint $table) {
+            //
+            $table->decimal('total_price', 10, 2)->nullable();
         });
     }
 
@@ -28,8 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('subservices', function (Blueprint $table) {
-            $table->dropForeign('subservices_service_id_foreign');
+        Schema::table('quotations', function (Blueprint $table) {
+            //
         });
     }
 };

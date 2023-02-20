@@ -56,7 +56,9 @@
       <!-- Selected sub-service option (hidden) -->
       <input type="hidden" name="subservices[]" value="0">
       @else
-      N/A
+      <div>
+        <input class="form-check-input" type="checkbox" name="price" id="checkboxNoLabel" value="{{ $subservice->price }}" aria-label="...">
+      </div>
       @endif
    </td>
 </tr>

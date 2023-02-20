@@ -314,7 +314,7 @@ public function storing(Request $request, $id)
    $subservice->delete();
 
    // redirect back to the view service page
-   return redirect()->route('admin.viewservice')->with('success', 'Service updated successfully');
+   return redirect()->back()->with('success', 'User has been deleted!');
 }
 
 

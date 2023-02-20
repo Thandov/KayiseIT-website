@@ -206,7 +206,8 @@ $quotation->service_name = $request->service_name;
 $quotation->subservices = json_encode($request->subservices);
 $quotation->option_name = json_encode($request->option_name);
 $quotation->option_price = json_encode($request->option_price);
-$quotation->price = $request->input('total_price');
+$quotation->price = $request->input('price');
+$quotation->total_price = $request->input('total_price');
 $quotation->save();
 
 $data = [
