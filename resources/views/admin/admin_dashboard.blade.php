@@ -7,6 +7,13 @@
 
 
     <div class="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
+    <div class="row m-2">
+             <div class="col">
+                 <div class="d-flex align-items-center justify-content-start">
+                 <a href="admin/testimonials" class="btn btn-primary me-3">Testimonials</a>
+                 </div>
+             </div>
+         </div>
         <div
             class="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
             

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Website;
+use App\Models\Service;
+use App\Models\Testimonial;
 use App\Models\User;
 use Illuminate\Http\QuotationRequest;
 
@@ -22,5 +24,12 @@ class DashboardController extends Controller
         else if(Auth::user()->hasRole('admin')){
             return view('admin.admin_dashboard');
         }
+    }
+
+    public function home()
+    {
+        $services = Service::all();
+        $testimonials = Testimonial::all();
+        return view('home', compact('services', 'testimonials'));
     }
 }

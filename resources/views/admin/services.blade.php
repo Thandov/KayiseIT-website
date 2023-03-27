@@ -12,54 +12,32 @@
              <div class="col">
                  <div class="d-flex align-items-center justify-content-start">
                  <a href="addservice" class="btn btn-primary me-3">ADD SERVICE</a>
-                
                  </div>
              </div>
          </div>
 
-
-
-
-            <div class="card">
-
-    <table class="table">
-    <thead>
-          <tr>
-               <th scope="col">Service ID</th>
-               <th scope="col">Name</th>
-               <th scope="col">Description</th>
-               <th scope="col">Price</th>
-               <th scope="col">Action</th>
-          </tr>
-    </thead>
-    <tbody>
-      @foreach($services as $service)
-          <tr>
-               
-               <td>{{$service['id']}}</td>
-               <td>{{$service['name']}}</td>
-               <td>{{$service['description']}}</td>
-               <td>{{$service['price']}}</td>
-               <td>
-                  <div class="container">
-                       <div class="row">
-                              <div class="col-6">
-                                 <a href="{{ url('admin/viewservice/'.$service->id) }}" class="btn btn-success">view</a>
-                              </div>
-                              <div class="col-6">
-                                 <a href="{{ url('delete/'.$service->id) }}" class="btn btn-danger">Delete</a>
-                              </div> 
-                       </div>
-                  </div>
-               </td>
-          </tr>
-          </tbody>
-   @endforeach
-
-        
-     </table>
-
-      </div>
+        <div class="card">
+            <div class="grid grid-cols-2 md:grid-cols-4 my-5 gap-4 md:gap-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @foreach($services as $service)
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ asset('images/service_logo/'.$service->icon)}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                         <h2 class="card-title font-bold text-gray-90">{{$service['name']}}</h2>
+                         <p class="card-text">{{$service['description']}}</p>
+                     
+                        <div class="row">
+                               <div class="col">
+                                  <a href="{{ url('admin/viewservice/'.$service->id) }}" style="width: 7rem;" class="btn btn-success">view</a>
+                               </div>
+                               <div class="col">
+                                  <a href="{{ url('delete/'.$service->id) }}" style="width: 7rem;" class="btn btn-danger">Delete</a>
+                               </div> 
+                        </div>
+                </div>
+                </div>
+            @endforeach
+            </div>
+        </div>
         </div>
     </div>
 </div>

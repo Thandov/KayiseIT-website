@@ -2,7 +2,7 @@
     style="background: url({{$pic}}); background-repeater: no-reapeat; background-size: cover; background-position: center">
     <div class="black-overlay"></div>
     <div class="container hero-content d-flex align-items-center">
-        <div class="col-md-7">
+        <div class="col-md-7 px-10">
             <p class="topTitle animate__animated animate__fadeInDown"
                 style="animation-delay: 1.5s; -webkit-animation-delay:1.5s;">
                 {{$topTitle}}
@@ -13,6 +13,9 @@
                 style="animation-delay: 1.8s; -webkit-animation-delay:2.7s;">
                 {{$bottomTitle}}
             </p>
+            <br>
+            <a href="services" class="hire animate__animated animate__fadeInDown"
+            style="animation-delay: 1.8s; -webkit-animation-delay:2.7s;">view more</a>
 
         </div>
 

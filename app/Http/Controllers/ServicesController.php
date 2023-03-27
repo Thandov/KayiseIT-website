@@ -5,13 +5,14 @@ use App\Models\Service;
 use App\Models\SubService;
 use Illuminate\Http\Request;
 use stdClass;
+use Illuminate\Support\Str;
 
 class ServicesController extends Controller
 {
     public function services()
     {
         $services = Service::all();
-        return view('navbar.services', compact('services'));
+        return view('services', compact('services'));
     }
 
 
@@ -28,67 +29,55 @@ class ServicesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'logo' => 'required|mimes:jpg,png,jpeg|max:5048'
+            'icon' => 'required|mimes:jpg,png,jpeg|max:5048'
         ]);
 
-        $newImageName = time() . '_' . $request->name . '.' . $request->logo->extension();
+        $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
 
-        $request->logo->move(public_path('images/service_logo'), $newImageName);
+        $request->icon->move(public_path('images/service_logo'), $newImageName);
         
 
         $service = new Service;
-        $service->name = $request->name;
         $service->id = $request->id;
+        $service->icon = $newImageName;
+        $service->name = $request->name;
         $service->description = $request->description;
-        $service->logo = $newImageName;
-        $service->save();
-        return redirect()->route('newaddservice', ['id' => $service->id])->with(['status' => 'Service Added', 'service_id' => $service->id]);
+        $service->service_type = $request->service_type;
+        $service->price = $request->price;
+        $service->service_id = Str::random(8); // generate a random 8-character string
+        while (Service::where('service_id', $service->service_id)->exists()) {
+        $service->service_id = Str::random(8); // ensure uniqueness
+          }
+          $service->save();
+          
+          return redirect()->route('admin.services')->with('success', 'Service updated successfully');
     }
 
     public function show($id)
-{
+    {
     $service = Service::find($id);
-    $subservices = SubService::where('service_id', $id)->get();
+    $subservices = SubService::where('service_id', $service->service_id)->get();
     return view('viewservice', compact('service', 'subservices'));
-}
-
-public function updateService(Request $request, $id)
-{
-    $service = Service::findOrFail($id);
-    $service->name = $request->input('name');
-    $service->description = $request->input('description');
-    $service->save();
-
-    foreach ($request->input('subservices') as $subserviceId => $subserviceData) {
-        $subservice = Subservice::findOrFail($subserviceId);
-        $subservice->name = $subserviceData['name'];
-        $subservice->description = $subserviceData['description'];
-
-        if ($subservice->price_type === 'dynamic') {
-            $optionName = [];
-            $optionPrice = [];
-
-            foreach ($subserviceData['option_name'] as $key => $value) {
-                if (!empty($value)) {
-                    $optionName[] = ['name' => $value];
-                }
-
-                if (!empty($subserviceData['option_price'][$key])) {
-                    $optionPrice[] = ['price' => $subserviceData['option_price'][$key]];
-                }
-            }
-
-            $subservice->option_name = json_encode($optionName);
-            $subservice->option_price = json_encode($optionPrice);
-        } else {
-            $subservice->price = $subserviceData['price'];
-        }
-
-        $subservice->save();
     }
 
-    return redirect()->route('admin.services', $id)->with('success', 'Service updated successfully');
-}
+    public function updateService(Request $request, $id)
+    {
+        $service = Service::findOrFail($id);
+        $service->name = $request->input('name');
+        $service->description = $request->input('description');
+        $service->save();
+        $subservices = $service->subservices;
+    
+        // Loop through each subservice and update its attributes
+        foreach ($subservices as $index => $subservice) {
+            $subservice->name = $request->input('subname')[$index];
+            $subservice->price = $request->input('subprice')[$index];
+            $subservice->save();
+        }
+    
+        return redirect()->route('admin.services', $id)->with('success', 'Service updated successfully');
+    }
+    
 
 public function delete($id)
 {

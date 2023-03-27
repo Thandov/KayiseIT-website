@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\QuotationController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SubServicesController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,21 +29,21 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/navbar/about', function () {
-    return view('navbar.about');
-})->name('navbar.about');
+Route::get('/',[DashboardController::class, 'home'])->name('home');
 
-Route::get('/navbar/contact', function () {
-    return view('navbar.contact');
-})->name('navbar.contact');
+Route::get('about', function () {
+    return view('about');
+})->name('about');
 
-Route::get('/navbar/services', function () {
-    return view('navbar.services');
-})->name('navbar.services');
+Route::get('contact', function () {
+    return view('contact');
+})->name('contact');
 
-Route::GET('/navbar/services',[ServicesController::class, 'services'])->name('navbar.services');
+Route::get('services', function () {
+    return view('services');
+})->name('services');
 
-
+Route::GET('services',[ServicesController::class, 'services'])->name('services');
 
 //services
 
@@ -95,35 +96,55 @@ Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create
 //Admin 
 
 Route::GET('/admin/admin_dashboard',[AdminController::class, 'index'])->name('admin.admin_dashboard');
-Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations');
-Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations');
-Route::get('quotations/delete/{id}',[AdminController::class, 'remove'])->name('admin.remove');
+Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations'); 
+Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations'); 
 Route::GET('/admin/users',[AdminController::class, 'users'])->name('admin.users');
 Route::GET('/admin/viewuser/{id}',[AdminController::class, 'viewuser'])->name('admin.viewuser');
-Route::get('users/delete/{id}',[AdminController::class, 'destroy'])->name('admin.destroy');
 Route::GET('/admin/services',[AdminController::class, 'services'])->name('admin.services');
+Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendInvoice'])->name('quotations.send-invoice');
+Route::GET('/admin/viewservice/{id}',[AdminController::class, 'viewservice'])->name('admin.viewservice');
+Route::GET('/admin/viewsubservice/{id}',[AdminController::class, 'viewsubservice'])->name('admin.viewsubservice');
+
+Route::GET('/admin/testimonials',[AdminController::class, 'testimonials'])->name('admin.testimonials');
+Route::GET('/admin/addtestimony',[AdminController::class, 'addtestimony'])->name('admin.addtestimony');
+
+//update
+Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
+Route::put('/service/{id}', [ServicesController::class, 'updateService'])->name('service.update');
+
+//delete
+Route::get('quotations/delete/{id}',[AdminController::class, 'remove'])->name('admin.remove');
+Route::get('users/delete/{id}',[AdminController::class, 'destroy'])->name('admin.destroy');
+Route::get('delete/{id}', [ServicesController::class, 'delete']);
+Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
+Route::put('/updatesubservice/{id}', [SubServicesController::class, 'updateSubservice']);
+Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
+
+//Add services, subservices, options Blades
 
 Route::GET('/admin/addservice',[ServicesController::class, 'addservice'])->name('admin.addservice');
 Route::GET('/admin/newaddservice',[ServicesController::class, 'newaddservice'])->name('admin.newaddservice');
-Route::get('admin/services/newaddservice/{id}', [SubServicesController::class, 'index'])->name('newaddservice');
-//Route::get('admin/services/subservice/{id}', 'ServicesController@index')->name('subservice');
+Route::get('admin/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('addsubservices');
+Route::get('admin/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
 
-Route::GET('/admin/viewservice/{id}',[AdminController::class, 'viewservice'])->name('admin.viewservice');
+//Forms
 Route::post('store-form',[ServicesController::class, 'store']);
-//Route::get('delete/{id}',[AdminController::class, 'removeservice'])->name('admin.removeservice');
-Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
-Route::get('delete/{id}', [ServicesController::class, 'delete']);
-
-
+Route::post('storetestimony-form',[AdminController::class, 'storetestimony']);
 Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
-Route::post('admin/services/newaddservice/{id}', [SubServicesController::class, 'storing'])->name('newaddservice.storing');
-Route::put('/service/{id}', [ServicesController::class, 'updateService'])->name('service.update');
+Route::post('admin/services/addsubservices/{id}', [SubServicesController::class, 'storing'])->name('addsubservices.storing');
+Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
+
 
 
 //Service Controller
 
 Route::get('viewservice/{id}',[ServicesController::class, 'show'])->name('show');
+Route::get('viewsubservice/{id}',[SubServicesController::class, 'show'])->name('show');
+Route::post('viewsubservice/quote',[QuotationController::class, 'quote'])->name('viewsubservice.quote');
+Route::get('/admin/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
 
-Route::post('viewservice/quote',[QuotationController::class, 'quote'])->name('viewservice.quote');
+
+Route::post('contact/contact',[ContactController::class, 'contact'])->name('contact.contact');
+Route::post('footer/subscribe',[ContactController::class, 'subscribe'])->name('footer.subscribe');
 
 require __DIR__.'/auth.php';

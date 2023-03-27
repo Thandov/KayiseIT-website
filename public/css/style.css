@@ -441,4 +441,86 @@ div.sticky {
     height: 20%;
   }
 }
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+.slide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.slide-container {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  transition: transform 0.1s ease;
+}
+
+.slide-container img {
+  width: 23%;
+  margin: 0 20px 0 0;
+  box-sizing: border-box;
+  display: none;
+}
+
+.slide-container img:last-child {
+  margin-right: 0;
+}
+
+.slide-container img.show {
+  display: block;
+}
+
+.carousel-inner {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.carousel-item img {
+  object-position: center -20%;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Set the carousel height to 300px for screens smaller than 768px */
+@media (max-width: 767px) {
+  .carousel-inner {
+  }
+}
+
+/* Set the carousel height to 400px for screens larger than or equal to 768px */
+@media (min-width: 768px) {
+  .carousel-inner {
+    height: 400px;
+  }
+}
+
+
+.animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
+
+
 /*# sourceMappingURL=style.css.map */

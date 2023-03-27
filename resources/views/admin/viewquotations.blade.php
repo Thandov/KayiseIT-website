@@ -1,45 +1,59 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('View Quotation') }}
-        </h2>
-    </x-slot>
+   <x-slot name="header">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+         {{ __('View Quotation') }}
+         
+      </h2>
+   </x-slot>
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-md-8">
+            <div class="card">
+               <div class="card-header"></div>
+               <div class="card-body">
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Quotation For: {{ $quotation->service_name }}</div>
-                    <div class="card-body">
-<br>
-                        <p>Total Price:       R{{ $quotation->price }}</p>
-<br>
-                        <table class="table">
-    <thead>
-          <tr>
-               
-               <th scope="col">Subservice</th>
-               <th scope="col">Choice</th>
-               <th scope="col">Price</th>
-          </tr>
-    </thead>
-    <tbody>
-    @foreach(json_decode($quotation->option_name) as $key => $option)
-          <tr>
-               <td>{{ json_decode($quotation->subservices)[$key] }}</td>
-               <td>{{ $option }}</td>
-               <td>{{ json_decode($quotation->option_price)[$key] }}</td>
-              
-          </tr>
-          @endforeach
-          
-          </tbody>
-   
-        
-     </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+
+               <!-- Retrieve and display the quotation and its items -->
+               <div class="card-header">Quotation Request - {{ $quotation->quotation_no }}</div>
+
+<div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($items as $item)
+                <tr>
+                    <th scope="row">{{ $loop->iteration + 1 }}</th>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->price }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <div class="text-right">
+        <h4>Total Price: {{ $quotation->total_price }}</h4>
     </div>
+
+                  
+    
+
+                  <div class="row">
+                              <div class="col-12 ">
+                                 <div class="d-flex align-items-center justify-content-end">
+                                 <a href="{{ route('quotations.send-invoice', $quotation->id) }}" style="background-color: grey" class="btn btn-secondary px-5 m-3 ">Send Invoice</a>
+                                 </div>
+                              </div>
+                          </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 </x-app-layout>

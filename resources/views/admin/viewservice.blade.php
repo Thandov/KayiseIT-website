@@ -22,63 +22,62 @@
                </div>
                <br>
                <div class="card">
-                  <div class="card-header">Subservices</div>
+                  <div class="card-header"><div class="row m-2">
+             <div class="col">
+                 <div class="d-flex align-items-center justify-content-start">
+                 <a href="{{ url('admin/services/addsubservices/'.$service->id) }}" class="btn btn-primary me-3">ADD SUBSERVICE</a>
+                
+                 </div>
+             </div>
+         </div>
+      </div>
                   <table class="table">
                      <thead>
                         <tr>
-                           <th scope="col">Subservice ID</th>
+                           <th scope="col">ID</th>
                            <th scope="col">Name</th>
-                           <th scope="col">Description</th>
-                           <th scope="col">Price Type</th>
                            <th scope="col">Price</th>
                            <th scope="col">Action</th>
                         </tr>
                      </thead>
                      <tbody>
-                        @foreach($subservices as $subservice)
-                           <tr>
-                              <td>{{ $subservice->id }}</td>
-                              <td><input type="text" name="subservices[{{ $subservice->id }}][name]" value="{{ $subservice->name }}"></td>
-                              <td><textarea name="subservices[{{ $subservice->id }}][description]">{{ $subservice->description }}</textarea></td>
-                              <td>{{ $subservice->price_type }}</td>
-                              <td>
-                              @if ($subservice->price_type === 'dynamic')
-                                   @foreach(json_decode($subservice->option_name) as $key => $value)
-                                   @if(isset(json_decode($subservice->option_price)[$key]))
-                                     <div>
-                                       <label>Option Name:</label>
-                                       <input type="text" name="subservices[{{ $subservice->id }}][option_name][]" value="{{ $value->name }}">
-                                     </div>
-                                     <div>
-                                       <label>Option Price:</label>
-                                       <input type="text" name="subservices[{{ $subservice->id }}][option_price][]" value="{{ json_decode($subservice->option_price)[$key]->price }}">
-                                     </div>
-                                     @endif
-                                   @endforeach
+                     @foreach($subservices as $subservice)
+    <tr>
+        <td>{{ $subservice->id }}</td>
+        <td><input type="text" name="subname[]" value="{{ $subservice->name }}" required></td>
+        <td><input type="text" name="subprice[]" value="R{{ $subservice->price }}"></td>
+        <td>
+            <div class="d-flex align-items-center justify-content-start">
+                <a href="{{ url('admin/viewsubservice/'.$subservice->id) }}" class="btn btn-primary me-3">View OPTIONS</a>
+            </div>
+        </td>
+        <td>  
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        <form method="POST" action="{{ url('subservice/'.$subservice->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
+                            <button type="submit" style="background-color: red" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    <div class="col-6">
+                        <form method="POST" action="{{ url('subservice/'.$subservice->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
+                            <input type="hidden" name="name" value="{{ $subservice->name }}">
+                            <input type="hidden" name="price" value="{{ $subservice->price }}">
+                            <button type="submit" style="background-color: green" class="btn btn-success">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+@endforeach
 
-
-
-
-                                 @else   
-                                 <input type="text" name="subservices[{{ $subservice->id }}][price]" value="{{ $subservice->price }}">
-                                 @endif
-                              </td>
-                              <td><div class="container">
-                          <div class="row">
-                                 <div class="col-6">
-                                 <form method="POST" action="{{ url('subservice/'.$subservice->id) }}">
-                                   @csrf
-                                   @method('PUT')
-                                   <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
-                                   <button type="submit" style="background-color: red" class="btn btn-danger">Delete</button>
-                                 </form>
-
-
-                                 </div>
-                          </div>
-                     </div></td>
-                           </tr>
-                        @endforeach
                      </tbody>
                   </table>
 
@@ -94,4 +93,21 @@
          </div>
       </div>
    </div>
+
+   
 </x-app-layout>
+<script>
+  $(document).ready(function() {
+    $('.view-options-btn').click(function() {
+      var subserviceId = $(this).data('subservice-id');
+
+      $.ajax({
+        type: 'GET',
+        url: '/admin/viewoptions/'+ subserviceId,
+        success: function(data) {
+          $('#options-container').html(data);
+        }
+      });
+    });
+  });
+</script>

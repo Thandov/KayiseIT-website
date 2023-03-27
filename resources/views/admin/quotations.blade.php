@@ -13,8 +13,8 @@
     <table class="table">
     <thead>
           <tr>
-               <th scope="col">Quatation ID</th>
-               <th scope="col">Service</th>
+               <th scope="col">ID</th>
+               <th scope="col">Quotation Number</th>
                <th scope="col">Price</th>
                <th scope="col">Action</th>
           </tr>
@@ -23,8 +23,8 @@
       @foreach($quotations as $quotation)
           <tr>
                <td>{{ $quotation->id }}</td>
-               <td>{{ $quotation->service_name }}</td>
-               <td>{{ $quotation->price }}</td>
+               <td>{{ $quotation->quotation_no }}</td>
+               <td>{{ $quotation->total_price }}</td>
                <td>
                   <div class="container">
                        <div class="row">
