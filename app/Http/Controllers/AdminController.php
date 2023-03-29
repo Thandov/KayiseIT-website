@@ -8,7 +8,6 @@ use App\Models\Service;
 use App\Models\SubService;
 use App\Models\Options;
 use App\Models\Items;
-use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -87,35 +86,4 @@ class AdminController extends Controller
         return view('admin/viewsubservice', compact('subservice', 'options'));
     }
     
-    public function testimonials()
-    {
-        $testimonials = Testimonial::all();
-        return view('admin.testimonials', compact('testimonials'));
-    }
-    
-    public function addtestimony()
-    {
-        return view('admin/addtestimony');
-    }
-
-    public function storetestimony(Request $request)
-    {
-        $request->validate([
-            'icon' => 'required|mimes:jpg,png,jpeg|max:5048'
-        ]);
-
-        $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
-
-        $request->icon->move(public_path('images'), $newImageName);
-        
-
-        $testimony = new Testimonial;
-        $testimony->icon = $newImageName;
-        $testimony->name = $request->name;
-        $testimony->ratings = $request->rating;
-        $testimony->testimony = $request->testimony;
-        $testimony->save();
-          
-        return redirect()->route('admin.testimonials')->with('success', 'testimony added successfully');
-    }
 }

@@ -22,10 +22,9 @@
            <div class="d-flex justify-content-center align-items-center">
             <div class="row">
                 @foreach($services as $service)
-                <div class="col-md-3 col-sm-6 mb-4">
-                  <a href="{{ url('viewservice/'.$service->id) }}">
-                    <div class="card bg-dark text-white" data-aos="fade-left" data-aos-delay="500">
-                      <img src="{{ asset('images/service_logo/'.$service->icon)}}" class="card-img" alt="Your Image">
+                <div class="col-md-3 col-sm-6 mb-3">
+                  <a href="{{ url('viewservice/'.$service->id) }}" class="mx-3">
+                    <div class="card bg-secondary text-white" data-aos="fade-left" data-aos-delay="500">
                       <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
                         <div class="text-center">
                           <h5 class="card-title text-3xl font-bold">{{$service['name']}}</h5>
@@ -78,6 +77,7 @@
 
 .card {
   height: 250px; /* Set a fixed height for each card */
+  width: 300px;
 }
 .card-img {
   height: 100%; /* Make the image fill the entire height of the card */

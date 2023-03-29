@@ -11,13 +11,13 @@
   </div>
 </div>
 
-    <div class="max-w-7xl mx-auto py-20 lg:px-8">
+<div class="max-w-7xl mx-auto py-20 lg:px-8">
   <div class="container">
     <div class="row flex flex-wrap justify-center">
       <div class="col-7 sm-col-12">
-        <p class="font-bold text-success md:text-5" data-aos="fade-up">ABOUT US</p>
+        <p style="color: #183ea4" class="font-bold md:text-5" data-aos="fade-up">ABOUT US</p>
         <br>
-        <h2 class="font-bold text-5xl md:text-5xl">We specialize in custom-tailored IT solutions.</h2>
+        <h2 style="color: #64bc5c" class="font-bold text-5xl md:text-5xl">We specialize in custom-tailored IT solutions.</h2>
         <br>
         <div>
           KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.
@@ -34,8 +34,8 @@
 
 <div class="bg-white mx-auto py-20 sm:px-6 lg:px-8">
   <div class="container max-w-7xl" >
-    <p class="text-center mb-3 font-bold text-success md:text-5" data-aos="fade-down" data-aos-delay="300">OUR CULTURE</p>
-    <h2 class="text-center font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="300">Our Fundamental Business</h2>
+    <p style="color: #183ea4" class="text-center mb-3 font-bold md:text-5" data-aos="fade-down" data-aos-delay="300">OUR CULTURE</p>
+    <h2 style="color: #64bc5c" class="text-center font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="300">Our Fundamental Business</h2>
     <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
 
         <div class="card border-success border-3" data-aos="fade-left" data-aos-delay="350" style="width: 30rem;">
@@ -44,13 +44,10 @@
               <div class="col-4">
               </div>
               <div class="col-8">
-                <h3 class="card-title text-2xl font-bold">Vision</h3>
+                <h3 class="card-title text-2xl pt-3 font-bold">Vision</h3>
               </div>
               </div>
-            <p class="card-text text-center">KAYISE IT create integrated digital Eco-system for organizations, communities across South Africa. Through our robust IT 
-services, Office Automation, Network Support and 
-digital upskilling, we help our clients achieve their 
-organizations objectives using technology.</p>
+            <p class="card-text text-center">KAYISE IT: Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
           </div>
         </div>
       
@@ -60,10 +57,10 @@ organizations objectives using technology.</p>
               <div class="col-4">
               </div>
               <div class="col-6">
-                <h3 class="card-title text-2xl font-bold">Mission</h3>
+                <h3 class="card-title text-2xl pt-3 font-bold">Mission</h3>
               </div>
               </div>
-            <p class="card-text text-center">Develop efficient & effective digital projects with knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so that our clients grow their business. Equip the Youth of South Africa with relevant outcome based programs in the ICT sector</p>
+            <p class="card-text text-center">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
           </div>
         </div>
         
@@ -71,26 +68,26 @@ organizations objectives using technology.</p>
     </div>
   </div>
 
-<div class="bg-black py-20 mx-auto">
+<div class="bg py-20 mx-auto">
   <div class="container max-w-7xl">
     <div class="row">
-      <p class="text-center mb-3 font-bold text-success md:text-5" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
+      <p style="color: #183ea4" class="text-center mb-3 font-bold md:text-5" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
       <h2 class="text-center font-bold text-5xl text-white mb-10 md:text-5xl" data-aos="fade-down" data-aos-delay="500">Let Us Introduce Ourselves</h2>
       <div class="card-container flex flex-wrap justify-center md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
 
-        <div class="card bg-black text-center text-white" style="width: 18rem;" data-aos="fade-right" data-aos-delay="500">
+        <div class="card border-0 text-center text-white" style="width: 18rem;" data-aos="fade-right" data-aos-delay="500">
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-            <p class="card-text text-success">Director</p>
+            <p style="color: #183ea4" class="card-text">Director</p>
           </div>
         </div>
 
-        <div class="card bg-black text-center text-white" style="width: 18rem;" data-aos="fade-up" data-aos-delay="1000">
+        <div class="card border-0 text-center text-white" style="width: 18rem;" data-aos="fade-up" data-aos-delay="1000">
           <img src="../images/thandi.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thandiwe Mathebula</h5>
-            <p class="card-text text-success">Chief Operations Manager</p>
+            <p style="color: #183ea4" class="card-text">Chief Operations Manager</p>
           </div>
         </div>
 
@@ -145,9 +142,16 @@ organizations objectives using technology.</p>
   }
 }
 
+.bg{
+  background-color: #64bc5c;
+}
 
   .card {
   height: 250px; /* Set a fixed height for each card */
+}
+ .bg .card {
+  height: 250px; /* Set a fixed height for each card */
+  background-color: #64bc5c;
 }
 
 .card-container {

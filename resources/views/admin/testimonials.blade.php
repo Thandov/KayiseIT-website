@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-center text-gray-800 leading-tight">
             {{ __('Testimonials') }}
         </h2>
     </x-slot>
@@ -8,7 +8,7 @@
     <div class="row m-2">
              <div class="col">
                  <div class="d-flex align-items-center justify-content-start">
-                 <a href="addtestimony" class="btn btn-primary me-3">ADD SERVICE</a>
+                 <a href="addtestimony" class="btn btn-primary me-3">ADD Testimonial</a>
                  </div>
              </div>
          </div>
@@ -44,6 +44,14 @@
                 <div class="col-8">
                   <h3 class="card-title text-1xl pt-4 font-bold">{{$testimonial['name']}}</h3>
                 </div>
+                        <div class="row">
+                               <div class="col">
+                                  <a href="{{ url('admin/viewtestimonial/'.$testimonial->id) }}" style="width: 7rem;" class="btn btn-success">Edit</a>
+                               </div>
+                               <div class="col">
+                                  <a href="{{ url('testimonial/delete/'.$testimonial->id) }}" style="width: 7rem;" class="btn btn-danger">Delete</a>
+                               </div> 
+                        </div>
               </div>
             </div>
           </div>

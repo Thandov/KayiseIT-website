@@ -8,6 +8,8 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SubServicesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TestimonialsController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,9 +107,6 @@ Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendIn
 Route::GET('/admin/viewservice/{id}',[AdminController::class, 'viewservice'])->name('admin.viewservice');
 Route::GET('/admin/viewsubservice/{id}',[AdminController::class, 'viewsubservice'])->name('admin.viewsubservice');
 
-Route::GET('/admin/testimonials',[AdminController::class, 'testimonials'])->name('admin.testimonials');
-Route::GET('/admin/addtestimony',[AdminController::class, 'addtestimony'])->name('admin.addtestimony');
-
 //update
 Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
 Route::put('/service/{id}', [ServicesController::class, 'updateService'])->name('service.update');
@@ -129,7 +128,6 @@ Route::get('admin/services/addoptions/{id}', [OptionsController::class, 'options
 
 //Forms
 Route::post('store-form',[ServicesController::class, 'store']);
-Route::post('storetestimony-form',[AdminController::class, 'storetestimony']);
 Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
 Route::post('admin/services/addsubservices/{id}', [SubServicesController::class, 'storing'])->name('addsubservices.storing');
 Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
@@ -146,5 +144,24 @@ Route::get('/admin/viewoptions/{id}', [OptionsController::class, 'viewoptions'])
 
 Route::post('contact/contact',[ContactController::class, 'contact'])->name('contact.contact');
 Route::post('footer/subscribe',[ContactController::class, 'subscribe'])->name('footer.subscribe');
+
+
+//Testimonials
+Route::GET('/admin/testimonials',[TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
+Route::GET('/admin/addtestimony',[TestimonialsController::class, 'addtestimony'])->name('admin.addtestimony');
+Route::post('storetestimony-form',[TestimonialsController::class, 'storetestimony']);
+Route::get('testimonial/delete/{id}',[TestimonialsController::class, 'destroytestimonial'])->name('admin.destroytestimonial');
+Route::put('/testimonial/{id}', [TestimonialsController::class, 'updatetestimonial'])->name('testimonial.update');
+Route::GET('/admin/viewtestimonial/{id}',[TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
+
+//Blog
+Route::get('blog',[BlogController::class, 'blogpage'])->name('blogpage');
+Route::post('storeblog-form',[BlogController::class, 'storeblog']);
+Route::get('viewblog/{id}',[BlogController::class, 'viewblog'])->name('viewblog');
+Route::GET('/admin/blog',[BlogController::class, 'blog'])->name('admin.blog');
+Route::GET('/admin/addblog',[BlogController::class, 'addblog'])->name('admin.addblog');
+Route::get('blog/delete/{id}',[BlogController::class, 'destroyblog'])->name('admin.destroyblog');
+Route::put('/blog/{id}', [BlogController::class, 'updateblog'])->name('blog.update');
+Route::GET('/admin/viewblogg/{id}',[BlogController::class, 'viewblogg'])->name('admin.viewblogg');
 
 require __DIR__.'/auth.php';

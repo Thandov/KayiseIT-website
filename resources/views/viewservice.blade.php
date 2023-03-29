@@ -18,7 +18,7 @@
                <a href="{{ url('viewsubservice/'.$subservice->id) }}">
 
                   <div class="card-container flex flex-wrap justify-center md:justify-start gap-5 max-w-7xl mx-auto sm:px-6 lg:px-12">
-                     <div class="card border-success border-3" style="width: 20rem;">
+                     <div class="card" style="width: 20rem;">
                         <div class="card-body">
                            <div class="row">
                               <img src="{{ asset('images/service_logo/'.$subservice->icon)}}">

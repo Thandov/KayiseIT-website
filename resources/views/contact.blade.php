@@ -17,12 +17,12 @@
         <div class="row">
             <div class="col-md-6  px-10">
 
-                        <p class="font-bold text-success md:text-5">CONTACT US</p>
+                        <p style="color: #183ea4" class="font-bold md:text-5">CONTACT US</p>
                     <br>
-                    <h2 class="font-bold text-5xl md:text-5xl">Get in touch.</h2>
+                    <h2 style="color: #64bc5c" class="font-bold text-5xl md:text-5xl">Get in touch.</h2>
                     <br>
                     <div>
-                         <p class="text-success font-bold text-xl">Send us an email or give us a call and get top shelf advice on
+                         <p style="color: #183ea4" class="font-bold text-xl">Send us an email or give us a call and get top shelf advice on
 the best IT strategies to help grow your business online.
 </p>
                     </div>
@@ -45,7 +45,7 @@ the best IT strategies to help grow your business online.
 
             </div>
 
-            <div class="col-md-6 bg-secondary rounded p-20">
+            <div class="col-md-6  rounded p-20" style="background-color: #64bc5c">
 
                 <form action="{{ route('contact.contact') }}" method="post" enctype="multipart/form-data">
                     @csrf

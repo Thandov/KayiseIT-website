@@ -86,116 +86,7 @@
       </div>
     </div>
 
-
-
-
-
-    <!--skills-->
-    <div class="bg-white  mx-auto py-2 sm:px-6 lg:px-8">
-			<div class = "skills">
-
-<div class = "top-section">
-
-  <!--Left side-->
-  <div class = "col-6">
-  <div class="skills-container">
-
-<div class="skill-box">
-<span class="title">Development</span>
-
-<div class="skill-bar">
-<span class="skill-per dev">
-<span class="tooltip">75%</span>
-</span>
-</div>
-</div>
-
-<div class="skill-box">
-<span class="title">Marketing</span>
-
-<div class="skill-bar">
-<span class="skill-per css">
-<span class="tooltip">90%</span>
-</span>
-</div>
-</div>
-
-<div class="skill-box">
-<span class="title">Design</span>
-<div class="skill-bar">
-<span class="skill-per javascript">
-<span class="tooltip">80%</span>
- </span>
-</div>
-</div>
-</div>
-  </div>
-
-  <!--Right side-->
-  <div class="col-6">
-    <h1 style="color: #183ea4" data-aos="fade-down" data-aos-delay="500" class="text-3xl font-bold">We’re on a mission to bridge the digital divide</h1>
-    <p data-aos="fade-right" data-aos-delay="500">Our team of experienced professionals have a proven track record of delivering exceptional results for clients across a range of industries. Whether you need help with software development, data analytics, cybersecurity, or IT consulting, we have the expertise to help you achieve your goals.</p>
-  </div>
-
-</div>
-
-
-  <!--Overview-->
-  <div class = "overviews justify-content-center" style="display: flex; flex-direction: row;">
-
-    <!--No.1 Years-->
-    <div class = "overview">
-        <img class="img_overview" src="./images/wall-clock-removebg-preview.png" >
-      <span>8</span>
-      <p>YEARS</p>
-    </div>
-
-    <!--No.2 Developers-->
-    <div class = "overview">
-      <img class="img_overview" src="./images/share-removebg-preview.png" >
-      <span>6</span>
-      <p>DEVELOPERS</p>
-    </div>
-
-    <!--No.3 Customer-->
-    <div class = "overview">
-      <img class="img_overview" src="./images/heart-removebg-preview.png" >
-      <span>10k</span>
-      <p>CUSTOMERS</p>
-    </div>
-
-    <!--No.3 Projects-->
-    <div class = "overview">
-      <img class="img_overview" src="./images/layers-removebg-preview.png" >
-      <span>10k</span>
-      <p>PROJECTS</p>
-    </div>
-    
-  </div>
-  </div>
-</div>
-
-
-
-
-			
-			<!--Services-->
-			<section class="our-services">
-				<div class="services">
-					<img src="./images/OurServicesImg.jpg" class="pic-2" data-aos="fade-right" data-aos-delay="500">
-					<div class="text-2 px-10">
-						<h3 data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></h3>
-						<h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
-						<p data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so that our clients grow their business.</p>
-						<div class="data">
-							<a href="services" class="hiree">Learn More</a>
-						</div>
-					</div>
-				</div>
-			</section>																			
-
-
-	<div class="bg-white  mx-auto py-20 sm:px-6 lg:px-8">
+    <div class="bg-white  mx-auto py-20 sm:px-6 lg:px-8">
 
     <div class="container mb-10">
         <div class="row">
@@ -223,6 +114,127 @@
 
     </div>
 
+    <!--skills-->
+    <div class=" mx-auto py-2 sm:px-6 lg:px-8">
+			<div class = "skills">
+
+<div class = "top-section">
+
+  <!--Left side-->
+ 
+
+  <!--Right side-->
+  <div class="col">
+    <h1 style="color: #64bc5c" data-aos="fade-down" data-aos-delay="500" class="text-3xl text-center font-bold">We’re on a mission to bridge the digital divide</h1>
+    </div>
+
+</div>
+
+
+  <!--Overview-->
+  <div class = "overviews justify-content-center" style="display: flex; flex-direction: row;">
+
+    <!--No.1 Years-->
+    <div class = "overview">
+        <img class="img_overview" src="./images/wall-clock-removebg-preview.png" >
+      <span>8</span>
+      <p style="color: #183ea4">YEARS</p>
+    </div>
+
+    <!--No.2 Developers-->
+    <div class = "overview">
+      <img class="img_overview" src="./images/share-removebg-preview.png" >
+      <span>6</span>
+      <p style="color: #183ea4">DEVELOPERS</p>
+    </div>
+
+    <!--No.3 Customer-->
+    <div class = "overview">
+      <img class="img_overview" src="./images/heart-removebg-preview.png" >
+      <span>10k</span>
+      <p style="color: #183ea4">CUSTOMERS</p>
+    </div>
+
+    <!--No.3 Projects-->
+    <div class = "overview">
+      <img class="img_overview" src="./images/layers-removebg-preview.png" >
+      <span>10k</span>
+      <p style="color: #183ea4">PROJECTS</p>
+    </div>
+    
+  </div>
+  </div>
+</div>
+
+
+<!--
+
+<div class="blog  py-5">
+      <div class="row justify-content-center">
+         <div class="col-md-10 mb-20">
+
+      <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">Latest Posts</h2>
+
+           <div class="d-flex justify-content-center align-items-center">
+              <div class="row">
+               @php
+                  $counter = 0;
+                @endphp
+                @foreach($blog as $blog)
+                  @if ($counter < 4)
+                   <div class="col-md-3 col-sm-6 mb-4">
+                      <a href="{{ url('viewblog/'.$blog->id) }}">
+                      <div class="card">
+                <img src="{{ asset('images/'.$blog->icon)}}" class="card-img" alt="Your Image">
+                <div class="card-body">
+                         <h2 style="color: #64bc5c" class="card-title font-bold text-gray-90">{{$blog['title']}}</h2>
+                         <h3 class="card-text">{{$blog['subtitle']}}</h3>
+                </div>
+                </div>
+                      </a>
+                    </div>
+                  @endif
+                  @php
+                    $counter++;
+                  @endphp
+               @endforeach
+              </div>
+           </div>
+            <div class=" text-center text-2xl font-bold">
+					  	<span><a href="blog" class="">view all</a></span>
+					  </div>
+
+        </div>
+      </div>
+    </div>
+    
+
+            -->
+
+
+
+
+
+
+			
+			<!--Services-->
+			<section class="our-services">
+				<div class="services">
+					<img src="./images/OurServicesImg.jpg" class="pic-2" data-aos="fade-right" data-aos-delay="500">
+					<div class="text-2 px-10">
+						<h3 data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></h3>
+						<h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
+						<p data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so that our clients grow their business.</p>
+						<div class="data">
+							<a href="services" class="hiree">Learn More</a>
+						</div>
+					</div>
+				</div>
+			</section>																			
+
+
+	
+
 <div class="testimonial pt-20">
   <div class="row justify-content-center">
     <div class="col-md-10 mb-20">
@@ -231,8 +243,8 @@
       <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">What they say</h2>
 
       <div class="d-flex justify-content-center align-items-center">
+      <div class="row">
         @foreach($testimonials as $testimonial)
-        <div class="col-md-4 col-sm-6 mb-4">
           <div class="card border-success border" data-aos="fade-right" data-aos-delay="300" style="width: 25rem">
             <div class="card-body">
               <div class="row mx-4">
@@ -259,8 +271,8 @@
               </div>
             </div>
           </div>
-        </div>
         @endforeach
+      </div>
       </div>
 
     </div>
@@ -272,16 +284,12 @@
 
 <style>
 
-@media screen and (max-width: 767px) {
-  /* hide the image when screen size is less than or equal to 767px */
-  .position-relative {
-    display: none;
-  }
-}
+
 
 
 .card {
   height: 250px; /* Set a fixed height for each card */
+
 }
 .card-img {
   height: 100%; /* Make the image fill the entire height of the card */
@@ -290,8 +298,18 @@
 
 .testimonial .card {
   height: auto; /* Set a fixed height for each card */
+  margin: 10px;
 }
 
+.blog .card {
+  height: 350px; /* Set a fixed height for each card */
+  overflow: hidden;
+  margin: 10px;
+}
+.blog .card-img {
+  height: 150px; /* Make the image fill the entire height of the card */
+  object-fit: cover; /* Scale the image while maintaining its aspect ratio */
+}
 </style>
 
 <script>

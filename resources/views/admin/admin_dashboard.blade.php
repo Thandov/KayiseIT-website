@@ -7,10 +7,11 @@
 
 
     <div class="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
-    <div class="row m-2">
-             <div class="col">
+    <div class="row">
                  <div class="d-flex align-items-center justify-content-start">
                  <a href="admin/testimonials" class="btn btn-primary me-3">Testimonials</a>
+                 
+                 <a href="admin/blog" class="btn btn-primary me-3">Blog Posts</a>
                  </div>
              </div>
          </div>
