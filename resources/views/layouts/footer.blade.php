@@ -33,7 +33,7 @@
                     @csrf
           <li class="link_name">Subscribe</li>
           <li><input type="text" name="email" class="form-control" placeholder="Enter your email"></li>
-          <li><div class="d-grid"><button type="submit" style="background-color: #64bc5c" class="btn text-white btn-block">Subscribe</button></div></li>
+          <li><div class="d-grid"><button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button></div></li>
         </form>
         </ul>
       </div>

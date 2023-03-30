@@ -1,4 +1,3 @@
-
 <x-app-layout title="Home">
     <!-- Hero 
 			<div class="hero">
@@ -23,6 +22,7 @@
                 topTitle="We specialize In" mainTitle="Office Automation" bottomTitle="..." />
         </div>
     </div>
+
 			
 			<!--About Us-->
 			<section class="about-us">
@@ -38,16 +38,16 @@
 						<p data-aos="fade-right" data-aos-delay="500"><span>KAYISE IT</span> established 2015 is the go-to tech solutions company for all the IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies.We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.Our online store <span><a href="https://store.kayiseit.co.za">https://store.kayiseit.co.za</a></span> allows our clients to purchase the resources they need for their needs.</p>
 						
 						<div class="data" data-aos="fade-up" data-aos-delay="500">
-							<a href="navbar/about" class="hire">Discover More</a>
+							<a href="navbar/about" class="hire shadow">Discover More</a>
 						</div>
 					</div>
 
 				</div>
 			</section>
 
-    <div class="container pt-20">
+    <div class="container py-5">
       <div class="row justify-content-center">
-         <div class="col-md-10 mb-20">
+         <div class="col-md-10">
 
       <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl">Discover Our Services</h2>
       <p style="color: #183ea4" class="text-center mb-5 font-bold  md:text-5">Our top priority is to bring our clients high quality services</p>
@@ -61,7 +61,7 @@
                   @if ($counter < 3)
                    <div class="col-md-4 col-sm-6 mb-4">
                       <a href="{{ url('viewservice/'.$service->id) }}">
-                        <div class="card bg-dark text-white" data-aos="fade-left" data-aos-delay="500">
+                        <div class="card bg-dark shadow-lg text-white" data-aos="fade-left" data-aos-delay="500">
                           <img src="{{ asset('images/service_logo/'.$service->icon)}}" class="card-img" alt="Your Image">
                           <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
                             <div class="text-center">
@@ -79,14 +79,14 @@
               </div>
            </div>
             <div class=" text-center text-2xl font-bold">
-					  	<span><a href="services" class="">view all</a></span>
+					  	<span><a href="services" class="hire shadow">view all</a></span>
 					  </div>
 
         </div>
       </div>
     </div>
 
-    <div class="bg-white  mx-auto py-20 sm:px-6 lg:px-8">
+    <div class="bg-white  mx-auto py-5 sm:px-6 lg:px-8">
 
     <div class="container mb-10">
         <div class="row">
@@ -115,15 +115,12 @@
     </div>
 
     <!--skills-->
-    <div class=" mx-auto py-2 sm:px-6 lg:px-8">
+    <div class="mskills mx-auto sm:px-6 lg:px-8">
 			<div class = "skills">
 
 <div class = "top-section">
 
-  <!--Left side-->
- 
 
-  <!--Right side-->
   <div class="col">
     <h1 style="color: #64bc5c" data-aos="fade-down" data-aos-delay="500" class="text-3xl text-center font-bold">We’re on a mission to bridge the digital divide</h1>
     </div>
@@ -132,31 +129,31 @@
 
 
   <!--Overview-->
-  <div class = "overviews justify-content-center" style="display: flex; flex-direction: row;">
+  <div class = "overviews d-flex justify-content-center" style="display: flex; flex-direction: row;">
 
     <!--No.1 Years-->
-    <div class = "overview">
+    <div class = "overview" data-aos="fade-right" data-aos-delay="500">
         <img class="img_overview" src="./images/wall-clock-removebg-preview.png" >
       <span>8</span>
       <p style="color: #183ea4">YEARS</p>
     </div>
 
     <!--No.2 Developers-->
-    <div class = "overview">
+    <div class = "overview" data-aos="fade-down" data-aos-delay="700">
       <img class="img_overview" src="./images/share-removebg-preview.png" >
       <span>6</span>
       <p style="color: #183ea4">DEVELOPERS</p>
     </div>
 
     <!--No.3 Customer-->
-    <div class = "overview">
+    <div class = "overview" data-aos="fade-up" data-aos-delay="1100">
       <img class="img_overview" src="./images/heart-removebg-preview.png" >
       <span>10k</span>
       <p style="color: #183ea4">CUSTOMERS</p>
     </div>
 
     <!--No.3 Projects-->
-    <div class = "overview">
+    <div class = "overview" data-aos="fade-left" data-aos-delay="1500">
       <img class="img_overview" src="./images/layers-removebg-preview.png" >
       <span>10k</span>
       <p style="color: #183ea4">PROJECTS</p>
@@ -220,7 +217,7 @@
 			<!--Services-->
 			<section class="our-services">
 				<div class="services">
-					<img src="./images/OurServicesImg.jpg" class="pic-2" data-aos="fade-right" data-aos-delay="500">
+					<img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
 					<div class="text-2 px-10">
 						<h3 data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></h3>
 						<h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
@@ -230,22 +227,22 @@
 						</div>
 					</div>
 				</div>
-			</section>																			
+			</section>																		
 
 
 	
 
-<div class="testimonial pt-20">
+<div class="testimonial py-5">
   <div class="row justify-content-center">
-    <div class="col-md-10 mb-20">
+    <div class="col-md-10">
 
       <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5">Testimonials</p>
       <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">What they say</h2>
 
       <div class="d-flex justify-content-center align-items-center">
-      <div class="row">
+      <div class="row px-1">
         @foreach($testimonials as $testimonial)
-          <div class="card border-success border" data-aos="fade-right" data-aos-delay="300" style="width: 25rem">
+          <div class="card  shadow-lg border-success border" data-aos="fade-right" data-aos-delay="300" style="width: 25rem">
             <div class="card-body">
               <div class="row mx-4">
                 <div class="rating text-center">
@@ -284,9 +281,6 @@
 
 <style>
 
-
-
-
 .card {
   height: 250px; /* Set a fixed height for each card */
 
@@ -310,6 +304,7 @@
   height: 150px; /* Make the image fill the entire height of the card */
   object-fit: cover; /* Scale the image while maintaining its aspect ratio */
 }
+
 </style>
 
 <script>

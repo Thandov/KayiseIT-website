@@ -45,7 +45,7 @@ the best IT strategies to help grow your business online.
 
             </div>
 
-            <div class="col-md-6  rounded p-20" style="background-color: #64bc5c">
+            <div class="col-md-6 bg-secondary rounded p-20" style="background-color: #64bc5c">
 
                 <form action="{{ route('contact.contact') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -75,7 +75,7 @@ the best IT strategies to help grow your business online.
                         <textarea class="form-control rounded" id="message" name="message" rows="5" required></textarea>
                     </div>
 
-                    <button type="submit" style="background-color: green" class="btn text-white">Submit</button>
+                    <button type="submit" style="background-color: #64bc5c" class="btn text-white">Submit</button>
                 </form>
             </div>
 

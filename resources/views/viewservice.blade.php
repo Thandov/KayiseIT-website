@@ -4,7 +4,7 @@
             
 
    <div class="container py-20">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center align-items-center">
          <div class="col-md-10">
 
          <h2 class="text-center mb-4 font-bold text-5xl md:text-5xl">{{$service['name']}}</h2>
@@ -14,11 +14,11 @@
             <div class="row">
             @foreach($subservices as $subservice)
 
-            <div class="col-md-4 col-sm-6 mb-4">
+            <div class="col-md-3 col-sm-6 mb-4">
                <a href="{{ url('viewsubservice/'.$subservice->id) }}">
 
                   <div class="card-container flex flex-wrap justify-center md:justify-start gap-5 max-w-7xl mx-auto sm:px-6 lg:px-12">
-                     <div class="card" style="width: 20rem;">
+                     <div class="card" style="width: 25rem;">
                         <div class="card-body">
                            <div class="row">
                               <img src="{{ asset('images/service_logo/'.$subservice->icon)}}">
@@ -63,6 +63,6 @@
    }
 
    .card {
-  height: 150px; /* Set a fixed height for each card */
+  height: 200px; /* Set a fixed height for each card */
 }
 </style>

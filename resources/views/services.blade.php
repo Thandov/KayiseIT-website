@@ -12,19 +12,19 @@
   </div>
 </div> -->      
 
-    <div class="container pt-20">
-      <div class="row justify-content-center">
-         <div class="col-md-10 mb-20">
+    <div class="container py-5">
+      <div class="row justify-content-center align-items-center">
+         <div class="col-md-10">
 
       <h2 class="text-center mb-4  font-bold text-5xl md:text-5xl">Discover Our Services</h2>
-      <p class="text-center mb-5 font-bold text-success md:text-5">Our top priority is to bring our clients high quality services</p>
+      <p class="text-center mb-4 font-bold text-success md:text-5">Our top priority is to bring our clients high quality services</p>
 
-           <div class="d-flex justify-content-center align-items-center">
+           <div class="d-flex flex-wrap justify-content-center align-items-center">
             <div class="row">
                 @foreach($services as $service)
                 <div class="col-md-3 col-sm-6 mb-3">
-                  <a href="{{ url('viewservice/'.$service->id) }}" class="mx-3">
-                    <div class="card bg-secondary text-white" data-aos="fade-left" data-aos-delay="500">
+                  <a href="{{ url('viewservice/'.$service->id) }}">
+                    <div class="card bg-secondary shadow-lg text-white" data-aos="fade-left" data-aos-delay="500">
                       <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
                         <div class="text-center">
                           <h5 class="card-title text-3xl font-bold">{{$service['name']}}</h5>
@@ -43,9 +43,9 @@
 
 
 
-    <div class="bg-white  mx-auto py-20 sm:px-6 lg:px-8">
+    <div class="bg-white  mx-auto py-5 sm:px-6 lg:px-8">
 
-    <div class="container mb-10">
+    <div class="container">
         <div class="row">
         <h2 class="font-bold text-center text-5xl md:text-5xl" data-aos="fade-down" data-aos-delay="300">We strive to work with the best</h2>
           <p class="card-text m-3 text-success text-center" data-aos="fade-up" data-aos-delay="300">Some of our clients</p>
@@ -83,6 +83,15 @@
   height: 100%; /* Make the image fill the entire height of the card */
   object-fit: cover; /* Scale the image while maintaining its aspect ratio */
 }
+
+.card:hover,
+.card:focus {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  opacity: .9;
+}
+
+
 </style>
 
 <script>
