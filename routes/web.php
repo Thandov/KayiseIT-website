@@ -33,6 +33,7 @@ Route::get('/', function () {
 
 Route::get('/',[DashboardController::class, 'home'])->name('home');
 
+
 Route::get('about', function () {
     return view('about');
 })->name('about');
@@ -163,5 +164,9 @@ Route::GET('/admin/addblog',[BlogController::class, 'addblog'])->name('admin.add
 Route::get('blog/delete/{id}',[BlogController::class, 'destroyblog'])->name('admin.destroyblog');
 Route::put('/blog/{id}', [BlogController::class, 'updateblog'])->name('blog.update');
 Route::GET('/admin/viewblogg/{id}',[BlogController::class, 'viewblogg'])->name('admin.viewblogg');
+
+
+
+Route::get('/layouts/footer',[ServicesController::class, 'footer'])->name('layouts.footer');
 
 require __DIR__.'/auth.php';

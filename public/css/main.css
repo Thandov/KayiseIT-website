@@ -265,7 +265,7 @@ section {
   --clr-accent: #008951;
 }
 /* ==================================== About Us Styling ==================================== */
-.about-us{
+#about-us{
   height: auto;
   width: 100%;
   background: #ffffff;
@@ -453,38 +453,38 @@ section {
 
 
 /*=============================== Responsive Styling===============================*/
-.about-us, .our-services, .contact-us {
+#about-us, .our-services, .contact-us {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 50px;
 }
 
-.about-us .about, .our-services .services, .contact-us .contact {
+#about-us .contarowiner, .our-services .services, .contact-us .contact {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.about-us .about .text, .our-services .services .text-2, .contact-us .contact .text-3 {
+#about-us .row .text, .our-services .services .text-2, .contact-us .contact .text-3 {
   flex-basis: 50%;
   padding-right: 50px;
 }
 
-.about-us .about .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
+#about-us .row .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
   flex-basis: 50%;
   max-width: 50%;
   height: auto;  /* add this line to set the maximum height of the image*/ 
 	
 }
 
-.about-us h2, .our-services h2, .contact-us h2 {
+#about-us h2, .our-services h2, .contact-us h2 {
   font-size: 36px;
   line-height: 44px;
 }
 
-.about-us p, .our-services p, .contact-us p {
+#about-us p, .our-services p, .contact-us p {
   font-size: 18px;
   line-height: 24px;
 }
@@ -492,19 +492,19 @@ section {
 /* Media queries */
 @media screen and (max-width: 952px) {
 
-  .about-us, .our-services, .contact-us {
+  #about-us, .our-services, .contact-us {
 	  
     padding: 30px;
   }
   
   
   
-  .about-us .about .text, .our-services .services .text-2, .contact-us .contact .text-3 {
+  #about-us .row .text, .our-services .services .text-2, .contact-us .contact .text-3 {
     flex-basis: 100%;
     padding-right: 0;
   }
   
-  .about-us .about .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
+  #about-us .row .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
     flex-basis: 100%;
     margin-top: 20px;
   }
@@ -513,17 +513,17 @@ section {
 /*========================Remove Zig Zag====================*/
 
 @media screen and (max-width: 700px) {
-  .about-us h2, .our-services h2, .contact-us h2 {
+  #about-us h2, .our-services h2, .contact-us h2 {
     font-size: 28px;
     line-height: 36px;
   }
   
-  .about-us p, .our-services p, .contact-us p {
+  #about-us p, .our-services p, .contact-us p {
     font-size: 16px;
     line-height: 22px;
   }
 
-  .about-us .about .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
+  #about-us .about .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
     flex-basis: 100%;
     max-width: 100%;
     height: auto;  /* add this line to set the maximum height of the image*/ 
@@ -534,12 +534,12 @@ section {
 
 
 @media screen and (max-width: 540px) {
-  .about-us h2, .our-services h2, .contact-us h2 {
+  #about-us h2, .our-services h2, .contact-us h2 {
     font-size: 28px;
     line-height: 26px;
   }
   
-  .about-us p, .our-services p, .contact-us p {
+  #about-us p, .our-services p, .contact-us p {
     font-size: 16px;
     line-height: 22px;
   }
@@ -681,5 +681,98 @@ section {
 @media only screen and (max-width: 768px) {
   .overviews {
     flex-direction: column;
+  }
+}
+
+
+
+
+
+.carousel-inner {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.carousel-item img {
+  object-position: center -20%;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Set the carousel height to 300px for screens smaller than 768px */
+@media (max-width: 767px) {
+  .carousel-inner {
+  }
+}
+
+/* Set the carousel height to 400px for screens larger than or equal to 768px */
+@media (min-width: 768px) {
+  .carousel-inner {
+    height: 400px;
+  }
+}
+
+        
+.animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+.slide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.slide-container {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  transition: transform 0.1s ease;
+}
+
+.slide-container img {
+  width: 23%;
+  margin: 0 20px 0 0;
+  box-sizing: border-box;
+  display: none;
+}
+
+.slide-container img:last-child {
+  margin-right: 0;
+}
+
+.slide-container img.show {
+  display: block;
+}
+
+.services{
+
+  .card {
+    height: 250px; /* Set a fixed height for each card */
+    width: 300px;
+  }
+  .card-img {
+    height: 100%; /* Make the image fill the entire height of the card */
+    object-fit: cover; /* Scale the image while maintaining its aspect ratio */
   }
 }

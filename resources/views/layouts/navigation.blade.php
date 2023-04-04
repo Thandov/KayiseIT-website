@@ -1,6 +1,6 @@
 @if (empty(Auth::user()->name))<nav class="grid grid-cols-3 md:grid-cols-5 bg-white border-b border-gray-100 py-3">
     @if (Route::has('login'))
-    <div class="sm:-my-px sm:ml-10 col-start-5 sm:grid sm:grid-cols-4">
+    <div class="sm:-my-px sm:ml-10 col-start-5  sm:grid sm:grid-cols-6">
         @auth @else @if (Route::has('login'))
         <x-nav-link :href="route('login')" :active="request()->routeIs('login')" class="text-right">
             {{ __('Login') }}
@@ -14,7 +14,7 @@
     @endif
 </nav>@endif
 
-<nav x-data="{ open: false }" class="grid grid-cols-4 md:grid-cols-5 bg-white flex justify-between h16 border-b border-gray-100 py-3">
+<nav x-data="{ open: false }" class="grid grid-cols-4 md:grid-cols-5 px-3 bg-white flex justify-between h16 border-b border-gray-100">
     <!-- Logo -->
     <div class=" px-20 flex items-center">
                     <a href="{{ route('home') }}">
@@ -96,7 +96,7 @@
             </div>
 
                 <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
+            <div class="-mr-2 flex items-center md:hidden sm:hidden">
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">

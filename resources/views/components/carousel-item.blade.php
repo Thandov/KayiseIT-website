@@ -18,6 +18,5 @@
             style="animation-delay: 1.8s; -webkit-animation-delay:2.7s;">view more</a>
 
         </div>
-
     </div>
 </div>

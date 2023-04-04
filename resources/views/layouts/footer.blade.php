@@ -21,12 +21,11 @@
           <div><li><a href="services">Get started</a></li></div>
         </ul>
         <ul class="box">
-        <div><li class="link_name">Services</li></div>
-        <div><li><a href="#">Office Automation</a></li></div>
-        <div><li><a href="#">Network Support</a></li></div>
-        <div><li><a href="#">Marketing</a></li></div>
-        <div><li><a href="#">ICT Skills training</a></li></div>
-        </ul>
+    <div><li class="link_name">Services</li></div>
+    
+    
+</ul>
+
         
         <ul class="box input-box">
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
@@ -186,7 +185,7 @@ footer .footer-content .link-boxes .box{
 .footer-content .link-boxes .box li a:hover{
   opacity: 1;
   text-decoration: underline;
-  color: #64bc5c;
+  color: #254522;/*current*/
 }
 .footer-content .link-boxes .input-box{
   margin-right: 55px;
@@ -223,7 +222,7 @@ footer .footer-content .link-boxes .box{
 }
 footer .bottom-details{
   width: 100%;
-  background: #000000;
+  background: #457a40;/*changes*/
 }
 footer .bottom-details .bottom_text{
   max-width: 1250px;
@@ -301,7 +300,7 @@ footer .bottom-details .bottom_text{
 }
 .top .media-icons a:nth-child(4){
   background: #fff;
-  color: #000000;
+  color: #000000; 
 }
 .top .media-icons a:nth-child(4):hover{
   background: #FF0000;

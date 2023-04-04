@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use stdClass;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\View;
+
+
 class ServicesController extends Controller
 {
     public function services()
@@ -88,8 +91,10 @@ public function delete($id)
 }
 
 
-
-
-
+public function footer()
+    {
+        $services = Service::all();
+         View::share('services', $services);
+    }
     
 }

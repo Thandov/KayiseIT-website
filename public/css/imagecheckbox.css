@@ -1,50 +1,34 @@
 .item .cont-checkbox {
   border-radius: var(--border-radius);
-  -webkit-box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-          box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   background: white;
-  -webkit-transition: -webkit-transform var(--transition);
-  transition: -webkit-transform var(--transition);
   transition: transform var(--transition);
-  transition: transform var(--transition), -webkit-transform var(--transition);
 }
-
 .item .cont-checkbox .cont-checkbox:first-of-type {
   margin-bottom: 0.75rem;
   margin-right: 0.75rem;
 }
-
 .item .cont-checkbox .cont-checkbox:active {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  transform: scale(0.9);
 }
-
 .item .cont-checkbox input {
   display: none;
 }
-
 .item .cont-checkbox input:checked + label {
   opacity: 1;
-  -webkit-box-shadow: 0 0 0 3px var(--background);
-          box-shadow: 0 0 0 3px var(--background);
+  box-shadow: 0 0 0 3px var(--background);
 }
-
 .item .cont-checkbox input:checked + label img {
-  -webkit-filter: none;
   /* Safari 6.0 - 9.0 */
   filter: none;
 }
-
 .item .cont-checkbox input:checked + label .cover-checkbox {
   opacity: 1;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
-
 .item .cont-checkbox input:checked + label .cover-checkbox svg {
   stroke-dashoffset: 0;
 }
-
 .item .cont-checkbox label {
   display: inline-block;
   cursor: pointer;
@@ -55,17 +39,14 @@
   position: relative;
   opacity: 0.6;
 }
-
 .item .cont-checkbox label img {
   width: 100%;
   height: 70%;
   -o-object-fit: cover;
      object-fit: cover;
-  -webkit-filter: grayscale(100%);
   /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
 }
-
 .item .cont-checkbox label .cover-checkbox {
   position: absolute;
   right: 5px;
@@ -76,15 +57,10 @@
   border-radius: 50%;
   background: var(--box-shadow);
   border: 2px solid #fff;
-  -webkit-transition: opacity calc(var(--transition) * 1.2) linear, -webkit-transform var(--transition);
-  transition: opacity calc(var(--transition) * 1.2) linear, -webkit-transform var(--transition);
   transition: transform var(--transition), opacity calc(var(--transition) * 1.2) linear;
-  transition: transform var(--transition), opacity calc(var(--transition) * 1.2) linear, -webkit-transform var(--transition);
   opacity: 0;
-  -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
 }
-
 .item .cont-checkbox label .cover-checkbox svg {
   width: 13px;
   height: 11px;
@@ -97,15 +73,12 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-dasharray: 16px;
-  -webkit-transition: stroke-dashoffset 0.4s ease var(--transition);
   transition: stroke-dashoffset 0.4s ease var(--transition);
   stroke-dashoffset: 16px;
 }
-
 .item .cont-checkbox label .info {
   text-align: center;
   margin-top: 0.2rem;
   font-weight: 600;
   font-size: 0.8rem;
-}
-/*# sourceMappingURL=imagecheckbox.css.map */
+}/*# sourceMappingURL=imagecheckbox.css.map */

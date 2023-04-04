@@ -9,11 +9,12 @@ input::-webkit-inner-spin-button {
 .pager-hide-text nav div:nth-child(1) {
   display: none;
 }
-
 .pager-hide-text nav div.pagination {
-  -webkit-box-pack: space-evenly !important;
-      -ms-flex-pack: space-evenly !important;
-          justify-content: space-evenly !important;
+  justify-content: space-evenly !important;
+}
+
+#thapelo {
+  margin: 10px 0px;
 }
 
 .homecard {
@@ -22,22 +23,17 @@ input::-webkit-inner-spin-button {
   position: relative;
   padding: 20px 0 0 0;
 }
-
 .homecard .editwrapper {
   position: absolute;
   right: 0;
   top: 0;
   width: 50px;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
+  justify-content: end;
 }
-
 .homecard .editwrapper svg {
   width: 25px;
   margin: 10px auto;
 }
-
 .homecard .svgwrapper svg {
   width: 60px;
   margin: 10px auto;
@@ -49,22 +45,17 @@ input::-webkit-inner-spin-button {
   position: relative;
   padding: 20px 0;
 }
-
 .commcard .editwrapper {
   position: absolute;
   right: 0;
   top: 0;
   width: 50px;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
+  justify-content: end;
 }
-
 .commcard .editwrapper svg {
   width: 25px;
   margin: 10px auto;
 }
-
 .commcard .svgwrapper svg {
   width: 60px;
   margin: 10px auto;
@@ -77,7 +68,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type=number] {
   -moz-appearance: textfield;
 }
 
@@ -90,16 +81,13 @@ input[type="number"] {
   width: 100%;
   height: 190px;
 }
-
 .housecard.house div:nth-child(1) {
   height: 50%;
   overflow: hidden;
 }
-
 .housecard.house div:nth-child(2) {
   height: 20%;
 }
-
 .housecard.house div:nth-child(3) {
   height: 30%;
 }
@@ -107,7 +95,6 @@ input[type="number"] {
 .jumbotron {
   height: 500px;
 }
-
 .jumbotron .landinglogo {
   position: absolute;
   height: 100%;
@@ -121,20 +108,16 @@ input[type="number"] {
 .owl-carousel#headercara {
   height: 100%;
 }
-
 .owl-carousel#headercara div.owl-stage-outer {
   height: 100%;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage {
   height: 100%;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item {
   height: 100%;
   width: 100vw;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .black-overlay::before {
   content: "";
   position: absolute;
@@ -147,43 +130,34 @@ input[type="number"] {
   bottom: 0;
   z-index: 999;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content {
   color: #fff;
   z-index: 999;
   margin: 0 auto;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content #services li p {
   padding: 0;
   margin: 0;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .topTitle,
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title,
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .btmTitle {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   font-size: 2.5vw;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title {
   font-size: 10vw;
   color: #fff !important;
   font-weight: 900;
   font-size: 3rem;
 }
-
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .btn:hover {
-  -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
-          box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
 }
 
 #hitparent .phonepicwrap .hitwrapper div {
   margin-bottom: 10px;
 }
-
 #hitparent .phonepicwrap .hitwrapper div .instring {
   border: 3px solid black;
   border-radius: 25px;
@@ -240,10 +214,9 @@ li {
   line-height: 100px;
 }
 
-.radioBoxparent input[type="radio"] {
+.radioBoxparent input[type=radio] {
   display: none;
 }
-
 .radioBoxparent label {
   border: 1px solid #fff;
   padding: 10px;
@@ -252,7 +225,6 @@ li {
   margin: 10px;
   cursor: pointer;
 }
-
 .radioBoxparent label:before {
   background-color: white;
   color: white;
@@ -267,43 +239,32 @@ li {
   height: 25px;
   text-align: center;
   line-height: 28px;
-  -webkit-transition-duration: 0.4s;
-          transition-duration: 0.4s;
-  -webkit-transform: scale(0);
-          transform: scale(0);
+  transition-duration: 0.4s;
+  transform: scale(0);
   z-index: 2;
 }
-
 .radioBoxparent label img {
   height: auto;
   width: auto;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
 }
-
 .radioBoxparent :checked + label {
   border-color: #e75480;
 }
-
 .radioBoxparent :checked + label:before {
   content: "✓";
   background-color: #e75480;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
-
 .radioBoxparent :checked + label img {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  transform: scale(0.9);
   z-index: -1;
 }
 
-.checkboxparent input[type="checkbox"] {
+.checkboxparent input[type=checkbox] {
   display: none;
 }
-
 .checkboxparent label {
   border: 1px solid #fff;
   padding: 10px;
@@ -312,7 +273,6 @@ li {
   margin: 10px;
   cursor: pointer;
 }
-
 .checkboxparent label:before {
   background-color: white;
   color: white;
@@ -327,43 +287,32 @@ li {
   height: 25px;
   text-align: center;
   line-height: 28px;
-  -webkit-transition-duration: 0.4s;
-          transition-duration: 0.4s;
-  -webkit-transform: scale(0);
-          transform: scale(0);
+  transition-duration: 0.4s;
+  transform: scale(0);
   z-index: 2;
 }
-
 .checkboxparent label img {
   height: auto;
   width: auto;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
 }
-
 .checkboxparent :checked + label {
   border-color: #e75480;
 }
-
 .checkboxparent :checked + label:before {
   content: "✓";
   background-color: #e75480;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
-
 .checkboxparent :checked + label img {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  transform: scale(0.9);
   z-index: -1;
 }
 
-.extraservdiv input[type="checkbox"][id^="service"] {
+.extraservdiv input[type=checkbox][id^=service] {
   display: none;
 }
-
 .extraservdiv label {
   border: 1px solid #fff;
   padding: 10px;
@@ -372,7 +321,6 @@ li {
   margin: 10px;
   cursor: pointer;
 }
-
 .extraservdiv label:before {
   background-color: white;
   color: white;
@@ -387,46 +335,38 @@ li {
   height: 25px;
   text-align: center;
   line-height: 28px;
-  -webkit-transition-duration: 0.4s;
-          transition-duration: 0.4s;
-  -webkit-transform: scale(0);
-          transform: scale(0);
+  transition-duration: 0.4s;
+  transform: scale(0);
   z-index: 2;
 }
-
 .extraservdiv label img {
   height: auto;
   width: auto;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
-  -webkit-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
 }
-
 .extraservdiv :checked + label {
   border-color: #e75480;
 }
-
 .extraservdiv :checked + label:before {
   content: "✓";
   background-color: #e75480;
-  -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
-
 .extraservdiv :checked + label img {
-  -webkit-transform: scale(0.9);
-          transform: scale(0.9);
+  transform: scale(0.9);
   z-index: -1;
 }
 
 div.sticky {
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
 
 @media only screen and (min-width: 600px) {
+  #thapelo {
+    margin: 10px;
+  }
   .housecard.house {
     width: 100%;
     height: 190px;
@@ -440,87 +380,4 @@ div.sticky {
   .housecard.house div:nth-child(3) {
     height: 20%;
   }
-}
-
-.slider {
-  width: 100%;
-  overflow: hidden;
-}
-.slide-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.slide-container {
-  display: flex;
-  align-content: center;
-  flex-wrap: wrap;
-  transition: transform 0.1s ease;
-}
-
-.slide-container img {
-  width: 23%;
-  margin: 0 20px 0 0;
-  box-sizing: border-box;
-  display: none;
-}
-
-.slide-container img:last-child {
-  margin-right: 0;
-}
-
-.slide-container img.show {
-  display: block;
-}
-
-.carousel-inner {
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-.carousel-item img {
-  object-position: center -20%;
-}
-
-.carousel-caption {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-
-/* Set the carousel height to 300px for screens smaller than 768px */
-@media (max-width: 767px) {
-  .carousel-inner {
-  }
-}
-
-/* Set the carousel height to 400px for screens larger than or equal to 768px */
-@media (min-width: 768px) {
-  .carousel-inner {
-    height: 400px;
-  }
-}
-
-
-.animate {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.animate.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-
-
-
-
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

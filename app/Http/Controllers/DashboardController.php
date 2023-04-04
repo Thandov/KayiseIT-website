@@ -34,6 +34,5 @@ class DashboardController extends Controller
         $blog = Blog::all();
         return view('home', compact('services', 'testimonials', 'blog'));
     }
-
     
 }
