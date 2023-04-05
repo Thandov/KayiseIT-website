@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
-    <!-- <link rel="stylesheet" href="{{ asset('/css/app.css') }}">-->
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/imagecheckbox.css') }}">
@@ -104,8 +104,7 @@ $("#duplicate-form").click(function(){
             <main>
                 {{ $slot }}
             </main>
+            @include('layouts.footer')
         </div>
     </body>
-    @include('layouts.footer')
-    
 </html>

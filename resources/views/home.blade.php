@@ -12,6 +12,8 @@
 			</div>
 			-->
 
+
+            
     <div class="jumbotron bg-gray-400 bg-gradient position-relative">
         <div class="owl-carousel owl-theme" id="headercara">
             <x-carousel-item pic="../images/landing-page/group.jpg" topTitle="We Specialize In"
@@ -96,57 +98,68 @@
         </div>
     </section>
 
-    <!--skills-->
-    <div class="mskills mx-auto sm:px-6 lg:px-8">
-        <div class="skills">
 
-            <div class="top-section">
 
-                <div class="col">
-                    <h1 style="color: #64bc5c" data-aos="fade-down" data-aos-delay="500" class="text-3xl text-center font-bold">We’re on a mission to bridge the digital divide</h1>
+    <x-stats years="8" developers="7" customers="7k" projects="5k"/>
+
+
+    <!--
+
+<div class="blog  py-5">
+      <div class="row justify-content-center">
+         <div class="col-md-10 mb-20">
+
+      <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">Latest Posts</h2>
+
+           <div class="d-flex justify-content-center align-items-center">
+              <div class="row">
+@php
+                  $counter = 0;
+@endphp
+@foreach($blog as $blog)
+@if($counter < 4)
+                   <div class="col-md-3 col-sm-6 mb-4">
+                      <a href="{{ url('viewblog/'.$blog->id) }}">
+                      <div class="card">
+                <img src="{{ asset('images/'.$blog->icon) }}" class="card-img" alt="Your Image">
+                <div class="card-body">
+                         <h2 style="color: #64bc5c" class="card-title font-bold text-gray-90">{{ $blog['title'] }}</h2>
+                         <h3 class="card-text">{{ $blog['subtitle'] }}</h3>
                 </div>
-
-            </div>
-
-            <!--Overview-->
-            <div class="overviews d-flex justify-content-center" style="display: flex; flex-direction: row;">
-
-                <!--No.1 Years-->
-                <div class="overview" style="color: #183ea4" data-aos="fade-right" data-aos-delay="500">
-                    <span style="color: #183ea4">8</span>
-                    <p  style="color: #315c2d">YEARS</p>
                 </div>
+                      </a>
+                    </div>
+@endif
+@php
+                    $counter++;
+@endphp
+@endforeach
+              </div>
+           </div>
+            <div class=" text-center text-2xl font-bold">
+					  	<span><a href="blog" class="">view all</a></span>
+					  </div>
 
-                <!--No.2 Developers-->
-                <div class="overview" style="color: #183ea4" data-aos="fade-down" data-aos-delay="700">
-                    <span style="color: #183ea4">6</span>
-                    <p  style="color: #315c2d">DEVELOPERS</p>
-                </div>
-
-                <!--No.3 Customer-->
-                <div class="overview" style="color: #183ea4" data-aos="fade-up" data-aos-delay="1100">
-                    <span style="color: #183ea4">10k</span>
-                    <p  style="color: #315c2d">CUSTOMERS</p>
-                </div>
-
-                <!--No.3 Projects-->
-                <div class="overview" style="color: #183ea4" data-aos="fade-left" data-aos-delay="1500">
-                    <span style="color: #183ea4">10k</span>
-                    <p style="color: #315c2d">PROJECTS</p>
-                </div>
-
-            </div>
         </div>
+      </div>
     </div>
+    
+
+            -->
+
+
+
+
+
 
 
     <!--Services-->
-    <section class="our-services">
-        <div class="services">
+    <section class = "our-services">
+        <div class = "services">
             <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
             <div class="text-2 px-10">
-                <p style="color: #183ea4" data-aos="fade-up" data-aos-delay="500"><strong>Our Services<strong></p>
-                <h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. Solutions Tailored To Your Business.</h2>
+                <h3 data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></h3>
+                <h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
                 <p data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
                     knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                     that our clients grow their business.</p>
@@ -157,56 +170,10 @@
         </div>
     </section>
 
-    <!--Blog-->
-    <div class="blog  py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-10 mb-20">
-
-                <p style="color: #183ea4" class="card-text  mb-3 text-center" data-aos="fade-up" data-aos-delay="300"><strong>Our Blog</strong></p>
-                <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">Latest Posts</h2>
-
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="row">
-                        @php
-                            $counter = 0;
-                        @endphp
-                        @foreach($blog as $blog)
-                            @if($counter < 4)
-                                <div class="col-md-3 col-sm-6 mb-4">
-                                    <a href="{{ url('viewblog/'.$blog->id) }}">
-                                        <div class="card">
-                                            <img src="{{ asset('images/'.$blog->icon) }}"
-                                                class="card-img" alt="Your Image">
-                                            <div class="card-body">
-                                                <h2 style="color: #64bc5c" class="card-title font-bold text-gray-90">
-                                                    {{ $blog['title'] }}</h2>
-                                                <h3 class="card-text">{{ $blog['subtitle'] }}
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            @endif
-                            @php
-                                $counter++;
-                            @endphp
-                        @endforeach
-                    </div>
-                </div>
-                <div class=" text-center text-2xl font-bold">
-                <div class= "data">
-                    <a href="blog" class="hiree">Read More</a>
-                </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     <!--Testimonials-->
     <div class="testimonial container py-5" id="testimonial_background">
         <div class="row justify-content-center">
-            <div class="col">
+            <div class="colmd-10">
                 <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5">Testimonials</p>
                 <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">What They Say</h2>
 
@@ -255,35 +222,6 @@
     </div>
 
 
-    <!--Our Clients-->
-    <div class="bg-white  mx-auto py-5 sm:px-6 lg:px-8">
-
-        <div class="container mb-10">
-            <div class="row">
-                <p style="color: #183ea4" class="card-text  mb-3 text-center" data-aos="fade-up" data-aos-delay="300"><strong>Some Of Our Clients</strong></p>
-                <h2 style="color: #64bc5c" class="font-bold text-center mb-5 text-5xl md:text-5xl" data-aos="fade-down" data-aos-delay="300">We Strive To Work With The Best</h2>
-
-                <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-
-                    <div class="slider" data-aos="fade-left" data-aos-delay="300">
-                        <div class="slide-container">
-                            <img src="../images/partner1.png">
-                            <img src="../images/partner2.png">
-                            <img src="../images/partner3.png">
-                            <img src="../images/partner4.png">
-                            <img src="../images/partner5.png">
-                            <img src="../images/partner6.png">
-                            <img src="../images/partner7.png">
-                            <img src="../images/partner8.png">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-
 </x-app-layout>
 
 <script>
@@ -315,31 +253,7 @@
 
     //our clients slide
 
-    let slider = document.querySelector('.slide-container');
-    let sliderWidth = slider.offsetWidth;
-    let slideIndex = 0;
-
-    function showSlides() {
-        let slides = document.querySelectorAll('.slide-container img');
-        let visibleSlides = window.innerWidth < 768 ? 3 :
-            4; // Change the number of visible slides based on the screen width
-        let slideWidth = sliderWidth / visibleSlides;
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].classList.remove('show');
-        }
-        for (let i = slideIndex; i < slideIndex + visibleSlides; i++) {
-            if (slides[i]) {
-                slides[i].classList.add('show');
-            }
-        }
-        slideIndex++;
-        if (slideIndex > slides.length - visibleSlides) {
-            slideIndex = 0;
-        }
-        setTimeout(showSlides, 2000);
-    }
-
-    showSlides();
+    
 
 
     AOS.init();
@@ -363,7 +277,7 @@
         jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass('animate__animated animate__fadeInUp');
         jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass('animate__animated animate__fadeInUp');
         jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
-            'animate__animated animate__fadeInLeft');
+        'animate__animated animate__fadeInLeft');
     }
 
     jQuery(document).ready(function ($) {

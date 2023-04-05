@@ -1,5 +1,5 @@
 <!--skills-->
-<div class="mskills bg-white mx-auto sm:px-6 lg:px-8">
+<div class="mskills bg-grey mx-auto sm:px-6 lg:px-8">
         <div class="skills">
 
             <div class="top-section">

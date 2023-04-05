@@ -16,8 +16,8 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
 
-            <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5">Testimonials</p>
-                <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">What They Say</h2>
+            <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5"><strong>Our Services</strong></p>
+                <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl">Managed I.T. Solutions</h2>
 
 
                 <div class="d-flex justify-content-center align-items-center">
@@ -25,7 +25,7 @@
 
                         @foreach($services as $service)
 
-                            <div class="col-md-4 col-sm-6 mb-4">
+                        <div class="col-lg-3 col-md-4 col-sm-12 m-3">
                                 <a href="{{ url('viewservice/'.$service->id) }}">
                                     <div class="card  text-white" data-aos="fade-left" data-aos-delay="500">
                                         <img src="{{ asset('images/service_logo/'.$service->icon) }}"
@@ -49,39 +49,9 @@
         </div>
     </div>
 
-
-    <div class="bg-white  mx-auto py-5 sm:px-6 lg:px-8">
-
-        <div class="container">
-            <div class="row">
-
-                    <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5" data-aos="fade-down" data-aos-delay="300">Some Of Our Clients  </p>
-                    <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="300">We Strive To Work With The Best</h2>
-
-                <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-
-                    <div class="slider" data-aos="fade-left" data-aos-delay="300">
-                        <div class="slide-container">
-                            <img src="../images/partner1.png">
-                            <img src="../images/partner2.png">
-                            <img src="../images/partner3.png">
-                            <img src="../images/partner4.png">
-                            <img src="../images/partner5.png">
-                            <img src="../images/partner6.png">
-                            <img src="../images/partner7.png">
-                            <img src="../images/partner8.png">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
+    <x-clients/>
 
 </x-app-layout>
-
-
 
 <script>
     let slider = document.querySelector('.slide-container');

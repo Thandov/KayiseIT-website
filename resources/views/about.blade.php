@@ -1,30 +1,17 @@
 <x-app-layout>
-<!--
-<div class="jumbotron bg-gray-400 bg-gradient position-relative">
-        <div class="owl-carousel owl-theme" id="headercara">
-            <x-carousel-item pic="../images/landing-page/group.jpg" topTitle="We Specialize In"
-                mainTitle="Web Development" bottomTitle="..." />
-            <x-carousel-item pic="../images/landing-page/soft.jpg" topTitle="We specialize In"
-                mainTitle="Software Development" bottomTitle="..." />
-            <x-carousel-item pic="../images/landing-page/office.jpg" topTitle="We specialize In"
-                mainTitle="Office Automation" bottomTitle="..." />
-        </div>
-  </div>-->
-   
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-  <div class="carousel-item active">
-  <img src="/images/landing-page/img_Keyboard_3.jpg" class="d-block w-100" alt="..." >
-  <div class="carousel-caption">
-        <h1 class="font-bold  md:text-7xl " data-aos="fade-right">About Us</h1>
-  </div>
-</div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <img src="/images/landing-page/img_Keyboard_3.jpg" class="d-block w-100" alt="..." >
+                <div class="carousel-caption">
+                    <h1 class="font-bold  md:text-7xl" data-aos="fade-right">Our Company</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  </div>
-</div>
-
-<div class="max-w-7xl mx-auto py-20 lg:px-8 ">
-  <div class="container">
+    <div class="max-w-7xl mx-auto py-20 lg:px-8 ">
+  <div class="container" id="company">
     <div class="row flex flex-wrap justify-center">
       <div class="col-7 sm-col-12">
         <p style="color: #183ea4" class="font-bold md:text-5" data-aos="fade-up"><strong>About Us</strong></p>
@@ -45,7 +32,7 @@
 </div>
 
 <div class="bg-white mx-auto py-5 sm:px-6 lg:px-8 shadow-lg">
-  <div class="container max-w-7xl" >
+  <div class="container max-w-7xl" id="culture">
     <p style="color: #183ea4" class="text-center mb-3 font-bold md:text-5" data-aos="fade-down" data-aos-delay="300">OUR CULTURE</p>
     <h2 style="color: #64bc5c" class="text-center font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="300">Our Fundamental Business</h2>
     <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
@@ -77,7 +64,7 @@
     </div>
   </div>
 
-  <!--Our team-->
+<!--Our team-->
 <div class="bg py-5 mx-auto" id ="team_background">
   <div class="container team max-w-7xl">
     <div class="row">
@@ -106,30 +93,37 @@
   </div>
 </div>
 
-    <div class="bg-white  mx-auto py-5 sm:px-6 lg:px-8">
-
-    <div class="container">
-        <div class="row">
-        <p style="color: #183ea4" class="card-text  mb-3 text-center" data-aos="fade-up" data-aos-delay="300"><strong>Some Of Our Clients</strong></p>
-                <h2 style="color: #64bc5c" class="font-bold text-center mb-5 text-5xl md:text-5xl" data-aos="fade-down" data-aos-delay="300">We Strive To Work With The Best</h2>
-
-          <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-
-                <div class="slider" data-aos="fade-left" data-aos-delay="300">
-                    <div class="slide-container">
-                      <img src="../images/partner1.png">
-                      <img src="../images/partner2.png">
-                      <img src="../images/partner3.png">
-                      <img src="../images/partner4.png">
-                      <img src="../images/partner5.png">
-                      <img src="../images/partner6.png">
-                      <img src="../images/partner7.png">
-                      <img src="../images/partner8.png">
-                    </div>
-                </div>
-          </div>
-
-        </div>
-    </div>
-    </div>
+    <x-clients/>
+    
 </x-app-layout>
+
+<script>
+
+let slider = document.querySelector('.slide-container');
+let sliderWidth = slider.offsetWidth;
+let slideIndex = 0;
+
+function showSlides() {
+  let slides = document.querySelectorAll('.slide-container img');
+  let visibleSlides = window.innerWidth < 768 ? 3 : 4; // Change the number of visible slides based on the screen width
+  let slideWidth = sliderWidth / visibleSlides;
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].classList.remove('show');
+  }
+  for (let i = slideIndex; i < slideIndex + visibleSlides; i++) {
+    if (slides[i]) {
+      slides[i].classList.add('show');
+    }
+  }
+  slideIndex++;
+  if (slideIndex > slides.length - visibleSlides) {
+    slideIndex = 0;
+  }
+  setTimeout(showSlides, 3000);
+}
+
+showSlides();
+
+AOS.init();
+
+</script>
