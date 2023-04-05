@@ -42,3 +42,14 @@
     </div>
 </div>
 </x-app-layout>
+
+<style>
+    .card {
+  height: 250px; /* Set a fixed height for each card */
+  overflow: hidden;
+}
+.card-img {
+  height: 100%; /* Make the image fill the entire height of the card */
+  object-fit: cover; /* Scale the image while maintaining its aspect ratio */
+}
+</style>

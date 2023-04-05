@@ -69,16 +69,16 @@ class ServicesController extends Controller
         $service->name = $request->input('name');
         $service->description = $request->input('description');
         $service->save();
-        $subservices = $service->subservices;
-    
-        // Loop through each subservice and update its attributes
-        foreach ($subservices as $index => $subservice) {
-            $subservice->name = $request->input('subname')[$index];
-            $subservice->price = $request->input('subprice')[$index];
-            $subservice->save();
-        }
-    
-        return redirect()->route('admin.services', $id)->with('success', 'Service updated successfully');
+
+        $subservices = $request->input('subservices');
+        foreach ($subservices as $subserviceId => $subserviceData) {
+        $subservice = Subservice::findOrFail($subserviceId);
+        $subservice->name = $subserviceData['name'];
+        $subservice->price = $subserviceData['price'];
+        $subservice->save();
+    }
+
+    return redirect()->back();
     }
     
 

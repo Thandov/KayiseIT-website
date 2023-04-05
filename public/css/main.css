@@ -27,12 +27,6 @@ span{
   font-size: 40px;
   font-weight: 700;
 }
-.card:hover,
-.card:focus {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-  opacity: .9;
-}
 /* ==================================== Hero Styling ==================================== */
 *,
 *::before,
@@ -765,14 +759,12 @@ section {
   display: block;
 }
 
-.services{
-
-  .card {
+.services .card {
     height: 250px; /* Set a fixed height for each card */
     width: 300px;
   }
-  .card-img {
+ .services .card-img {
     height: 100%; /* Make the image fill the entire height of the card */
     object-fit: cover; /* Scale the image while maintaining its aspect ratio */
   }
-}
+

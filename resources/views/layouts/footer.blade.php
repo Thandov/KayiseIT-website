@@ -21,11 +21,12 @@
           <div><li><a href="services">Get started</a></li></div>
         </ul>
         <ul class="box">
-    <div><li class="link_name">Services</li></div>
-    
-    
-</ul>
-
+        <div><li class="link_name">Services</li></div>
+        <div><li><a href="#">Office Automation</a></li></div>
+        <div><li><a href="#">Network Support</a></li></div>
+        <div><li><a href="#">Marketing</a></li></div>
+        <div><li><a href="#">ICT Skills training</a></li></div>
+        </ul>
         
         <ul class="box input-box">
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
