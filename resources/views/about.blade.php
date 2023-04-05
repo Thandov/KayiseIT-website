@@ -1,14 +1,10 @@
 <x-app-layout>
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-            <img src="/images/landing-page/img_Keyboard_3.jpg" class="d-block w-100" alt="..." >
-                <div class="carousel-caption">
-                    <h1 class="font-bold  md:text-7xl" data-aos="fade-right">Our Company</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <div class="about-hero">
+				<div class="container spacing">
+					<h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">Our Company</h1>
+				</div>
+			</div>
 
     <div class="max-w-7xl mx-auto py-20 lg:px-8 ">
   <div class="container" id="company">

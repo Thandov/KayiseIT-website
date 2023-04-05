@@ -1,15 +1,11 @@
 <x-app-layout>
 
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/images/landing-page/pexels-muffin-creatives-4584612.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption">
-                    <h1 class="font-bold  md:text-7xl" data-aos="fade-right">Our Services</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+            <div class="hero">
+				<div class="container spacing">
+					<h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">Our Services</h1>
+				</div>
+			</div>
+
 
     <!--services-->
     <div class="services container py-5">

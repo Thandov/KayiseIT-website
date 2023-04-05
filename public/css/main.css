@@ -686,3 +686,69 @@ section {
     background-repeat: no-repeat;
     background-position: center center;
 }
+
+
+/* ==================================== services header Styling ==================================== */
+
+.primary-title {
+  font-size: 3rem;
+  font-size: clamp(1rem, calc(5vw + 1rem), 4.5rem);
+  line-height: 1;
+}
+
+
+
+.hero {
+  color: white;
+  padding: 10em 0;
+  background: #222;
+  font-weight: bold;
+}
+
+@supports (background-blend-mode: multiply) {
+  .hero {
+    background: url('../images/landing-page/pexels-muffin-creatives-4584612.jpg'), radial-gradient(#444, #aaa);
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+.hero {
+  --clr-accent: #faa700;
+}
+
+/* ==================================== about header Styling ==================================== */
+
+.primary-title {
+  font-size: 3rem;
+  font-size: clamp(1rem, calc(5vw + 1rem), 4.5rem);
+  line-height: 1;
+}
+
+
+
+.about-hero {
+  color: white;
+  padding: 10em 0;
+  background: #222;
+  font-weight: bold;
+}
+
+@supports (background-blend-mode: multiply) {
+  .about-hero {
+    background: url('../images/landing-page/img_Keyboard_3.jpg');
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+.about-hero {
+  --clr-accent: #faa700;
+}
+
