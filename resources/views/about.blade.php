@@ -76,7 +76,7 @@
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-            <p style="color: #183ea4" class="card-text">Director</p>
+            <p style="color: #183ea4" class="card-text font-bold">Director</p>
           </div>
         </div>
 
@@ -84,7 +84,7 @@
           <img src="../images/thandi.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thandiwe Mathebula</h5>
-            <p style="color: #183ea4" class="card-text">Business Developer</p>
+            <p style="color: #183ea4" class="card-text font-bold">Business Developer</p>
           </div>
         </div>
 

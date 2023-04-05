@@ -144,7 +144,7 @@
         <div class = "services">
             <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
             <div class="text-2 px-10">
-                <p data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></p>
+                <p class="font-bold" data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></p>
                 <h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
                 <p data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
                     knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
