@@ -54,18 +54,16 @@
           <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if (Auth::check())
-          <p class="mt-1 fs-6 fw-bold" style = "color:#183ea4">Subscribe</p>
+          <p class="mt-1 fs-6 fw-bold" style = "color:#183ea4">Subscribe To Newsletter</p>
             <div class="input-group">
-                <button class="btn shadow-lg text-white btn-block " type="button" id="button-addon2">Button</button>
+            <button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button>
             </div>
           </div>
           @else
           <p class="mt-1 fs-6 fw-bold" style = "color:#183ea4">Subscribe</p>
             <div class="input-group">
-                
-                <input type="text" class="form-control" placeholder="Your Email"
-                    aria-label="Your Email" aria-describedby="button-addon2">
-                <button class="btn shadow-lg text-white btn-block " type="button" id="button-addon2">Button</button>
+              <input type="text" name="email" class="form-control" placeholder="Enter your email">
+              <button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button>
             </div>
           </div>
           @endif

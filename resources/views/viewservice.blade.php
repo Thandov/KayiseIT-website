@@ -7,17 +7,17 @@
       <div class="row justify-content-center align-items-center">
          <div class="col-md-10">
 
-         <h2 class="text-center mb-4 font-bold text-5xl md:text-5xl">{{$service['name']}}</h2>
-      <p class="text-center mb-5 font-bold text-success md:text-5">{{$service['description']}}</p>
+         <h2 style="color: #64bc5c" class="text-center mb-4 font-bold text-5xl md:text-5xl">{{$service['name']}}</h2>
+         <p style="color: #183ea4" class="text-center mb-2 font-bold md:text-5">{{$service['description']}}</p>
      
          <div class="d-flex justify-content-center align-items-center">
             <div class="row">
             @foreach($subservices as $subservice)
 
-            <div class="col-md-3 col-sm-6 mb-4">
+            <div class="col-md-4 col-sm-6 m-4 align-items-center">
                <a href="{{ url('viewsubservice/'.$subservice->id) }}">
 
-                  <div class="card-container flex flex-wrap justify-center md:justify-start gap-5 max-w-7xl mx-auto sm:px-6 lg:px-12">
+                  <div class="card-container flex flex-wrap justify-center md:justify-start max-w-7xl mx-auto">
                      <div class="card" style="width: 25rem;">
                         <div class="card-body">
                            <div class="row">

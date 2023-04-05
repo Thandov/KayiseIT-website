@@ -2,7 +2,7 @@
 
         <div class="container mb-10">
             <div class="row">
-                <p style="color: #183ea4" class="card-text  mb-3 text-center" data-aos="fade-up" data-aos-delay="300">
+                <p style="color: #183ea4" class="card-text  mb-3 text-center font-bold" data-aos="fade-up" data-aos-delay="300">
                     Some of our clients</p>
                 <h2 style="color: #64bc5c" class="font-bold text-center mb-5 text-5xl md:text-5xl" data-aos="fade-down"
                     data-aos-delay="300">We strive to work with the best</h2>

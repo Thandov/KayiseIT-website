@@ -16,7 +16,7 @@
         <div class="row justify-content-center">
             <div class="col">
 
-            <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5"><strong>Our Services</strong></p>
+                <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5"><strong>Our Services</strong></p>
                 <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl">Managed I.T. Solutions</h2>
 
 
