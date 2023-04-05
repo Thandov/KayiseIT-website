@@ -1,19 +1,5 @@
 <x-app-layout title="Home">
-    <!-- Hero 
-			<div class="hero">
-				<div class="container spacing">
-					<h3 data-aos="fade-down" data-aos-delay="500" class="text-3xl font-bold"><span>KAYISE IT</span></h3>
-					<h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">We love Technology</h1>
-					<p data-aos="fade-up" data-aos-delay="1000">Through our robust IT services, Office Automation, Network Support and digital upskilling, we help our clients achieve their organizations objectives using technology.</p>
-					<br>
-					<br>
-          <a href="#" class="hire" data-aos="fade-up" data-aos-delay="1000">See what we have</a>
-				</div>
-			</div>
-			-->
-
-
-            
+    <!--Carousel-->      
     <div class="jumbotron bg-gray-400 bg-gradient position-relative">
         <div class="owl-carousel owl-theme" id="headercara">
             <x-carousel-item pic="../images/landing-page/group.jpg" topTitle="We Specialize In"
@@ -26,13 +12,13 @@
     </div>
 
 
-    <!--services-->
+    <!--freatured services-->
     <div class="services container py-5">
         <div class="row justify-content-center">
             <div class="col">
 
-                <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5"><strong>Our Services</strong></p>
-                <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl">Managed I.T. Solutions</h2>
+                <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5" data-aos="fade-down" data-aos-delay="500"><strong>Our Services</strong></p>
+                <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="500">Managed I.T. Solutions</h2>
                 
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">
@@ -64,7 +50,7 @@
                     </div>
                 </div>
                 <div class=" text-center mt-3 text-2xl font-bold">
-                    <span><a href="services" class="hire shadow">view all</a></span>
+                    <span><a href="services" class="hire shadow" data-aos="fade-up" data-aos-delay="500">view all</a></span>
                 </div>
 
             </div>
@@ -91,7 +77,7 @@
                     capacity in communities and young people. </p>
 
                 <div class="data" data-aos="fade-up" data-aos-delay="500">
-                    <a href="navbar/about" class="hire shadow">Discover More</a>
+                    <a href="navbar/about" class="hire shadow" data-aos="fade-up" data-aos-delay="500">Discover More</a>
                 </div>
             </div>
 
@@ -153,7 +139,7 @@
 
 
 
-    <!--Services-->
+    <!--Services Call-To-Action-->
     <section class = "our-services">
         <div class = "services">
             <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
@@ -164,7 +150,7 @@
                     knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                     that our clients grow their business.</p>
                 <div class="data">
-                    <a href="services" class="hiree">Learn More</a>
+                    <a href="services" class="hiree" data-aos="fade-up" data-aos-delay="500">Learn More</a>
                 </div>
             </div>
         </div>
@@ -174,8 +160,8 @@
     <div class="testimonial container py-5" id="testimonial_background">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5">Testimonials</p>
-                <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">What They Say</h2>
+                <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5" data-aos="fade-down" data-aos-delay="500">Testimonials</p>
+                <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="500">What They Say</h2>
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row px-1">
