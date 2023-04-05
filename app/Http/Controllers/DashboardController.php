@@ -16,10 +16,18 @@ class DashboardController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('client')){
-            return view('home');
+            
+            $services = Service::all();
+            $testimonials = Testimonial::all();
+            $blog = Blog::all();
+            return view('home', compact('services', 'testimonials', 'blog'));
         }
         else if(Auth::user()->hasRole('business')){
-            return view('home');
+
+            $services = Service::all();
+            $testimonials = Testimonial::all();
+            $blog = Blog::all();
+            return view('home', compact('services', 'testimonials', 'blog'));
 
         }
         else if(Auth::user()->hasRole('admin')){
