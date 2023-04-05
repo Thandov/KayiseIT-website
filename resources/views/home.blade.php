@@ -70,7 +70,7 @@
             <div class="col-sm-12 col-md-6 col-lg-6">
                 <p style="color: #183ea4" data-aos="fade-down" data-aos-delay="500"><strong>About Us</strong></p>
                 <h2  class="m" style="color: #64bc5c" data-aos="fade-up" data-aos-delay="500">We Specialize In Custom Tailored I.T Solutions.</h2>
-                <p class="" data-aos="fade-right" data-aos-delay="500"><span>KAYISE IT </span>Welcome to KAYISE IT, a
+                <p class="fs-6" data-aos="fade-right" data-aos-delay="500"><span>KAYISE IT </span>Welcome to KAYISE IT, a
                     leading
                     IT company specializing in software and web development, as well as providing 4IR skills
                     training. With a decade of experience in the industry, we are passionate about building ICT
@@ -146,7 +146,7 @@
             <div class="text-2 px-10">
                 <p class="font-bold" data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></p>
                 <h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
-                <p data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
+                <p class="fs-6" data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
                     knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                     that our clients grow their business.</p>
                 <div class="data">
@@ -184,7 +184,7 @@
                                                     @endif
                                                 @endfor
                                             </div>
-                                            <p class="card-text py-3">
+                                            <p class="card-text py-3 fs-6">
                                                 {{ $testimonial['testimony'] }}</p>
                                             <div class="col-4">
                                                 <img src="{{ asset('images/'.$testimonial->icon) }}"

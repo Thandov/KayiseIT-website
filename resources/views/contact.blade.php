@@ -28,7 +28,7 @@
                     <h2 style="color: #64bc5c" class="font-bold text-5xl md:text-5xl">Get In Touch With Us.</h2>
                     <br>
                     <div>
-                         <p style="color: #183ea4" class="font-bold text-xl">Send us an email or give us a call and get top shelf advice on
+                         <p style="color: #183ea4" class="font-bold fs-5">Send us an email or give us a call and get top shelf advice on
 the best IT strategies to help grow your business online.
 </p>
                     </div>

@@ -15,7 +15,7 @@
         <h2 style="color: #64bc5c" class="font-bold text-5xl md:text-5xl">We Specialize In Custom Tailored IT Solutions.</h2>
         <br>
         <div>
-          KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.
+          <p class="fs-6">KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.</p>
         </div>
         <br>
         <a href="services" class="hiree shadow">Discover More</a>
@@ -41,7 +41,7 @@
                 <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Vision</h3>
               </div>
               </div>
-            <p class="card-text text-center">KAYISE IT: Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
+            <p class="card-text text-center fs-6">KAYISE IT: Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
           </div>
         </div>
       
@@ -52,7 +52,7 @@
                 <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Mission</h3>
               </div>
               </div>
-            <p class="card-text text-center">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
+            <p class="card-text text-center fs-6">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
           </div>
         </div>
         
@@ -72,7 +72,7 @@
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-            <p style="color: #183ea4" class="card-text font-bold">Director</p>
+            <p style="color: #183ea4" class="card-text font-bold fs-6">Director</p>
           </div>
         </div>
 
@@ -80,7 +80,7 @@
           <img src="../images/thandi.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thandiwe Mathebula</h5>
-            <p style="color: #183ea4" class="card-text font-bold">Business Developer</p>
+            <p style="color: #183ea4" class="card-text font-bold fs-6">Business Developer</p>
           </div>
         </div>
 
