@@ -12,9 +12,9 @@
     </div>
 
     <!--services-->
-    <div class="container py-5">
+    <div class="services container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col">
 
             <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5"><strong>Our Services</strong></p>
                 <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl">Managed I.T. Solutions</h2>
@@ -25,7 +25,7 @@
 
                         @foreach($services as $service)
 
-                        <div class="col-lg-3 col-md-4 col-sm-12 m-3">
+                        <div class="col-lg-3 col-md-6 col-sm-12 my-3">
                                 <a href="{{ url('viewservice/'.$service->id) }}">
                                     <div class="card  text-white" data-aos="fade-left" data-aos-delay="500">
                                         <img src="{{ asset('images/service_logo/'.$service->icon) }}"

@@ -29,7 +29,7 @@
     <!--services-->
     <div class="services container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col">
 
                 <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5"><strong>Our Services</strong></p>
                 <h2 style="color: #64bc5c" class="text-center mb-4  font-bold text-5xl md:text-5xl">Managed I.T. Solutions</h2>
@@ -41,7 +41,7 @@
                         @endphp
                         @foreach($services as $service)
                             @if($counter < 3)
-                                <div class="col-md-4 col-sm-6 mb-4">
+                                <div class="col-md-4 col-sm-6 my-3">
                                     <a href="{{ url('viewservice/'.$service->id) }}">
                                         <div class="card  text-white" data-aos="fade-left" data-aos-delay="500">
                                             <img src="{{ asset('images/service_logo/'.$service->icon) }}"
@@ -63,7 +63,7 @@
                         @endforeach
                     </div>
                 </div>
-                <div class=" text-center text-2xl font-bold">
+                <div class=" text-center mt-3 text-2xl font-bold">
                     <span><a href="services" class="hire shadow">view all</a></span>
                 </div>
 
@@ -173,7 +173,7 @@
     <!--Testimonials-->
     <div class="testimonial container py-5" id="testimonial_background">
         <div class="row justify-content-center">
-            <div class="colmd-10">
+            <div class="col-md-10">
                 <p style="color: #183ea4" class="text-center mb-4 font-bold md:text-5">Testimonials</p>
                 <h2 style="color: #64bc5c" class="text-center mb-5  font-bold text-5xl md:text-5xl">What They Say</h2>
 

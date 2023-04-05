@@ -124,15 +124,6 @@
 <style>
             
 /* ==================================== footer ==================================== */
-/*body {
-  padding: 0;
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-end;
-}*/
-
-
 
 footer{
   position: relative;
