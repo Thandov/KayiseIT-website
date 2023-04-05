@@ -1,10 +1,22 @@
 <x-app-layout>
+<!--
+<div class="jumbotron bg-gray-400 bg-gradient position-relative">
+        <div class="owl-carousel owl-theme" id="headercara">
+            <x-carousel-item pic="../images/landing-page/group.jpg" topTitle="We Specialize In"
+                mainTitle="Web Development" bottomTitle="..." />
+            <x-carousel-item pic="../images/landing-page/soft.jpg" topTitle="We specialize In"
+                mainTitle="Software Development" bottomTitle="..." />
+            <x-carousel-item pic="../images/landing-page/office.jpg" topTitle="We specialize In"
+                mainTitle="Office Automation" bottomTitle="..." />
+        </div>
+  </div>-->
+   
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
   <div class="carousel-item active">
-  <img src="/images/landing-page/img_Keyboard_2Copy.jpg" class="d-block w-100" alt="...">
+  <img src="/images/landing-page/img_Keyboard_3.jpg" class="d-block w-100" alt="..." >
   <div class="carousel-caption">
-        <h1 class="font-bold  md:text-7xl">Our Company</h1>
+        <h1 class="font-bold  md:text-7xl " data-aos="fade-right">About Us</h1>
   </div>
 </div>
 
@@ -15,9 +27,9 @@
   <div class="container">
     <div class="row flex flex-wrap justify-center">
       <div class="col-7 sm-col-12">
-        <p style="color: #183ea4" class="font-bold md:text-5" data-aos="fade-up">ABOUT US</p>
+        <p style="color: #183ea4" class="font-bold md:text-5" data-aos="fade-up"><strong>About Us</strong></p>
         <br>
-        <h2 style="color: #64bc5c" class="font-bold text-5xl md:text-5xl">We specialize in custom tailored IT solutions.</h2>
+        <h2 style="color: #64bc5c" class="font-bold text-5xl md:text-5xl">We Specialize In Custom Tailored IT Solutions.</h2>
         <br>
         <div>
           KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.
@@ -38,26 +50,23 @@
     <h2 style="color: #64bc5c" class="text-center font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="300">Our Fundamental Business</h2>
     <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
 
-        <div class="card border-success border-3" data-aos="fade-left" data-aos-delay="350" style="width: 30rem;">
+        <div class="card" data-aos="fade-left" data-aos-delay="350" style="width: 30rem;">
           <div class="card-body">
             <div class="row">
-              <div class="col-4">
-              </div>
-              <div class="col-8">
-                <h3 class="card-title text-2xl pt-3 font-bold">Vision</h3>
+             
+              <div class="col-12">
+                <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Vision</h3>
               </div>
               </div>
             <p class="card-text text-center">KAYISE IT: Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
           </div>
         </div>
       
-        <div class="card border-success border-3" data-aos="fade-right" data-aos-delay="300" style="width: 30rem">
+        <div class="card" data-aos="fade-right" data-aos-delay="300" style="width: 30rem">
           <div class="card-body">
           <div class="row">
-              <div class="col-4">
-              </div>
-              <div class="col-6">
-                <h3 class="card-title text-2xl pt-3 font-bold">Mission</h3>
+              <div class="col-12">
+                <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Mission</h3>
               </div>
               </div>
             <p class="card-text text-center">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
@@ -68,14 +77,15 @@
     </div>
   </div>
 
-<div class="bg py-5 mx-auto">
-  <div class="container max-w-7xl">
+  <!--Our team-->
+<div class="bg py-5 mx-auto" id ="team_background">
+  <div class="container team max-w-7xl">
     <div class="row">
       <p style="color: #183ea4" class="text-center mb-3 font-bold md:text-5" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
       <h2 class="text-center font-bold text-5xl text-white mb-10 md:text-5xl" data-aos="fade-down" data-aos-delay="500">Let Us Introduce Ourselves</h2>
       <div class="card-container flex flex-wrap justify-center md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
 
-        <div class="card border-0 text-center text-white" style="width: 18rem;" data-aos="fade-right" data-aos-delay="500">
+        <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;" data-aos="fade-right" data-aos-delay="500">
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
@@ -83,7 +93,7 @@
           </div>
         </div>
 
-        <div class="card border-0 text-center text-white" style="width: 18rem;" data-aos="fade-up" data-aos-delay="1000">
+        <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;" data-aos="fade-up" data-aos-delay="1000">
           <img src="../images/thandi.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thandiwe Mathebula</h5>
@@ -100,8 +110,8 @@
 
     <div class="container">
         <div class="row">
-          <h2 class="font-bold text-center text-5xl md:text-5xl" data-aos="fade-down" data-aos-delay="300">We strive to work with the best</h2>
-          <p class="card-text m-3 text-success text-center" data-aos="fade-up" data-aos-delay="300">Some of our clients</p>
+        <p style="color: #183ea4" class="card-text  mb-3 text-center" data-aos="fade-up" data-aos-delay="300"><strong>Some Of Our Clients</strong></p>
+                <h2 style="color: #64bc5c" class="font-bold text-center mb-5 text-5xl md:text-5xl" data-aos="fade-down" data-aos-delay="300">We Strive To Work With The Best</h2>
 
           <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
@@ -121,89 +131,5 @@
 
         </div>
     </div>
-
     </div>
-    
 </x-app-layout>
-
-<style>
-  @media (max-width: 767px) {
-    .card-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  @media screen and (max-width: 767px) {
-  /* hide the image when screen size is less than or equal to 767px */
-  .position-relative {
-    display: none;
-  }
-}
-
-.bg{
-  background-color: #64bc5c;
-}
-
-  .card {
-  height: 250px; /* Set a fixed height for each card */
-}
- .bg .card {
-  height: 250px; /* Set a fixed height for each card */
-  background-color: #64bc5c;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding-top: 20px;
-}
-
-@media screen and (max-width: 768px) {
-  .card-container {
-    justify-content: flex-start;
-  }
-
-  .card {
-    width: 100%;
-    max-width: 350px;
-  }
-}
-
-</style>
-
-<script>
-
-let slider = document.querySelector('.slide-container');
-let sliderWidth = slider.offsetWidth;
-let slideIndex = 0;
-
-function showSlides() {
-  let slides = document.querySelectorAll('.slide-container img');
-  let visibleSlides = window.innerWidth < 768 ? 3 : 4; // Change the number of visible slides based on the screen width
-  let slideWidth = sliderWidth / visibleSlides;
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove('show');
-  }
-  for (let i = slideIndex; i < slideIndex + visibleSlides; i++) {
-    if (slides[i]) {
-      slides[i].classList.add('show');
-    }
-  }
-  slideIndex++;
-  if (slideIndex > slides.length - visibleSlides) {
-    slideIndex = 0;
-  }
-  setTimeout(showSlides, 3000);
-}
-
-showSlides();
-
-AOS.init();
-
-</script>

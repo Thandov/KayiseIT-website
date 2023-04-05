@@ -27,6 +27,12 @@ span{
   font-size: 40px;
   font-weight: 700;
 }
+.card:hover,
+.card:focus {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  opacity: .9;
+}
 /* ==================================== Hero Styling ==================================== */
 *,
 *::before,
@@ -59,12 +65,6 @@ section {
   padding: 7em 0;
 }
 
-.container {
-  width: 85%;
-  max-width: 65em;
-  margin: 0 auto;
-}
-
 .split {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -85,29 +85,6 @@ section {
 
 .spacing > * + * {
   margin-top: var(--spacer, 2rem);
-}
-
-.btn {
-  display: inline-block;
-  text-decoration: none;
-  color: var(--clr-text, #fff);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 1.125rem;
-  padding: .5em 1.25em;
-  background: #64bc5c;
-  border-radius: .25em;
-  -webkit-transition: opacity 250ms linear, -webkit-transform 250ms ease-in-out;
-  transition: opacity 250ms linear, -webkit-transform 250ms ease-in-out;
-  transition: transform 250ms ease-in-out, opacity 250ms linear;
-  transition: transform 250ms ease-in-out, opacity 250ms linear, -webkit-transform 250ms ease-in-out;
-}
-
-.btn:hover,
-.btn:focus {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-  opacity: .9;
 }
 
 .primary-title {
@@ -237,27 +214,6 @@ section {
   }
 }
 
-.hero {
-  --clr-accent: #faa700;
-}
-
-.shoe-red {
-  --clr-inner: #faa700;
-  --clr-outer: #e48d00;
-  --clr-accent: #a1173c;
-}
-
-.shoe-white {
-  --clr-inner: #fce4b3;
-  --clr-outer: #eac886;
-  --clr-accent: #2f4858;
-}
-
-.shoe-blue {
-  --clr-inner: #6dd5ed;
-  --clr-outer: #2193b0;
-  --clr-accent: #008951;
-}
 /* ==================================== About Us Styling ==================================== */
 #about-us{
   height: auto;
@@ -268,15 +224,7 @@ section {
   height: auto;
   width:  312px;
 }
-.about{
-  width: 1130px;
-  max-width: 85%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
+
 .text{
   width: 540px;
 }
@@ -318,9 +266,13 @@ section {
 /* ==================================== Our Services Styling ==================================== */
 .our-services{
   
-  width: 100%;
-  padding: 90px 0;
-  background: #64bc5c;
+    width: 100%;
+    padding: 90px 0;
+    background: url('../images/Big Zee.jpg'), radial-gradient(#444, #111);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+  
 }
 .pic-2{
   height: auto;
@@ -334,15 +286,21 @@ section {
   align-items: center;
   justify-content: space-around;
 }
+
 .text-2{
   width: 540px;
 }
+
+.services-text {  
+  color: #ffffff;
+  font-weight: 600;
+}
+
 .text-2 h2{
 	color: #ffffff;
 	font-size: 45px;
 	font-weight: 600;
 	margin-bottom: 10px;
-
 }
 .text-2 h5{
   font-size: 22px;
@@ -385,18 +343,18 @@ section {
 }
 .hiree:hover{
   background: #000;
-  border: 1px solid #4070f4;
+  border: 1px solid #64bc5c;
 }
 /* ==================================== Contact Us Styling ==================================== */
 .contact-us{
-  width: 100%;
-  padding: 90px 0;
+
   background: #64bc5c;
 }
 .pic-3{
   height: auto;
   width:  612px;
 }
+
 .contact{
   width: 1130px;
   max-width: 85%;
@@ -405,16 +363,18 @@ section {
   align-items: center;
   justify-content: space-around;
 }
+
 .text-3{
 	color: #ffffff;
   width: 540px;
 }
+
 .text-3 h2{
   font-size: 45px;
   font-weight: 600;
   margin-bottom: 10px;
-
 }
+
 .text-3 h5{
   font-size: 22px;
   font-weight: 500;
@@ -486,12 +446,7 @@ section {
 /* Media queries */
 @media screen and (max-width: 952px) {
 
-  #about-us, .our-services, .contact-us {
-	  
-    padding: 30px;
-  }
-  
-  
+
   
   #about-us .row .text, .our-services .services .text-2, .contact-us .contact .text-3 {
     flex-basis: 100%;
@@ -521,7 +476,6 @@ section {
     flex-basis: 100%;
     max-width: 100%;
     height: auto;  /* add this line to set the maximum height of the image*/ 
-    
   }
 }
 
@@ -681,6 +635,53 @@ section {
 
 
 
+/*==================================================Slider CSS==========================================*/
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+.slide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-container {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  transition: transform 0.1s ease;
+}
+
+.slide-container img {
+  width: 23%;
+  margin: 0 20px 0 0;
+  box-sizing: border-box;
+  display: none;
+}
+
+.slide-container img:last-child {
+  margin-right: 0;
+}
+
+.slide-container img.show {
+  display: block;
+}
+
+
+.card {
+  height: 250px; /* Set a fixed height for each card */
+}
+.card-img {
+  height: 100%; /* Make the image fill the entire height of the card */
+  object-fit: cover; /* Scale the image while maintaining its aspect ratio */
+}
+
+.testimonial .card {
+  height: auto; /* Set a fixed height for each card */
+}
+
+
 
 .carousel-inner {
   background-size: cover;
@@ -712,7 +713,7 @@ section {
   }
 }
 
-        
+
 .animate {
   opacity: 0;
   transform: translateY(50px);
@@ -725,46 +726,20 @@ section {
 }
 
 
-
-.slider {
+#testimonial_background {
   width: 100%;
-  overflow: hidden;
-}
-.slide-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.slide-container {
-  display: flex;
-  align-content: center;
-  flex-wrap: wrap;
-  transition: transform 0.1s ease;
+  padding: 90px 0;
+    background: url('../images/pexels-marcelo-verfe-12954767.jpg'), radial-gradient(#444, #111);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-.slide-container img {
-  width: 23%;
-  margin: 0 20px 0 0;
-  box-sizing: border-box;
-  display: none;
+#team_background {
+  width: 100%;
+  padding: 90px 0;
+    background: url('../images/Kayise Full Zebra Background.jpg'), radial-gradient(#444, #111);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
-
-.slide-container img:last-child {
-  margin-right: 0;
-}
-
-.slide-container img.show {
-  display: block;
-}
-
-.services .card {
-    height: 250px; /* Set a fixed height for each card */
-    width: 300px;
-  }
- .services .card-img {
-    height: 100%; /* Make the image fill the entire height of the card */
-    object-fit: cover; /* Scale the image while maintaining its aspect ratio */
-  }
-
