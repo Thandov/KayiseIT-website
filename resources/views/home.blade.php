@@ -82,7 +82,7 @@
             </div>
 
             <div class="col-sm-12 col-md-6 col-lg-6">
-                <h3 style="color: #183ea4" data-aos="fade-down" data-aos-delay="500"><strong>About Us</strong></h3>
+                <p style="color: #183ea4" data-aos="fade-down" data-aos-delay="500"><strong>About Us</strong></p>
                 <h2  class="m" style="color: #64bc5c" data-aos="fade-up" data-aos-delay="500">We Specialize In Custom Tailored I.T Solutions.</h2>
                 <p class="" data-aos="fade-right" data-aos-delay="500"><span>KAYISE IT </span>Welcome to KAYISE IT, a
                     leading
@@ -158,7 +158,7 @@
         <div class = "services">
             <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
             <div class="text-2 px-10">
-                <h3 data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></h3>
+                <p data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></p>
                 <h2 data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</h2>
                 <p data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
                     knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
