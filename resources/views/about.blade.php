@@ -71,7 +71,7 @@
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-            <p class="smalltxt card-text font-bold fs-6">Director</p>
+            <p class="smalltxt  card-text font-bold fs-6">Director</p>
           </div>
         </div>
 
