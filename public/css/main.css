@@ -48,13 +48,6 @@ img {
   display: block;
 }
 
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-}
-
 section {
   padding: 7em 0;
 }
@@ -368,7 +361,7 @@ section {
 
 @media screen and (max-width: 700px) {
   #about-us h2, .our-services h2, .contact-us h2 {
-    font-size: 28px;
+    font-size: 80px;
     line-height: 36px;
   }
   
