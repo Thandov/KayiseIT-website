@@ -23,7 +23,7 @@
             <x-application-logo class="block h-5 w-auto fill-current text-gray-600" />
         </a>
     </div>
-    <div class="flex items-center justify-end pr-10 md:grid md:grid-cols-5">
+    <div class="flex items-center justify-end pr-10">
         <!-- Navigation Links -->
         @if (!empty(Auth::user()->name))
         @if(Auth::user()->hasRole('admin'))
@@ -34,13 +34,11 @@
         </div>
         @endif
         @endif
-
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-nav-link>
         </div>
-
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('services')" :active="request()->routeIs('services')">
                 {{ __('Services') }}
