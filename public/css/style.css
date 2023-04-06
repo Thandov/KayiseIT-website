@@ -1,4 +1,50 @@
 @charset "UTF-8";
+/* Font Sizes Variables */
+.mskills {
+  min-height: 300px;
+}
+
+.btn-primary {
+  background-color: #64bc5c !important;
+}
+
+.overviews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.overview {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.overview span {
+  font-size: 65px;
+  font-weight: bold;
+  font-weight: 800;
+  color: #183ea4;
+}
+.overview p {
+  font-size: 17px;
+  font-weight: bold;
+  color: #000000;
+}
+.overview .img_overview {
+  width: 30px;
+  margin: 0% auto;
+}
+
+#testimonial_background {
+  width: 100%;
+  padding: 90px 0;
+  background: url("../images/pexels-marcelo-verfe-12954767.jpg"), radial-gradient(#444, #111);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -15,6 +61,14 @@ input::-webkit-inner-spin-button {
 
 #thapelo {
   margin: 10px 0px;
+}
+
+.smalltxt {
+  color: #183ea4;
+}
+
+.bigtxt {
+  color: #64bc5c;
 }
 
 .homecard {
@@ -231,7 +285,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #e75480;
+  border: 1px solid #64bc5c;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -250,11 +304,11 @@ li {
   transform-origin: 50% 50%;
 }
 .radioBoxparent :checked + label {
-  border-color: #e75480;
+  border-color: #64bc5c;
 }
 .radioBoxparent :checked + label:before {
   content: "✓";
-  background-color: #e75480;
+  background-color: #64bc5c;
   transform: scale(1);
 }
 .radioBoxparent :checked + label img {
@@ -279,7 +333,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #e75480;
+  border: 1px solid #64bc5c;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -298,11 +352,11 @@ li {
   transform-origin: 50% 50%;
 }
 .checkboxparent :checked + label {
-  border-color: #e75480;
+  border-color: #64bc5c;
 }
 .checkboxparent :checked + label:before {
   content: "✓";
-  background-color: #e75480;
+  background-color: #64bc5c;
   transform: scale(1);
 }
 .checkboxparent :checked + label img {
@@ -327,7 +381,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #e75480;
+  border: 1px solid #64bc5c;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -346,11 +400,11 @@ li {
   transform-origin: 50% 50%;
 }
 .extraservdiv :checked + label {
-  border-color: #e75480;
+  border-color: #64bc5c;
 }
 .extraservdiv :checked + label:before {
   content: "✓";
-  background-color: #e75480;
+  background-color: #64bc5c;
   transform: scale(1);
 }
 .extraservdiv :checked + label img {

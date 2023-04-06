@@ -1,5 +1,55 @@
-$pcolor: #e75480;
-$scolor: pink;
+$pcolor: #64bc5c;
+$scolor: #183ea4;
+
+/* Font Sizes Variables */
+$headingsize: 24px;
+$readingsize: 12px;
+
+.mskills {
+  min-height: 300px;
+}
+.btn-primary {
+  background-color: $pcolor !important;
+}
+
+.overviews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.overview {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+   span {
+    font-size: 65px;
+    font-weight: bold;
+    font-weight: 800;
+    color: $scolor;
+  }
+
+   p {
+    font-size: 17px;
+    font-weight: bold;
+    color: #000000;
+  }
+
+  .img_overview {
+    width: 30px;
+    margin: 0% auto;
+  }
+}
+
+#testimonial_background {
+  width: 100%;
+  padding: 90px 0;
+  background: url("../images/pexels-marcelo-verfe-12954767.jpg"), radial-gradient(#444, #111);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -17,53 +67,58 @@ input::-webkit-inner-spin-button {
     }
   }
 }
-#thapelo{
+#thapelo {
   margin: 10px 0px;
 }
-.homecard
-{
+.smalltxt {
+  color: #183ea4;
+}
+.bigtxt {
+  color: #64bc5c;
+}
+.homecard {
   min-height: 200px;
-  width: 200px; 
+  width: 200px;
   position: relative;
   padding: 20px 0 0 0;
-  
-  .editwrapper{
+
+  .editwrapper {
     position: absolute;
     right: 0;
     top: 0;
     width: 50px;
     justify-content: end;
-    svg{
+    svg {
       width: 25px;
-    margin: 10px auto;    }
+      margin: 10px auto;
+    }
   }
-  .svgwrapper{
-    svg{
+  .svgwrapper {
+    svg {
       width: 60px;
       margin: 10px auto;
     }
   }
-  
 }
 
-.commcard 
-{
+.commcard {
   min-height: 200px;
-  width: 250px; 
+  width: 250px;
   position: relative;
   padding: 20px 0;
-  .editwrapper{
+  .editwrapper {
     position: absolute;
     right: 0;
     top: 0;
     width: 50px;
     justify-content: end;
-    svg{
+    svg {
       width: 25px;
-    margin: 10px auto;    }
+      margin: 10px auto;
+    }
   }
-  .svgwrapper{
-    svg{
+  .svgwrapper {
+    svg {
       width: 60px;
       margin: 10px auto;
     }
@@ -415,11 +470,9 @@ div.sticky {
 }
 
 @media only screen and (min-width: 600px) {
-  #thapelo{
+  #thapelo {
     margin: 10px;
   }
-
-  
 
   .housecard.house {
     width: 100%;
