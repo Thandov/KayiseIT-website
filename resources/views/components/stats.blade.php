@@ -1,5 +1,5 @@
 <!--skills-->
-<div class="mskills bg-danger d-flex align-items-center justify-content-center">
+<div class="mskills bg-grey d-flex align-items-center justify-content-center">
     <div class="skills">
         <div class="top-section">
             <div class="col">

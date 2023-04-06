@@ -12,9 +12,7 @@
         <div class="row justify-content-center">
             <div class="col">
 
-            <p class="smalltxt font-bold" class="text-center mb-4 font-bold md:text-5" data-aos="fade-down" data-aos-delay="500"><strong>Our Services</strong></p>
-                <h2 class="bigtxt font-bold text-5xl" class="text-center mb-4  font-bold text-5xl md:text-5xl" data-aos="fade-up" data-aos-delay="500">Managed I.T. Solutions</h2>
-
+            <x-headings small="Our Services" big="Managed I.T. Solutions" toalign="text-center"/>
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">

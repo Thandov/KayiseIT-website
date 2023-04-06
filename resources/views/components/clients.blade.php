@@ -2,10 +2,8 @@
 
         <div class="container mb-10">
             <div class="row">
-                <p style="color: #183ea4" class="card-text  mb-3 text-center font-bold" data-aos="fade-up" data-aos-delay="300">
-                    Some of our clients</p>
-                <h2 style="color: #64bc5c" class="font-bold text-center mb-5 text-5xl md:text-5xl" data-aos="fade-down"
-                    data-aos-delay="300">We strive to work with the best</h2>
+
+                <x-headings small="Some of our clients" big="We strive to work with the best" toalign="text-center"/>
 
                 <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 

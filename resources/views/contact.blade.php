@@ -34,15 +34,15 @@
                     </div>
                     <br>
                     <div>
-                        <i class="fa-solid fa-phone px-2"></i>+27 87 702 2625
+                        <i id="contact-socials" class="fa-solid fa-phone px-2"></i>+27 87 702 2625
                     </div>
                     <br>
                     <div>
-                        <i class="fa-solid fa-envelope px-2"></i> info@kayiseit.co.za
+                        <i id="contact-socials" class="fa-solid fa-envelope px-2"></i> info@kayiseit.co.za
                     </div>
                     <br>
                     <div>
-                        <i class="fa-solid fa-location-dot px-2"></i>39B Nelbro Building, Mbombela, 2nd floor Office 02.
+                        <i id="contact-socials" class="fa-solid fa-location-dot px-2"></i>39B Nelbro Building, Mbombela, 2nd floor Office 02.
                     </div>
                     <br>
 
@@ -57,29 +57,37 @@
 
                             <div class="row">
                                 <div class="col-6 ">
-
-                                    <input type="text" class="form-control rounded" placeholder="Your Name" id="name" name="name" required>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control rounded" placeholder="Your Name" id="name" name="name" required>
+                                        <label for="floatingTextarea">Your Name</label>
+                                    </div>
                                 </div>
 
                                 <div class="col-6">
-
-                                    <input type="email" class="form-control rounded" placeholder="Your Surname" id="email" name="email" required>
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control rounded" placeholder="Your Surname" id="email" name="email" required>
+                                        <label for="floatingTextarea">Your Surname</label>
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="form-group mb-4">
-
-                            <input type="text" class="form-control rounded" placeholder="Your Subject" id="subject" name="subject" required>
+                            <div class="form-floating">
+                                <input type="text" class="form-control rounded" placeholder="Your Subject" id="subject" name="subject" required>
+                                <label for="floatingTextarea">Your Subject</label>
+                            </div>
                         </div>
 
                         <div class="form-group mb-4">
-
-                            <textarea class="form-control rounded" placeholder="Your Message" id="message" name="message" rows="5" required></textarea>
+                            <div class="form-floating">
+                                <textarea class="form-control rounded" placeholder="Your Message" id="message" name="message" rows="5" style="height: 150px" required></textarea>
+                                <label for="floatingTextarea">Your Message</label>
+                            </div>
                         </div>
 
-                        <button type="submit" style="background-color: #64bc5c" class="btn text-white">Submit</button>
+                        <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Submit</button>
                     </form>
                 </div>
 

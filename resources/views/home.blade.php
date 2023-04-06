@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="text-center mt-3 text-2xl font-bold">
-                <span><a href="services" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ml-4" data-aos="fade-up" data-aos-delay="500">view all</a></span>
+                <a href="services" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ml-4" data-aos="fade-up" data-aos-delay="500">view all</a>
             </div>
 
         </div>
@@ -134,17 +134,19 @@
     <section id="our-services">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
+                <div class="col-sm-6">
+                    <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3" data-aos="fade-right" data-aos-delay="500">
                 </div>
-                <div class="col-sm-12 col-md-6 text-2 px-10 d-flex align-items-center">
+                <div class="col-sm-6 text-2 px-10 d-flex align-items-center">
                     <div>
-                        <x-body smheading="OUR SERVICES" 
-                                bgheading="Managed I.T. solutions tailored to your business." 
-                                paragraph="Develop efficient & effective digital projects with
-                                knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
-                                that our clients grow their business." 
-                                btnlink="services" btntext="Learn More"/>
+                        <p class="smalltxt font-bold" data-aos="fade-left" data-aos-delay="700">OUR SERVICES</p>
+                        <h2 id="white-text" class=" font-bold text-5xl" data-aos="fade-up" data-aos-delay="500">Managed I.T. solutions tailored to your business.</h2>
+                        <p class="fs-6" data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
+                            knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
+                            that our clients grow their business.</p>
+                        <div class="data">
+                            <a href="services"  id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" data-aos="fade-up" data-aos-delay="500">Learn More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -173,7 +175,7 @@
                                                 $avg_rating = DB::table('testimonials')->where('id',
                                                 $testimonial->id)->avg('ratings');
                                                 @endphp
-                                                @for($i = 1; $i <= 5; $i++) @if($i <=$avg_rating) <i class="fas fa-star" style="color: #64bc5c;"></i>
+                                                @for($i = 1; $i <= 5; $i++) @if($i <=$avg_rating) <i class="fas fa-star"></i>
                                                     @else
                                                     <i class="far fa-star"></i>
                                                     @endif
