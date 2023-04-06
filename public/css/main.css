@@ -707,7 +707,7 @@ section {
 
 @supports (background-blend-mode: multiply) {
   .hero {
-    background: url('../images/landing-page/pexels-muffin-creatives-4584612.jpg'), radial-gradient(#444, #aaa);
+    background: url('../images/landing-page/pexels-muffin-creatives-4584612.jpg'), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -739,7 +739,7 @@ section {
 
 @supports (background-blend-mode: multiply) {
   .about-hero {
-    background: url('../images/landing-page/img_Keyboard_3.jpg');
+    background: url('../images/landing-page/img_Keyboard_3.jpg'), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
