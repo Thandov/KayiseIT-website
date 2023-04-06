@@ -14,8 +14,7 @@
         <div class="row justify-content-center">
             <div class="col">
 
-                <p class="smalltxt font-bold" data-aos="fade-down" data-aos-delay="500"><strong>Our Services</strong></p>
-                <h2 class="bigtxt font-bold text-5xl" data-aos="fade-up" data-aos-delay="500">Managed I.T. Solutions</h2>
+            <x-headings small="Our Services" big="Managed I.T. Solutions" toalign="text-center"/>
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">
@@ -64,13 +63,11 @@
 
                 <div class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center">
                     <div class="">
-                        <p class="smalltxt font-bold" data-aos="fade-down" data-aos-delay="500"><strong>About Us</strong></p>
-                        <h2 class="bigtxt font-bold text-5xl" data-aos="fade-up" data-aos-delay="500">We Specialize In Custom Tailored I.T Solutions.</h2>
-                        <p class="fs-6" data-aos="fade-right" data-aos-delay="500"><span>KAYISE IT </span>Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training. With a decade of experience in the industry, we are passionate about building ICT capacity in communities and young people. </p>
 
-                        <div class="data" data-aos="fade-up" data-aos-delay="500">
-                            <a href="navbar/about" class="btn btn-success shadow" data-aos="fade-up" data-aos-delay="500">Discover More</a>
-                        </div>
+                        <x-body smheading="About Us" 
+                                bgheading="We Specialize In Custom Tailored I.T Solutions." 
+                                paragraph="Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training. With a decade of experience in the industry, we are passionate about building ICT capacity in communities and young people." 
+                                btnlink="about" btntext="Discover More"/>
                     </div>
                 </div>
 
@@ -137,32 +134,31 @@
     <section id="our-services">
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-12 col-md-6">
                     <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg" data-aos="fade-right" data-aos-delay="500">
                 </div>
-                <div class="col-sm-8 text-2 px-10 d-flex align-items-center">
+                <div class="col-sm-12 col-md-6 text-2 px-10 d-flex align-items-center">
                     <div>
-                        <p class="smalltxt font-bold" data-aos="fade-left" data-aos-delay="700">Managed I.T. solutions tailored to your business.</p>
-                        <h2 class="bigtxt font-bold text-5xl" data-aos="fade-up" data-aos-delay="500"><span>OUR SERVICES</span></h2>
-                        <p class="fs-6" data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
-                            knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
-                            that our clients grow their business.</p>
-                        <div class="data">
-                            <a href="services" class="btn btn-success" data-aos="fade-up" data-aos-delay="500">Learn More</a>
-                        </div>
+                        <x-body smheading="OUR SERVICES" 
+                                bgheading="Managed I.T. solutions tailored to your business." 
+                                paragraph="Develop efficient & effective digital projects with
+                                knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
+                                that our clients grow their business." 
+                                btnlink="services" btntext="Learn More"/>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+
     <!--Testimonials-->
     <section class="testimonial" id="testimonial_background">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <p class="smalltxt font-bold" data-aos="fade-down" data-aos-delay="500">Testimonials</p>
-                    <h2 class="bigtxt font-bold text-5xl" data-aos="fade-up" data-aos-delay="500">What They Say</h2>
+                    
+                    <x-headings small="Testimonials" big="What They Say" toalign="text-center"/>
 
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="row px-1">

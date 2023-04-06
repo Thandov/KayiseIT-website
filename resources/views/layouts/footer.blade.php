@@ -3,7 +3,7 @@
     <div class="footer-content">
       <div class="top">
         <div class="logo-details">
-          <img src="./images/Logo_White_No_Background.png" alt="footer_logo" width="116.8px" height="53px">
+          <img src="../images/Logo_White_No_Background.png" alt="footer_logo" width="116.8px" height="53px">
         </div>
         <div class="media-icons">
           <a href="https://www.facebook.com/KAYISEIT?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
@@ -91,19 +91,19 @@
         
         <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
             <div class="d-flex justify-content-center align-items-center">
-                <div class=" mr-4"><img src="./images/Payment Methods (Footer)/Visa.png" alt="Visa"
+                <div class=" mr-4"><img src="../images/payment_methods/Visa.png" alt="Visa"
                         Width="45" height="45"></div>
                 <div class=" mr-4"><img
-                        src="./images/Payment Methods (Footer)/Verified-by-Visa.png" alt="Verified by Visa"
+                        src="../images/payment_methods/Verified-by-Visa.png" alt="Verified by Visa"
                         Width="45" height="45"></div>
                 <div class=" mr-4"><img
-                        src="./images/Payment Methods (Footer)/PayGate-Payment-Method-Logo-American-Express.png"
+                        src="../images/payment_methods/PayGate-Payment-Method-Logo-American-Express.png"
                         alt="American Express" Width="45" height="45"></div>
                 <div class="mr-4"><img
-                        src="./images/Payment Methods (Footer)/PayGate-Card-Brand-Logo-MasterCard.png"
+                        src="../images/payment_methods/PayGate-Card-Brand-Logo-MasterCard.png"
                         alt="MasterCard" Width="45" height="45"></div>
                 <div class=""><img
-                        src="./images/Payment Methods (Footer)/MasterCard-SecureCode.png"
+                        src="../images/payment_methods/MasterCard-SecureCode.png"
                         alt="MasterCard SecureCode" Width="45" height="45"></div>
             </div>
         </div>
