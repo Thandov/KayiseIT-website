@@ -25,7 +25,7 @@
 
                     <p class="smalltxt font-bold">CONTACT US</p>
                     <br>
-                    <h2 class="bigtxt font-bold">Get In Touch With Us.</h2>
+                    <h2 class="bigtxt font-bold text-5xl">Get In Touch With Us.</h2>
                     <br>
                     <div>
                         <p style="color: #183ea4" class="font-bold fs-5">Send us an email or give us a call and get top shelf advice on
