@@ -1,5 +1,6 @@
 <!--Footer-->
 <footer>
+
     <div class="footer-content">
       <div class="top">
         <div class="logo-details">
@@ -51,6 +52,11 @@
                 </div>
             </ul>
           <div class="col-sm-4">
+          @if (session('error'))
+              <div class="alert alert-danger">
+                  {{ session('error') }}
+              </div>
+          @endif
           <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if (Auth::check())
@@ -68,19 +74,7 @@
           </div>
           @endif
         </form>
-          <!--<ul class="box input-box">
-        <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    @if (Auth::check())
-          <li class="link_name">Click To Subscribe To Newsletter</li>
-          <li><button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button></li>
-          @else
-          <li class="link_name">Subscribe</li>
-          <li><input type="text" name="email" class="form-control" placeholder="Enter your email"></li>
-          <li><button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button></li>
-          @endif
-        </form>
-        </ul>-->
+          
       </div>
     </div>
     <div class="bottom-details">

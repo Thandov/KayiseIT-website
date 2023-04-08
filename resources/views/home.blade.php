@@ -1,4 +1,12 @@
 <x-app-layout title="Home">
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
     <!--Carousel-->
     <div class="jumbotron bg-gray-400 bg-gradient position-relative">
         <div class="owl-carousel owl-theme" id="headercara">

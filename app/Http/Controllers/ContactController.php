@@ -29,32 +29,43 @@ class ContactController extends Controller
     }
 
     public function subscribe(Request $request)
-    {
-
-        if (Auth::check()) {
+{
+    if (Auth::check()) {
         $user = Auth::user();
+
+        // Check if the email already exists in the subscriptions table
+        $existingSubscription = Subscription::where('email', $user->email)->first();
+        if ($existingSubscription) {
+            return redirect()->back()->with('error', 'You have already subscribed!');
+        }
+
         $subscription = new Subscription;
         $subscription->name = $user->name;
         $subscription->email = $user->email;
         $subscription->save();
+
         // Send the email
         Mail::to('info@kayiseit.co.za')->send(new SubscribeMail($subscription));
-
     } else {
 
-        $validatedData = $request->validate([
-            'email' => 'required|email',
+        // Validate the email field
+        $request->validate([
+            'email' => 'required|email|unique:subscriptions,email',
+        ], [
+            'email.unique' => 'This email is already subscribed.',
         ]);
 
         $subscription = new Subscription;
         $subscription->email = $request->email;
         $subscription->save();
+
         // Send the email
-        Mail::to('info@kayiseit.co.za')->send(new SubscribeMail($validatedData));
+        Mail::to('info@kayiseit.co.za')->send(new SubscribeMail($subscription));
     }
 
-        // Redirect back with success message
-        return redirect()->back()->with('success', 'Your message has been sent.');
-    }
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Thanks for subscribing!');
+}
+
 
 }
