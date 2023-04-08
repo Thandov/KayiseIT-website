@@ -1,5 +1,5 @@
 <!--skills-->
-<div class="mskills bg-grey d-flex align-items-center justify-content-center">
+<div class="mskills p-5 bg-grey d-flex align-items-center justify-content-center">
     <div class="skills">
         <div class="top-section">
             <div class="col">
@@ -7,7 +7,7 @@
             </div>
         </div>
         <!--Overview-->
-        <div class="overviews grid grid-cols-4">
+        <div class="overviews grid md:grid-cols-4 sm:grid-cols-2">
             <!--No.1 Years-->
             <div class="overview" style="color: #183ea4" data-aos="fade-right" data-aos-delay="500">
                 <span>{{$years}}</span>

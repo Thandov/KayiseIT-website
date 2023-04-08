@@ -1,41 +1,35 @@
 <x-app-layout>
 
     <div class="about-hero">
-				<div class="container spacing">
+				<div class="container">
 					<h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">Our Company</h1>
 				</div>
 			</div>
 
-    <div class="max-w-7xl mx-auto py-20 lg:px-8 ">
-  <div class="container" id="company">
+  <div class="container p-20" id="company">
     <div class="row flex flex-wrap justify-center">
-      <div class="col-7 sm-col-12">
-        
-
+      <div class="col-md-6 sm-col-12">
         <x-body smheading="About Us" 
-                                bgheading="We Specialize In Custom Tailored I.T Solutions." 
-                                paragraph="KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology." 
-                                btnlink="services" btntext="Discover More"/>
-
+          bgheading="We Specialize In Custom Tailored I.T Solutions." 
+          paragraph="KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology." 
+          btnlink="services" btntext="Discover More"/>
       </div>
-      <div class="col-4 position-relative px-20">
-        <img src="../images/contact.jpg" width="400" height="400" class="rounded shadow-lg" style="position: absolute; top: -150px; left: -5; right: 0; z-index: 1;" data-aos="fade-left" data-aos-delay="300">
+      <div class="col-md-6 col-sm-12  position-relative d-flex justify-content-center">
+        <img src="../images/contact.jpg" width="400"class="rounded shadow-lg" style="position: absolute; top: -150px;" data-aos="fade-left" data-aos-delay="300">
       </div>
     </div>
   </div>
 </div>
 
-<div class="bg-white mx-auto py-5 sm:px-6 lg:px-8 shadow-lg">
-  <div class="container max-w-7xl" id="culture">
+<div class="bg-white">
+  <div class="container p-5" id="culture">
 
   <x-headings small="OUR CULTURE" big="Our Fundamental Business" toalign="text-center"/>
 
     <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
-
         <div class="card" data-aos="fade-left" data-aos-delay="350" style="width: 30rem;">
           <div class="card-body">
             <div class="row">
-             
               <div class="col-12">
                 <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Vision</h3>
               </div>
@@ -60,8 +54,8 @@
   </div>
 
 <!--Our team-->
-<div class="bg py-5 mx-auto" id ="team_background">
-  <div class="container team max-w-7xl">
+<div class="bg" id ="team_background">
+  <div class="container p-5 team">
     <div class="row">
       <p class="text-center mb-3 smalltxt font-bold" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
       <h2 class="text-center font-bold text-5xl text-white mb-10 md:text-5xl" data-aos="fade-down" data-aos-delay="500">Let Us Introduce Ourselves</h2>
@@ -71,7 +65,7 @@
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-            <p class="smalltxt  card-text font-bold fs-6">Director</p>
+            <p class="smalltxt  card-text font-bold">Director</p>
           </div>
         </div>
 
@@ -79,7 +73,7 @@
           <img src="../images/thandi.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thandiwe Mathebula</h5>
-            <p class="smalltxt card-text font-bold fs-6">Business Developer</p>
+            <p class="smalltxt card-text font-bold">Business Developer</p>
           </div>
         </div>
 

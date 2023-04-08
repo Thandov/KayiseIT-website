@@ -7,22 +7,13 @@ $drk-g-color: #457a40;
 $headingsize: 24px;
 $readingsize: 12px;
 
-.mskills {
-  min-height: 300px;
-}
+
 #btn-primary {
   background-color: $scolor !important;
 }
 
 #btn-primary:hover {
   filter: brightness(150%);
-}
-
-.overviews {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
 .overview {
@@ -50,7 +41,6 @@ $readingsize: 12px;
 
 #testimonial_background {
   width: 100%;
-  padding: 90px 0;
   background: url("../images/pexels-marcelo-verfe-12954767.jpg"), radial-gradient(#444, #111);
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -566,7 +556,6 @@ div.sticky {
 
 #team_background {
   width: 100%;
-  padding: 90px 0;
     background: url('../images/Kayise Full Zebra Background.jpg'), radial-gradient(#444, #111);
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -602,7 +591,6 @@ div.sticky {
 
 .services .card {
   height: 250px; /* Set a fixed height for each card */
-  width: 300px;
 }
 .services .card-img {
   height: 100%; /* Make the image fill the entire height of the card */
@@ -645,4 +633,11 @@ div.sticky {
   display: block;
   width: 10%;
   border-bottom: 2px solid white; /* set the thickness and color of the underline */
+}
+
+@media screen and (max-width: 767px) {
+  /* hide the image when screen size is less than or equal to 767px */
+ #company img {
+    display: none;
+  }
 }

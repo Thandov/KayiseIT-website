@@ -8,9 +8,8 @@
         </div>
     </div>
 
-
     <!--freatured services-->
-    <div class="services container py-5">
+    <div class="services container p-5">
         <div class="row justify-content-center">
             <div class="col">
 
@@ -51,10 +50,9 @@
     </div>
     </div>
 
-
     <!--About Us-->
     <section class="bg-white">
-        <div class="container" id="about-us">
+        <div class="container p-5" id="about-us">
             <div class="row">
 
                 <div class="col-sm-12 col-md-6 col-lg-6 ">
@@ -75,69 +73,16 @@
         </div>
     </section>
 
-
-
     <x-stats years="8" developers="7" customers="7k" projects="5k" />
-
-
-    <!--
-
-<div class="blog  py-5">
-      <div class="row justify-content-center">
-         <div class="col-md-10 mb-20">
-
-      <h2 class="text-center mb-5  font-bold text-5xl">Latest Posts</h2>
-
-           <div class="d-flex justify-content-center align-items-center">
-              <div class="row">
-@php
-                  $counter = 0;
-@endphp
-@foreach($blog as $blog)
-@if($counter < 4)
-                   <div class="col-md-3 col-sm-6">
-                      <a href="{{ url('viewblog/'.$blog->id) }}">
-                      <div class="card">
-                <img src="{{ asset('images/'.$blog->icon) }}" class="card-img" alt="Your Image">
-                <div class="card-body">
-                         <h2 class="card-title font-bold text-gray-90">{{ $blog['title'] }}</h2>
-                         <h3 class="card-text">{{ $blog['subtitle'] }}</h3>
-                </div>
-                </div>
-                      </a>
-                    </div>
-@endif
-@php
-                    $counter++;
-@endphp
-@endforeach
-              </div>
-           </div>
-            <div class=" text-center text-2xl font-bold">
-					  	<span><a href="blog" class="">view all</a></span>
-					  </div>
-
-        </div>
-      </div>
-    </div>
-    
-
-            -->
-
-
-
-
-
-
 
     <!--Services Call-To-Action-->
     <section id="our-services">
-        <div class="container py-5">
+        <div class="container p-5">
             <div class="row">
-                <div class="col-sm-6 d-flex justify-content-center">
+                <div class="col-md-6 col-sm-12 d-flex justify-content-center">
                     <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3" data-aos="fade-right" data-aos-delay="500">
                 </div>
-                <div class="col-sm-6 text-2 px-10 d-flex align-items-center">
+                <div class="col-md-6 col-sm-12 text-2 d-flex align-items-center">
                     <div>
                         <p class="smalltxt font-bold" data-aos="fade-left" data-aos-delay="700">OUR SERVICES</p>
                         <h2 id="white-text" class=" font-bold text-5xl" data-aos="fade-up" data-aos-delay="500">Managed I.T. solutions tailored to your business.</h2>
@@ -153,17 +98,15 @@
         </div>
     </section>
 
-
     <!--Testimonials-->
     <section class="testimonial" id="testimonial_background">
-        <div class="container">
+        <div class="container p-5">
             <div class="row justify-content-center">
-                <div class="col-md-10">
                     
                     <x-headings small="Testimonials" big="What They Say" toalign="text-center"/>
 
                     <div class="d-flex justify-content-center align-items-center">
-                        <div class="row px-1">
+                        <div class="row">
                             @foreach($testimonials as $testimonial)
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="card m-2 " data-aos="fade-right" data-aos-delay="300">
@@ -199,18 +142,14 @@
                             @endforeach
                         </div>
                     </div>
-
-                </div>
+                
             </div>
         </div>
     </section>
-
-
 </x-app-layout>
 
 <script>
 //ratings
-
 $(document).ready(function() {
     $('form').submit(function(event) {
         event.preventDefault();
@@ -235,19 +174,12 @@ $(document).ready(function() {
     });
 });
 
-//our clients slide
-
-
-
-
 AOS.init();
 
 //carousel
-
 function callback(event) {
     removeSliderClass(event);
 }
-
 function removeSliderClass(event) {
     console.log("removing classes");
     var item = event.item.index - 2; // Position of the current item
@@ -263,10 +195,8 @@ function removeSliderClass(event) {
     jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
         'animate__animated animate__fadeInLeft');
 }
-
 jQuery(document).ready(function($) {
     "use strict";
-
     jQuery('#headercara').owlCarousel({
         animateOut: 'animate__animated animate__fadeOut',
         animateIn: 'animate__animated animate__fadeIn',

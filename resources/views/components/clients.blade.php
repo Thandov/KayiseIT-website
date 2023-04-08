@@ -1,6 +1,6 @@
-<div class="bg-white  mx-auto py-5 sm:px-6 lg:px-8">
+<div class="bg-white">
 
-        <div class="container mb-10">
+        <div class="container p-5">
             <div class="row">
 
                 <x-headings small="Some of our clients" big="We strive to work with the best" toalign="text-center"/>

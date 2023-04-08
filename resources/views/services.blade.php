@@ -6,9 +6,8 @@
 				</div>
 			</div>
 
-
     <!--services-->
-    <div class="services container py-5">
+    <div class="services container p-5">
         <div class="row justify-content-center">
             <div class="col">
 
@@ -16,9 +15,7 @@
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">
-
                         @foreach($services as $service)
-
                         <div class="col-lg-3 col-md-6 col-sm-12 my-3">
                                 <a href="{{ url('viewservice/'.$service->id) }}">
                                     <div class="card  text-white" data-aos="fade-left" data-aos-delay="500">
@@ -38,16 +35,11 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
     </div>
 
-    
-
     <x-clients/>
-
-
 
 </x-app-layout>
 
@@ -59,12 +51,9 @@
     loop: true,
     items: 4,
     autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
-    smartSpeed: 1500 // Set slide speed to 1 second
+    smartSpeed: 2000 // Set slide speed to 1 second
   });
 });
-
-
-
     AOS.init();
 
 </script>
