@@ -94,7 +94,7 @@
                     <div>
                         <p class="smalltxt font-bold" data-aos="fade-left" data-aos-delay="700">OUR SERVICES</p>
                         <h2 id="white-text" class=" font-bold text-5xl" data-aos="fade-up" data-aos-delay="500">Managed I.T. solutions tailored to your business.</h2>
-                        <p id="black-text" class="fs-6 mt-4 mb-4" data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
+                        <p id="white-text" class="fs-6 mt-4 mb-4" data-aos="fade-left" data-aos-delay="800">Develop efficient & effective digital projects with
                             knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                             that our clients grow their business.</p>
                         <div class="data">
