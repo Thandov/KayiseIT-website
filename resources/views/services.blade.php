@@ -43,36 +43,26 @@
         </div>
     </div>
 
+    
+
     <x-clients/>
+
+
 
 </x-app-layout>
 
 <script>
-    let slider = document.querySelector('.slide-container');
-    let sliderWidth = slider.offsetWidth;
-    let slideIndex = 0;
 
-    function showSlides() {
-        let slides = document.querySelectorAll('.slide-container img');
-        let visibleSlides = window.innerWidth < 768 ? 3 :
-            4; // Change the number of visible slides based on the screen width
-        let slideWidth = sliderWidth / visibleSlides;
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].classList.remove('show');
-        }
-        for (let i = slideIndex; i < slideIndex + visibleSlides; i++) {
-            if (slides[i]) {
-                slides[i].classList.add('show');
-            }
-        }
-        slideIndex++;
-        if (slideIndex > slides.length - visibleSlides) {
-            slideIndex = 0;
-        }
-        setTimeout(showSlides, 3000);
-    }
+    $(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    autoplay: true,
+    loop: true,
+    items: 4,
+    autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
+    smartSpeed: 1500 // Set slide speed to 1 second
+  });
+});
 
-    showSlides();
 
 
     AOS.init();

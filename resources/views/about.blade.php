@@ -63,7 +63,7 @@
 <div class="bg py-5 mx-auto" id ="team_background">
   <div class="container team max-w-7xl">
     <div class="row">
-      <p style="color: #183ea4" class="text-center mb-3 font-bold md:text-5" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
+      <p class="text-center mb-3 smalltxt font-bold" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
       <h2 class="text-center font-bold text-5xl text-white mb-10 md:text-5xl" data-aos="fade-down" data-aos-delay="500">Let Us Introduce Ourselves</h2>
       <div class="card-container flex flex-wrap justify-center md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
 
@@ -93,31 +93,15 @@
 </x-app-layout>
 
 <script>
-
-let slider = document.querySelector('.slide-container');
-let sliderWidth = slider.offsetWidth;
-let slideIndex = 0;
-
-function showSlides() {
-  let slides = document.querySelectorAll('.slide-container img');
-  let visibleSlides = window.innerWidth < 768 ? 3 : 4; // Change the number of visible slides based on the screen width
-  let slideWidth = sliderWidth / visibleSlides;
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove('show');
-  }
-  for (let i = slideIndex; i < slideIndex + visibleSlides; i++) {
-    if (slides[i]) {
-      slides[i].classList.add('show');
-    }
-  }
-  slideIndex++;
-  if (slideIndex > slides.length - visibleSlides) {
-    slideIndex = 0;
-  }
-  setTimeout(showSlides, 3000);
-}
-
-showSlides();
+$(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    autoplay: true,
+    loop: true,
+    items: 4,
+    autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
+    smartSpeed: 1500 // Set slide speed to 1 second
+  });
+});
 
 AOS.init();
 

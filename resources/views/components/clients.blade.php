@@ -5,21 +5,21 @@
 
                 <x-headings small="Some of our clients" big="We strive to work with the best" toalign="text-center"/>
 
-                <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                
 
                     <div class="slider" data-aos="fade-left" data-aos-delay="300">
-                        <div class="slide-container">
-                            <img src="../images/partner1.png">
-                            <img src="../images/partner2.png">
-                            <img src="../images/partner3.png">
-                            <img src="../images/partner4.png">
-                            <img src="../images/partner5.png">
-                            <img src="../images/partner6.png">
-                            <img src="../images/partner7.png">
-                            <img src="../images/partner8.png">
-                        </div>
+                    <div class="owl-carousel">
+  <div><img src="../images/partner1.png"></div>
+  <div><img src="../images/partner2.png"></div>
+  <div><img src="../images/partner3.png"></div>
+  <div><img src="../images/partner4.png"></div>
+  <div><img src="../images/partner5.png"></div>
+  <div><img src="../images/partner6.png"></div>
+  <div><img src="../images/partner7.png"></div>
+  <div><img src="../images/partner8.png"></div>
+</div>
                     </div>
-                </div>
+               
 
             </div>
         </div>
