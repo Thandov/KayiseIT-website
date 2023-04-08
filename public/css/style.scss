@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 $pcolor: #64bc5c;
 $scolor: #183ea4;
 $wcolor: #ffffff;
@@ -643,4 +644,7 @@ div.sticky {
 }
 #dark-g-text {
   color: $drk-g-color !important;
+}
+*{
+	font-family: 'Montserrat', sans-serif;
 }
