@@ -1,6 +1,7 @@
 $pcolor: #64bc5c;
 $scolor: #183ea4;
 $wcolor: #ffffff;
+$drk-g-color: #457a40;
 
 /* Font Sizes Variables */
 $headingsize: 24px;
@@ -617,4 +618,11 @@ div.sticky {
 
 #white-text {
   color: $wcolor !important;
+}
+#footertxt-white {
+  color: $wcolor !important;
+}
+#footertxt-white:hover {
+  color: $drk-g-color !important;
+  text-decoration-line: underline;
 }
