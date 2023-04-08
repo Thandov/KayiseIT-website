@@ -576,7 +576,6 @@ div.sticky {
 #our-services{
   
   width: 100%;
-  padding: 90px 0;
   background: url('../images/Big Zee.jpg'), radial-gradient(#444, #111);
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -584,10 +583,22 @@ div.sticky {
 
 }
 
-#our-services img{
+
+.pic-2{
   height: auto;
-  width: auto;
+  width:  612px;
 }
+
+@media screen and (max-width: 700px) {
+
+.pic-2 {
+    flex-basis: 100%;
+    max-width: 100%;
+    height: auto;  /* add this line to set the maximum height of the image*/ 
+    
+  }
+}
+
 
 .services .card {
   height: 250px; /* Set a fixed height for each card */

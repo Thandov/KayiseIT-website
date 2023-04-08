@@ -132,9 +132,9 @@
 
     <!--Services Call-To-Action-->
     <section id="our-services">
-        <div class="container">
+        <div class="container py-5">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex justify-content-center">
                     <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3" data-aos="fade-right" data-aos-delay="500">
                 </div>
                 <div class="col-sm-6 text-2 px-10 d-flex align-items-center">
