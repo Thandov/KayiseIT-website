@@ -1,12 +1,9 @@
 <x-app-layout title="Home">
-
 @if (session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
 @endif
-
-
     <!--Carousel-->
     <div class="jumbotron bg-gray-400 bg-gradient position-relative">
         <div class="owl-carousel owl-theme" id="headercara">
@@ -15,14 +12,11 @@
             <x-carousel-item pic="../images/landing-page/office.jpg" topTitle="We specialize In" mainTitle="Office Automation" bottomTitle="..." />
         </div>
     </div>
-
     <!--freatured services-->
     <div class="services container p-5">
         <div class="row justify-content-center">
             <div class="col">
-
             <x-headings small="Our Services" big="Managed I.T. Solutions" toalign="text-center"/>
-
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">
                         @php
@@ -53,36 +47,28 @@
             <div class="text-center mt-3 text-2xl font-bold">
                 <a href="services" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ml-4" data-aos="fade-up" data-aos-delay="500">view all</a>
             </div>
-
         </div>
     </div>
     </div>
-
     <!--About Us-->
     <section class="bg-white">
         <div class="container p-5" id="about-us">
             <div class="row">
-
                 <div class="col-sm-12 col-md-6 col-lg-6 ">
                     <img src="../images/kayise_IT_logo_No_Background.png" width="1200" class="rounded" data-aos="fade-left" data-aos-delay="700">
                 </div>
-
                 <div class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center">
                     <div class="">
-
                         <x-body smheading="About Us" 
                                 bgheading="We Specialize In Custom Tailored I.T Solutions." 
                                 paragraph="Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training. With a decade of experience in the industry, we are passionate about building ICT capacity in communities and young people." 
                                 btnlink="about" btntext="Discover More"/>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
-
     <x-stats years="8" developers="7" customers="7k" projects="5k" />
-
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container p-5">
@@ -105,14 +91,11 @@
             </div>
         </div>
     </section>
-
     <!--Testimonials-->
     <section class="testimonial" id="testimonial_background">
         <div class="container p-5">
-            <div class="row justify-content-center">
-                    
+            <div class="row justify-content-center">               
                     <x-headings small="Testimonials" big="What They Say" toalign="text-center"/>
-
                     <div class="d-flex justify-content-center align-items-center">
                         <div class="row">
                             @foreach($testimonials as $testimonial)
@@ -149,13 +132,11 @@
                             </div>
                             @endforeach
                         </div>
-                    </div>
-                
+                    </div>             
             </div>
         </div>
     </section>
 </x-app-layout>
-
 <script>
 //ratings
 $(document).ready(function() {
@@ -181,9 +162,7 @@ $(document).ready(function() {
         });
     });
 });
-
 AOS.init();
-
 //carousel
 function callback(event) {
     removeSliderClass(event);
@@ -196,7 +175,6 @@ function removeSliderClass(event) {
     jQuery('h1').removeClass('animate__animated animate__fadeInUp');
     jQuery('img').removeClass('animate__animated animate__fadeInDown');
     jQuery('.hero__btn').removeClass('animate__animated animate__fadeInLeft');
-
     jQuery('.owl-item').not('.cloned').eq(item).find('p').addClass('animate__animated animate__fadeInDown');
     jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass('animate__animated animate__fadeInUp');
     jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass('animate__animated animate__fadeInUp');
@@ -225,9 +203,7 @@ jQuery(document).ready(function($) {
         autoplayTimeout: 6000,
         autoplayHoverPause: true,
     });
-
     var owl = jQuery('#headercara');
-
     owl.on('changed.owl.carousel', function(event) {
         var item = event.item.index - 2; // Position of the current item
         console.log(item);
@@ -235,7 +211,6 @@ jQuery(document).ready(function($) {
         jQuery('h1').removeClass('animate__animated animate__fadeInUp');
         jQuery('img').removeClass('animate__animated animate__fadeInDown');
         jQuery('.hero__btn').removeClass('animate__animated animate__fadeInLeft');
-
         jQuery('.owl-item').not('.cloned').eq(item).find('p').addClass(
             'animate__animated animate__fadeInDown');
         jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass(
@@ -245,6 +220,5 @@ jQuery(document).ready(function($) {
         jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
             'animate__animated animate__fadeInLeft');
     });
-
 });
 </script>

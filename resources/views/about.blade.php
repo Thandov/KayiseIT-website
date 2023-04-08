@@ -1,11 +1,9 @@
 <x-app-layout>
-
     <div class="about-hero">
 				<div class="container">
 					<h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">Our Company</h1>
 				</div>
 			</div>
-
   <div class="container p-20" id="company">
     <div class="row flex flex-wrap justify-center">
       <div class="col-md-6 sm-col-12">
@@ -20,55 +18,47 @@
     </div>
   </div>
 </div>
-
 <div class="bg-white">
   <div class="container p-5" id="culture">
-
   <x-headings small="OUR CULTURE" big="Our Fundamental Business" toalign="text-center"/>
-
     <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
         <div class="card" data-aos="fade-left" data-aos-delay="350" style="width: 30rem;">
           <div class="card-body">
             <div class="row">
               <div class="col-12">
-                <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Vision</h3>
+                <h3 class="card-title text-2xl pt-3 font-bold text-center smalltxt">Vision</h3>
               </div>
               </div>
             <p class="card-text text-center fs-6">KAYISE IT: Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
           </div>
-        </div>
-      
+        </div>   
         <div class="card" data-aos="fade-right" data-aos-delay="300" style="width: 30rem">
           <div class="card-body">
           <div class="row">
               <div class="col-12">
-                <h3 class="card-title text-2xl pt-3 font-bold text-center" style="color: #183ea4">Mission</h3>
+                <h3 class="card-title text-2xl pt-3 font-bold text-center smalltxt">Mission</h3>
               </div>
               </div>
             <p class="card-text text-center fs-6">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
           </div>
-        </div>
-        
+        </div>     
       </div>
     </div>
   </div>
-
 <!--Our team-->
-<div class="bg" id ="team_background">
+<div class="bg" id="team_background">
   <div class="container p-5 team">
     <div class="row">
       <p class="text-center mb-3 smalltxt font-bold" data-aos="fade-up" data-aos-delay="300">OUR TEAM</p>
       <h2 class="text-center font-bold text-5xl text-white mb-10 md:text-5xl" data-aos="fade-down" data-aos-delay="500">Let Us Introduce Ourselves</h2>
       <div class="card-container flex flex-wrap justify-center md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
-
         <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;" data-aos="fade-right" data-aos-delay="500">
           <img src="../images/thando.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-            <p class="smalltxt  card-text font-bold">Director</p>
+            <p class="smalltxt card-text font-bold">Director</p>
           </div>
         </div>
-
         <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;" data-aos="fade-up" data-aos-delay="1000">
           <img src="../images/thandi.jpg" class="card-img-top" alt="...">
           <div class="card-body">
@@ -76,16 +66,12 @@
             <p class="smalltxt card-text font-bold">Business Developer</p>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
-
-    <x-clients/>
-    
+    <x-clients/>   
 </x-app-layout>
-
 <script>
 $(document).ready(function(){
   $(".owl-carousel").owlCarousel({
@@ -96,7 +82,5 @@ $(document).ready(function(){
     smartSpeed: 1500 // Set slide speed to 1 second
   });
 });
-
 AOS.init();
-
 </script>

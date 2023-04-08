@@ -1,18 +1,14 @@
 <x-app-layout>
-
             <div class="hero">
 				<div class="container spacing">
 					<h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">Our Services</h1>
 				</div>
 			</div>
-
     <!--services-->
     <div class="services container p-5">
         <div class="row justify-content-center">
             <div class="col">
-
             <x-headings small="Our Services" big="Managed I.T. Solutions" toalign="text-center"/>
-
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">
                         @foreach($services as $service)
@@ -24,8 +20,7 @@
                                         <div
                                             class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
                                             <div class="text-center">
-                                                <h5 class="card-title text-3xl font-bold">
-                                                    {{ $service['name'] }}</h5>
+                                                <h5 class="card-title text-3xl font-bold">{{ $service['name'] }}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -34,17 +29,12 @@
                         @endforeach
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
     <x-clients/>
-
 </x-app-layout>
-
 <script>
-
     $(document).ready(function(){
   $(".owl-carousel").owlCarousel({
     autoplay: true,
@@ -55,5 +45,4 @@
   });
 });
     AOS.init();
-
 </script>
