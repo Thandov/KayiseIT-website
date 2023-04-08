@@ -15,60 +15,59 @@
       <div class="row link-boxes">
             <ul class="col-sm-4">
                 <div class="mt-1 fs-6">
-                    <li class="link_name mt-1 fs-6 fw-bold" style = "color:#183ea4">Company</li>
+                    <li id="footer-underline" class="link_name mb-3 mt-1 fs-6 fw-bold smalltxt">Company</li>
                 </div>
                 <div class="mt-1 fs-6">
-                    <li><a href="/"style="color: #ffffff" class="text-decoration-underline">Home</a></li>
+                    <li><a href="/" id="footertxt-white">Home</a></li>
                 </div>
-                <div class="mt-1 fs-6">
-                    <li><a href="contact"  style="color: #ffffff">Contact us</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="contact" id="footertxt-white">Contact us</a></li>
                 </div>
-                <div class="mt-1 fs-6">
-                    <li><a href="about" style="color: #ffffff">About us</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="about" id="footertxt-white">About us</a></li>
                 </div>
-                <div class="mt-1 fs-6">
-                    <li><a href="services" style="color: #ffffff">Get started</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="services" id="footertxt-white">Get started</a></li>
                 </div>
-                <div class="mt-1 fs-6">
-                    <li><a href="#" style="color: #ffffff">Privacy Policy</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="#" id="footertxt-white">Privacy Policy</a></li>
                 </div>
             </ul>
             <ul class="col-sm-4">
                 <div>
-                    <li class="link_name mt-2 fs-6 fw-bold" style="color:#183ea4">Services</li>
+                    <li id="footer-underline" class="link_name mb-3 mt-2 fs-6 fw-bold smalltxt">Services</li>
                 </div>
                 <div class="mt-1 fs-6">
-                    <li><a href="services" style="color: #ffffff">Office Automation</a></li>
+                    <li><a href="services" id="footertxt-white">Office Automation</a></li>
                 </div >
-                <div class="mt-1 fs-6">
-                    <li><a href="services" style="color: #ffffff">Network Support</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="services" id="footertxt-white">Network Support</a></li>
                 </div>
-                <div class="mt-1 fs-6">
-                    <li><a href="services" style="color: #ffffff">Marketing</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="services" id="footertxt-white">Marketing</a></li>
                 </div>
-                <div class="mt-1 fs-6">
-                    <li><a href="services" style="color: #ffffff">ICT Skills training</a></li>
+                <div class="mt-2 fs-6">
+                    <li><a href="services" id="footertxt-white">ICT Skills training</a></li>
                 </div>
             </ul>
           <div class="col-sm-4">
           <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @if (Auth::check())
-          <p class="mt-1 fs-6 fw-bold" style = "color:#183ea4">Subscribe To Newsletter</p>
+          <p id="footer-underline" class="mt-1 mb-3 fs-6 fw-bold smalltxt">Subscribe To Newsletter</p>
             <div class="input-group">
-            <button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button>
+            <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
             </div>
           </div>
           @else
-          <p class="mt-1 fs-6 fw-bold" style = "color:#183ea4">Subscribe</p>
+          <p id="footer-underline" class="mt-1 mb-3 fs-6 fw-bold smalltxt">Subscribe</p>
             <div class="input-group">
-              <input type="text" name="email" class="form-control" placeholder="Enter your email">
-              <button type="submit" style="background-color: #4070f4" class="btn shadow-lg text-white btn-block">Subscribe</button>
+              <input type="text" name="email" class="form-control rounded-md" placeholder="Enter your email">
+              <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
             </div>
           </div>
           @endif
         </form>
-
           <!--<ul class="box input-box">
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -82,13 +81,10 @@
           @endif
         </form>
         </ul>-->
-            
       </div>
     </div>
-
     <div class="bottom-details">
     <div class="row align-items-center justify-content-center py-2">
-        
         <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
             <div class="d-flex justify-content-center align-items-center">
                 <div class=" mr-4"><img src="../images/payment_methods/Visa.png" alt="Visa"
@@ -107,18 +103,14 @@
                         alt="MasterCard SecureCode" Width="45" height="45"></div>
             </div>
         </div>
-        
     </div>
-
     <div class="row justify-content-center py-2">
     <div class="col-6 d-flex align-items-center justify-content-center">
-            <span  class="copyright_text text-white">Copyright © <a href="#">KAYISE IT.</a>All rights
-                reserved</span>
+            <span  class="text-white">Copyright © <a href="#">KAYISE IT.</a>All rights reserved</span>
         </div>
     </div>
     </div>
   </footer>
-
 <style>
             
 /* ==================================== footer ==================================== */

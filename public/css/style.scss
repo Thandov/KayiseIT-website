@@ -626,3 +626,8 @@ div.sticky {
   color: $drk-g-color !important;
   text-decoration-line: underline;
 }
+#footer-underline {
+  display: block;
+  width: 10%;
+  border-bottom: 2px solid white; /* set the thickness and color of the underline */
+}
