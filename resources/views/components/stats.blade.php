@@ -3,18 +3,18 @@
     <div class="skills">
         <div class="top-section">
             <div class="col">
-                <h2 data-aos="fade-down" data-aos-delay="500" class="bigtxt font-bold text-5xl">We’re on a mission to bridge the digital divide</h2>
+                <h2 class="bigtxt font-bold text-5xl">We’re on a mission to bridge the digital divide</h2>
             </div>
         </div>
-         <!--Overview-->
+        <!--Overview-->
         <div class="overviews grid md:grid-cols-4 sm:grid-cols-2">
             <!--No.1 Years-->
-            <div class="overview" data-aos="fade-right" data-aos-delay="500">
+            <div class="overview">
                 <span>{{$years}}</span>
                 <p id="dark-g-text">YEARS</p>
             </div>
             <!--No.2 Developers-->
-            <div class="overview"data-aos="fade-down" data-aos-delay="700">
+            <div class="overview" data-aos="fade-down" data-aos-delay="700">
                 <span>{{$developers}}</span>
                 <p id="dark-g-text">DEVELOPERS</p>
             </div>

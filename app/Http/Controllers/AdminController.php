@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
-use App\Models\Website;
 use App\Models\Quotation;
 use App\Models\Service;
 use App\Models\SubService;
@@ -15,9 +15,10 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $websites = Website::all();
+        $services = Service::all();
         $users = User::all();
-        return view('admin.admin_dashboard', compact('websites', 'users'));
+
+        return view('admin.admin_dashboard', compact('users', 'services'));
     }
 
     public function remove($id){
@@ -85,5 +86,4 @@ class AdminController extends Controller
         $options = Options::where('unq_id', $subservice->subserv_id)->get();
         return view('admin/viewsubservice', compact('subservice', 'options'));
     }
-    
 }

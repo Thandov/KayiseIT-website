@@ -13,9 +13,10 @@ use Illuminate\Http\QuotationRequest;
 class DashboardController extends Controller
 {
     //
+    
     public function index()
     {
-        if(Auth::user()->hasRole('client')){
+        /*         if(Auth::user()->hasRole('client')){
             
             $services = Service::all();
             $testimonials = Testimonial::all();
@@ -32,6 +33,18 @@ class DashboardController extends Controller
         }
         else if(Auth::user()->hasRole('admin')){
             return view('admin.admin_dashboard');
+        } */
+
+
+        if (Auth::user()->hasRole('business')) {
+
+            //return redirect('business/businessdashboard/' . Auth::user()->id);
+        } elseif (Auth::user()->hasRole('user')) {
+
+            return view('home');
+        } elseif (Auth::user()->hasRole('admin')) {
+
+            return redirect('dashboard');
         }
     }
 
@@ -42,5 +55,4 @@ class DashboardController extends Controller
         $blog = Blog::all();
         return view('home', compact('services', 'testimonials', 'blog'));
     }
-    
 }
