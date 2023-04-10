@@ -1,55 +1,39 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Or View Services') }}
+            {{ __('Add or View Services') }}
         </h2>
     </x-slot>
-    <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
 
-        <div class="row m-2">
-             <div class="col">
-                 <div class="d-flex align-items-center justify-content-start">
-                 <a href="addservice" class="btn btn-primary me-3">ADD SERVICE</a>
-                 </div>
-             </div>
-         </div>
-
-        <div class="card">
-            <div class="grid grid-cols-2 md:grid-cols-4 my-5 gap-4 md:gap-4 max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @foreach($services as $service)
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('images/service_logo/'.$service->icon)}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                         <h2 class="card-title font-bold text-gray-90">{{$service['name']}}</h2>
-                         <p class="card-text">{{$service['description']}}</p>
-                     
-                        <div class="row">
-                               <div class="col">
-                                  <a href="{{ url('admin/viewservice/'.$service->id) }}" style="width: 7rem;" class="btn btn-success">view</a>
-                               </div>
-                               <div class="col">
-                                  <a href="{{ url('delete/'.$service->id) }}" style="width: 7rem;" class="btn btn-danger">Delete</a>
-                               </div> 
-                        </div>
-                </div>
-                </div>
-            @endforeach
-            </div>
+    <div class="container mx-auto py-6">
+        <div class="flex justify-between items-center mb-8">
+            <h3 class="text-2xl font-bold text-gray-800">All Services</h3>
+            <a href="" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Add Service
+            </a>
         </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            @foreach($services as $service)
+            <div class="bg-white shadow-lg rounded-lg p-4">
+                <img src="{{ asset('images/service_logo/'.$service->icon) }}" class="w-32 h-32 mx-auto mb-4" alt="{{ $service->name }}">
+
+                <h4 class="text-lg font-bold text-gray-800 mb-2">{{ $service->name }}</h4>
+
+                <div class="flex justify-between">
+                    <a href="{{ url('admin/viewservice/'.$service->id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                        View
+                    </a>
+                    <form action="{{ url('delete/'.$service->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
-</div>
 </x-app-layout>
-
-<style>
-    .card {
-  height: 250px; /* Set a fixed height for each card */
-  overflow: hidden;
-}
-.card-img {
-  height: 100%; /* Make the image fill the entire height of the card */
-  object-fit: cover; /* Scale the image while maintaining its aspect ratio */
-}
-</style>

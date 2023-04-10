@@ -1,4 +1,5 @@
 import './bootstrap';
+import 'owl.carousel';
 
 import Alpine from 'alpinejs';
 

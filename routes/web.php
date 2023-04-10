@@ -76,7 +76,7 @@ Route::get('/services/network', function () {
 
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/dashboard', 'App\http\Controllers\DashboardController@index')->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -98,7 +98,7 @@ Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create
 
 //Admin 
 
-Route::GET('/admin/admin_dashboard',[AdminController::class, 'index'])->name('admin.admin_dashboard');
+Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations'); 
 Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations'); 
 Route::GET('/admin/users',[AdminController::class, 'users'])->name('admin.users');
@@ -123,7 +123,9 @@ Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 //Add services, subservices, options Blades
 
 Route::GET('/admin/addservice',[ServicesController::class, 'addservice'])->name('admin.addservice');
+Route::GET('/admin/editservice/{id}', [ServicesController::class, 'updateService'])->name('admin.editservice');
 Route::GET('/admin/newaddservice',[ServicesController::class, 'newaddservice'])->name('admin.newaddservice');
+Route::GET('/admin/deleteservice', [ServicesController::class, 'deleteservice'])->name('admin.deleteservice');
 Route::get('admin/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('addsubservices');
 Route::get('admin/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
 
@@ -169,4 +171,4 @@ Route::GET('/admin/viewblogg/{id}',[BlogController::class, 'viewblogg'])->name('
 
 Route::get('/layouts/footer',[ServicesController::class, 'footer'])->name('layouts.footer');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

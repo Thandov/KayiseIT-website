@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 $pcolor: #64bc5c;
 $scolor: #183ea4;
 $wcolor: #ffffff;
@@ -7,7 +7,6 @@ $drk-g-color: #457a40;
 /* Font Sizes Variables */
 $headingsize: 24px;
 $readingsize: 12px;
-
 
 #btn-primary {
   background-color: $scolor !important;
@@ -21,14 +20,14 @@ $readingsize: 12px;
   justify-content: center;
   align-items: center;
   text-align: center;
-   span {
+  span {
     font-size: 65px;
     font-weight: bold;
     font-weight: 800;
     color: $scolor;
   }
 
-   p {
+  p {
     font-size: 17px;
     font-weight: bold;
     color: #000000;
@@ -204,12 +203,51 @@ input[type="number"] {
             font-weight: 900;
             font-size: 3rem;
           }
-
           .btn:hover {
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
           }
         }
       }
+    }
+  }
+}
+.owl-carousel.towl{
+  background-color: red;
+  width: 100%;
+  max-width: 500px; /* Set a fixed width for the carousel */
+  margin: 0 auto; /* Center the carousel within the parent container */
+  div.owl-stage-outer {
+    height: 100%;
+    div.owl-stage {
+      height: 100%;
+      div.owl-item {
+        height: 100%;
+        width: 100vw;
+      }
+    }
+  }
+}
+.image-upload-box {
+  height: 120px;
+  border-width: 2px;
+  border-style: dashed;
+  position: relative;
+
+  .image-upload-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .placeholder-text {
+    text-align: center;
+    font-size: 14px;
+
+    svg {
+      width: 24px;
+      height: 24px;
     }
   }
 }
@@ -487,7 +525,6 @@ div.sticky {
   }
 }
 
-
 /* ==================================== services header Styling ==================================== */
 
 .primary-title {
@@ -495,8 +532,6 @@ div.sticky {
   font-size: clamp(1rem, calc(5vw + 1rem), 4.5rem);
   line-height: 1;
 }
-
-
 
 .hero {
   color: white;
@@ -507,7 +542,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   .hero {
-    background: url('../images/landing-page/pexels-muffin-creatives-4584612.jpg'), radial-gradient(#aaa, #fff);
+    background: url("../images/landing-page/pexels-muffin-creatives-4584612.jpg"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -520,8 +555,6 @@ div.sticky {
   --clr-accent: #faa700;
 }
 
-
-
 /* ==================================== about header Styling ==================================== */
 
 .primary-title {
@@ -530,65 +563,60 @@ div.sticky {
   line-height: 1;
 }
 
-
-
-.about-hero {
+.banner {
   color: white;
   padding: 10em 0;
   background: #222;
   font-weight: bold;
-}
 
-@supports (background-blend-mode: multiply) {
   .about-hero {
-    background: url('../images/landing-page/img_Keyboard_3.jpg'), radial-gradient(#aaa, #fff);
-    background-blend-mode: multiply;
+    background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
   }
-}
-
-.about-hero {
-  --clr-accent: #faa700;
-}
-
-
-#team_background {
-  width: 100%;
-    background: url('../images/Kayise Full Zebra Background.jpg'), radial-gradient(#444, #111);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
-
-#our-services{
-  
-  width: 100%;
-  background: url('../images/Big Zee.jpg'), radial-gradient(#444, #111);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center;
-
-}
-
-
-.pic-2{
-  height: auto;
-  width:  612px;
-}
-
-@media screen and (max-width: 700px) {
-
-.pic-2 {
-    flex-basis: 100%;
-    max-width: 100%;
-    height: auto;  /* add this line to set the maximum height of the image*/ 
-    
+  @supports (background-blend-mode: multiply) {
+    .about-hero {
+      background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
+      background-blend-mode: multiply;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      --clr-accent: #faa700;
+    }
   }
 }
 
+#team_background {
+  width: 100%;
+  background: url("../images/Kayise Full Zebra Background.jpg"), radial-gradient(#444, #111);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#our-services {
+  width: 100%;
+  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.pic-2 {
+  height: auto;
+  width: 612px;
+}
+
+@media screen and (max-width: 700px) {
+  .pic-2 {
+    flex-basis: 100%;
+    max-width: 100%;
+    height: auto; /* add this line to set the maximum height of the image*/
+  }
+}
 
 .services .card {
   height: 250px; /* Set a fixed height for each card */
@@ -638,13 +666,13 @@ div.sticky {
 
 @media screen and (max-width: 767px) {
   /* hide the image when screen size is less than or equal to 767px */
- #company img {
+  #company img {
     display: none;
   }
 }
 #dark-g-text {
   color: $drk-g-color !important;
 }
-*{
-	font-family: 'Montserrat', sans-serif;
+* {
+  font-family: "Montserrat", sans-serif;
 }
