@@ -5,6 +5,29 @@
          <!-- Content for left column -->
          <h1 class="text-3xl font-bold mb-8">{{$service['name']}}</h1>
          <p class="text-justify text-gray-600 mb-8">{{$service['description']}}</p>
+
+
+
+         <div class="row">
+            @foreach($subservices as $subservice)
+            <div class="col-md-4 col-sm-6 mb-4 align-items-center">
+               <a href="{{ url('viewsubservice/'.$subservice->id) }}">
+                  <div class="card">
+                     <div class="card-body">
+                        <div class="row">
+                           <img src="{{ asset('images/service_logo/'.$subservice->icon)}}">
+                        </div>
+                        <h3 class="text-2xl text-center pt-3 font-bold">{{$subservice['name']}}</h3>
+                     </div>
+                  </div>
+               </a>
+            </div>
+            @endforeach
+         </div>
+
+
+
+
          <a href="#" class="inline-block py-2 px-4 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-200">Buy Now</a>
       </div>
       <div class="col-span-2 md:col-span-2 grid grid-rows-2 gap-4">
@@ -81,6 +104,15 @@
 
 
 </x-app-layout>
+<style>
+   .row img{
+      height: 50px;
+   }
+
+   .card {
+  height: 150px; /* Set a fixed height for each card */
+}
+</style>
 <script>
    $(document).ready(function() {
       $(".owl-carousel").owlCarousel({
