@@ -9,7 +9,6 @@
         <div class="bg-white overflow-hidden shadow rounded-lg">
 
         </div>
-
         <!-- Leads and Clients -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
