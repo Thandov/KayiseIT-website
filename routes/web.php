@@ -95,9 +95,7 @@ Route::post('submit-form',[QuotationController::class, 'submit']);
 Route::post('quote-form',[QuotationController::class, 'quote']);
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
-
 //Admin 
-
 Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations'); 
 Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations'); 

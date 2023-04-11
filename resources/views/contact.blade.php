@@ -32,7 +32,6 @@
                 <!--Contact Form-->
                 <div class="col-md-6 p-5">
                     @include('components.contact-form')
-
                 </div>
             </div>
         </div>

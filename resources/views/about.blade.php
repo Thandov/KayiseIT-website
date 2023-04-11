@@ -4,7 +4,7 @@
   <div class="container p-20" id="company">
     <div class="row flex flex-wrap justify-center">
       <div class="col-md-6 sm-col-12">
-        <x-titlestyle smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions." alignment="text-left" smheadingcolor="" bghdcolor=""></x-titlestyle>
+        <x-titlestyle smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions." alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
         <p class="fs-6">KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.</p>
 
         <div class="data">
@@ -19,7 +19,7 @@
   </div>
   <div class="bg-white">
     <div class="container p-5" id="culture">
-      <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bghdcolor=""></x-titlestyle>
+      <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
       <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
         <div class="card" style="width: 30rem;">
           <div class="card-body">
@@ -46,12 +46,9 @@
   </div>
   <!--Our team-->
   <div class="bg" id="team_background">
-    <x-titlestyle smheading="Our Team" bgheading="Let Us Introduce Ourselves" alignment="text-center" smheadingcolor="" bghdcolor=""></x-titlestyle>
-
     <div class="container p-5 team">
       <div class="row">
-        <p class="text-center mb-3 smalltxt font-bold">OUR TEAM</p>
-        <h2 class="text-center font-bold text-5xl text-white mb-10 md:text-5xl">Let Us Introduce Ourselves</h2>
+        <x-titlestyle smheading="Our Team" bgheading="Let Us Introduce Ourselves" alignment="text-center" smheadingcolor="" bgheadingcolor="text-white"></x-titlestyle>
         <div class="card-container flex flex-wrap justify-center md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
           <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;">
             <img src="../images/thando.jpg" class="card-img-top" alt="...">
