@@ -10,7 +10,7 @@
             <div class="col">
                 <x-titlestyle smheading="Our Services" bgheading="Managed I.T. Solutions" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
                 <div class="d-flex justify-content-center align-items-center">
-                    <div class="row">
+                    <div class="row d-flex justify-content-center align-items-center">
                         @foreach($services as $service)
                         <div class="col-lg-3 col-md-6 col-sm-12 my-3">
                             <a href="{{ url('viewservice/'.$service->id) }}">
