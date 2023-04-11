@@ -18,21 +18,21 @@ class TestimonialsSeeder extends Seeder
         
     $testimonials = [
         [
-            'icon' => '1676921427_check.jpg',
+            'icon' => 'thaps.jpg',
             'name' => 'Maluka Thapelo',
             'ratings' => '5',
             'testimony' => 'Great customer service and even better delivery. I was relly happy with the quality of their work.
                            They are the best at what they do.',
         ],
         [
-            'icon' => '1676921427_check.jpg',
+            'icon' => 'lebo.jpg',
             'name' => 'Malope Lebogang',
             'ratings' => '4',
             'testimony' => 'I recommend Kayise IT to everyone for IT solutions and needs.They have a dedicated team that knows
                             what they are doing.',
         ],
         [
-            'icon' => '1676921427_check.jpg',
+            'icon' => 'lele.jpg',
             'name' => 'Malele Karabo',
             'ratings' => '5',
             'testimony' => 'It was way easier starting my business with the help of Kayise IT with their IT solutions and

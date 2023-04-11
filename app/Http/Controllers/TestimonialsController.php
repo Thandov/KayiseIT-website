@@ -28,7 +28,7 @@ class TestimonialsController extends Controller
 
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
 
-        $request->icon->move(public_path('images'), $newImageName);
+        $request->icon->move(public_path('images/testimonials'), $newImageName);
         
 
         $testimony = new Testimonial;

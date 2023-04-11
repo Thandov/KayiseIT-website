@@ -116,7 +116,7 @@
                                             {{ $testimonial['testimony'] }}
                                         </p>
                                         <div class="col-4">
-                                            <img src="{{ asset('images/'.$testimonial->icon) }}" class="rounded-circle" style="width: 50px; height: 50px; ">
+                                            <img src="{{ asset('images/testimonials/'.$testimonial->icon) }}" class="rounded-circle" style="width: 50px; height: 50px; ">
                                         </div>
                                         <div class="col-8">
                                             <h3 class="card-title text-1xl pt-4 font-bold">

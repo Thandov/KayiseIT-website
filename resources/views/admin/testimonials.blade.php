@@ -39,7 +39,7 @@
                 </div>
                 <p class="card-text py-3">{{$testimonial['testimony']}}</p>
                 <div class="col-4">
-                  <img src="{{ asset('images/'.$testimonial->icon)}}" class="rounded-circle  img-thumbnail" style="width: 80px; height: 80px;">
+                  <img src="{{ asset('images/testimonials/'.$testimonial->icon)}}" class="rounded-circle  img-thumbnail" style="width: 80px; height: 80px;">
                 </div>
                 <div class="col-8">
                   <h3 class="card-title text-1xl pt-4 font-bold">{{$testimonial['name']}}</h3>
