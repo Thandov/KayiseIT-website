@@ -11,6 +11,51 @@
          <div class="col-span-2 bg-white rounded-lg shadow-sm p-4 w-full max-w-md">
             <!-- Content for top row -->
             testimonials
+
+
+
+                    <div class="owl-carousel">
+                        @foreach($testimonials as $testimonial)
+                        <div>
+                           <div class="col-12">
+                            <div class="card border-0" style="width: 400px;">
+                                <div class="card-body">
+                                    <div class="row mx-4">
+                                        <div class="rating text-center">
+                                            <span class="text-muted"></span>
+                                            @php
+                                            $avg_rating = DB::table('testimonials')->where('id',
+                                            $testimonial->id)->avg('ratings');
+                                            @endphp
+                                            @for($i = 1; $i <= 5; $i++) @if($i <=$avg_rating) <i class="fas fa-star"></i>
+                                                @else
+                                                <i class="far fa-star"></i>
+                                                @endif
+                                                @endfor
+                                        </div>
+                                        <p class="card-text py-3 fs-6">
+                                            {{ $testimonial['testimony'] }}
+                                        </p>
+                                        <div class="col-4">
+                                            <img src="{{ asset('images/testimonials/'.$testimonial->icon) }}" class="rounded-circle" style="width: 50px; height: 50px; ">
+                                        </div>
+                                        <div class="col-8">
+                                            <h3 class="card-title text-1xl pt-4 font-bold">
+                                                {{ $testimonial['name'] }}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+
+
+
+
          </div>
          <div class="col-span-2 bg-white rounded-lg shadow-sm p-4 w-full max-w-md">
             <!-- Content for bottom row -->
@@ -42,7 +87,7 @@
          autoplay: true,
          loop: true,
          items: 1,
-         autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
+         autoplayTimeout: 5000, // Set autoplay delay to 5 seconds
          smartSpeed: 1500 // Set slide speed to 1 second
       });
    });

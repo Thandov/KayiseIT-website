@@ -1,9 +1,5 @@
 <x-app-layout>
-    <div class="hero">
-        <div class="container spacing">
-            <h1 class="primary-title" data-aos="fade-up" data-aos-delay="700">Our Services</h1>
-        </div>
-    </div>
+<x-hero-banner hero="service-hero" title="Our Services"/>
     <!--services-->
     <div class="services container p-5">
         <div class="row justify-content-center">

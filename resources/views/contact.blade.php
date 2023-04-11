@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-hero-banner hero="about-hero" title="Our Company"></x-hero-banner>
+    <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
 
     <div class="bg-white mx-auto py-10 sm:px-6 lg:px-8">
         <div class="container max-w-7xl">

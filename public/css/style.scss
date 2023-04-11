@@ -533,7 +533,7 @@ div.sticky {
   line-height: 1;
 }
 
-.hero {
+#service-hero {
   color: white;
   padding: 10em 0;
   background: #222;
@@ -541,7 +541,7 @@ div.sticky {
 }
 
 @supports (background-blend-mode: multiply) {
-  .hero {
+  #service-hero {
     background: url("../images/landing-page/pexels-muffin-creatives-4584612.jpg"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
@@ -550,6 +550,27 @@ div.sticky {
     background-size: cover;
   }
 }
+
+//contact hero=====================================================
+#contact-hero {
+  color: white;
+  padding: 10em 0;
+  background: #222;
+  font-weight: bold;
+}
+
+@supports (background-blend-mode: multiply) {
+  #contact-hero {
+    background: url("../images/landing-page/marvin.jpg"), radial-gradient(#444, #aaa);
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+//=========================================================
 
 .hero {
   --clr-accent: #faa700;
@@ -568,8 +589,8 @@ div.sticky {
   padding: 10em 0;
   background: #222;
   font-weight: bold;
-
-  .about-hero {
+}
+  #about-hero {
     background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -577,7 +598,7 @@ div.sticky {
     background-size: cover;
   }
   @supports (background-blend-mode: multiply) {
-    .about-hero {
+    #about-hero {
       background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
       background-blend-mode: multiply;
       background-attachment: fixed;
@@ -587,7 +608,7 @@ div.sticky {
       --clr-accent: #faa700;
     }
   }
-}
+
 
 #team_background {
   width: 100%;

@@ -1,5 +1,5 @@
 <x-app-layout>
-  <x-hero-banner hero="about-hero" title="Our Company"></x-hero-banner>
+  <x-hero-banner hero="about-hero" title="Our Company"/>
 
   <div class="container p-20" id="company">
     <div class="row flex flex-wrap justify-center">

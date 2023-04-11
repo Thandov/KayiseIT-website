@@ -5,6 +5,7 @@ use App\Models\Service;
 use App\Models\SubService;
 use Illuminate\Http\Request;
 use stdClass;
+use App\Models\Testimonial;
 use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\View;
@@ -58,9 +59,10 @@ class ServicesController extends Controller
 
     public function show($id)
     {
+        $testimonials = Testimonial::all();
     $service = Service::find($id);
     $subservices = SubService::where('service_id', $service->service_id)->get();
-    return view('viewservice', compact('service', 'subservices'));
+    return view('viewservice', compact('service', 'subservices', 'testimonials'));
     }
 
     public function updateService(Request $request, $id)
