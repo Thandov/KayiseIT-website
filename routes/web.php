@@ -96,6 +96,8 @@ Route::post('quote-form',[QuotationController::class, 'quote']);
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
 //Admin 
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+
 Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations'); 
 Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations'); 
@@ -133,19 +135,18 @@ Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'st
 Route::post('admin/services/addsubservices/{id}', [SubServicesController::class, 'storing'])->name('addsubservices.storing');
 Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
 
-
-
-//Service Controller
-
-Route::get('viewservice/{id}',[ServicesController::class, 'show'])->name('show');
-Route::get('viewsubservice/{id}',[SubServicesController::class, 'show'])->name('show');
+//quotations & invoice
 Route::post('viewsubservice/quote',[QuotationController::class, 'quote'])->name('viewsubservice.quote');
 Route::get('/admin/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
+Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
-
-Route::post('contact/contact',[ContactController::class, 'contact'])->name('contact.contact');
-Route::post('footer/subscribe',[ContactController::class, 'subscribe'])->name('footer.subscribe');
-
+//blogs
+Route::post('storeblog-form',[BlogController::class, 'storeblog']);
+Route::GET('/admin/blog',[BlogController::class, 'blog'])->name('admin.blog');
+Route::GET('/admin/addblog',[BlogController::class, 'addblog'])->name('admin.addblog');
+Route::get('blog/delete/{id}',[BlogController::class, 'destroyblog'])->name('admin.destroyblog');
+Route::put('/blog/{id}', [BlogController::class, 'updateblog'])->name('blog.update');
+Route::GET('/admin/viewblogg/{id}',[BlogController::class, 'viewblogg'])->name('admin.viewblogg');
 
 //Testimonials
 Route::GET('/admin/testimonials',[TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
@@ -155,16 +156,20 @@ Route::get('testimonial/delete/{id}',[TestimonialsController::class, 'destroytes
 Route::put('/testimonial/{id}', [TestimonialsController::class, 'updatetestimonial'])->name('testimonial.update');
 Route::GET('/admin/viewtestimonial/{id}',[TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
 
+});
+
+//Service Controller
+
+Route::get('viewservice/{id}',[ServicesController::class, 'show'])->name('show');
+Route::get('viewsubservice/{id}',[SubServicesController::class, 'show'])->name('show');
+
+Route::post('contact/contact',[ContactController::class, 'contact'])->name('contact.contact');
+Route::post('footer/subscribe',[ContactController::class, 'subscribe'])->name('footer.subscribe');
+
+
 //Blog
 Route::get('blog',[BlogController::class, 'blogpage'])->name('blogpage');
-Route::post('storeblog-form',[BlogController::class, 'storeblog']);
 Route::get('viewblog/{id}',[BlogController::class, 'viewblog'])->name('viewblog');
-Route::GET('/admin/blog',[BlogController::class, 'blog'])->name('admin.blog');
-Route::GET('/admin/addblog',[BlogController::class, 'addblog'])->name('admin.addblog');
-Route::get('blog/delete/{id}',[BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-Route::put('/blog/{id}', [BlogController::class, 'updateblog'])->name('blog.update');
-Route::GET('/admin/viewblogg/{id}',[BlogController::class, 'viewblogg'])->name('admin.viewblogg');
-
 
 
 Route::get('/layouts/footer',[ServicesController::class, 'footer'])->name('layouts.footer');

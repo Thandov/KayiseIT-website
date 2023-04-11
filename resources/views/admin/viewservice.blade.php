@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="d-flex align-items-center justify-content-start">
-                            <a href="{{ url('admin/services/addsubservices/'.$service->id) }}" class="btn btn-primary me-3">ADD SUBSERVICE</a>
+                            <a href="{{ url('admin/services/addsubservices/'.$service->id) }}" id="add-subservice-btn" class="btn btn-primary me-3">ADD SUBSERVICE</a>
                         </div>
                     </div>
                 </div>
@@ -79,6 +79,27 @@
 
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <!-- This is the code for the modal -->
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Add Subservice</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @include('admin.subservices.add-new-subservice')
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
 </x-app-layout>
 
 <script>
@@ -95,4 +116,16 @@
             });
         });
     });
+
+    document.querySelector('#add-subservice-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        // your code here
+        $('#myModal').modal('show');
+    });
+    document.querySelector('.close').addEventListener('click', function(e) {
+        e.preventDefault();
+        // your code here
+        $('#myModal').modal('hide');
+    });
+
 </script>

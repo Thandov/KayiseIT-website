@@ -5,7 +5,7 @@
         <div class="container max-w-7xl">
             <div class="row">
                 <div class="col-md-6  px-10">
-                    <x-titlestyle smheading="Contact Us" bgheading="Get In Touch With Us" alignment="text-left" smheadingcolor="" bghdcolor=""></x-titlestyle>
+                    <x-titlestyle smheading="Contact Us" bgheading="Get In Touch With Us" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
                     <br>
                     <div>
                         <p class="">Send us an email or give us a call and get top shelf advice on the best IT strategies to help grow your business online.</p>
