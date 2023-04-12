@@ -20,7 +20,7 @@
         </div>
 
         <!-- Invoices and Quotations -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+        <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Invoices</h3>
