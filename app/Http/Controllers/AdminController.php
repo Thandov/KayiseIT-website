@@ -8,6 +8,7 @@ use App\Models\Service;
 use App\Models\SubService;
 use App\Models\Options;
 use App\Models\Items;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,9 +17,10 @@ class AdminController extends Controller
     public function index()
     {
         $services = Service::all();
+        $quotations = Quotation::all();
         $users = User::all();
 
-        return view('admin.admin_dashboard', compact('users', 'services'));
+        return view('admin.admin_dashboard', compact('users', 'services', 'quotations'));
     }
 
     public function remove($id){
