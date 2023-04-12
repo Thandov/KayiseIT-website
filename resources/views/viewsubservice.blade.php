@@ -11,10 +11,6 @@
                <div class="card-header font-bold md:text-2xl"><span>Get a quotation for :</span></div>
                <div class="card-body">
 
-
-
-
-
     <h1>{{ $subservice->name }}</h1>
     <p>{{ $subservice->description }}</p>
 

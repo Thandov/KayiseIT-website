@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\SubService;
+use App\Models\Options;
 use Illuminate\Http\Request;
 use stdClass;
 use App\Models\Testimonial;

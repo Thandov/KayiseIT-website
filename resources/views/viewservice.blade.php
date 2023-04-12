@@ -11,7 +11,7 @@
          <div class="row">
             @foreach($subservices as $subservice)
             <div class="col-md-4 col-sm-6 mb-4 align-items-center">
-               <a href="{{ url('viewsubservice/'.$subservice->id) }}">
+               <a href="{{ url('viewsubservice/'.$subservice->id) }}" id="quotation-btn">
                   <div class="card">
                      <div class="card-body">
                         <div class="row">
@@ -103,6 +103,7 @@
 
 
 
+
 </x-app-layout>
 <style>
    .row img{
@@ -123,6 +124,20 @@
          smartSpeed: 1500 // Set slide speed to 1 second
       });
    });
+
+   //modal
+   /*
+   document.querySelector('#quotation-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        // your code here
+        $('#myModal').modal('show');
+    });
+    document.querySelector('.close').addEventListener('click', function(e) {
+        e.preventDefault();
+        // your code here
+        $('#myModal').modal('hide');
+    });
+    */
 </script>
 
 <!-- 
