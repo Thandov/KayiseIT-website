@@ -55,7 +55,7 @@
         <div class="container p-5" id="about-us">
             <div class="row">
                 <div class="col-sm-12 col-md-6 col-lg-6 ">
-                    <img src="../images/kayise_IT_logo_No_Background.png" width="1200" class="rounded">
+                    <img src="../images/KayiseIT-Team.jpg" width="900" class="rounded shadow">
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center">
                     <div class="">
@@ -71,7 +71,7 @@
         <div class="container p-5">
             <div class="row">
                 <div class="col-md-6 col-sm-12 d-flex justify-content-center">
-                    <img src="./images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3">
+                    <img src="../images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3">
                 </div>
                 <div class="col-md-6 col-sm-12 text-2 d-flex align-items-center">
                     <div>
