@@ -91,7 +91,6 @@
     <section class="testimonial" id="testimonial_background">
         <div class="container p-5">
             <div class="row justify-content-center">
-
                 <x-titlestyle smheading="Testimonials" bgheading="What They Say" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="row">
