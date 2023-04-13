@@ -20,7 +20,32 @@ class QuotationController extends Controller
 {
 
 public function quote(Request $request){
+    $options = $request->options;
+    $optArray= [];
+echo '<pre>';
+print_r($options);
+echo '</pre>';
 
+    foreach ($options as $option) {
+        if (!empty($option['qty']) && isset($option['name']) && isset($option['price'])) {
+            $option_id = $option['id'];
+            $option_name = $option['name'];
+            $option_qty = $option['qty'];
+            $option_price = $option['price'];
+            // do something with option_id, option_name, option_qty, and option_price
+            echo '<pre>';
+            print_r($option_id);
+            print_r($option_name);
+            print_r($option_qty);
+            print_r($option_price);
+            echo '</pre>';
+            
+        }
+        else{
+            echo "it failed. name, price, qty empty";
+        }
+    }
+    dd("echo");
 $quotation = new Quotation;
 $quotation->user_id = auth()->user()->id;
 $quotation->quotation_no = 'Q'.Str::padLeft(Str::random(6), 6, '0');
@@ -34,15 +59,23 @@ $item->price = $subservice->price;
 $item->QI_id = $quotation->quotation_no;
 $item->save();
 
+
 if (!is_null($request->option_ids)) {
 foreach ($request->option_ids as $option_id) {
     $option = Options::find($option_id);
+
+    $qty= $request->qty;
+    $price= $option->price;
+    $total= $qty*$price;
+
     $item = new Items;
     $item->user_id = auth()->user()->id;
     $item->name = $option->name;
-    $item->price = $option->price;
+    $item->price = $total;
     $item->QI_id = $quotation->quotation_no;
     $item->save();
+
+    dd($qty);
 }
 
 }
