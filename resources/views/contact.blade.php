@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
-    
+    <!--breadcrumb-->
+    {{ Breadcrumbs::render() }}
     <div class="bg-white mx-auto py-10 sm:px-6 lg:px-8">
         <div class="container max-w-7xl">
             <div class="row">

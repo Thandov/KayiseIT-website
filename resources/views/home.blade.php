@@ -12,6 +12,8 @@
             <x-carousel-item pic="../images/landing-page/office.jpg" topTitle="We specialize In" mainTitle="Office Automation" bottomTitle="..." />
         </div>
     </div>
+	<!--breadcrumb-->
+    {{ Breadcrumbs::render() }}
     <!--freatured services-->
     <div class="services container p-5">
         <div class="row justify-content-center">
