@@ -29,14 +29,23 @@
                      </thead>
                      <tbody>
                      @foreach($options as $option)
-                     <tr>
-                     <td> <input type="checkbox" name="option_ids[]" value="{{ $option->id }}">{{ $option->name }} </td>
-                     <td> @if($option->quantified)
-                     <input type="number" name="qty" id="option{{ $option->id }}">   
-                     @endif
+    <tr id="addonrow{{ $option->id }}">
+        <td> 
+            <input type="checkbox" name="options[{{$option->id}}][id]" value="{{ $option->id }}">{{ $option->name }} 
+        </td>
+        <td> 
+            @if($option->quantified)
+                <input type="number" name="options[{{$option->id}}][qty]" id="option{{ $option->id }}">   
+            @endif
+        </td>
+        <td>
+            <input type="hidden" name="options[{{$option->id}}][name]" value="{{ $option->name }}">
+            <input type="hidden" name="options[{{$option->id}}][price]" value="{{ $option->price }}">
+        </td>
+    </tr>
+@endforeach
 
-                     </tr>
-                     @endforeach
+
                      </tbody>
          </table>
 
