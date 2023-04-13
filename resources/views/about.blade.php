@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-hero-banner hero="about-hero" title="Our Company"/>
-
+  
   <div class="container p-20" id="company">
     <div class="row flex flex-wrap justify-center">
       <div class="col-md-6 sm-col-12">
@@ -70,3 +70,15 @@
   </div>
   <x-clients></x-clients>
 </x-app-layout>
+<script>
+    $(document).ready(function() {
+        $(".owl-carousel").owlCarousel({
+            autoplay: true,
+            loop: true,
+            items: 4,
+            autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
+            smartSpeed: 2000 // Set slide speed to 1 second
+        });
+    });
+    AOS.init();
+</script>
