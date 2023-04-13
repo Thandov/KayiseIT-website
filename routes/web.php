@@ -95,7 +95,7 @@ Route::post('submit-form',[QuotationController::class, 'submit']);
 Route::post('quote-form',[QuotationController::class, 'quote']);
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
-//Admin 
+//=================================================Admin ==================================================
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
@@ -136,7 +136,6 @@ Route::post('admin/services/addsubservices/{id}', [SubServicesController::class,
 Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
 
 //quotations & invoice
-Route::post('viewsubservice/quote',[QuotationController::class, 'quote'])->name('viewsubservice.quote');
 Route::get('/admin/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
@@ -157,11 +156,13 @@ Route::put('/testimonial/{id}', [TestimonialsController::class, 'updatetestimoni
 Route::GET('/admin/viewtestimonial/{id}',[TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
 
 });
+//==================================End of Admin Controls==================================================
 
 //Service Controller
 
 Route::get('viewservice/{id}',[ServicesController::class, 'show'])->name('show');
 Route::get('viewsubservice/{id}',[SubServicesController::class, 'show'])->name('show');
+Route::post('viewsubservice/quote',[QuotationController::class, 'quote'])->name('viewsubservice.quote');
 
 Route::post('contact/contact',[ContactController::class, 'contact'])->name('contact.contact');
 Route::post('footer/subscribe',[ContactController::class, 'subscribe'])->name('footer.subscribe');

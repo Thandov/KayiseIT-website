@@ -37,23 +37,27 @@
 
 
 
-                        <div class="flex items-center">
-            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
-                <i class="fas fa-cogs text-white"></i>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-                <dl>
-                    <dt class="text-sm font-medium text-gray-500 truncate">
-                        Quotations count testing
-                    </dt>
-                    <dd>
-                        <div class="text-lg font-medium text-gray-900">
-                            {{ $quotations->count() }}
-                        </div>
-                    </dd>
-                </dl>
-            </div>
-        </div>
+                            <a href="{{ url('admin/quotations') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-toggle="modal" data-target="#myModal">
+                        
+                                <dl>
+                                    <dt class="text-sm font-medium">
+                                        Quotations
+                                    </dt>
+                                    <dd>
+                                        <div class="text-lg font-medium text-center text-gray-900">
+                                            {{ $quotations->count() }}
+                                        </div>
+                                    </dd>
+                                </dl>
+                        
+                            </a>
+
+                            <a href="{{ url('admin/quotations') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-toggle="modal" data-target="#myModal">
+                                <div class="card">
+
+                                </div>
+                            </a>
+
 
 
                         

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('unq_id');
             $table->string('name');
+            $table->boolean('quantified')->nullable();
             $table->decimal('price', 10, 2);
             $table->timestamps();
             $table->foreign('unq_id')->references('subserv_id')->on('subservices')->onDelete('cascade');

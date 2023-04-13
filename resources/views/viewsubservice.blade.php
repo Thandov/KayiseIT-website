@@ -31,6 +31,10 @@
                      @foreach($options as $option)
                      <tr>
                      <td> <input type="checkbox" name="option_ids[]" value="{{ $option->id }}">{{ $option->name }} </td>
+                     <td> @if($option->quantified)
+                     <input type="number" name="qty" id="option{{ $option->id }}">   
+                     @endif
+
                      </tr>
                      @endforeach
                      </tbody>
