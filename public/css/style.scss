@@ -3,19 +3,16 @@ $pcolor: #64bc5c;
 $scolor: #183ea4;
 $wcolor: #ffffff;
 $drk-g-color: #457a40;
-
 /* Font Sizes Variables */
 $headingsize: 24px;
 $readingsize: 12px;
-
+/*=================================================*/
 #btn-primary {
   background-color: $scolor !important;
 }
-
 #btn-primary:hover {
   filter: brightness(150%);
 }
-
 .overview {
   justify-content: center;
   align-items: center;
@@ -26,19 +23,16 @@ $readingsize: 12px;
     font-weight: 800;
     color: $scolor;
   }
-
   p {
     font-size: 17px;
     font-weight: bold;
     color: #000000;
   }
-
   .img_overview {
     width: 30px;
     margin: 0% auto;
   }
 }
-
 #testimonial_background {
   width: 100%;
   background: url("../images/pexels-marcelo-verfe-12954767.jpg"), radial-gradient(#444, #111);
@@ -46,7 +40,6 @@ $readingsize: 12px;
   background-repeat: no-repeat;
   background-position: center center;
 }
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -77,7 +70,6 @@ input::-webkit-inner-spin-button {
   width: 200px;
   position: relative;
   padding: 20px 0 0 0;
-
   .editwrapper {
     position: absolute;
     right: 0;
@@ -96,7 +88,6 @@ input::-webkit-inner-spin-button {
     }
   }
 }
-
 .commcard {
   min-height: 200px;
   width: 250px;
@@ -120,7 +111,6 @@ input::-webkit-inner-spin-button {
     }
   }
 }
-
 .cardbody {
   position: absolute;
   width: 100%;
@@ -161,7 +151,6 @@ input[type="number"] {
     width: 350px;
   }
 }
-
 .owl-carousel#headercara {
   height: 100%;
   div.owl-stage-outer {
@@ -232,7 +221,6 @@ input[type="number"] {
   border-width: 2px;
   border-style: dashed;
   position: relative;
-
   .image-upload-input {
     position: absolute;
     top: 0;
@@ -240,18 +228,15 @@ input[type="number"] {
     width: 100%;
     height: 100%;
   }
-
   .placeholder-text {
     text-align: center;
     font-size: 14px;
-
     svg {
       width: 24px;
       height: 24px;
     }
   }
 }
-
 //Custom click image
 #hitparent {
   .phonepicwrap {
@@ -313,7 +298,6 @@ li {
     //background: pink;
   }
 }
-
 #profile,
 .img-container {
   display: none;
@@ -327,12 +311,10 @@ $apbheight: 100px;
   height: $apbheight;
   line-height: $apbheight;
 }
-
 .radioBoxparent {
   input[type="radio"] {
     display: none;
   }
-
   label {
     border: 1px solid #fff;
     padding: 10px;
@@ -341,7 +323,6 @@ $apbheight: 100px;
     margin: 10px;
     cursor: pointer;
   }
-
   label:before {
     background-color: white;
     color: white;
@@ -360,24 +341,20 @@ $apbheight: 100px;
     transform: scale(0);
     z-index: 2;
   }
-
   label img {
     height: auto;
     width: auto;
     transition-duration: 0.2s;
     transform-origin: 50% 50%;
   }
-
   :checked + label {
     border-color: $pcolor;
   }
-
   :checked + label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
-
   :checked + label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
@@ -388,7 +365,6 @@ $apbheight: 100px;
   input[type="checkbox"] {
     display: none;
   }
-
   label {
     border: 1px solid #fff;
     padding: 10px;
@@ -397,7 +373,6 @@ $apbheight: 100px;
     margin: 10px;
     cursor: pointer;
   }
-
   label:before {
     background-color: white;
     color: white;
@@ -416,36 +391,30 @@ $apbheight: 100px;
     transform: scale(0);
     z-index: 2;
   }
-
   label img {
     height: auto;
     width: auto;
     transition-duration: 0.2s;
     transform-origin: 50% 50%;
   }
-
   :checked + label {
     border-color: $pcolor;
   }
-
   :checked + label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
-
   :checked + label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
   }
 }
-
 .extraservdiv {
   input[type="checkbox"][id^="service"] {
     display: none;
   }
-
   label {
     border: 1px solid #fff;
     padding: 10px;
@@ -454,7 +423,6 @@ $apbheight: 100px;
     margin: 10px;
     cursor: pointer;
   }
-
   label:before {
     background-color: white;
     color: white;
@@ -473,37 +441,31 @@ $apbheight: 100px;
     transform: scale(0);
     z-index: 2;
   }
-
   label img {
     height: auto;
     width: auto;
     transition-duration: 0.2s;
     transform-origin: 50% 50%;
   }
-
   :checked + label {
     border-color: $pcolor;
   }
-
   :checked + label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
-
   :checked + label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
   }
 }
-
 div.sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
-
 @media only screen and (min-width: 600px) {
   #thapelo {
     margin: 10px;
@@ -524,22 +486,19 @@ div.sticky {
     }
   }
 }
-
 /* ==================================== services header Styling ==================================== */
-
 .primary-title {
   font-size: 3rem;
   font-size: clamp(1rem, calc(5vw + 1rem), 4.5rem);
   line-height: 1;
 }
-
+//Services hero=====================================================
 #service-hero {
   color: white;
   padding: 10em 0;
   background: #222;
   font-weight: bold;
 }
-
 @supports (background-blend-mode: multiply) {
   #service-hero {
     background: url("../images/landing-page/pexels-muffin-creatives-4584612.jpg"), radial-gradient(#aaa, #fff);
@@ -550,7 +509,6 @@ div.sticky {
     background-size: cover;
   }
 }
-
 //contact hero=====================================================
 #contact-hero {
   color: white;
@@ -558,7 +516,6 @@ div.sticky {
   background: #222;
   font-weight: bold;
 }
-
 @supports (background-blend-mode: multiply) {
   #contact-hero {
     background: url("../images/landing-page/marvin.jpg"), radial-gradient(#444, #aaa);
@@ -569,21 +526,16 @@ div.sticky {
     background-size: cover;
   }
 }
-
-
+//=========================================================
 .hero {
   --clr-accent: #faa700;
 }
-//=========================================================
-
 /* ==================================== about header Styling ==================================== */
-
 .primary-title {
   font-size: 3rem;
   font-size: clamp(1rem, calc(5vw + 1rem), 4.5rem);
   line-height: 1;
 }
-
 .banner {
   color: white;
   padding: 10em 0;
@@ -591,11 +543,10 @@ div.sticky {
   font-weight: bold;
 }
   #about-hero {
-    background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    color: white;
+    padding: 10em 0;
+    background: #222;
+    font-weight: bold;
   }
   @supports (background-blend-mode: multiply) {
     #about-hero {
@@ -608,7 +559,6 @@ div.sticky {
       --clr-accent: #faa700;
     }
   }
-  //=========================================================================
 
 
 #team_background {

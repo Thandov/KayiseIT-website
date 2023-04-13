@@ -1,5 +1,7 @@
 <x-app-layout>
 <x-hero-banner hero="service-hero" title="Our Services"/>
+<!--breadcrumb-->
+{{ Breadcrumbs::render() }}
     <!--services-->
     <div class="services container p-5">
         <div class="row justify-content-center">
