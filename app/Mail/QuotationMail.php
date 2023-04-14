@@ -19,7 +19,8 @@ class QuotationMail extends Mailable
 
     public function build()
     {
-        return $this->subject('Quotation for ' . $this->emailData['service_name'])
+        return $this->view('info@kayiseit.co.za')
+                    ->subject('Quotation for ' . $this->emailData['service_name'])
                     ->view('emails.quotation')
                     ->with('emailData', $this->emailData);
     }

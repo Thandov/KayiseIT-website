@@ -77,7 +77,7 @@ Route::get('/services/network', function () {
 
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 Route::middleware('auth')->group(function () {

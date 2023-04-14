@@ -47,9 +47,8 @@
   <!--Our team-->
   <div class="bg" id="team_background">
     <div class="container p-5 team">
-      <div class="row">
+      <div class="row flex justify-content-center">
         <x-titlestyle smheading="Our Team" bgheading="Let Us Introduce Ourselves" alignment="text-center" smheadingcolor="" bgheadingcolor="text-white"></x-titlestyle>
-        <div class="card-container flex flex-wrap justify-center md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
           <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;">
             <img src="../images/thando.jpg" class="card-img-top" alt="...">
             <div class="card-body">

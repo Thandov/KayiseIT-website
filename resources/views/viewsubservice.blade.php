@@ -19,6 +19,7 @@
     <form action="{{ route('viewsubservice.quote') }}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
+        <input type="hidden" name="qty" value="1">
 
 
          <table class="table">
@@ -35,7 +36,9 @@
         </td>
         <td> 
             @if($option->quantified)
-                <input type="number" name="options[{{$option->id}}][qty]" id="option{{ $option->id }}">   
+                <input type="number" name="options[{{$option->id}}][qty]" id="option{{ $option->id }}">
+                @else
+                <input type="hidden" name="options[{{$option->id}}][qty]" id="option{{ $option->id }}" value="1">   
             @endif
         </td>
         <td>

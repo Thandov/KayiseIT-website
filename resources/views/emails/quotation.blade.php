@@ -76,8 +76,8 @@
         <thead>
             <tr>
                 <th>Description</th>
-                <th>Quantity</th>
                 <th>Unit Price</th>
+                <th>Quantity</th>
                 <th>Total Price</th>
             </tr>
         </thead>
@@ -85,9 +85,9 @@
             @foreach ($items as $item)
                 <tr>
                     <td>{{ $item->name }}</td>
-                    <td>1</td>
                     <td>{{ $item->price }}</td>
-                    <td>{{ $item->price }}</td>
+                    <td>{{ $item->qty }}</td>
+                    <td>{{ $item->sub_total }}</td>
                 </tr>
             @endforeach
         </tbody>

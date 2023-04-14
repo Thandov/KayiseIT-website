@@ -1,5 +1,5 @@
 @if (empty(Auth::user()->name))
-<nav class="grid grid-cols-2 md:grid-cols-5 bg-white border-b border-gray-100 py-3">
+<nav class="grid grid-cols-2 bg-white border-b border-gray-100 py-3">
     <div class="col-start-2 d-flex justify-content-end pr-10 md:grid md:grid-cols-5">
         @if (Route::has('login'))
         @auth @else @if (Route::has('login'))
