@@ -8,7 +8,7 @@
 
 
 
-         <div class="row">
+        <div class="row">
             @foreach($subservices as $subservice)
             <div class="col-md-4 col-sm-6 mb-4 align-items-center">
                <a href="{{ url('viewsubservice/'.$subservice->id) }}" id="quotation-btn">
@@ -24,12 +24,7 @@
             </div>
             @endforeach
          </div>
-
-
-
-
-         <a href="#" class="inline-block py-2 px-4 text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-200">Buy Now</a>
-      </div>
+		</div>
       <div class="col-span-2 md:col-span-2 grid grid-rows-2 gap-4">
          <div class="col-span-2 bg-white rounded-lg shadow-sm p-4 w-full max-w-md">
             <!-- Content for top row -->
@@ -74,11 +69,6 @@
                         </div>
                         @endforeach
                     </div>
-
-
-
-
-
          </div>
          <div class="col-span-2 bg-white rounded-lg shadow-sm p-4 w-full max-w-md">
             <!-- Content for bottom row -->
@@ -124,7 +114,7 @@
          smartSpeed: 1500 // Set slide speed to 1 second
       });
    });
-
+   AOS.init();
    //modal
    /*
    document.querySelector('#quotation-btn').addEventListener('click', function(e) {
