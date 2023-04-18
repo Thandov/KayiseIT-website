@@ -106,6 +106,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations'); 
 Route::GET('/admin/invoices',[AdminController::class, 'invoices'])->name('admin.invoices'); 
+Route::GET('/admin/staff',[AdminController::class, 'staff'])->name('admin.staff'); 
+Route::GET('/admin/clients',[AdminController::class, 'clients'])->name('admin.clients'); 
 Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations'); 
 Route::GET('/admin/viewinvoice/{id}',[AdminController::class, 'viewinvoice'])->name('admin.viewinvoice'); 
 Route::GET('/admin/users',[AdminController::class, 'users'])->name('admin.users');

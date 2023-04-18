@@ -23,23 +23,23 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Quotations</h3>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Action Page</h3>
                     <div class="mt-5">
-                        <div class="bg-gray-200 rounded-lg h-40">
+                        <div class="bg-gray-200 rounded-lg">
                             <div
-                                class="grid grid-cols-1 md:grid-cols-4 justify-items-center gap-8 py-12 px-4 md:px-8 max-w-screen-xl mx-auto">
+                                class="grid grid-cols-1 md:grid-cols-4 flex justify-items-center gap-8 py-12 px-4 md:px-8 max-w-screen-xl mx-auto">
 
                                 <div class="col-span-2 md:col-span-1">
 
-                                    <a href="{{ url('admin/quotations') }}"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <a href="{{ url('admin/clients') }}"
+                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         Clients
                                     </a>
                                 </div>
                                 <div class="col-span-2 md:col-span-1">
 
-                                    <a href="{{ url('admin/quotations') }}"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <a href="{{ url('admin/staff') }}"
+                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         Staff
                                     </a>
 
@@ -47,10 +47,10 @@
                                 <div class="col-span-2 md:col-span-1">
 
                                     <a href="{{ url('admin/invoices') }}"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         
                                         <dl>
-                                            <dt class="text-sm font-medium">
+                                            <dt>
                                                 Invoices
                                             </dt>
                                             <dd>
@@ -66,10 +66,10 @@
                                 <div class="col-span-1 md:col-span-1">
 
                                     <a href="{{ url('admin/quotations') }}"
-                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 
                                         <dl>
-                                            <dt class="text-sm font-medium">
+                                            <dt>
                                                 Quotations
                                             </dt>
                                             <dd>

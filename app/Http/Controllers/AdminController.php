@@ -50,6 +50,16 @@ class AdminController extends Controller
         return view('admin.invoices', compact('invoices'));
     }
 
+    public function staff()
+    {
+        return view('admin.staff');
+    }
+
+    public function clients()
+    {
+        return view('admin.clients');
+    }
+
     public function users()
     {
         $users = User::all();

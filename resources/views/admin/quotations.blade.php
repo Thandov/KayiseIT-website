@@ -39,7 +39,7 @@
                                             </a>
                                         </div>
                                         <div class="py-3 px-6 col-4">
-                                            <a href="{{ url('admin/download/'.$quotation->id) }}?format=pdf"
+                                            <a href="{{ url('admin/download_quotation/'.$quotation->id) }}?format=pdf"
                                                 title="download">
                                                 <i class="fa fa-download"></i>
                                             </a>
