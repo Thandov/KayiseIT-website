@@ -9,6 +9,7 @@ use App\Models\Testimonial;
 use App\Models\Blog;
 use App\Models\User;
 use App\Models\Quotation;
+use App\Models\Invoice;
 use Illuminate\Http\QuotationRequest;
 
 class DashboardController extends Controller
@@ -38,8 +39,9 @@ class DashboardController extends Controller
             $testimonials = Testimonial::all();
             $blog = Blog::all();
             $quotations = Quotation::all();
-        $users = User::all();
-            return view('admin.admin_dashboard', compact('services', 'testimonials', 'blog', 'quotations', 'users'));
+            $invoices = Invoice::all();
+            $users = User::all();
+            return view('admin.admin_dashboard', compact('services', 'testimonials', 'blog', 'quotations', 'invoices', 'users'));
         } 
     }
 

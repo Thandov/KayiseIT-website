@@ -15,6 +15,8 @@ use App\Models\Options;
 use App\Models\Items;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
+use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Response;
 
 
 class QuotationController extends Controller
@@ -48,7 +50,7 @@ class QuotationController extends Controller
                 $selectedOptions[] = $option;
             }
         }
-        
+
         // Loop through the selectedOptions array and print the selected options
         foreach ($selectedOptions as $option) {
             $option_id = $option['id'];
@@ -58,7 +60,7 @@ class QuotationController extends Controller
 
             // Do something with the selected option
             $sub_total = $option_qty * $option_price;
-            
+
             $item = new Items;
             $item->user_id = auth()->user()->id;
             $item->name = $option_name;
@@ -114,5 +116,47 @@ class QuotationController extends Controller
                 ->subject('Invoice');
         });
         return redirect()->back()->with('status', 'Invoice sent successfully!');
+    }
+
+    public function quotationPDF($id)
+    {
+        $quotation = Quotation::find($id);
+        $items = Items::where('QI_id', $quotation->quotation_no)->get();
+
+        $html = view('pdf.quotation', compact('quotation', 'items'))->render();
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml($html);
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        $pdfContent = $pdf->output();
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="quotation_' . $quotation->quotation_no . '.pdf"',
+        ];
+
+        return Response::make($pdfContent, 200, $headers);
+    }
+
+    public function invoicePDF($id)
+    {
+        $invoice = Invoice::find($id);
+        $items = Items::where('QI_id', $invoice->invoice_no)->get();
+
+        $html = view('pdf.invoice', compact('invoice', 'items'))->render();
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml($html);
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        $pdfContent = $pdf->output();
+
+        $headers = [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="invoice_' . $invoice->invoice_no . '.pdf"',
+        ];
+
+        return Response::make($pdfContent, 200, $headers);
     }
 }

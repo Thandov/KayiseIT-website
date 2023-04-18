@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 /* Font Sizes Variables */
+/*=================================================*/
 #btn-primary {
   background-color: #183ea4 !important;
 }
@@ -527,11 +528,10 @@ div.sticky {
 }
 
 #about-hero {
-  background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  color: white;
+  padding: 10em 0;
+  background: #222;
+  font-weight: bold;
 }
 
 @supports (background-blend-mode: multiply) {

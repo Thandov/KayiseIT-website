@@ -18,9 +18,10 @@ class AdminController extends Controller
     {
         $services = Service::all();
         $quotations = Quotation::all();
+        $invoices = Invoice::all();
         $users = User::all();
 
-        return view('admin.admin_dashboard', compact('users', 'services', 'quotations'));
+        return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices'));
     }
 
     public function remove($id){
@@ -30,10 +31,23 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User has been deleted!');
     }
 
+    public function removeinvoice($id){
+
+        $invoice = Invoice::find($id);
+        $invoice->delete();
+        return redirect()->back()->with('success', 'invoice has been deleted!');
+    }
+
     public function quotations()
     {
         $quotations = Quotation::all();
         return view('admin.quotations', compact('quotations'));
+    }
+
+    public function invoices()
+    {
+        $invoices = Invoice::all();
+        return view('admin.invoices', compact('invoices'));
     }
 
     public function users()
@@ -61,8 +75,16 @@ class AdminController extends Controller
     {
         $quotation = DB::table('quotations')->find($id);
         $items = Items::where('QI_id', $quotation->quotation_no)->get();
-        return view('admin/viewquotations', compact('quotation', 'items'));
+        return view('admin/viewquotations', compact('quotation', 'items'),);
     }
+    
+    public function viewinvoice($id)
+    {
+        $invoice = DB::table('invoices')->find($id);
+        $items = Items::where('QI_id', $invoice->invoice_no)->get();
+        return view('admin/viewinvoice', compact('invoice', 'items'));
+    }
+
     public function viewuser($id)
     {
         $user = User::find($id);

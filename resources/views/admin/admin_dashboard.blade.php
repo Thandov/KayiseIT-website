@@ -20,47 +20,69 @@
         </div>
 
         <!-- Invoices and Quotations -->
-        <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-6">
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="px-4 py-5 sm:p-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Invoices</h3>
-                    <div class="mt-5">
-                        <div class="bg-gray-200 rounded-lg h-40"></div>
-                    </div>
-                </div>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
                 <div class="px-4 py-5 sm:p-6">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Quotations</h3>
                     <div class="mt-5">
                         <div class="bg-gray-200 rounded-lg h-40">
+                            <div
+                                class="grid grid-cols-1 md:grid-cols-4 justify-items-center gap-8 py-12 px-4 md:px-8 max-w-screen-xl mx-auto">
 
+                                <div class="col-span-2 md:col-span-1">
 
+                                    <a href="{{ url('admin/quotations') }}"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Clients
+                                    </a>
+                                </div>
+                                <div class="col-span-2 md:col-span-1">
 
-                            <a href="{{ url('admin/quotations') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-toggle="modal" data-target="#myModal">
-                        
-                                <dl>
-                                    <dt class="text-sm font-medium">
-                                        Quotations
-                                    </dt>
-                                    <dd>
-                                        <div class="text-lg font-medium text-center text-gray-900">
-                                            {{ $quotations->count() }}
-                                        </div>
-                                    </dd>
-                                </dl>
-                        
-                            </a>
-
-                            <a href="{{ url('admin/quotations') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-toggle="modal" data-target="#myModal">
-                                <div class="card">
+                                    <a href="{{ url('admin/quotations') }}"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Staff
+                                    </a>
 
                                 </div>
-                            </a>
+                                <div class="col-span-2 md:col-span-1">
 
+                                    <a href="{{ url('admin/invoices') }}"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        
+                                        <dl>
+                                            <dt class="text-sm font-medium">
+                                                Invoices
+                                            </dt>
+                                            <dd>
+                                                <div class="text-lg font-medium text-center text-gray-900">
+                                                    {{ $invoices->count() }}
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                        
+                                    </a>
 
+                                </div>
+                                <div class="col-span-1 md:col-span-1">
 
-                        
+                                    <a href="{{ url('admin/quotations') }}"
+                                        class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+
+                                        <dl>
+                                            <dt class="text-sm font-medium">
+                                                Quotations
+                                            </dt>
+                                            <dd>
+                                                <div class="text-lg font-medium text-center text-gray-900">
+                                                    {{ $quotations->count() }}
+                                                </div>
+                                            </dd>
+                                        </dl>
+
+                                    </a>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,14 +115,15 @@
 </x-app-layout>
 
 <script>
-    document.querySelector('#add-service-btn').addEventListener('click', function(e) {
+    document.querySelector('#add-service-btn').addEventListener('click', function (e) {
         e.preventDefault();
         // your code here
         $('#myModal').modal('show');
     });
-    document.querySelector('.close').addEventListener('click', function(e) {
+    document.querySelector('.close').addEventListener('click', function (e) {
         e.preventDefault();
         // your code here
         $('#myModal').modal('hide');
     });
+
 </script>
