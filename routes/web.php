@@ -39,6 +39,10 @@ Route::get('about', function () {
     return view('about');
 })->name('about');
 
+Route::get('glitch', function () {
+    return view('glitch');
+})->name('glitch');
+
 Route::get('contact', function () {
     return view('contact');
 })->name('contact');
@@ -101,7 +105,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::GET('/admin/quotations',[AdminController::class, 'quotations'])->name('admin.quotations'); 
+Route::GET('/admin/invoices',[AdminController::class, 'invoices'])->name('admin.invoices'); 
 Route::GET('/admin/viewquotations/{id}',[AdminController::class, 'viewquotations'])->name('admin.viewquotations'); 
+Route::GET('/admin/viewinvoice/{id}',[AdminController::class, 'viewinvoice'])->name('admin.viewinvoice'); 
 Route::GET('/admin/users',[AdminController::class, 'users'])->name('admin.users');
 Route::GET('/admin/viewuser/{id}',[AdminController::class, 'viewuser'])->name('admin.viewuser');
 Route::GET('/admin/services',[AdminController::class, 'services'])->name('admin.services');
@@ -109,12 +115,17 @@ Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendIn
 Route::GET('/admin/viewservice/{id}',[AdminController::class, 'viewservice'])->name('admin.viewservice');
 Route::GET('/admin/viewsubservice/{id}',[AdminController::class, 'viewsubservice'])->name('admin.viewsubservice');
 
+//download quotation&invoice PDFs
+Route::get('/admin/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
+Route::get('/admin/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');
+
 //update
 Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
 Route::put('/service/{id}', [ServicesController::class, 'updateService'])->name('service.update');
 
 //delete
 Route::get('quotations/delete/{id}',[AdminController::class, 'remove'])->name('admin.remove');
+Route::get('invoices/delete/{id}',[AdminController::class, 'removeinvoice'])->name('admin.removeinvoice');
 Route::get('users/delete/{id}',[AdminController::class, 'destroy'])->name('admin.destroy');
 Route::get('delete/{id}', [ServicesController::class, 'delete']);
 Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
