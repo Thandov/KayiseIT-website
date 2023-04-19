@@ -23,9 +23,9 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th>Item</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Sub Total</th>
+                                        <th>Unit Price</th>
+                                        <th>Quantity</th>
+                                        <th>Sub Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,9 +33,9 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration + 1 }}</th>
                                             <td>{{ $item->name }}</td>
-                    <td>{{ $item->price }}</td>
-                    <td>{{ $item->qty }}</td>
-                    <td>{{ $item->sub_total }}</td>
+                                            <td>{{ $item->price }}</td>
+                                            <td>{{ $item->qty }}</td>
+                                            <td>{{ $item->sub_total }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

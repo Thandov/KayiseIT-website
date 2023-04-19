@@ -26,7 +26,7 @@ class TestimonialsSeeder extends Seeder
         ],
         [
             'icon' => 'lebo.jpg',
-            'name' => 'Malope Lebogang',
+            'name' => 'john Murray',
             'ratings' => '4',
             'testimony' => 'I recommend Kayise IT to everyone for IT solutions and needs.They have a dedicated team that knows
                             what they are doing.',
