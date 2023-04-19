@@ -6,7 +6,7 @@
                 <h2 class="text-lg font-bold mb-2">{{ $subservice->name }}</h2>
                 <p>Price: R{{ $subservice->price }}</p>
                 <div class="d-flex align-items-center justify-content-start">
-                            <a href="{{ url('admin/services/addoptions/'.$subservice->id) }}" id="add-option-btn" class="btn btn-primary me-3">ADD SUBSERVICE</a>
+                            <a href="{{ url('admin/services/addoptions/'.$subservice->id) }}" id="add-option-btn" class="btn btn-primary me-3">ADD Option</a>
                         </div>
             </div>
         </div>

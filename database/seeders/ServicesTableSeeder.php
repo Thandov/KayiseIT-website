@@ -32,7 +32,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Software Development',
-            'description' => 'We develop morden and compatable softwares. Check out our packages below.',
+            'description' => 'We develop morden and compatable applications for mobiles and tablets. Check out our packages below.',
             'price' => 29.99,
             'icon' => '1675270999_Software Development.png',
             'service_id' => 'S003',

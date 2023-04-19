@@ -33,9 +33,7 @@ class ServicesController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'icon' => 'required|mimes:jpg,png,jpeg|max:5048'
-        ]);
+        
 
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
 

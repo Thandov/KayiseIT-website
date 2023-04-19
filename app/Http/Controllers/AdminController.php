@@ -24,14 +24,16 @@ class AdminController extends Controller
         return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices'));
     }
 
-    public function remove($id){
+    public function remove($id)
+    {
 
         $quotation = Quotation::find($id);
         $quotation->delete();
         return redirect()->back()->with('success', 'User has been deleted!');
     }
 
-    public function removeinvoice($id){
+    public function removeinvoice($id)
+    {
 
         $invoice = Invoice::find($id);
         $invoice->delete();
@@ -57,7 +59,15 @@ class AdminController extends Controller
 
     public function clients()
     {
-        return view('admin.clients');
+
+        $clients = User::select('users.*', 'roles.display_name')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->where('roles.id', '!=', 1)
+            ->get();
+
+
+        return view('/admin/clients', compact('clients'));
     }
 
     public function users()
@@ -66,28 +76,28 @@ class AdminController extends Controller
         return view('admin.users', compact('users'));
     }
 
-    
-    
+
+
     public function destroy($id)
     {
         $user = User::find($id);
-        
+
         if (!$user) {
             return redirect()->back()->with('error', 'User not found!');
         }
-        
+
         $user->delete();
         return redirect()->back()->with('success', 'User has been deleted!');
     }
-    
-    
+
+
     public function viewquotations($id)
     {
         $quotation = DB::table('quotations')->find($id);
         $items = Items::where('QI_id', $quotation->quotation_no)->get();
         return view('admin/viewquotations', compact('quotation', 'items'),);
     }
-    
+
     public function viewinvoice($id)
     {
         $invoice = DB::table('invoices')->find($id);
@@ -100,7 +110,7 @@ class AdminController extends Controller
         $user = User::find($id);
         return view('admin/viewuser', compact('user'));
     }
-    
+
     public function services()
     {
         $services = Service::all();

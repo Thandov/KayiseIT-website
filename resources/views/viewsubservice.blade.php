@@ -1,9 +1,4 @@
 <x-app-layout>
-   <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-         {{ __('Get A Quotation') }}
-      </h2>
-   </x-slot>
    <div class="container py-20">
       <div class="row justify-content-center">
          <div class="col-md-8">

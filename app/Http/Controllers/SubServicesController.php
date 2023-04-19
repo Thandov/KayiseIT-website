@@ -50,7 +50,7 @@ class SubServicesController extends Controller
 
     $request->validate([ 'icon' => 'required|mimes:svg,jpg,png,jpeg|max:5048' ]);
     $newImageName = $request->file('icon')->getClientOriginalName();
-    $request->icon->move(public_path('images/service_logo'), $newImageName);
+    $request->icon->move(public_path('images/subservices'), $newImageName);
 
         $subService = new SubService();
         $subService->service_id = $service_id;

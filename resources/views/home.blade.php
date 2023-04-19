@@ -67,7 +67,6 @@
             </div>
         </div>
     </section>
-    <x-stats years="8" developers="7" customers="7k" projects="5k" />
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container p-5">

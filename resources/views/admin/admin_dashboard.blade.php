@@ -126,4 +126,19 @@
         $('#myModal').modal('hide');
     });
 
+    function previewImage(event) {
+    var file = event.target.files[0];
+    var formData = new FormData();
+    formData.append('icon', file);
+
+    var preview = document.getElementById('preview');
+    preview.style.display = 'block';
+    preview.src = URL.createObjectURL(file);
+
+    // Send the FormData object to the server using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/upload');
+    xhr.send(formData);
+}
+
 </script>

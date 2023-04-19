@@ -1,13 +1,8 @@
 <x-app-layout>
 
-   <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-         {{ __('View Service') }}
-      </h2>
-   </x-slot>
-   <div class="container">
+   <div class="container my-5">
       <div class="row justify-content-center">
-         <div class="col-md-10">
+         <div class="col-md-5">
             <div class="card">
                <div class="card-header">{{ $user->name }}</div>
                <div class="card-body">
