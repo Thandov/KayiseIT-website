@@ -10,6 +10,7 @@
     <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-5 flex justify-center">
         @foreach($services as $service)
             <div class="flex justify-center">
+                <a href="{{ url('viewservice/'.$service->id) }}">
                 <div class="grid h-auto grid-rows-3 bg-white rounded-lg shadow-md">
                     <div class="row-span-1 flex items-center justify-start p-4">
                         <div class="h-12 w-12 rounded-md bg-green-500"></div>
@@ -19,6 +20,7 @@
                         <p class="text-sm">{{ $service['description'] }}</p>
                     </div>
                 </div>
+            </a>
             </div>
         @endforeach
     </div>

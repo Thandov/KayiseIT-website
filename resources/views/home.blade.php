@@ -8,7 +8,10 @@
    @include('_carousel')
     
     <!--freatured services-->
-    @include('services._services')
+    @include('services._services', ['services' => $services->take(3)])
+    <div class="data text-center mb-5">
+        <a href="services" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">View All</a>
+    </div>
     <!--About Us-->
     <section class="bg-white">
         <div class="container p-5" id="about-us">
