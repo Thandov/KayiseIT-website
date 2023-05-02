@@ -5,53 +5,10 @@
     </div>
     @endif
     <!--Carousel-->
-    <div class="jumbotron bg-gray-400 bg-gradient position-relative">
-        <div class="owl-carousel owl-theme" id="headercara">
-            <x-carousel-item pic="../images/landing-page/group.jpg" topTitle="We Specialize In" mainTitle="Web Development" bottomTitle="..." />
-            <x-carousel-item pic="../images/landing-page/soft.jpg" topTitle="We specialize In" mainTitle="Software Development" bottomTitle="..." />
-            <x-carousel-item pic="../images/landing-page/office.jpg" topTitle="We specialize In" mainTitle="Office Automation" bottomTitle="..." />
-        </div>
-    </div>
-	<!--breadcrumb-->
-    {{ Breadcrumbs::render() }}
+   @include('_carousel')
+    
     <!--freatured services-->
-    <div class="services container p-5">
-        <div class="row justify-content-center">
-            <div class="col">
-                <x-titlestyle smheading="Our Services" bgheading="Managed I.T. Solutions" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="row">
-                        @php
-                        $counter = 0;
-                        @endphp
-                        @foreach($services as $service)
-                        @if($counter < 3) <div class="col-md-4 col-sm-6 my-3">
-                            <a href="{{ url('viewservice/'.$service->id) }}">
-                                <div class="card  text-white">
-                                    <img src="{{ asset('images/service_logo/'.$service->icon) }}" class="card-img" alt="Your Image">
-                                    <div class="card-img-overlay d-flex flex-column justify-content-center align-items-center">
-                                        <div class="text-center">
-                                            <h5 class="card-title text-3xl font-bold">
-                                                {{ $service['name'] }}
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                    </div>
-                    @endif
-                    @php
-                    $counter++;
-                    @endphp
-                    @endforeach
-                </div>
-            </div>
-            <div class="text-center mt-3 text-2xl font-bold">
-                <a href="services" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ml-4">view all</a>
-            </div>
-        </div>
-    </div>
-    </div>
+    @include('services._services')
     <!--About Us-->
     <section class="bg-white">
         <div class="container p-5" id="about-us">
@@ -67,6 +24,7 @@
             </div>
         </div>
     </section>
+    @include ('components.our-team')
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container p-5">
