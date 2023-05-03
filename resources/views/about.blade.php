@@ -1,8 +1,7 @@
 <x-app-layout>
   <x-hero-banner hero="about-hero" title="Our Company"/>
-  <!--breadcrumb-->
-  {{ Breadcrumbs::render() }}
-  <div class="container p-20" id="company">
+
+  <div class="container p-5" id="company">
     <div class="row flex flex-wrap justify-center">
       <div class="col-md-6 sm-col-12">
         <x-titlestyle smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions." alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
@@ -12,7 +11,7 @@
         </div>
       </div>
       <div class="col-md-6 col-sm-12  position-relative d-flex justify-content-center">
-        <img src="../images/contact.jpg" width="400" class="rounded shadow-lg" style="position: absolute; top: -150px;">
+        <img src="../images/contact.jpg" width="400" class="rounded shadow-lg" style="position: absolute; top: -100px;">
       </div>
     </div>
   </div>

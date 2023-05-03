@@ -14,7 +14,7 @@
     </div>
     <!--About Us-->
     @include('_about')
-    @include ('components.our-team')
+    
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container p-5">
@@ -36,9 +36,11 @@
             </div>
         </div>
     </section>
-    <!--Testimonials-->
+
+    @include('_projects')
+    
+    @include ('components.our-team')
 	<!--Testimonials-->
-    @include('_testimonials')
     <section class="testimonial" id="testimonial_background">
         <div class="container p-5">
             <div class="row justify-content-center">
@@ -83,6 +85,9 @@
             </div>
         </div>
     </section>
+    @include('_contactinfo')
+
+
 </x-app-layout>
 <script>
     //ratings

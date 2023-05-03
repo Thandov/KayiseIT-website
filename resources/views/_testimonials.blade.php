@@ -1,5 +1,5 @@
 <!-- Section: Testimonials -->
-<section class="mt-20 mb-20">
+<section class="m-5">
     <x-titlestyle smheading="What People Say" bgheading="Client Testimonials" alignment="text-center" smheadingcolor=""
         bgheadingcolor=""></x-titlestyle>
     <p class="mb-10 text-center">Below are a few statements from our clients sharing their experiences and feedback</p>
@@ -12,11 +12,11 @@
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
                 <!--Content-->
                 <div class="container flex justify-center px-8">
-                        <div class="columns-2 border bg-white drop-shadow-lg w-1/2 p-4 flex justify-center">
-                            <div class="container flex align-center border ">
-                                <img class="mx-auto mb-6 rounded-full shadow-lg" src="{{ asset('images/testimonials/'.$testimonial->icon) }}" alt="avatar" style="width:120px; height:120px" />
+                        <div class="columns-2 bg-white drop-shadow-lg w-1/2 p-4 flex justify-center">
+                            <div class="container flex items-center ">
+                                <img class="mx-auto rounded-full shadow-lg" src="{{ asset('images/testimonials/'.$testimonial->icon) }}" alt="avatar" style="width:120px; height:120px" />
                             </div>
-                            <div class="container border text-left">
+                            <div class="container text-left">
                                     @php
                                         $avg_rating = DB::table('testimonials')->where('id',$testimonial->id)->avg('ratings');
                                     @endphp

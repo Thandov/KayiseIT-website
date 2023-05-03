@@ -2,7 +2,7 @@
 <section class="bg-white">
     <div class="container p-5" id="about-us">
         <div class="row">
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3 ">
                 <img src="../images/KayiseIT-Team.jpg" class="rounded shadow my-2">
                 <img src="../images/OurServicesImg.jpg" class="rounded shadow my-2">
             </div>
