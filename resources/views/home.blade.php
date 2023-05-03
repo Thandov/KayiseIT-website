@@ -36,9 +36,11 @@
             </div>
         </div>
     </section>
-
+	 <!--Testimonials-->
+    @include('_testimonials')
+	<!--projects-->
     @include('_projects')
-    
+    <!--our-team-->
     @include ('components.our-team')
 	<!--Testimonials-->
     <section class="testimonial" id="testimonial_background">
