@@ -10,7 +10,7 @@
                 <img src="../images/KayiseIT-Team.jpg" class="rounded shadow">
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center">
-                <div class="mt-2 p-5">
+                <div class="mt-2 ">
                     <x-body smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions."
                         paragraph="Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training. With a decade of experience in the industry, we are passionate about building ICT capacity in communities and young people."
                         btnlink="about" btntext="Discover More" />
