@@ -13,7 +13,7 @@
                 <a href="{{ url('viewservice/'.$service->id) }}">
                 <div class="grid h-auto grid-rows-3 bg-white rounded-lg shadow-md">
                     <div class="row-span-1 flex items-center justify-start p-4">
-                        <div class="h-12 w-12 rounded-md bg-green-500"></div>
+                        <div class="h-12 w-12 rounded-md bg-green-500 flex items-center justify-center"><img class="w-8" src="../images/service_logo/globe.png"></div>
                     </div>
                     <div class="row-span-2 px-4">
                         <h2 class="mb-2 text-lg font-bold">{{ $service['name'] }}</h2>
