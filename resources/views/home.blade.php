@@ -37,6 +37,8 @@
         </div>
     </section>
     <!--Testimonials-->
+	<!--Testimonials-->
+    @include('_testimonials')
     <section class="testimonial" id="testimonial_background">
         <div class="container p-5">
             <div class="row justify-content-center">
