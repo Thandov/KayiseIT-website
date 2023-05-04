@@ -2,13 +2,13 @@
 <div class="container mx-auto p-5 bg-grey-500">
 
     <div class="text-center">
-        <p class="smalltxt font-bold"><strong>Our Services</strong></p>
-        <h2 class="bigtxt font-bold text-5xl mb-3">What We Offer</h2>
+        <p class="smalltxt font-bold mb-3"><strong>Our Services</strong></p>
+        <h2 class="bigtxt font-bold text-5xl mb-4">What We Offer</h2>
         <p class="mb-3">pppp</p>
     </div>
 
     <div class="flex justify-center">
-    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 w-11/12 flex justify-center">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 w-10/12 flex justify-center">
         @foreach($services as $service)
         <div class="flex justify-center">
             <div class="bg-white overflow-hidden shadow-md rounded-lg w-80 h-64 p-4">
