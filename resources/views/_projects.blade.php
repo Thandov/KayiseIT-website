@@ -5,7 +5,7 @@
         <h2 class="bigtxt font-bold text-5xl mb-3">Tailor-made projects</h2>
     </div>
     <div class="flex justify-center">
-    <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-2 flex justify-center w-10/12">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-2 flex justify-center w-10/12">
     <div class="flex flex-col justify-center items-center max-w-sm mx-auto my-8">
   <div style="background-image: url('../images/inter.jpg')"
        class="bg-gray-300 h-60 w-64 rounded-lg shadow-md bg-cover bg-center"></div>

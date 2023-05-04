@@ -21,6 +21,7 @@
         $(".owl-carousel").owlCarousel({
             autoplay: true,
             loop: true,
+            dots: false,
             items: 4,
             autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
             smartSpeed: 2000 // Set slide speed to 1 second

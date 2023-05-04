@@ -1,5 +1,5 @@
+<section class="bg-grey-100">
 <div class="container mx-auto p-5 bg-grey-500">
-
 
     <div class="text-center">
         <p class="smalltxt font-bold"><strong>Our Services</strong></p>
@@ -7,21 +7,27 @@
         <p class="mb-3">pppp</p>
     </div>
 
-    <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-5 flex justify-center">
+    <div class="flex justify-center">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 w-11/12 flex justify-center">
         @foreach($services as $service)
-            <div class="flex justify-center">
-                <a href="{{ url('viewservice/'.$service->id) }}">
-                <div class="grid h-auto grid-rows-3 bg-white rounded-lg shadow-md">
-                    <div class="row-span-1 flex items-center justify-start p-4">
-                        <div class="h-12 w-12 rounded-md bg-green-500 flex items-center justify-center"><img class="w-8" src="../images/service_logo/globe.png"></div>
-                    </div>
-                    <div class="row-span-2 px-4">
-                        <h2 class="mb-2 text-lg font-bold">{{ $service['name'] }}</h2>
-                        <p class="text-sm">{{ $service['description'] }}</p>
+        <div class="flex justify-center">
+            <div class="bg-white overflow-hidden shadow-md rounded-lg w-80 h-64 p-4">
+                <div class="flex justify-start">
+                    <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/em.png"></div>
+                </div>
+                <div class="flex justify-start">
+                    <div class="">
+
+                        <h2 class="mt-4 text-2xl font-bold smalltxt">{{ $service['name'] }}</h2>
+                        <p class="text-base mt-2">{{ implode(' ', array_slice(explode(' ', $service['description']), 0, 11)) }}...</p>
+
                     </div>
                 </div>
-            </a>
             </div>
+        </div>
         @endforeach
     </div>
+    </div>
+
 </div>
+</section>
