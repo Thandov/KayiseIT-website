@@ -4,7 +4,7 @@
 
         <div class="card border-none rounded-md w-64">
             <div class="flex justify-center p-2">
-                <div class="h-32 w-32 rounded-full bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/mail.png"></div>
+                <div class="h-32 w-32 rounded-full bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/em.png"></div>
             </div>
             <div class="">
                 <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Email Address</h2>
@@ -15,7 +15,7 @@
 
         <div class="card border-none rounded-md w-64">
             <div class="flex justify-center p-2">
-                <div class="h-32 w-32 rounded-full bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/phone.png"></div>
+                <div class="h-32 w-32 rounded-full bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/ph.png"></div>
             </div>
             <div class="">
                 <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Phone</h2>
@@ -26,7 +26,7 @@
 
         <div class="card border-none rounded-md w-64">
             <div class="flex justify-center p-2">
-                <div class="h-32 w-32 rounded-full bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/loc.png"></div>
+                <div class="h-32 w-32 rounded-full bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/ad.png"></div>
             </div>
             <div class="">
                 <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Address</h2>

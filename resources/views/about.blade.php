@@ -44,28 +44,7 @@
     </div>
   </div>
   <!--Our team-->
-  <div class="bg" id="team_background">
-    <div class="container p-5 team">
-      <div class="row flex justify-content-center">
-        <x-titlestyle smheading="Our Team" bgheading="Let Us Introduce Ourselves" alignment="text-center" smheadingcolor="" bgheadingcolor="text-white"></x-titlestyle>
-          <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;">
-            <img src="../images/thando.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-2xl font-bold">Thando Hlophe</h5>
-              <p class="smalltxt card-text font-bold">Director</p>
-            </div>
-          </div>
-          <div class="card bg-transparent border-0 text-center text-white" style="width: 18rem;">
-            <img src="../images/thandi.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-2xl font-bold">Thandiwe Mathebula</h5>
-              <p class="smalltxt card-text font-bold">Business Developer</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  @include ('components.our-team')
   <x-clients></x-clients>
 </x-app-layout>
 <script>

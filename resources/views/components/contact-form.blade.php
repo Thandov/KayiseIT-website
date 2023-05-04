@@ -2,7 +2,7 @@
     <form action="{{ route('contact.contact') }}" method="post" enctype="multipart/form-data">
         @csrf
         <fieldset>
-            <legend class="text-lg font-medium mb-4">Contact Information</legend>
+            <legend class="text-lg font-medium mb-4">SEND US A MESSAGE</legend>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="w-full">
                     <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
