@@ -1,21 +1,21 @@
 <!-- Section: Testimonials -->
-<section class="testimonial py-3" id="testimonial_background">
+<section class="bg-slate-100 p-5">
     <x-titlestyle smheading="What People Say" bgheading="Client Testimonials" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-    <p class="mb-10 text-center text-white">Below are a few statements from our clients sharing their experiences and feedback</p>
+    <p class="mb-10 text-center">There are many variations of passages of Lorem Ipsum available <br> but the majority have suffered alteration in some form.</p>
     <!--Carousel-->
     <div id="default-carousel" class="relative w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="relative h-96 overflow-hidden md:h-60  mx-5">
+        <div class="relative h-96 overflow-hidden md:h-62 p-5">
             <!-- Item 1 -->
             @foreach($testimonials as $testimonial)
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <!--Content-->
-                    <div class="max-w-md mx-auto bg-white shadow-md md:max-w-2xl rounded-md">
-                        <div class="md:flex">
-                            <div class="md:shrink-0 flex justify-center items-center p-3">
+                    <div class="max-w-md mx-auto py-3 md:p-14 bg-white shadow-md md:max-w-2xl rounded-md">
+                        <div class="md:flex space-x-9 p-4">
+                            <div class="md:shrink-0 flex justify-center items-center">
                                 <img class="h-28 w-28 object-cover md:h-28 md:w-28 rounded-full shadow-md" src="{{ asset('images/testimonials/'.$testimonial->icon) }}" alt="Kayise IT Testimonial Pic" />
                             </div>
-                            <div class="p-3">
+                            <div class="">
                                     @php
                                         $avg_rating = DB::table('testimonials')->where('id',$testimonial->id)->avg('ratings');
                                     @endphp
@@ -26,7 +26,7 @@
                                         @endif
                                     @endfor
                                 <p class="mt-2 text-sm">{{ $testimonial['testimony'] }}</p>
-                                <p class="mt-2 smalltxt"><strong>{{ $testimonial['name'] }}</strong></p>
+                                <p class="mt-3 smalltxt"><strong>{{ $testimonial['name'] }}</strong></p>
                                 <p>Position</p>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                 </div>
             @endforeach
         <!-- Slider indicators -->
-        <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+        <div class="absolute z-300 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
             <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
                 data-carousel-slide-to="0"></button>
             <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
@@ -42,7 +42,7 @@
             <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
                 data-carousel-slide-to="2"></button>
         </div>
-        <!-- Slider controls -->
+        <!-- Slider controls 
         <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
             <span
                 class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
@@ -60,6 +60,6 @@
                 </svg>
                 <span class="sr-only">Next</span>
             </span>
-        </button>
+        </button>-->
     </div>
 </section>
