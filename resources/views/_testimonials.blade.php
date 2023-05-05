@@ -1,17 +1,17 @@
 <!-- Section: Testimonials -->
-<section class="bg-slate-100 p-5">
+<section class="bg-slate-100 mx-auto p-5">
     <x-titlestyle smheading="What People Say" bgheading="Client Testimonials" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
     <p class="mb-10 text-center">There are many variations of passages of Lorem Ipsum available <br> but the majority have suffered alteration in some form.</p>
     <!--Carousel-->
     <div id="default-carousel" class="relative w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="relative h-96 overflow-hidden md:h-62 p-5">
+        <div class="relative h-96 overflow-hidden md:h-60  mx-5">
             <!-- Item 1 -->
             @foreach($testimonials as $testimonial)
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <!--Content-->
                     <div class="max-w-md mx-auto py-3 md:p-14 bg-white shadow-md md:max-w-2xl rounded-md">
-                        <div class="md:flex space-x-9 p-4">
+                        <div class="md:flex space-x-9">
                             <div class="md:shrink-0 flex justify-center items-center">
                                 <img class="h-28 w-28 object-cover md:h-28 md:w-28 rounded-full shadow-md" src="{{ asset('images/testimonials/'.$testimonial->icon) }}" alt="Kayise IT Testimonial Pic" />
                             </div>
@@ -34,7 +34,7 @@
                 </div>
             @endforeach
         <!-- Slider indicators -->
-        <div class="absolute z-300 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+        <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
             <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
                 data-carousel-slide-to="0"></button>
             <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
