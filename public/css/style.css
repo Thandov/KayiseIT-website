@@ -191,7 +191,7 @@ input[type=number] {
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title,
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .btmTitle {
   justify-content: center;
-  font-size: 2.5vw;
+  font-size: 18px;
 }
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title {
   font-size: 10vw;
@@ -614,7 +614,7 @@ div.sticky {
 }
 
 #footertxt-white:hover {
-  color: #457a40 !important;
+  color: #1e9a13 !important;
   text-decoration-line: underline;
 }
 
@@ -631,7 +631,7 @@ div.sticky {
   }
 }
 #dark-g-text {
-  color: #457a40 !important;
+  color: #1e9a13 !important;
 }
 
 * {

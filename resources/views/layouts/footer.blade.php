@@ -290,7 +290,7 @@
 
   footer .bottom-details {
     width: 100%;
-    background: #457a40;
+    background: #1e9a13;
     /*changes*/
   }
 
