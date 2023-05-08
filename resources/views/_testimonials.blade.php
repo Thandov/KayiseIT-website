@@ -5,13 +5,13 @@
     <!--Carousel-->
     <div id="default-carousel" class="relative w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
-        <div class="relative h-96 overflow-hidden md:h-60  mx-5">
+        <div class="relative h-96 overflow-hidden md:h-60">
             <!-- Item 1 -->
             @foreach($testimonials as $testimonial)
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                     <!--Content-->
                     <div class="max-w-md mx-auto py-3 md:p-14 bg-white shadow-md md:max-w-2xl rounded-md">
-                        <div class="md:flex space-x-9">
+                        <div class="md:flex space-x-9 p-4">
                             <div class="md:shrink-0 flex justify-center items-center">
                                 <img class="h-28 w-28 object-cover md:h-28 md:w-28 rounded-full shadow-md" src="{{ asset('images/testimonials/'.$testimonial->icon) }}" alt="Kayise IT Testimonial Pic" />
                             </div>

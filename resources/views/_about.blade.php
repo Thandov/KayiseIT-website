@@ -5,10 +5,10 @@
             <!-- images 2 in 1 -->
             <div>
                 <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-500 rounded-lg relative bg-cover bg-center hidden sm:block" style="background-image: url('../images/thando.jpg')"></div>
-                <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-500 rounded-lg relative bg-cover bg-center mt-2 hidden sm:block" " style="background-image: url('../images/thando.jpg')"></div>
+                <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-500 rounded-lg relative bg-cover bg-center mt-2 hidden sm:block"  style="background-image: url('../images/thando.jpg')"></div>
             </div>
             <!-- single image -->
-            <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-500 rounded-lg relative bg-cover bg-center md:m-2 my-2 hidden sm:block" " style="background-image: url('../images/thando.jpg')"></div>
+            <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-500 rounded-lg relative bg-cover bg-center md:m-2 my-2 hidden sm:block"  style="background-image: url('../images/thando.jpg')"></div>
         </div>
         <!-- content -->
         <div class="flex items-center md:w-1/2">
