@@ -101,7 +101,7 @@
 
   footer {
     position: relative;
-    background: #64bc5c;
+    background: #22C55E;
     width: 100%;
     bottom: 0;
     left: 0;
