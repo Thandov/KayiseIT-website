@@ -62,7 +62,7 @@ input::-webkit-inner-spin-button {
 }
 
 .bigtxt {
-  color: #64bc5c;
+  color: #22C55E;
 }
 
 .homecard {
@@ -195,7 +195,7 @@ input[type=number] {
 }
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title {
   font-size: 10vw;
-  color: #64bc5c !important;
+  color: #22C55E !important;
   font-weight: 900;
   font-size: 3rem;
 }
@@ -318,7 +318,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #64bc5c;
+  border: 1px solid #22C55E;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -337,11 +337,11 @@ li {
   transform-origin: 50% 50%;
 }
 .radioBoxparent :checked + label {
-  border-color: #64bc5c;
+  border-color: #22C55E;
 }
 .radioBoxparent :checked + label:before {
   content: "✓";
-  background-color: #64bc5c;
+  background-color: #22C55E;
   transform: scale(1);
 }
 .radioBoxparent :checked + label img {
@@ -366,7 +366,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #64bc5c;
+  border: 1px solid #22C55E;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -385,11 +385,11 @@ li {
   transform-origin: 50% 50%;
 }
 .checkboxparent :checked + label {
-  border-color: #64bc5c;
+  border-color: #22C55E;
 }
 .checkboxparent :checked + label:before {
   content: "✓";
-  background-color: #64bc5c;
+  background-color: #22C55E;
   transform: scale(1);
 }
 .checkboxparent :checked + label img {
@@ -414,7 +414,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #64bc5c;
+  border: 1px solid #22C55E;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -433,11 +433,11 @@ li {
   transform-origin: 50% 50%;
 }
 .extraservdiv :checked + label {
-  border-color: #64bc5c;
+  border-color: #22C55E;
 }
 .extraservdiv :checked + label:before {
   content: "✓";
-  background-color: #64bc5c;
+  background-color: #22C55E;
   transform: scale(1);
 }
 .extraservdiv :checked + label img {
@@ -598,7 +598,7 @@ div.sticky {
 }
 
 #contact-socials {
-  color: #64bc5c !important;
+  color: #22C55E !important;
 }
 
 #white-text {
