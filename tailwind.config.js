@@ -8,14 +8,15 @@ module.exports = {
         './resources/views/**/*.blade.php',
         "./node_modules/flowbite/**/*.js",
     ],
-
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'kayise-blue':'#183ea4',
+              },
         },
     },
-
     plugins: [require('@tailwindcss/forms', 'flowbite/plugin')],
 };

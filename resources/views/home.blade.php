@@ -6,17 +6,15 @@
     @endif
     <!--Carousel-->
    @include('_carousel')
-
    <!--About Us-->
    @include('_about')
-    
     <!--freatured services-->
     @include('services._services', ['services' => $services->take(3)])
     <div class="data text-center mb-5">
-        <a href="services" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">View All</a>
+        <x-front-end-btn href="{{ route('services') }}">
+            {{ __('Discover More') }}
+        </x-front-end-btn>    
     </div>
-    
-    
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container p-5">
@@ -30,9 +28,9 @@
                         <p id="white-text" class="fs-6 mt-4 mb-4">Develop efficient & effective digital projects with
                             knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                             that our clients grow their business.</p>
-                        <div class="data">
-                            <a href="services" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Learn More</a>
-                        </div>
+                            <x-front-end-btn href="{{ route('services') }}">
+                                {{ __('Learn More') }}
+                            </x-front-end-btn>
                     </div>
                 </div>
             </div>
@@ -43,56 +41,8 @@
      @include('_projects')
      <!--our-team-->
      @include ('components.our-team')
-
      @include('_testimonials')
-	<!--Testimonials
-    <section class="testimonial" id="testimonial_background">
-        <div class="container p-5">
-            <div class="row justify-content-center">
-                <x-titlestyle smheading="Testimonials" bgheading="What They Say" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-                <div class="d-flex justify-content-center align-items-center">
-                    <div class="row">
-                        @foreach($testimonials as $testimonial)
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="card m-2 ">
-                                <div class="card-body">
-                                    <div class="row mx-4">
-                                        <div class="rating text-center">
-                                            <span class="text-muted"></span>
-                                            @php
-                                            $avg_rating = DB::table('testimonials')->where('id',
-                                            $testimonial->id)->avg('ratings');
-                                            @endphp
-                                            @for($i = 1; $i <= 5; $i++) @if($i <=$avg_rating) <i class="fas fa-star"></i>
-                                                @else
-                                                <i class="far fa-star"></i>
-                                                @endif
-                                                @endfor
-                                        </div>
-                                        <p class="card-text py-3 fs-6">
-                                            {{ $testimonial['testimony'] }}
-                                        </p>
-                                        <div class="col-4">
-                                            <img src="{{ asset('images/testimonials/'.$testimonial->icon) }}" class="rounded-circle" style="width: 50px; height: 50px; ">
-                                        </div>
-                                        <div class="col-8">
-                                            <h3 class="card-title text-1xl pt-4 font-bold">
-                                                {{ $testimonial['name'] }}
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
     @include('_contactinfo')
-
-
 </x-app-layout>
 <script>
     //ratings

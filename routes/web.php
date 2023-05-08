@@ -39,10 +39,6 @@ Route::get('about', function () {
     return view('about');
 })->name('about');
 
-Route::get('glitch', function () {
-    return view('glitch');
-})->name('glitch');
-
 Route::get('contact', function () {
     return view('contact');
 })->name('contact');

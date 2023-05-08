@@ -1,14 +1,14 @@
 <x-app-layout>
   <x-hero-banner hero="about-hero" title="Our Company" />
-
+<!-- 
   <div class="container p-5" id="company">
     <div class="row flex flex-wrap justify-center">
       <div class="col-md-6 sm-col-12">
         <x-titlestyle smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions." alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
         <p class="fs-6">KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.</p>
-        <div class="data">
-          <a href="/services" id="btn-primary" class="inline-flex items-center px-4 my-4 py-2 bg-gray-800  rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 ">Discover More</a>
-        </div>
+        <x-front-end-btn href="{{ route('services') }}">
+          {{ __('Discover More') }}
+        </x-front-end-btn>
       </div>
       <div class="col-md-6 col-sm-12  position-relative d-flex justify-content-center">
         <img src="../images/contact.jpg" width="400" class="rounded shadow-lg" style="position: absolute; top: -100px;">
@@ -16,6 +16,8 @@
     </div>
   </div>
   </div>
+   -->
+   @include('_about')
   <div class="bg-white">
     <div class="container p-5" id="culture">
       <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>

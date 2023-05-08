@@ -1,6 +1,5 @@
 <!--Footer-->
 <footer>
-
   <div class="footer-content">
     <div class="top">
       <div class="logo-details">
@@ -69,12 +68,13 @@
       <p id="footer-underline" class="mt-1 mb-3 fs-6 fw-bold smalltxt">Subscribe</p>
       <div class="input-group">
         <input type="text" name="email" class="form-control rounded-md border-0" placeholder="Enter your email">
-        <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
+        <x-front-end-btn type="submit">
+          {{ __('Subscribe') }}
+        </x-front-end-btn>
       </div>
     </div>
     @endif
     </form>
-
   </div>
   </div>
   <div class="bottom-details">
@@ -86,7 +86,6 @@
           <img src="{{ asset('images/payment_methods/PayGate-Payment-Method-Logo-American-Express.png') }}" alt="American Express" Width="45" height="45">
           <img src="{{ asset('images/payment_methods/PayGate-Card-Brand-Logo-MasterCard.png') }}" alt="MasterCard" Width="45" height="45">
           <img src="{{ asset('images/payment_methods/MasterCard-SecureCode.png') }}" alt="MasterCard SecureCode" Width="45" height="45">
-
         </div>
       </div>
     </div>
