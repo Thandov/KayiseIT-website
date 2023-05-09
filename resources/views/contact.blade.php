@@ -1,7 +1,5 @@
 <x-app-layout>
     <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
-    <!--breadcrumb-->
-    {{ Breadcrumbs::render() }}
     <div class="bg-white mx-auto py-10 sm:px-6 lg:px-8">
         <div class="container max-w-7xl">
             <div class="row">
@@ -26,7 +24,7 @@
                     <br>
                     <div class="container">
                         <div class="row ">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115255.11640170858!2d30.915947072952804!3d-25.480943773944084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee84a158d3e2739%3A0x7aa50ca83429a0f8!2sMbombela!5e0!3m2!1sen!2sza!4v1668003382879!5m2!1sen!2sza" width="640" height="380" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3601.9765050913793!2d30.97354507517308!3d-25.472459977534736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee84a10007ca0ff%3A0xf2ea30366dcc9afa!2s39%20Brown%20St%2C%20Mbombela%2C%201201!5e0!3m2!1sen!2sza!4v1683621767634!5m2!1sen!2sza" width="600" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>

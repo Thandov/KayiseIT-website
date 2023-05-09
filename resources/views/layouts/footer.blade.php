@@ -30,7 +30,7 @@
           <li><a href="services" id="footertxt-white">Get started</a></li>
         </div>
         <div class="mt-2 fs-6">
-          <li><a href="#" id="footertxt-white">Privacy Policy</a></li>
+          <li><a href="terms" id="footertxt-white">Terms & Conditions</a></li>
         </div>
       </ul>
       <ul class="col-sm-4">
@@ -83,7 +83,7 @@
         <div class="d-flex justify-content-center align-items-center">
           <img src="{{ asset('images/payment_methods/Visa.png') }}" alt="Visa" Width="45" height="45">
           <img src="{{ asset('images/payment_methods/Verified-by-Visa.png') }}" alt="Verified by Visa" Width="45" height="45">
-          <img src="{{ asset('images/payment_methods/PayGate-Payment-Method-Logo-American-Express.png') }}" alt="American Express" Width="45" height="45">
+          <img src="{{ asset('images/payment_methods/PayGate-Payment-Method-Logo-American-Express.png') }}" alt="American Express" Width="25" height="auto">
           <img src="{{ asset('images/payment_methods/PayGate-Card-Brand-Logo-MasterCard.png') }}" alt="MasterCard" Width="45" height="45">
           <img src="{{ asset('images/payment_methods/MasterCard-SecureCode.png') }}" alt="MasterCard SecureCode" Width="45" height="45">
         </div>
@@ -101,7 +101,7 @@
 
   footer {
     position: relative;
-    background: #22C55E;
+    background: #3bde77;
     width: 100%;
     bottom: 0;
     left: 0;
@@ -290,7 +290,7 @@
 
   footer .bottom-details {
     width: 100%;
-    background: #1e9a13;
+    background: #22C55E;
     /*changes*/
   }
 

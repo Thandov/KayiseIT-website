@@ -49,31 +49,11 @@ Route::get('services', function () {
 
 Route::GET('services',[ServicesController::class, 'services'])->name('services');
 
-//services
+//terms and conditions
 
-Route::get('/services/website', function () {
-    return view('services.website');
-})->name('services.website');
-
-Route::get('/services/software', function () {
-    return view('services.software');
-})->name('services.software');
-
-Route::get('/services/kit', function () {
-    return view('services.kit');
-})->name('services.kit');
-
-Route::get('/services/office', function () {
-    return view('services.office');
-})->name('services.office');
-
-Route::get('/services/marketing', function () {
-    return view('services.marketing');
-})->name('services.marketing');
-
-Route::get('/services/network', function () {
-    return view('services.network');
-})->name('services.network');
+Route::get('terms', function () {
+    return view('terms');
+})->name('terms');
 
 
 Route::group(['middleware' => ['auth']], function() {

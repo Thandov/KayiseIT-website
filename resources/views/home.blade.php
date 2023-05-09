@@ -38,10 +38,10 @@
     </section>
 	 <!--Testimonials-->
      <!--projects-->
-     @include('_projects')
+     <!-- @include('_projects') -->
      <!--our-team-->
-     @include ('components.our-team')
      @include('_testimonials')
+     @include ('components.our-team')
     @include('_contactinfo')
 </x-app-layout>
 <script>

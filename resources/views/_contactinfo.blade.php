@@ -19,8 +19,7 @@
             </div>
             <div class="">
                 <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Phone</h2>
-                <p class="text-sm flex justify-center">info@kayiseit.co.za</p>
-                <p class="text-sm flex justify-center">admin@kayiseit.co.za</p>
+                <p class="text-sm flex justify-center">+27 87 702 2625</p>
             </div>
         </div>
 

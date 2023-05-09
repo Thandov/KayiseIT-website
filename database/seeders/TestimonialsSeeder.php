@@ -33,7 +33,7 @@ class TestimonialsSeeder extends Seeder
         ],
         [
             'icon' => 'lele.jpg',
-            'name' => 'Malele Karabo',
+            'name' => 'Malele Tsepi',
             'ratings' => '5',
             'testimony' => 'It was way easier starting my business with the help of Kayise IT with their IT solutions and
                             great marketing skills',

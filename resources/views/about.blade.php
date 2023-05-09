@@ -18,7 +18,7 @@
   </div>
    -->
    @include('_about')
-  <div class="bg-white">
+  <div class="bg-grey">
     <div class="container p-5" id="culture">
       <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
       <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
@@ -54,14 +54,15 @@
     $(".owl-carousel").owlCarousel({
       autoplay: true,
       loop: true,
+      dots: false,
       autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
       smartSpeed: 2000, // Set slide speed to 1 second
       responsive: {
         0: {
-          items: 1
+          items: 2
         },
         768: {
-          items: 2
+          items: 3
         },
         900: {
           items: 4

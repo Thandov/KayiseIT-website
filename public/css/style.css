@@ -472,7 +472,7 @@ div.sticky {
 .primary-title {
   font-size: 3rem;
   font-size: clamp(1rem, 5vw + 1rem, 4.5rem);
-  line-height: 1;
+  line-height: 2;
 }
 
 #service-hero {
@@ -547,7 +547,7 @@ div.sticky {
 }
 #team_background {
   width: 100%;
-  background: url("../images/Kayise Full Zebra Background.jpg"), radial-gradient(#444, #111);
+  background: url("../images/bg_dark.jpg"), radial-gradient(#444, #111);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
@@ -636,4 +636,9 @@ div.sticky {
 
 * {
   font-family: "Montserrat", sans-serif;
+}
+
+#terms ul {
+  list-style-type: circle;
+  color: black;
 }/*# sourceMappingURL=style.css.map */
