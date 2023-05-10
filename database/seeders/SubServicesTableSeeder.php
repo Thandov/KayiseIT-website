@@ -119,7 +119,7 @@ class SubServicesTableSeeder extends Seeder
 
     foreach ($subservices as $subservice) {
 
-        $subService = new SubService();
+        $subService = new Subservice();
         $subService->service_id = $subservice['service_id'];
         $subService->name = $subservice['name'];
         $subService->icon = $subservice['icon'];

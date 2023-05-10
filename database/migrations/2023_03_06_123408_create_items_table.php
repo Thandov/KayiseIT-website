@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('user_id')->on('quotations')->onDelete('cascade');
             $table->string('name');
             $table->decimal('price');

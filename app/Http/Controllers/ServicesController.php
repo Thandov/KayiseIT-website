@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Service;
-use App\Models\SubService;
+use App\Models\Subservice;
 use App\Models\Options;
 use Illuminate\Http\Request;
 use stdClass;
@@ -60,14 +60,12 @@ class ServicesController extends Controller
     {
         $testimonials = Testimonial::all();
     $service = Service::find($id);
-    $subservices = SubService::where('service_id', $service->service_id)->get();
+    $subservices = Subservice::where('service_id', $service->service_id)->get();
     return view('viewservice', compact('service', 'subservices', 'testimonials'));
     }
 
     public function updateService(Request $request, $id)
     {
-
-        dd($id);
         $service = Service::findOrFail($id);
         $service->name = $request->input('name');
         $service->description = $request->input('description');
