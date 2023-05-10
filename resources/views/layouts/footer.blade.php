@@ -1,5 +1,5 @@
 <!--Footer-->
-<footer>
+<footer >
   <div class="footer-content">
     <div class="top">
       <div class="logo-details">

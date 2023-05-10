@@ -170,8 +170,11 @@ Route::GET('/admin/viewtestimonial/{id}',[TestimonialsController::class, 'viewte
 
 //Service Controller
 
-Route::get('viewservice/{id}',[ServicesController::class, 'show'])->name('show');
-Route::get('viewsubservice/{id}',[SubServicesController::class, 'show'])->name('show');
+Route::get('viewservice/{slug}',[ServicesController::class, 'show'])->name('show');
+Route::get('services/{slug}',[ServicesController::class, 'display_service_name'])->name('service.show');
+Route::get('services/{slug}/{subslug}',[SubServicesController::class, 'display_subservice_name']);
+
+
 Route::post('viewsubservice/quote',[QuotationController::class, 'quote'])->name('viewsubservice.quote');
 
 Route::post('contact/contact',[ContactController::class, 'contact'])->name('contact.contact');

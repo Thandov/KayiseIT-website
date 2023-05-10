@@ -1,22 +1,5 @@
 <x-app-layout>
   <x-hero-banner hero="about-hero" title="Our Company" />
-<!-- 
-  <div class="container p-5" id="company">
-    <div class="row flex flex-wrap justify-center">
-      <div class="col-md-6 sm-col-12">
-        <x-titlestyle smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions." alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-        <p class="fs-6">KAYISE IT established 2015 is the go-to tech solutions company for all your IT needs. Our team will ensure you get the best made-to-measure products, services and IT strategies. We at KAYISE IT love Technology, through our robust IT services, Office Automation, Network Support, Marketing and digital upskilling, we help our clients achieve their organizations objectives using technology.</p>
-        <x-front-end-btn href="{{ route('services') }}">
-          {{ __('Discover More') }}
-        </x-front-end-btn>
-      </div>
-      <div class="col-md-6 col-sm-12  position-relative d-flex justify-content-center">
-        <img src="../images/contact.jpg" width="400" class="rounded shadow-lg" style="position: absolute; top: -100px;">
-      </div>
-    </div>
-  </div>
-  </div>
-   -->
    @include('_about')
   <div class="bg-white">
     <div class="container p-5" id="culture">
