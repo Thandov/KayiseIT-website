@@ -551,6 +551,7 @@ div.sticky {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: cover;
 }
 
 #our-services {
@@ -641,4 +642,129 @@ div.sticky {
 #terms ul {
   list-style-type: circle;
   color: black;
+}
+
+#viewservice .row img {
+  height: 50px;
+}
+#viewservice .card {
+  height: 200px;
+  /* Set a fixed height for each card */
+}
+
+#viewsubservice {
+  /* Style for the header section */
+  /* Style for the container */
+  /* Style for the card */
+  /* Style for the card header */
+  /* Style for the card body */
+  /* Style for the heading */
+  /* Style for the paragraph */
+  /* Style for the table */
+  /* Style for the table head */
+  /* Style for the table body */
+  /* Style for the button */
+  /* Style for the button on hover */
+  /* Style for the success button */
+  /* Style for the margin */
+}
+#viewsubservice .x-app-layout h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+#viewsubservice .container {
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 800px;
+}
+#viewsubservice .card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+#viewsubservice .card-header {
+  background-color: #333;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 15px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#viewsubservice .card-body {
+  padding: 20px;
+}
+#viewsubservice h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+#viewsubservice p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+}
+#viewsubservice table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+#viewsubservice thead th {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #333;
+}
+#viewsubservice tbody td {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+#viewsubservice .btn {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+#viewsubservice .btn:hover {
+  background-color: #555;
+}
+#viewsubservice .btn-success {
+  background-color: green;
+}
+#viewsubservice .m-3 {
+  margin: 15px;
+}
+
+#services-services .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* change the opacity value to adjust the darkness */
+}
+
+#blog-page .blog .card {
+  height: 400px; /* Set a fixed height for each card */
+  overflow: hidden;
+}
+#blog-page .blog .card-img {
+  height: 200px; /* Make the image fill the entire height of the card */
+  -o-object-fit: cover;
+     object-fit: cover; /* Scale the image while maintaining its aspect ratio */
 }/*# sourceMappingURL=style.css.map */

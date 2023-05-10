@@ -5,15 +5,15 @@
     </div>
     @endif
     <!--Carousel-->
-   @include('_carousel')
-   <!--About Us-->
-   @include('_about')
+    @include('_carousel')
+    <!--About Us-->
+    @include('_about')
     <!--freatured services-->
     @include('services._services', ['services' => $services->take(3)])
     <div class="data text-center mb-5">
         <x-front-end-btn href="{{ route('services') }}">
             {{ __('Discover More') }}
-        </x-front-end-btn>    
+        </x-front-end-btn>
     </div>
     <!--Services Call-To-Action-->
     <section id="our-services">
@@ -28,20 +28,20 @@
                         <p id="white-text" class="fs-6 mt-4 mb-4">Develop efficient & effective digital projects with
                             knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                             that our clients grow their business.</p>
-                            <x-front-end-btn href="{{ route('services') }}">
-                                {{ __('Learn More') }}
-                            </x-front-end-btn>
+                        <x-front-end-btn href="{{ route('services') }}">
+                            {{ __('Learn More') }}
+                        </x-front-end-btn>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-	 <!--Testimonials-->
-     <!--projects-->
-     <!-- @include('_projects') -->
-     <!--our-team-->
-     @include('_testimonials')
-     @include ('components.our-team')
+    <!--Testimonials-->
+    <!--projects-->
+    <!-- @include('_projects') -->
+    <!--our-team-->
+    @include('_testimonials')
+    @include ('components.our-team')
     @include('_contactinfo')
 </x-app-layout>
 <script>

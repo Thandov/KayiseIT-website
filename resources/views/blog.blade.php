@@ -1,6 +1,6 @@
 <x-app-layout>
          
-         <div class="blog  pt-20">
+         <div class="blog  pt-20" id="blog-page">
       <div class="row justify-content-center">
          <div class="col-md-10 mb-20">
 
@@ -29,17 +29,4 @@
       </div>
     </div>
 
-
-
 </x-app-layout>
-
-<style>
-.blog .card {
-  height: 400px; /* Set a fixed height for each card */
-  overflow: hidden;
-}
-.blog .card-img {
-  height: 200px; /* Make the image fill the entire height of the card */
-  object-fit: cover; /* Scale the image while maintaining its aspect ratio */
-}
-</style>
