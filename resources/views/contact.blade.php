@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
-    <div class="bg-white mx-auto py-10 sm:px-6 lg:px-8">
-        <div class="container max-w-7xl">
+    <div class="bg-white">
+        <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="row">
-                <div class="col-md-6  px-10">
+                <div class="col-md-6">
                     <x-titlestyle smheading="Contact Us" bgheading="Get In Touch With Us" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
                     <br>
                     <div>

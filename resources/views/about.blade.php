@@ -3,7 +3,7 @@
 
    @include('_about')
   <div class="bg-grey">
-    <div class="container p-5" id="culture">
+    <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto" id="culture">
       <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
       <div class="card-container flex flex-wrap justify-center pt-10 md:justify-start gap-10 max-w-7xl mx-auto sm:px-6 lg:px-12">
         <div class="card" style="width: 30rem;">

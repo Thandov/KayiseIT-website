@@ -1,5 +1,5 @@
 <section class="bg-white">
-    <div class="container md:flex justify-center mx-auto p-5">
+    <div class="container md:flex justify-center py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
         <!-- images -->
         <div class="md:flex justify-center items-center md:w-1/2">
             <!-- images 2 in 1 -->

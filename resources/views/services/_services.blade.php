@@ -1,5 +1,5 @@
 <section class="bg-grey-100">
-<div class="container mx-auto p-5 bg-grey-500">
+<div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
 
     <div class="text-center">
         <p class="smalltxt font-bold mb-3"><strong>Our Services</strong></p>

@@ -10,14 +10,14 @@
     @include('_about')
     <!--freatured services-->
     @include('services._services', ['services' => $services->take(3)])
-    <div class="data text-center mb-5">
+    <div class="data text-center px-4 md:px-8 max-w-screen-xl mx-auto mb-5">
         <x-front-end-btn href="{{ route('services') }}">
             {{ __('Discover More') }}
         </x-front-end-btn>
     </div>
     <!--Services Call-To-Action-->
     <section id="our-services">
-        <div class="container p-5">
+        <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="row">
                 <div class="col-md-6 col-sm-12 d-flex justify-content-center">
                     <img src="../images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3">

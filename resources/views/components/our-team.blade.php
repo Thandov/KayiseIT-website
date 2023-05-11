@@ -1,5 +1,5 @@
 <section class="bg-slate-100" id="team_background">
-<div class="container mx-auto p-5">
+<div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
 <div class="text-center">
         <p class="smalltxt font-bold mb-3"><strong>Our Team</strong></p>
         <h2 class="bigtxt font-bold text-5xl mb-4">Let Us Introduce Ourselves</h2>

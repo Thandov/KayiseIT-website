@@ -1,5 +1,5 @@
 <section class="bg-white">
-<div class="container mx-auto p-5 bg-white">
+<div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-white">
     <div class="flex flex-col md:flex-row items-center justify-center gap-5">
 
         <div class="card border-none rounded-md w-64">

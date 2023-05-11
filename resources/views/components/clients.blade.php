@@ -1,5 +1,5 @@
 <div class="bg-white">
-    <div class="container p-5">
+    <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
         <div class="row flex items-center">
             <div class="col-md-6 col-sm-12 p-3">
             <h2 class="bigtxt font-bold text-center text-5xl">Our Amazing Clients</h2>
