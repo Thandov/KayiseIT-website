@@ -8,14 +8,24 @@
 
 <script>
     $(document).ready(function() {
-        $(".owl-carousel").owlCarousel({
-            autoplay: true,
-            loop: true,
-            dots: false,
-            items: 4,
-            autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
-            smartSpeed: 2000 // Set slide speed to 1 second
-        });
+    $(".owl-carousel").owlCarousel({
+      autoplay: true,
+      loop: true,
+      dots: false,
+      autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
+      smartSpeed: 2000, // Set slide speed to 1 second
+      responsive: {
+        0: {
+          items: 2
+        },
+        768: {
+          items: 3
+        },
+        900: {
+          items: 4
+        },
+      }
+
     });
-    AOS.init();
+  });
 </script>

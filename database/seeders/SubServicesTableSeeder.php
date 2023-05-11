@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use App\Models\SubService;
+use App\Models\Subservice;
 
 class SubServicesTableSeeder extends Seeder
 {
