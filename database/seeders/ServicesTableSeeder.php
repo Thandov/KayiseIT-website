@@ -18,7 +18,7 @@ class ServicesTableSeeder extends Seeder
     $services = [
         [
             'name' => 'Web Development',
-            'description' => 'We develop morden and compatable websites. Check out our packages below.',
+            'description' => 'Our company specializes in creating contemporary and adaptable websites. You can view our available packages listed below.',
             'price' => 0.00,
             'icon' => 'web.png',
             'service_id' => 'S001',

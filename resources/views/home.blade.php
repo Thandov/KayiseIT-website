@@ -108,8 +108,8 @@
                 }
             },
             autoplay: true,
-            autoplayTimeout: 6000,
-            autoplayHoverPause: true,
+            autoplayTimeout: 12000,
+            autoplayHoverPause: false,
         });
         var owl = jQuery('#headercara');
         owl.on('changed.owl.carousel', function(event) {

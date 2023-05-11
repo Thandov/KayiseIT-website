@@ -1,4 +1,4 @@
-<section class="">
+<section class="bg-white">
     <div class="container md:flex justify-center mx-auto p-5">
         <!-- images -->
         <div class="md:flex justify-center items-center md:w-1/2">

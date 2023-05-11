@@ -1,7 +1,7 @@
 <!-- Section: Testimonials -->
 <section class="bg-slate-100 mx-auto p-5">
     <x-titlestyle smheading="What People Say" bgheading="Client Testimonials" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-    <p class="mb-10 text-center">There are many variations of passages of Lorem Ipsum available <br> but the majority have suffered alteration in some form.</p>
+    <p class="mb-10 text-center">We hope that our clients' experiences will help you make an informed decision.</p>
     <!--Carousel-->
     <div id="default-carousel" class="relative w-full" data-carousel="slide">
         <!-- Carousel wrapper -->
@@ -27,7 +27,7 @@
                                     @endfor
                                 <p class="mt-2 text-sm">{{ $testimonial['testimony'] }}</p>
                                 <p class="mt-3 smalltxt"><strong>{{ $testimonial['name'] }}</strong></p>
-                                <p>Position</p>
+                                <!-- <p>Position</p> -->
                             </div>
                         </div>
                     </div>
