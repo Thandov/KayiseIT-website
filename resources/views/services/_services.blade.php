@@ -18,7 +18,7 @@
                 <div class="flex justify-start">
                     <div class="">
 
-                        <h2 class="mt-4 text-2xl font-bold smalltxt">{{ $service['name'] }}</h2>
+                        <h2 class="mt-4 text-xl font-bold smalltxt">{{ $service['name'] }}</h2>
                         <p class="text-base mt-2">{{ implode(' ', array_slice(explode(' ', $service['description']), 0, 11)) }}...</p>
 
                     </div>

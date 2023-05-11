@@ -21,16 +21,16 @@
           <li><a href="/" id="footertxt-white">Home</a></li>
         </div>
         <div class="mt-2 fs-6">
-          <li><a href="contact" id="footertxt-white">Contact us</a></li>
+          <li><a href="../contact" id="footertxt-white">Contact us</a></li>
         </div>
         <div class="mt-2 fs-6">
-          <li><a href="about" id="footertxt-white">About us</a></li>
+          <li><a href="../about" id="footertxt-white">About us</a></li>
         </div>
         <div class="mt-2 fs-6">
-          <li><a href="services" id="footertxt-white">Get started</a></li>
+          <li><a href="../services" id="footertxt-white">Get started</a></li>
         </div>
         <div class="mt-2 fs-6">
-          <li><a href="terms" id="footertxt-white">Terms & Conditions</a></li>
+          <li><a href="../terms" id="footertxt-white">Terms & Conditions</a></li>
         </div>
       </ul>
       <ul class="col-sm-4">
