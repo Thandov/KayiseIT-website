@@ -9,7 +9,7 @@ array_shift($segments);
 $lastSegment = array_pop($segments);
 
 // Generate the breadcrumb HTML
-$html = '<nav class="text-gray-500 font-medium py-4 px-8 md:px-8 max-w-screen-xl mx-auto" aria-label="Breadcrumb">';
+$html = '<nav class="text-gray-500 font-medium py-4 px-6 md:px-6 max-w-screen-xl mx-auto" aria-label="Breadcrumb">';
 $html .= '<ol class="list-none p-0 inline-flex">';
 foreach ($segments as $key => $segment) {
     $url = implode('/', array_slice($segments, 0, $key+1));
