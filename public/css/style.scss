@@ -693,15 +693,7 @@ div.sticky {
 }
 
 /* Style for the card header */
-.card-header {
-  background-color: #333;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 15px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
+
 
 /* Style for the card body */
 .card-body {
@@ -713,6 +705,18 @@ h1 {
   font-size: 28px;
   font-weight: 600;
   color: #333;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #22C55E;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #183ea4;
 }
 
 /* Style for the paragraph */
@@ -770,7 +774,7 @@ tbody td {
 
 /* Style for the success button */
 .btn-success {
-  background-color: green;
+  background-color: #22C55E;
 }
 
 /* Style for the margin */

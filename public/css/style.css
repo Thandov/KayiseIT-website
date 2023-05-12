@@ -684,15 +684,6 @@ div.sticky {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
 }
-#viewsubservice .card-header {
-  background-color: #333;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 15px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
 #viewsubservice .card-body {
   padding: 20px;
 }
@@ -700,6 +691,16 @@ div.sticky {
   font-size: 28px;
   font-weight: 600;
   color: #333;
+}
+#viewsubservice h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #22C55E;
+}
+#viewsubservice h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #183ea4;
 }
 #viewsubservice p {
   font-size: 16px;
@@ -743,7 +744,7 @@ div.sticky {
   background-color: #555;
 }
 #viewsubservice .btn-success {
-  background-color: green;
+  background-color: #22C55E;
 }
 #viewsubservice .m-3 {
   margin: 15px;

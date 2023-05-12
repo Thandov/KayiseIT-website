@@ -12,7 +12,7 @@
                     <div class="col-md-4 col-sm-6 mb-4 align-items-center">
                     @php $slug = str_replace(' ','-', strtolower($service->name));
                     $subslug = str_replace(' ','-', strtolower($subservice->name)) @endphp
-                     <!-- <a href="{{ url('services/'.$slug.'/'.$subslug) }}"> -->
+                     <a href="{{ url('services/'.$slug.'/'.$subslug) }}">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -23,7 +23,7 @@
                                     {{$subservice->name}}</h3>
                             </div>
                         </div>
-                    <!-- </a> -->
+                    </a>
                     </div>
                 @endforeach
             </div>

@@ -10,6 +10,7 @@ use App\Models\newQuotation;
 use App\Models\Quotation;
 use App\Models\SubServices;
 use App\Models\SubService;
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Options;
 use App\Models\Items;
@@ -43,12 +44,15 @@ class QuotationController extends Controller
         $item->save();
 
         // Loop through all the options
-        foreach ($request->options as $option) {
-            // Check if the checkbox is checked for this option
-            if (!empty($option['id']) && !empty($option['qty'])) {
-                // If it is checked, add it to the selectedOptions array
-                $selectedOptions[] = $option;
+        if (!is_null($request->options)) {
+            foreach ($request->options as $option) {
+                // Check if the checkbox is checked for this option
+                if (!empty($option['id']) && !empty($option['qty'])) {
+                    // If it is checked, add it to the selectedOptions array
+                    $selectedOptions[] = $option;
+                }
             }
+        
         }
 
         // Loop through the selectedOptions array and print the selected options
@@ -92,31 +96,33 @@ class QuotationController extends Controller
     }
 
     public function sendInvoice($id)
-    {
-        $quotation = Quotation::findOrFail($id);
-        // Logic for sending invoice to the user who submitted the quotation
-        // You can use a library like Laravel Cashier to generate and send the invoice
+{
+    $quotation = Quotation::findOrFail($id);
+    // Logic for sending invoice to the user who submitted the quotation
+    // You can use a library like Laravel Cashier to generate and send the invoice
 
-        $invoice = new Invoice;
-        $invoice->user_id = $quotation->user_id;
-        $invoice->invoice_no = $quotation->quotation_no;
-        $invoice->total_price = $quotation->total_price;
-        // populate other fields as needed
-        //$invoice->status = 'Unpaid'; // or 'Pending'
-        $invoice->save();
+    $invoice = new Invoice;
+    $invoice->user_id = $quotation->user_id;
+    $invoice->invoice_no = $quotation->quotation_no;
+    $invoice->total_price = $quotation->total_price;
+    // populate other fields as needed
+    //$invoice->status = 'Unpaid'; // or 'Pending'
+    $invoice->save();
 
-        $items = Items::where('QI_id', $quotation->quotation_no)->get();
+    $items = Items::where('QI_id', $quotation->quotation_no)->get();
 
-        $data = [
-            'quotation' => $quotation,
-            'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
-        ];
-        Mail::send('emails.invoice', $data, function ($message) {
-            $message->to('recipient@example.com', 'Recipient Name')
-                ->subject('Invoice');
-        });
-        return redirect()->back()->with('status', 'Invoice sent successfully!');
-    }
+    $user = User::findOrFail($quotation->user_id);
+    $data = [
+        'quotation' => $quotation,
+        'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
+    ];
+    Mail::send('emails.invoice', $data, function ($message) use ($user) {
+        $message->to($user->email, $user->name)
+            ->subject('Invoice');
+    });
+    return redirect()->back()->with('status', 'Invoice sent successfully!');
+}
+
 
     public function quotationPDF($id)
     {

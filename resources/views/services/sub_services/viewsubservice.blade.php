@@ -1,10 +1,10 @@
 <x-app-layout>
 <x-breadcrumb></x-breadcrumb>
-   <div class="container py-20" id="viewsubservice">
+   <div class="container py-5" id="viewsubservice">
       <div class="row justify-content-center">
-         <div class="col-md-8">
+         <div class="col-md-6">
             <div class="card">
-               <div class="card-header font-bold md:text-2xl"><span>Get a quotation for :</span></div>
+               <div class="card-header font-bold md:text-2xl"><h2>Get a quotation for :</h2></div>
                <div class="card-body">
 
                   <h1>{{ $subservice->name }}</h1>
@@ -21,7 +21,7 @@
                         <thead>
                            <tr>
                               <th scope="col">
-                                 <h2>Add-Ons</h2>
+                                 <h3>Add-Ons</h3>
                               </th>
                            </tr>
                         </thead>
@@ -51,9 +51,9 @@
 
                      <br>
                      @if (Auth::check())
-                     <button style="background-color: #64bc5c" class="btn btn-success m-3" type="submit">Request Quotation</button>
+                     <button class="btn btn-success m-3" type="submit">Request Quotation</button>
                      @else
-                     <a href="{{ route('login') }}" class="btn btn-success m-3">Request Quote</a>
+                     <a href="{{ route('login') }}" class="btn-success m-3">Request Quote</a>
                      @endif
                   </form>
 

@@ -12,7 +12,7 @@
     @include('services._services', ['services' => $services->take(3)])
     <div class="data text-center px-4 md:px-8 max-w-screen-xl mx-auto mb-5">
         <x-front-end-btn href="{{ route('services') }}">
-            {{ __('Discover More') }}
+            {{ __('View All') }}
         </x-front-end-btn>
     </div>
     <!--Services Call-To-Action-->

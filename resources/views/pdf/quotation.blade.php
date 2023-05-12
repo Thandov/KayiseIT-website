@@ -59,21 +59,17 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
         </div>
     </div>
-    <div class="header">
-        <div class="address">
+    
             <h2>Kayise IT</h2>
             <p>39B Nelbro Building, Mbombela, 1200</p>
             <p>0123456789</p>
             <p>info@kayiseit.co.za</p>
-        </div>
-    </div>
-    <div class="header">
-        <div class="invoice-details">
+        
+    
             <h1>Quotation</h1>
             <p>Date: {{ $quotation->created_at }}</p>
             <p>Quotation Number: {{ $quotation->quotation_no }}</p>
-        </div>
-    </div>
+        
     <table>
         <thead>
             <tr>
