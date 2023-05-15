@@ -2,14 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 /* Font Sizes Variables */
 /*=================================================*/
-#btn-primary {
-  background-color: #183ea4 !important;
-}
-
-#btn-primary:hover {
-  filter: brightness(150%);
-}
-
 .overview {
   justify-content: center;
   align-items: center;
@@ -644,14 +636,6 @@ div.sticky {
   color: black;
 }
 
-#viewservice .row img {
-  height: 50px;
-}
-#viewservice .card {
-  height: 200px;
-  /* Set a fixed height for each card */
-}
-
 #viewsubservice {
   /* Style for the header section */
   /* Style for the container */
@@ -751,7 +735,7 @@ div.sticky {
 }
 
 #services-services .card::before {
-  content: "";
+  content: ""; /*change*/
   position: absolute;
   top: 0;
   left: 0;

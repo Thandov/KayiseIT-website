@@ -1,11 +1,17 @@
-<x-app-layout>
-    <div id="services-services">
-<x-hero-banner hero="service-hero" title="Our Services"/>
-@include('services._services')
-    <x-clients />
-    </div>
+<x-app-layout title="Services">
+  <!-- Hero banner -->
+<section id="hero-banner">
+  <x-hero-banner hero="service-hero" title="Our Services"/>
+</section>
+<!--Featured Services-->
+<section id="featured-services">
+  @include('services._services')
+</section>
+<!-- Our Clients -->
+<section id="our-clients">
+  <x-clients></x-clients>
+</section>
 </x-app-layout>
-
 <script>
     $(document).ready(function() {
     $(".owl-carousel").owlCarousel({

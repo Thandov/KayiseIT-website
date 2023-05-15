@@ -1,4 +1,4 @@
-<section class="bg-grey-100">
+<div class="bg-grey-100">
 <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
 
     <div class="text-center">
@@ -17,10 +17,8 @@
                 </div>
                 <div class="flex justify-start">
                     <div class="">
-
                         <h2 class="mt-4 text-xl font-bold smalltxt">{{ $service['name'] }}</h2>
                         <p class="text-base mt-2">{{ implode(' ', array_slice(explode(' ', $service['description']), 0, 11)) }}...</p>
-
                     </div>
                 </div>
             </div>
@@ -28,6 +26,5 @@
         @endforeach
     </div>
     </div>
-
 </div>
-</section>
+</div>

@@ -7,12 +7,6 @@ $drk-g-color: #1e9a13;
 $headingsize: 24px;
 $readingsize: 12px;
 /*=================================================*/
-#btn-primary {
-  background-color: $scolor !important;
-}
-#btn-primary:hover {
-  filter: brightness(150%);
-}
 .overview {
   justify-content: center;
   align-items: center;
@@ -658,30 +652,12 @@ div.sticky {
   }
 }
 
-#viewservice{
-  .row img {
-    height: 50px;
-}
-
-.card {
-    height: 200px;
-    /* Set a fixed height for each card */
-}
-}
-
 #viewsubservice{
   /* Style for the header section */
 .x-app-layout h2 {
   font-size: 24px;
   font-weight: 600;
   color: #333;
-}
-
-/* Style for the container */
-.container {
-  margin: 0 auto;
-  padding: 20px;
-  max-width: 800px;
 }
 
 /* Style for the card */
@@ -705,12 +681,6 @@ h1 {
   font-size: 28px;
   font-weight: 600;
   color: #333;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #22C55E;
 }
 
 h3 {
@@ -785,7 +755,7 @@ tbody td {
 
 #services-services{
 .card::before {
-  content: "";
+  content: "";/*change*/
   position: absolute;
   top: 0;
   left: 0;

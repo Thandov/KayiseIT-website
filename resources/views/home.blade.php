@@ -5,16 +5,22 @@
     </div>
     @endif
     <!--Carousel-->
-    @include('_carousel')
+    <section id="carousel">
+        @include('_carousel')
+    </section>
     <!--About Us-->
-    @include('_about')
-    <!--freatured services-->
-    @include('services._services', ['services' => $services->take(3)])
-    <div class="data text-center px-4 md:px-8 max-w-screen-xl mx-auto mb-5">
-        <x-front-end-btn href="{{ route('services') }}">
-            {{ __('View All') }}
-        </x-front-end-btn>
-    </div>
+    <section id="about-us">
+        @include('_about')
+    </section>
+    <!--Featured Services-->
+    <section id="featured-services">
+        @include('services._services', ['services' => $services->take(3)])
+        <div class="data text-center px-4 md:px-8 max-w-screen-xl mx-auto mb-5">
+            <x-front-end-btn href="{{ route('services') }}">
+                {{ __('View All') }}
+            </x-front-end-btn>
+        </div>
+    </section>
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
@@ -25,7 +31,7 @@
                 <div class="col-md-6 col-sm-12 text-2 d-flex align-items-center">
                     <div>
                         <x-titlestyle smheading="Our Services" bgheading="Managed I.T. solutions tailored to your business" alignment="text-left" smheadingcolor=" " bgheadingcolor="text-white"></x-titlestyle>
-                        <p id="white-text" class="fs-6 mt-4 mb-4">Develop efficient & effective digital projects with
+                        <p id="white-text" class="text-base mt-4 mb-4">Develop efficient & effective digital projects with
                             knowledge from a creative team of Business Analysts, Solutions Architect & Graphics designers so
                             that our clients grow their business.</p>
                         <x-front-end-btn href="{{ route('services') }}">
@@ -36,13 +42,20 @@
             </div>
         </div>
     </section>
-    <!--Testimonials-->
-    <!--projects-->
+    <!--Projects-->
     <!-- @include('_projects') -->
-    <!--our-team-->
-    @include('_testimonials')
-    @include ('components.our-team')
-    @include('_contactinfo')
+    <!--Testimonials-->
+    <section id="testimonials">
+        @include('_testimonials')
+    </section>
+    <!--Our-Team-->
+    <section id="our-team">
+        @include ('components.our-team')
+    </section>
+    <!-- Contact-Info -->
+    <section id="contact-info">
+        @include('_contactinfo')
+    </section>
 </x-app-layout>
 <script>
     //ratings
@@ -74,7 +87,6 @@
     function callback(event) {
         removeSliderClass(event);
     }
-
     function removeSliderClass(event) {
         console.log("removing classes");
         var item = event.item.index - 2; // Position of the current item

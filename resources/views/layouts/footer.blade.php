@@ -14,39 +14,39 @@
     </div>
     <div class="row link-boxes">
       <ul class="col-sm-4">
-        <div class="mt-1 fs-6">
-          <li id="footer-underline" class="link_name mb-3 mt-1 fs-6 fw-bold smalltxt">Company</li>
+        <div class="mt-1 text-base">
+          <li id="footer-underline" class="link_name mb-3 mt-1 text-base fw-bold smalltxt">Company</li>
         </div>
-        <div class="mt-1 fs-6">
+        <div class="mt-1 text-base">
           <li><a href="/" id="footertxt-white">Home</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="../contact" id="footertxt-white">Contact us</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="../about" id="footertxt-white">About us</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="../services" id="footertxt-white">Get started</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="../terms" id="footertxt-white">Terms & Conditions</a></li>
         </div>
       </ul>
       <ul class="col-sm-4">
         <div>
-          <li id="footer-underline" class="link_name mb-3 mt-2 fs-6 fw-bold smalltxt">Services</li>
+          <li id="footer-underline" class="link_name mb-3 mt-2 text-base fw-bold smalltxt">Services</li>
         </div>
-        <div class="mt-1 fs-6">
+        <div class="mt-1 text-base">
           <li><a href="services" id="footertxt-white">Office Automation</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="services" id="footertxt-white">Network Support</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="services" id="footertxt-white">Marketing</a></li>
         </div>
-        <div class="mt-2 fs-6">
+        <div class="mt-2 text-base">
           <li><a href="services" id="footertxt-white">ICT Skills training</a></li>
         </div>
       </ul>
@@ -59,13 +59,13 @@
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
           @csrf
           @if (Auth::check())
-          <p id="footer-underline" class="mt-1 mb-3 fs-6 fw-bold smalltxt">Subscribe To Our Newsletter</p>
+          <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe To Our Newsletter</p>
           <div class="input-group">
             <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
           </div>
       </div>
       @else
-      <p id="footer-underline" class="mt-1 mb-3 fs-6 fw-bold smalltxt">Subscribe</p>
+      <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe</p>
       <div class="input-group">
         <input type="text" name="email" class="form-control rounded-md border-0" placeholder="Enter your email">
         <x-front-end-btn type="submit">

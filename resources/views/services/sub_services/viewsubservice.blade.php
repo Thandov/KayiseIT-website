@@ -1,22 +1,17 @@
-<x-app-layout>
+<x-app-layout title="View Sub Services">
 <x-breadcrumb></x-breadcrumb>
-   <div class="container py-5" id="viewsubservice">
+   <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto" id="viewsubservice">
       <div class="row justify-content-center">
          <div class="col-md-6">
             <div class="card">
                <div class="card-header font-bold md:text-2xl"><h2>Get a quotation for :</h2></div>
                <div class="card-body">
-
                   <h1>{{ $subservice->name }}</h1>
-
                   <br>
-
                   <form action="{{ route('viewsubservice.quote') }}" method="post" enctype="multipart/form-data">
                      @csrf
                      <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
                      <input type="hidden" name="qty" value="1">
-
-
                      <table class="table">
                         <thead>
                            <tr>
@@ -44,23 +39,20 @@
                               </td>
                            </tr>
                            @endforeach
-
-
                         </tbody>
                      </table>
-
                      <br>
                      @if (Auth::check())
-                     <button class="btn btn-success m-3" type="submit">Request Quotation</button>
+                     <a class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit">Request Quotation</a>
                      @else
-                     <a href="{{ route('login') }}" class="btn-success m-3">Request Quote</a>
+                     <x-front-end-btn href="{{ route('login') }}">
+                        {{ __('Request Quote') }}
+                     </x-front-end-btn>
                      @endif
                   </form>
-
                </div>
             </div>
          </div>
       </div>
    </div>
-
 </x-app-layout>
