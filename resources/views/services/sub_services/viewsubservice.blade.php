@@ -3,20 +3,20 @@
    <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto" id="viewsubservice">
       <div class="row justify-content-center">
          <div class="col-md-6">
-            <div class="card">
-               <div class="card-header font-bold md:text-2xl"><h2>Get a quotation for :</h2></div>
-               <div class="card-body">
-                  <h1>{{ $subservice->name }}</h1>
+            <div class="card drop-shadow-2xl bg-white mb-5">
+               <div class="card-header font-bold md:text-2xl text-[#22C55E]"><h2>Get a quotation for :</h2></div>
+               <div class="card-body p-5">
+                  <h3 class="font-bold text-2xl">{{ $subservice->name }}</h3>
                   <br>
                   <form action="{{ route('viewsubservice.quote') }}" method="post" enctype="multipart/form-data">
                      @csrf
                      <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
                      <input type="hidden" name="qty" value="1">
-                     <table class="table">
+                     <table class="table mb-5 w-full border-collapse">
                         <thead>
                            <tr>
-                              <th scope="col">
-                                 <h3>Add-Ons</h3>
+                              <th scope="col p-2.5 text-left font-semibold text-lg border-b-2 border-[#333] text-[#333]">
+                                 <h4 class="text-kayise-blue">Add-Ons</h4>
                               </th>
                            </tr>
                         </thead>

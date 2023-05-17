@@ -476,7 +476,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #service-hero {
-    background: url("../images/landing-page/pexels-muffin-creatives-4584612.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/landing-page/Hardware.jpg"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -493,7 +493,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #contact-hero {
-    background: url("../images/landing-page/marvin.jpg"), radial-gradient(#444, #aaa);
+    background: url("../images/landing-page/Meeting.jpg"), radial-gradient(#444, #aaa);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -528,7 +528,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #about-hero {
-    background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/landing-page/Keyboard.jpg"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -637,72 +637,7 @@ div.sticky {
 }
 
 #viewsubservice {
-  /* Style for the header section */
-  /* Style for the container */
-  /* Style for the card */
-  /* Style for the card header */
-  /* Style for the card body */
-  /* Style for the heading */
-  /* Style for the paragraph */
-  /* Style for the table */
-  /* Style for the table head */
   /* Style for the table body */
-  /* Style for the button */
-  /* Style for the button on hover */
-  /* Style for the success button */
-  /* Style for the margin */
-}
-#viewsubservice .x-app-layout h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-}
-#viewsubservice .container {
-  margin: 0 auto;
-  padding: 20px;
-  max-width: 800px;
-}
-#viewsubservice .card {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
-}
-#viewsubservice .card-body {
-  padding: 20px;
-}
-#viewsubservice h1 {
-  font-size: 28px;
-  font-weight: 600;
-  color: #333;
-}
-#viewsubservice h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #22C55E;
-}
-#viewsubservice h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #183ea4;
-}
-#viewsubservice p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #555;
-}
-#viewsubservice table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-#viewsubservice thead th {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  padding: 10px;
-  text-align: left;
-  border-bottom: 2px solid #333;
 }
 #viewsubservice tbody td {
   font-size: 16px;
@@ -710,28 +645,6 @@ div.sticky {
   color: #555;
   padding: 10px;
   border-bottom: 1px solid #eee;
-}
-#viewsubservice .btn {
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background-color: #333;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-}
-#viewsubservice .btn:hover {
-  background-color: #555;
-}
-#viewsubservice .btn-success {
-  background-color: #22C55E;
-}
-#viewsubservice .m-3 {
-  margin: 15px;
 }
 
 #services-services .card::before {

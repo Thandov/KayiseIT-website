@@ -1,4 +1,13 @@
-<x-app-layout title="About">
+<x-app-layout>
+    <!-- Meta tags -->
+    @section('meta')
+        @php
+            $metaTitle = "About - Why Choose Kayise IT";
+            $metaDescription = "Our team of Developers and Designers deliver custom Software Solutions that meet our client's unique needs.";
+            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT";
+        @endphp
+    @endsection
+    <!-- Page Body -->
   <!-- Hero banner -->
   <section id="hero-banner">
     <x-hero-banner hero="about-hero" title="Our Company" />

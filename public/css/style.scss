@@ -495,7 +495,7 @@ div.sticky {
 }
 @supports (background-blend-mode: multiply) {
   #service-hero {
-    background: url("../images/landing-page/pexels-muffin-creatives-4584612.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/landing-page/Hardware.jpg"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -503,7 +503,7 @@ div.sticky {
     background-size: cover;
   }
 }
-//contact hero=====================================================
+//contact hero===================================================== 
 #contact-hero {
   color: white;
   padding: 10em 0;
@@ -512,7 +512,7 @@ div.sticky {
 }
 @supports (background-blend-mode: multiply) {
   #contact-hero {
-    background: url("../images/landing-page/marvin.jpg"), radial-gradient(#444, #aaa);
+    background: url("../images/landing-page/Meeting.jpg"), radial-gradient(#444, #aaa);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -544,7 +544,7 @@ div.sticky {
   }
   @supports (background-blend-mode: multiply) {
     #about-hero {
-      background: url("../images/landing-page/img_Keyboard_3.jpg"), radial-gradient(#aaa, #fff);
+      background: url("../images/landing-page/Keyboard.jpg"), radial-gradient(#aaa, #fff);
       background-blend-mode: multiply;
       background-attachment: fixed;
       background-repeat: no-repeat;
@@ -653,66 +653,6 @@ div.sticky {
 }
 
 #viewsubservice{
-  /* Style for the header section */
-.x-app-layout h2 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Style for the card */
-.card {
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  margin-bottom: 20px;
-}
-
-/* Style for the card header */
-
-
-/* Style for the card body */
-.card-body {
-  padding: 20px;
-}
-
-/* Style for the heading */
-h1 {
-  font-size: 28px;
-  font-weight: 600;
-  color: #333;
-}
-
-h3 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #183ea4;
-}
-
-/* Style for the paragraph */
-p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #555;
-}
-
-/* Style for the table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-/* Style for the table head */
-thead th {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  padding: 10px;
-  text-align: left;
-  border-bottom: 2px solid #333;
-}
-
 /* Style for the table body */
 tbody td {
   font-size: 16px;
@@ -720,36 +660,6 @@ tbody td {
   color: #555;
   padding: 10px;
   border-bottom: 1px solid #eee;
-}
-
-/* Style for the button */
-.btn {
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  background-color: #333;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* Style for the button on hover */
-.btn:hover {
-  background-color: #555;
-}
-
-/* Style for the success button */
-.btn-success {
-  background-color: #22C55E;
-}
-
-/* Style for the margin */
-.m-3 {
-  margin: 15px;
 }
 }
 

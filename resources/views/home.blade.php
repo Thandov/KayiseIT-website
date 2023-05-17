@@ -1,4 +1,13 @@
-<x-app-layout title="Home">
+<x-app-layout>
+    <!-- Meta tags -->
+    @section('meta')
+        @php
+            $metaTitle = "Home - Welcome to Kayise IT";
+            $metaDescription = "Explore our innovative technology solutions and experience unparalleled customer satisfaction.";
+            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT";
+        @endphp
+    @endsection
+    <!-- Page Body -->
     @if (session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
@@ -26,7 +35,7 @@
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="row">
                 <div class="col-md-6 col-sm-12 d-flex justify-content-center">
-                    <img src="../images/OurServicesImg.jpg" class="pic-2 shadow-lg rounded-3">
+                    <img src="../images/Woman-In-IT.jpg" class="pic-2 shadow-lg rounded-3" alt="Kayise IT:Woman Working">
                 </div>
                 <div class="col-md-6 col-sm-12 text-2 d-flex align-items-center">
                     <div>
