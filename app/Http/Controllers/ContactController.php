@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail;
 use App\Mail\SubscribeMail;
 use App\Models\Subscription;
+use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
@@ -21,8 +22,15 @@ class ContactController extends Controller
             'message' => 'required',
         ]);
 
+        $message = new Message;
+        $message->name = $request->name;
+        $message->email = $request->email;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+
         // Send the email
-        Mail::to('info@kayiseit.co.za')->send(new ContactFormMail($validatedData));
+        Mail::to('info@kayiseit.com')->send(new ContactFormMail($validatedData));
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'Your message has been sent.');
@@ -45,7 +53,7 @@ class ContactController extends Controller
         $subscription->save();
 
         // Send the email
-        Mail::to('info@kayiseit.co.za')->send(new SubscribeMail($subscription));
+        Mail::to('info@kayiseit.com')->send(new SubscribeMail($subscription));
     } else {
 
         // Validate the email field

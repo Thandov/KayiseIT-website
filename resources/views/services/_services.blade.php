@@ -13,7 +13,7 @@
         <a href="{{ route('service.show', $slug) }}" class="flex justify-center">
             <div class="bg-white overflow-hidden shadow-md rounded-lg w-80 h-64 p-4">
                 <div class="flex justify-start">
-                    <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center"><img class="w-12" src="../images/icons/em.png"></div>
+                    <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center"><img class="w-12" src="{{ asset('images/service_logo/'.$service->icon) }}"></div>
                 </div>
                 <div class="flex justify-start">
                     <div class="">

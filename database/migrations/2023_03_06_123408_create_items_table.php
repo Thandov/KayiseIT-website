@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('user_id')->on('quotations')->onDelete('cascade');
             $table->string('name');
             $table->decimal('price');
-            $table->decimal('qty')->nullable();
+            $table->integer('qty')->nullable();
             $table->decimal('sub_total')->nullable();
             $table->string('QI_id');
             $table->foreign('QI_id')->references('quotation_no')->on('quotations')->onDelete('cascade');
