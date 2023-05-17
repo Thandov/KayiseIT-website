@@ -1,4 +1,13 @@
-<x-app-layout title="View Sub Services">
+<x-app-layout>
+   <!-- Meta tags -->
+   @section('meta')
+        @php
+            $metaTitle = "$subservice->name";
+            $metaDescription = "Transform Your Business with Our Comprehensive IT Services.";
+            $metaKeywords = "$subservice->name, IT Company, Computers and Information Technology, Software, Technology, ICT, IT Services, Nelspruit, Near Me";
+        @endphp
+    @endsection
+    <!-- Page Body -->
 <x-breadcrumb></x-breadcrumb>
    <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto" id="viewsubservice">
       <div class="row justify-content-center">

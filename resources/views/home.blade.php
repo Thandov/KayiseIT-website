@@ -4,7 +4,7 @@
         @php
             $metaTitle = "Home - Welcome to Kayise IT";
             $metaDescription = "Explore our innovative technology solutions and experience unparalleled customer satisfaction.";
-            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT";
+            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT,  Nelspruit, South Africa, Near Me, IT Companies South Africa";
         @endphp
     @endsection
     <!-- Page Body -->

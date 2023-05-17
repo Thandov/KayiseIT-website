@@ -1,4 +1,12 @@
-<x-app-layout title="Services">
+<x-app-layout>
+  <!-- Meta tags -->
+  @section('meta')
+        @php
+            $metaTitle = "Services - Web and App Development, 4IR Skills Training, Tech Support";
+            $metaDescription = "Our developers take a pragmatic approach to create tailor-made products that meets our client's specific needs.";
+            $metaKeywords = "Services - Web Development, App Development, 4IR Skills Training, Tech Support, IT Company, IT Services,  Nelspruit, South Africa, Near Me, IT Companies South Africa";
+        @endphp
+    @endsection
   <!-- Hero banner -->
 <section id="hero-banner">
   <x-hero-banner hero="service-hero" title="Our Services"/>

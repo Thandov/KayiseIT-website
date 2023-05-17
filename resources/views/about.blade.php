@@ -2,9 +2,9 @@
     <!-- Meta tags -->
     @section('meta')
         @php
-            $metaTitle = "About - Why Choose Kayise IT";
-            $metaDescription = "Our team of Developers and Designers deliver custom Software Solutions that meet our client's unique needs.";
-            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT";
+            $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
+            $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
+            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
         @endphp
     @endsection
     <!-- Page Body -->

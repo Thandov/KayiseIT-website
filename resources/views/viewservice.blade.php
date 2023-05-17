@@ -1,10 +1,19 @@
-<x-app-layout title="View Services">
+<x-app-layout>
+    <!-- Meta tags -->
+    @section('meta')
+        @php
+            $metaTitle = "$service->name";
+            $metaDescription = "$service->description";
+            $metaKeywords = "$service->name, IT Company, Computers and Information Technology, Software, Technology, ICT, IT Services, Nelspruit, Near Me";
+        @endphp
+    @endsection
+    <!-- Page Body -->
     <div id="viewservice">
         <x-hero-banner hero="about-hero" title="{{ $service->name}}"></x-hero-banner>
         <div class="grid grid-cols-1 md:grid-cols-7 gap-8 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="col-span-1 md:col-span-5">
                 <!-- Content for left column -->
-                <h2 class="font-bold text-5xl mb-8">{{ $service->name}}</h2>
+                <h2 class="font-bold text-5xl mb-8">{{$service->name}}</h2>
                 <p class="text-justify text-base text-gray-600 mb-8">{{ $service->description}}</p>
                 <div class="row">
                     @foreach($subservices as $subservice)

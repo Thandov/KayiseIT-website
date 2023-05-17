@@ -1,4 +1,13 @@
-<x-app-layout title="Contact">
+<x-app-layout>
+    <!-- Meta tags -->
+    @section('meta')
+        @php
+            $metaTitle = "Contact - Technical Solutions and Exceptional Support";
+            $metaDescription = "Our Offices are at 39B Nelbro Building, Mbombela, 2nd floor Office 02. Alternatively email us at  info@kayiseit.co.za or call  +27 87 702 2625";
+            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, IT Services, Nelspruit, Near Me";
+        @endphp
+    @endsection
+    <!-- Page Body -->
     <!-- Hero banner -->
     <section id="hero-banner">
         <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
