@@ -78,13 +78,7 @@
   <div class="bottom-details">
     <div class="row align-items-center justify-content-center py-2">
       <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-        <div class="d-flex justify-content-center align-items-center">
-          <img src="{{ asset('images/payment_methods/Visa.png') }}" alt="Visa" Width="45" height="45">
-          <img src="{{ asset('images/payment_methods/Verified-by-Visa.png') }}" alt="Verified by Visa" Width="45" height="45">
-          <img src="{{ asset('images/payment_methods/PayGate-Payment-Method-Logo-American-Express.png') }}" alt="American Express" Width="25" height="auto">
-          <img src="{{ asset('images/payment_methods/PayGate-Card-Brand-Logo-MasterCard.png') }}" alt="MasterCard" Width="45" height="45">
-          <img src="{{ asset('images/payment_methods/MasterCard-SecureCode.png') }}" alt="MasterCard SecureCode" Width="45" height="45">
-        </div>
+        @include('_pop')
       </div>
     </div>
     <div class="row justify-content-center py-2">

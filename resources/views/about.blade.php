@@ -1,17 +1,30 @@
 <x-app-layout>
-    <!-- Meta tags -->
-    @section('meta')
-        @php
-            $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
-            $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
-            $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
-        @endphp
-    @endsection
-    <!-- Page Body -->
+  <!-- Meta tags -->
+  @section('meta')
+  @php
+  $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
+  $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
+  $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
+  @endphp
+  @endsection
+  <!-- Page Body -->
   <!-- Hero banner -->
   <section id="hero-banner">
     <x-hero-banner hero="about-hero" title="Our Company" />
   </section>
+
+  @if (session('error'))
+  <div class="alert alert-danger">
+    {{ session('error') }}
+  </div>
+  @endif
+
+  @if (session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+  @endif
+
   <!-- About-us -->
   <section id="about-us">
     @include('_about')

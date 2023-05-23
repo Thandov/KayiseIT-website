@@ -76,12 +76,16 @@ class QuotationController extends Controller
         }
 
         $total_price = Items::where('QI_id', $quotation->quotation_no)->sum('sub_total');
-        $quotation->total_price = $total_price;
+        $vat_total = $total_price * 0.15;
+        $total= $total_price + $vat_total;
+        $quotation->total_price = $total;
         $quotation->save();
 
         $userEmail = auth()->user()->email;
         $data = [
             'quotation' => $quotation,
+            'total_price' => $total_price,
+            'vat_total' => $vat_total,
             'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
         ];
 

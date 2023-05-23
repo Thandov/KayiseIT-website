@@ -7,6 +7,13 @@ $drk-g-color: #1e9a13;
 $headingsize: 24px;
 $readingsize: 12px;
 /*=================================================*/
+.qty_count{
+  width: 50px;
+  position: relative;
+  input{
+    width: 100%;
+  }
+}
 .overview {
   justify-content: center;
   align-items: center;

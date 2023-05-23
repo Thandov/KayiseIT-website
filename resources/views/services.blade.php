@@ -11,6 +11,19 @@
 <section id="hero-banner">
   <x-hero-banner hero="service-hero" title="Our Services"/>
 </section>
+
+@if (session('error'))
+  <div class="alert alert-danger">
+    {{ session('error') }}
+  </div>
+  @endif
+
+  @if (session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+  @endif
+
 <!--Featured Services-->
 <section id="featured-services">
   @include('services._services')

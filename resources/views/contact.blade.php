@@ -12,6 +12,19 @@
     <section id="hero-banner">
         <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
     </section>
+
+    @if (session('error'))
+  <div class="alert alert-danger">
+    {{ session('error') }}
+  </div>
+  @endif
+
+  @if (session('success'))
+  <div class="alert alert-success">
+    {{ session('success') }}
+  </div>
+  @endif
+
     <!-- Contact Info -->
         <section id="contact-info" class="bg-white">
             <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
