@@ -959,4 +959,16 @@ footer .bottom-details .bottom_text {
 .top .media-icons a:nth-child(4):hover {
   background: #FF0000;
   color: #fff;
+}
+
+.viewblog {
+  width: 80%;
+  margin: 50px;
+  font-size: 1.25rem;
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  text-align: justify;
+  overflow: visible;
+  display: block;
+  -webkit-box-orient: horizontal;
+  -webkit-line-clamp: none;
 }/*# sourceMappingURL=style.css.map */
