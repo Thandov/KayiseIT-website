@@ -8,7 +8,7 @@
         body {
             font-family: sans-serif;
             font-size: 12pt;
-            margin: 0;
+            margin: 20px;
             padding: 0;
         }
 
@@ -59,7 +59,8 @@
             text-align: right;
             width: 50%;
         }
-        .deposit{
+
+        .deposit {
             text-align: center;
             font-weight: bold;
         }
@@ -75,10 +76,24 @@
             padding: 10px;
             text-align: center;
         }
+
+        .top{
+            text-align: center;
+            background-color: #eaeaea;
+            padding: 20px;
+        }
     </style>
 </head>
 
 <body>
+
+    <div class="top">
+        <h1 style="font-size: 18pt; font-weight: bold;">Thank you for your Quotation Request,
+            {{ auth()->user()->name }}.
+        </h1>
+        <p>Please find below Your Quotation</p>
+        <a href="https://kayiseit.com/services">cc</a>
+    </div>
 
 
     <div class="header">
@@ -109,43 +124,45 @@
     </div>
 
     <table>
-    <thead>
-        <tr>
-            <th>Description</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($items as $item)
-        <tr>
-            <td>{{ $item->name }}</td>
-            <td>{{ $item->price }}</td>
-            <td>{{ $item->qty }}</td>
-            <td>{{ $item->sub_total }}</td>
-        </tr>
-        @endforeach
-        <tr>
-            <td colspan="3" class="text-right">Subtotal</td>
-            <td>{{ $total_price }}</td>
-        </tr>
-        <tr>
-            <td colspan="3" class="text-right">VAT (15%)</td>
-            <td>{{ $vat_total }}</td>
-        </tr>
-        <tr>
-            <td colspan="3" class="text-right"><span class="span">Total</span></td>
-            <td><span class="span">{{ $quotation->total_price }}</span></td>
-        </tr>
-    </tbody>
-</table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($items as $item)
+            <tr>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->price }}</td>
+                <td>{{ $item->qty }}</td>
+                <td>{{ $item->sub_total }}</td>
+            </tr>
+            @endforeach
+            <tr>
+                <td colspan="3" class="text-right">Subtotal</td>
+                <td>{{ $total_price }}</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right">VAT (15%)</td>
+                <td>{{ $vat_total }}</td>
+            </tr>
+            <tr>
+                <td colspan="3" class="text-right"><span class="span">Total</span></td>
+                <td><span class="span">{{ $quotation->total_price }}</span></td>
+            </tr>
+        </tbody>
+    </table>
 
 
 
     <div class="header">
         <div class="deposit">
-            <p><span class="span">A 50% deposit is required in order to begin the project. Remaining 50% can be paid up in full after the project is done. This quotation is valid for 30 days from the date generated.</span></p>
+            <p><span class="span">A 50% deposit is required in order to begin the project. Remaining 50% can be paid up
+                    in full after the project is done. This quotation is valid for 30 days from the date
+                    generated.</span></p>
         </div>
     </div>
 

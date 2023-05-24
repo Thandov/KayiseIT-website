@@ -49,15 +49,11 @@ Route::get('services', function () {
     return view('services');
 })->name('services');
 
-<<<<<<< Updated upstream
 Route::get('career_mapping', function () {
     return view('career_mapping');
 })->name('career_mapping');
 
 Route::GET('services',[ServicesController::class, 'services'])->name('services');
-=======
-Route::GET('services', [ServicesController::class, 'services'])->name('services');
->>>>>>> Stashed changes
 
 //terms and conditions
 

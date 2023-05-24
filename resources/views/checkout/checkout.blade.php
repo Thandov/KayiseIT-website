@@ -151,7 +151,7 @@
 
                @include('_pop')
 
-               <span>these are my <a href="../terms">Terms & Conditions</a></span>
+               <span><a class="text-green-500" href="../terms">Terms & Conditions</a> Apply</span>
 
             </div>
          </div>
