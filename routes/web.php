@@ -49,9 +49,9 @@ Route::get('services', function () {
     return view('services');
 })->name('services');
 
-Route::get('career_mapping', function () {
-    return view('career_mapping');
-})->name('career_mapping');
+Route::get('career-mapping', function () {
+    return view('career-mapping');
+})->name('career-mapping');
 
 Route::GET('services',[ServicesController::class, 'services'])->name('services');
 
