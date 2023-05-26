@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id()->primary();//match SRS
             $table->string('programme_name');
             $table->timestamps();
-            $table->string('specialization_id');//Make Foreign key
+            //Foreign Key
+            $table->unsignedBigInteger('specialization _id');
+            $table->foreign('specialization _id')->references('id')->on('specializations')->onUpdate('cascade')->onDelete('cascade');         
         });
     }
 

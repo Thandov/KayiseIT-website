@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('career_steps', function (Blueprint $table) {
             $table->id(); //might need to remove
             $table->string('steps_id ')->primary(); //need to esure data matches the SRS doc
-            $table->string('career_id');  //need to be a foregin key   
+            //Foreign Key
+            $table->unsignedBigInteger('career_id');
+            $table->foreign('career_id')->references('id')->on('career_maps')->onUpdate('cascade')->onDelete('cascade');            
             $table->string('qualification');
             $table->string('level');
             $table->integer('step_number'); 
-            $table->timestamps();
         });
     }
 

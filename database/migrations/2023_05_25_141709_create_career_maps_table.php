@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('career_maps', function (Blueprint $table) {
             $table->id();
-            $table->string('specialization_id')->primary();//make foreign key
+            $table->unsignedBigInteger('specialization_id');
+            $table->foreign('specialization_id')->references('id')->on('specializations')->onUpdate('cascade')->onDelete('cascade'); //id might change to specilaization ID
             $table->timestamps();
         });
     }

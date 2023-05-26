@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('specializations', function (Blueprint $table) {
             $table->id();//removal
             $table->string('specialization _id')->primary(); //match SRS
-            $table->string('career_id'); //foreign key
-            $table->string('specialization_name');
+            //Foreign Key
+            $table->unsignedBigInteger('career_id');
+            $table->foreign('career_id')->references('id')->on('career_maps')->onUpdate('cascade')->onDelete('cascade');             $table->string('specialization_name');
             $table->timestamps();
         });
     }
