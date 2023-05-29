@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('career_maps', function (Blueprint $table) {
             $table->increments('c_id');
-            $table->unsignedBigInteger('id');   //FK
-			$table->unsignedBigInteger('s_id'); //FK
+            $table->integer('uid')->nullable()->unsigned();   //FK
+			$table->integer('s_id')->nullable()->unsigned(); //FK
             $table->timestamps();
         });
          //link Foreign Key
          Schema::table('career_maps', function (Blueprint $table) {
-            $table->foreign('id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
+            $table->foreign('uid')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
             $table->foreign('s_id')->references('s_id')->on('specializations')->onUpdate('cascade')->onDelete('cascade');             
         });
     }

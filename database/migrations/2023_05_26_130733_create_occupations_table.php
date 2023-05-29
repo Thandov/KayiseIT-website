@@ -17,12 +17,9 @@ return new class extends Migration
             $table->increments('o_id');
             $table->string('name');
             $table->string('image');
-            $table->unsignedBigInteger('id');
+            $table->integer('uid')->unsigned()->nullable(); //FK
+            $table->foreign('uid')->references('id')->on('users')->onDelete('cascade'); //FK             
             $table->timestamps();
-        });
-        //link Foreign Key
-        Schema::table('occupations', function (Blueprint $table) {
-            $table->foreign('id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
         });
     }
 

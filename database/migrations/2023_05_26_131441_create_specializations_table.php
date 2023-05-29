@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('specializations', function (Blueprint $table) {
             $table->increments('s_id');
             $table->string('name');
-            $table->unsignedBigInteger('o_id');
-			$table->unsignedBigInteger('id');
+            $table->integer('o_id')->nullable()->unsigned();
+			$table->integer('uid')->nullable()->unsigned();
             $table->timestamps();
         });
         //link Foreign Key
         Schema::table('specializations', function (Blueprint $table) {
-            $table->foreign('id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
+            $table->foreign('uid')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
             $table->foreign('o_id')->references('o_id')->on('occupations')->onUpdate('cascade')->onDelete('cascade');             
         });
     }

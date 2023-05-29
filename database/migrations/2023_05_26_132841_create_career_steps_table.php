@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('career_steps', function (Blueprint $table) {
             $table->increments('steps_id');
-            $table->unsignedBigInteger('c_id'); //FK
+            $table->integer('career_id')->nullable()->unsigned();   //FK
             $table->string('qualification');
             $table->string('level');
             $table->integer('step_number');
@@ -23,7 +23,7 @@ return new class extends Migration
         });
         //link Foreign Key
         Schema::table('career_steps', function (Blueprint $table) {
-            $table->foreign('c_id')->references('c_id')->on('career_maps')->onUpdate('cascade')->onDelete('cascade');             
+            $table->foreign('career_id')->references('c_id')->on('career_maps')->onUpdate('cascade')->onDelete('cascade');             
         });
     }
 
