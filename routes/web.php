@@ -178,4 +178,7 @@ Route::post('viewsubservice/check/{subservice_id}', [CheckoutController::class, 
 
 Route::POST('checkout/credit_card', [PaymentController::class, 'credit_card'])->name('checkout.credit_card')->middleware('auth');
 
+//CareerMapping
+Route::GET('/admin/addcareermapping', [BlogController::class, 'addcareermapping'])->name('admin.addcareermapping');
+
 require __DIR__ . '/auth.php';

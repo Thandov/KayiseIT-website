@@ -12,9 +12,12 @@ class CareerMappingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function careermapping()
     {
-        //
+        //check Code on front end
+        $careermapping = CareerMapping::all();
+        return view('career-mapping', compact('career-mapping'));
+        
     }
 
     /**
@@ -22,9 +25,10 @@ class CareerMappingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addcareermapping()
     {
         //
+        return view('admin/addcareermapping');
     }
 
     /**

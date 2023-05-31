@@ -49,7 +49,7 @@
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('career-mapping')" :active="request()->routeIs('about')">
+            <x-nav-link :href="route('career-mapping')" :active="request()->routeIs('career-mapping')">
                 {{ __('Career Mapping') }}
             </x-nav-link>
         </div>

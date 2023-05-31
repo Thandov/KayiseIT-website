@@ -14,13 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('occupations', function (Blueprint $table) {
-            $table->increments('o_id');
-            $table->string('name');
+            $table->increments('occup_id'); //PK
+            $table->integer('u_id')->unsigned()->nullable(); //FK
+            $table->foreign('u_id')->references('id')->on('users')->onDelete('cascade'); //FK             
+            $table->string('occupation_name');
             $table->string('image');
-            $table->integer('uid')->unsigned()->nullable(); //FK
-            $table->foreign('uid')->references('id')->on('users')->onDelete('cascade'); //FK             
             $table->timestamps();
         });
+       
     }
 
     /**

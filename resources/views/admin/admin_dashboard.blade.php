@@ -93,6 +93,10 @@
         <div class="col-span-12 sm:col-span-6 md:col-span-4 mt-6 bg-white shadow overflow-hidden rounded-lg">
             @include('admin.dashboard.dashservices')
         </div>
+        <!--Career Mapping-->
+        <div class="col-span-12 sm:col-span-6 md:col-span-4 mt-6 bg-white shadow overflow-hidden rounded-lg">
+            @include('admin.dashboard.dashcareermapping')
+        </div>
     </div>
 
     <!-- Modal -->

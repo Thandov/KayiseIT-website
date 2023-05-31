@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('specializations', function (Blueprint $table) {
-            $table->increments('s_id');
-            $table->string('name');
-            $table->integer('o_id')->nullable()->unsigned();
-			$table->integer('uid')->nullable()->unsigned();
+            $table->increments('spec_id');  //PK
+            $table->integer('occup_id')->nullable()->unsigned();    //FK
+			$table->integer('u_id')->nullable()->unsigned(); //FK
+            $table->string('specialization_name');
             $table->timestamps();
         });
         //link Foreign Key
         Schema::table('specializations', function (Blueprint $table) {
-            $table->foreign('uid')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
-            $table->foreign('o_id')->references('o_id')->on('occupations')->onUpdate('cascade')->onDelete('cascade');             
+            $table->foreign('u_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');             
+            $table->foreign('occup_id')->references('occup_id')->on('occupations')->onUpdate('cascade')->onDelete('cascade');             
         });
     }
 
