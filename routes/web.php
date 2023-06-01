@@ -77,9 +77,7 @@ Route::middleware('auth')->group(function () {
 //Quotations
 
 //Route::post('store-form',[QuotationController::class, 'store']);
-Route::get('/send', [QuotationController::class, 'index']);
-Route::post('submit-form', [QuotationController::class, 'submit']);
-Route::post('quote-form', [QuotationController::class, 'quote']);
+Route::post('quote-form', [QuotationController::class, 'quote'])->middleware('auth');
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
 //=================================================Admin ==================================================

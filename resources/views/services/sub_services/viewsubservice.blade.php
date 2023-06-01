@@ -40,19 +40,20 @@
                      <!-- Selected options will appear here dynamically  -->
                   </div>
                   <div class="grid grid-cols-2 gap-1">
-                  @if(Auth::check())
+                     @if(Auth::check())
                      <button class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit">Checkout</button>
-                  @else
-                  <x-front-end-btn href="{{ route('login') }}">
-                {{ __('Checkout') }}
-            </x-front-end-btn>
-            @endif
+                     @else
+                     <button type="button" id="checkModal-btn" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" data-toggle="loginModal" data-target="#loginModal">Checkout</button>
+                     @endif
                   </div>
                </form>
-            </div> 
+            </div>
          </div>
       </div>
    </div>
+
+   @include('modal._loginModal')
+
 </x-app-layout>
 
 <script>
@@ -76,7 +77,9 @@
          // Update the form action with selected options
          var formAction = "{{ route('viewsubservice.check', ['subservice_id' => $subservice->id]) }}";
          if (selectedOptions.length > 0) {
-            formAction += '?' + $.param({ options: selectedOptions });
+            formAction += '?' + $.param({
+               options: selectedOptions
+            });
          }
          $('#checkout-form').attr('action', formAction);
       });
@@ -91,4 +94,30 @@
       }
 
    });
+
+
+   document.querySelector('#loginModal-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      $('#loginModal').modal('show');
+      // $.ajaxSetup({
+      //    statusCode: {
+      //       401: function() {
+      //          $('#loginModal').modal('show');
+      //       }
+      //    }
+      // });
+   });
+
+   document.querySelector('.close').addEventListener('click', function(e) {
+      e.preventDefault();
+      // your code here
+      $('#loginModal').modal('hide');
+   });
+
+
+   document.querySelector('#checkModal-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      $('#loginModal').modal('show');
+   });
+
 </script>
