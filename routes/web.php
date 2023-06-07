@@ -53,7 +53,7 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
-Route::GET('services',[ServicesController::class, 'services'])->name('services');
+Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
 //terms and conditions
 
@@ -175,5 +175,12 @@ Route::get('checkout/checkout', [CheckoutController::class, 'checkout'])->middle
 Route::post('viewsubservice/check/{subservice_id}', [CheckoutController::class, 'check'])->name('viewsubservice.check');
 
 Route::POST('checkout/credit_card', [PaymentController::class, 'credit_card'])->name('checkout.credit_card')->middleware('auth');
+
+Route::post('/store-selected-options', function (Illuminate\Http\Request $request) {
+    $selectedOptions = $request->input('options');
+    session(['selectedOptions' => $selectedOptions]);
+    return response()->json(['message' => 'Selected options stored successfully']);
+})->name('store.selected.options');
+
 
 require __DIR__ . '/auth.php';

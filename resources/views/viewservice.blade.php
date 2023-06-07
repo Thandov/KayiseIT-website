@@ -22,12 +22,12 @@
                         @php $slug = str_replace(' ','-', strtolower($service->name));
                         $subslug = str_replace(' ','-', strtolower($subservice->name)) @endphp
                         <a href="{{ url('services/'.$slug.'/'.$subslug) }}" class="flex justify-center">
-                            <div class="bg-white overflow-hidden shadow-md rounded-lg w-80 h-48 p-4">
+                            <div class="subserv_card bg-white overflow-hidden shadow-md rounded-lg w-80 h-48 p-4">
                                 <div class="flex justify-center">
                                     <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center"><img class="w-12" src="{{ asset('images/subservices/'.$subservice->icon) }}"></div>
                                 </div>
                                 <div class="flex justify-center">
-                                        <h2 class="mt-4 text-xl text-center font-bold smalltxt">{{$subservice->name}}</h2>
+                                    <h2 class="mt-4 text-xl text-center font-bold smalltxt">{{$subservice->name}}</h2>
                                 </div>
                             </div>
                         </a>

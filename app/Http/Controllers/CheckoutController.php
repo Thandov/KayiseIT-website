@@ -12,12 +12,12 @@ class CheckoutController extends Controller
 {
     public function checkout()
     {
+
         return view('checkout/checkout');
     }
 
     public function check(Request $request, $subservice_id)
     {
-        // Retrieve the selected subservice and options
         $subservice = Subservice::findOrFail($subservice_id);
         $selectedOptions = $request->input('options', []);
 
@@ -26,7 +26,6 @@ class CheckoutController extends Controller
         foreach ($selectedOptions as $option) {
             $subtotal += $option['price'];
         }
-
 
         $user = Auth::user();
         $credit_card = Creditcard::where('user_id', $user->id)->get();

@@ -94,6 +94,7 @@ class QuotationController extends Controller
             //->attachData(Quotation::generatePdf($quotation), 'quotation_'.$quotation->quotation_no.'.pdf');
         });
 
+        $request->session()->put('selectedOptions', $selectedOptions);
 
         return back()->with('success', 'Quotation request submitted successfully!');
     }

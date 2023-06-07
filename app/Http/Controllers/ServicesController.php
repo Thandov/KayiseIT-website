@@ -56,15 +56,17 @@ class ServicesController extends Controller
         return redirect()->route('admin.services')->with('success', 'Service updated successfully');
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $testimonials = Testimonial::all();
         $service = Service::find($id);
         $subservices = Subservice::where('service_id', $service->service_id)->get();
+        $storedOptions = unserialize($request->session()->get('key'));
+
         return view('viewservice', compact('service', 'subservices', 'testimonials'));
     }
 
-    public function display_service_name($slug)
+    public function display_service_name(Request $request , $slug)
     {
         $name = str_replace('-', ' ', ucwords($slug, '-'));
         $service = DB::table('services')->where('name', $name)->get()->first();
@@ -76,7 +78,6 @@ class ServicesController extends Controller
     public function updateService(Request $request, $id)
     {
 
-        dd($id);
         $service = Service::findOrFail($id);
         $service->name = $request->input('name');
         $service->description = $request->input('description');

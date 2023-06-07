@@ -14,6 +14,10 @@
       {{ session('error') }}
    </div>
    @endif
+
+
+   
+
    <section class="bg-white">
       <div class="container md:flex justify-center py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
          <div class="grid grid-cols-3 gap-4">

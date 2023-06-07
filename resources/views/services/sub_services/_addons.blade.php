@@ -16,6 +16,10 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                    @php
+                    $selectedOptions = session('selectedOptions');
+                    @endphp
                     @foreach($options as $option)
                     <tr id="addonrow{{ $option->id }}">
 

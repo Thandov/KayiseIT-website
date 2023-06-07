@@ -2,6 +2,7 @@
    <!-- Meta tags -->
    @section('meta')
    @php
+
    $metaTitle = "$subservice->name";
    $metaDescription = "Transform Your Business with Our Comprehensive IT Services.";
    $metaKeywords = "$subservice->name, IT Company, Computers and Information Technology, Software, Technology, ICT, IT Services, Nelspruit, Near Me";
@@ -52,12 +53,34 @@
       </div>
    </div>
 
+   <!-- Modal -->
    @include('modal._loginModal')
 
 </x-app-layout>
 
 <script>
    $(document).ready(function() {
+      // Retrieve the selected options from the session
+      var selectedOptions = sessionStorage.getItem('selectedOptions');
+      if (selectedOptions) {
+         selectedOptions = JSON.parse(selectedOptions);
+         // Set the previously selected checkboxes
+         selectedOptions.forEach(function(option) {
+            var checkbox = $('#option' + option.id);
+            if (checkbox) {
+               checkbox.prop('checked', true);
+               if (option.qty && option.qty > 1) {
+                  var qtyInput = $('#option' + option.id + '_qty');
+                  if (qtyInput) {
+                     qtyInput.val(option.qty);
+                  }
+               }
+            }
+         });
+         // Update the checkout area with the selected options
+         updateCheckoutArea(selectedOptions);
+      }
+
       $('input[type="checkbox"]').on('change', function() {
          var selectedOptions = [];
          $('input[type="checkbox"]:checked').each(function() {
@@ -73,6 +96,7 @@
             });
          });
          updateCheckoutArea(selectedOptions);
+         storeSelectedOptions(selectedOptions);
 
          // Update the form action with selected options
          var formAction = "{{ route('viewsubservice.check', ['subservice_id' => $subservice->id]) }}";
@@ -93,31 +117,30 @@
          $('.checkout-area').html(checkoutContent);
       }
 
+      function storeSelectedOptions(selectedOptions) {
+         // Store the selected options in the session
+         sessionStorage.setItem('selectedOptions', JSON.stringify(selectedOptions));
+      }
+
+      // Remove the selected options from the session when the form is submitted
+      $('#checkout-form').on('submit', function() {
+         sessionStorage.removeItem('selectedOptions');
+      });
+
+      // Modal functionality
+      document.querySelector('#loginModal-btn').addEventListener('click', function(e) {
+         e.preventDefault();
+         $('#loginModal').modal('show');
+      });
+
+      document.querySelector('#checkModal-btn').addEventListener('click', function(e) {
+         e.preventDefault();
+         $('#loginModal').modal('show');
+      });
+
+      document.querySelector('.close').addEventListener('click', function(e) {
+         e.preventDefault();
+         $('#loginModal').modal('hide');
+      });
    });
-
-
-   document.querySelector('#loginModal-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      $('#loginModal').modal('show');
-      // $.ajaxSetup({
-      //    statusCode: {
-      //       401: function() {
-      //          $('#loginModal').modal('show');
-      //       }
-      //    }
-      // });
-   });
-
-   document.querySelector('.close').addEventListener('click', function(e) {
-      e.preventDefault();
-      // your code here
-      $('#loginModal').modal('hide');
-   });
-
-
-   document.querySelector('#checkModal-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      $('#loginModal').modal('show');
-   });
-
 </script>
