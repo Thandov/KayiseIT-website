@@ -110,10 +110,24 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'IT Outsourcing',
-            'price' => 1000.0,
+            'price' => 1000.00,
             'icon' => 'out.png',
             'service_id' => 'S006',
             'subserv_id' => 'subserv014',
+        ],
+        [
+            'name' => 'Company Profile Design',
+            'price' => 1000.00,
+            'icon' => 'comp.png',
+            'service_id' => 'S007',
+            'subserv_id' => 'subserv015',
+        ],
+        [
+            'name' => 'Logo Design',
+            'price' => 500.00,
+            'icon' => 'log.png',
+            'service_id' => 'S008',
+            'subserv_id' => 'subserv016',
         ],
     ];
 

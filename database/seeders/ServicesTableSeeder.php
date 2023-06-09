@@ -58,6 +58,20 @@ class ServicesTableSeeder extends Seeder
             'icon' => 'out.png',
             'service_id' => 'S006',
         ],
+        [
+            'name' => 'Company Profile Design',
+            'description' => 'Unlock your brands potential with our expertly crafted Company Profile Designs. We specialize in creating captivating and professional profiles that help small businesses make a big impact.',
+            'price' => 1000.00,
+            'icon' => 'comp.png',
+            'service_id' => 'S007',
+        ],
+        [
+            'name' => 'Logo Design',
+            'description' => 'Unleash your brands potential with our professional Logo Design service. We create captivating logos that make your small business stand out and leave a lasting impression.',
+            'price' => 500.00,
+            'icon' => 'logo.png',
+            'service_id' => 'S008',
+        ],
     ];
 
     foreach ($services as $service) {
