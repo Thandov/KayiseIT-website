@@ -33,12 +33,8 @@ class ServicesController extends Controller
 
     public function store(Request $request)
     {
-
-
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
-
         $request->icon->move(public_path('images/service_logo'), $newImageName);
-
 
         $service = new Service;
         $service->id = $request->id;

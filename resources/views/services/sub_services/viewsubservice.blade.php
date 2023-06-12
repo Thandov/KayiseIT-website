@@ -23,7 +23,7 @@
    @endif
 
    <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
-      <div class="grid grid-cols-3 gap-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
          <div class="col-span-2">
             <!-- Your form goes here -->
             @include('services.sub_services._addons')

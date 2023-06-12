@@ -30,7 +30,7 @@ class QuotationController extends Controller
 
         $quotation = new Quotation;
         $quotation->user_id = auth()->user()->id;
-        $quotation->quotation_no = 'Q' . Str::padLeft(Str::random(6), 6, '0');
+        $quotation->quotation_no = 'Q' . mt_rand(100000, 999999);
         $quotation->save();
 
         $subservice = Subservice::find($request->input('subservice_id'));

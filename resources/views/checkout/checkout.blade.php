@@ -16,11 +16,9 @@
    @endif
 
 
-   
-
    <section class="bg-white">
       <div class="container md:flex justify-center py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
-         <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="col-span-2">
 
                <ol class="relative border-l w-10/12 justify-center border-gray-200 dark:border-gray-700">
@@ -134,7 +132,7 @@
 
             </div>
 
-            <div class="col">
+            <div class="col-span-1">
                <div class="bg-white rounded-lg shadow p-4 mb-4">
                   <h2 class="text-lg font-bold mb-4">Order Details</h2>
                   <table class="w-full">
@@ -155,7 +153,7 @@
 
                @include('_pop')
 
-               <span><a class="text-green-500" href="../terms">Terms & Conditions</a> Apply</span>
+               <span><a class="text-green-500" href="/terms">Terms & Conditions</a> Apply</span>
 
             </div>
          </div>

@@ -3,13 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Invoice</title>
+    <title>Quotation</title>
     <style>
         body {
             font-family: sans-serif;
             font-size: 12pt;
-            margin: 20px;
+            margin: 20px auto;
             padding: 0;
+            max-width: 210mm;
+            /* A4 width */
+            background-color: white;
         }
 
         table {
@@ -77,7 +80,7 @@
             text-align: center;
         }
 
-        .top{
+        .top {
             text-align: center;
             background-color: #eaeaea;
             padding: 20px;
@@ -92,7 +95,7 @@
             {{ auth()->user()->name }}.
         </h1>
         <p>Please find below Your Quotation</p>
-        <a href="https://kayiseit.com/services">cc</a>
+        <p>For more services: <a href="https://kayiseit.com/services">visit our website</a></p>
     </div>
 
 
@@ -101,7 +104,7 @@
             <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
         </div>
         <div style="float: right; text-align: right;">
-            <h1 style="font-size: 18pt; font-weight: bold;">Quotation Number: {{ $quotation->quotation_no }}</h1>
+            <h2>Quotation Number: {{ $quotation->quotation_no }}</h2>
         </div>
     </div>
 
