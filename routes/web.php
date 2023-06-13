@@ -53,6 +53,11 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
+Route::get('/admin/dashboard/careermapping_dashboard', function () {
+    return view('admin.dashboard.careermapping_dashboard');
+})->name('careermapping_dashboard');
+
+
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
 //terms and conditions

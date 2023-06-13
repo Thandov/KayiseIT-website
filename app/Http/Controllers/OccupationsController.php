@@ -12,9 +12,11 @@ class OccupationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function occupations()
     {
         //
+        $occupations = Occupations::all();
+        return view('careermapping_dashboard', compact('occupations'));
     }
 
     /**
@@ -22,9 +24,9 @@ class OccupationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addoccupations()
     {
-        //
+        return view('admin/addoccupations');
     }
 
     /**
@@ -36,6 +38,17 @@ class OccupationsController extends Controller
     public function store(Request $request)
     {
         //
+        $newImageName = time() . '_' . $request->occupation_name . '.' . $request->image->extension();
+
+        $request->icon->move(public_path('images/occupations_logo'), $newImageName);
+
+        // Code to safe to database
+        $occupations = new Occupations();
+        $occupations->occup_id = $request->occup_id;
+        $occupations->image = $newImageName;
+        $occupations->occupation_name = $request->occupation_name;
+        $occupations->save();
+        return redirect()->route('admin.dashboard.careermapping_dashboard')->with('success', 'Occupation added successfully');
     }
 
     /**
@@ -78,8 +91,10 @@ class OccupationsController extends Controller
      * @param  \App\Models\Occupations  $occupations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Occupations $occupations)
+    public function delete(Occupations $occup_id)
     {
         //
+        $occupations = Occupations::find($occup_id);
+        $occupations->delete();
     }
 }

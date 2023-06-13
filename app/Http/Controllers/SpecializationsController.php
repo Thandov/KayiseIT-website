@@ -12,9 +12,11 @@ class SpecializationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function specializations()
     {
         //
+        $specializations = Specializations::all();
+        return view('careermapping_dashboard', compact('occupations'));
     }
 
     /**
@@ -78,8 +80,10 @@ class SpecializationsController extends Controller
      * @param  \App\Models\Specializations  $specializations
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Specializations $specializations)
+    public function delete(Specializations $spec_id)
     {
         //
+        $specializations = Specializations::find($spec_id);
+        $specializations->delete();
     }
 }

@@ -12,9 +12,11 @@ class CareerStepsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function careersteps()
     {
         //
+        $careerSteps = CareerSteps::all();
+        return view('careersteps_dashboard', compact('careersteps'));
     }
 
     /**
@@ -78,8 +80,10 @@ class CareerStepsController extends Controller
      * @param  \App\Models\CareerSteps  $careerSteps
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CareerSteps $careerSteps)
+    public function delete(CareerSteps $steps_id)
     {
         //
+        $careerSteps = CareerSteps::find($steps_id);
+        $careerSteps->delete();
     }
 }

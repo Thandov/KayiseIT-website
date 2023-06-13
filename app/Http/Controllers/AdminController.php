@@ -26,7 +26,6 @@ class AdminController extends Controller
 
     public function remove($id)
     {
-
         $quotation = Quotation::find($id);
         $quotation->delete();
         return redirect()->back()->with('success', 'User has been deleted!');
@@ -34,7 +33,6 @@ class AdminController extends Controller
 
     public function removeinvoice($id)
     {
-
         $invoice = Invoice::find($id);
         $invoice->delete();
         return redirect()->back()->with('success', 'invoice has been deleted!');
