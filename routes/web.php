@@ -12,8 +12,10 @@ use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\OccupationsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\Occupations;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +55,7 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
-Route::get('/admin/dashboard/careermapping_dashboard', function () {
-    return view('admin.dashboard.careermapping_dashboard');
-})->name('careermapping_dashboard');
+
 
 
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
@@ -153,6 +153,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('testimonial/delete/{id}', [TestimonialsController::class, 'destroytestimonial'])->name('admin.destroytestimonial');
     Route::put('/testimonial/{id}', [TestimonialsController::class, 'updatetestimonial'])->name('testimonial.update');
     Route::GET('/admin/viewtestimonial/{id}', [TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
+
+    //Career Mapping
+    Route::get('/admin/dashboard/careermapping_dashboard', function () {
+        return view('admin.dashboard.careermapping_dashboard');
+    })->name('careermapping_dashboard');
+    Route::GET('/admin/dashboard/careermapping_dashboard', [OccupationsController::class, 'occupations'])->name('admin.dashboard.careermapping_dashboard');
+
 });
 //==================================End of Admin Controls==================================================
 
