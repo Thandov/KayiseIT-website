@@ -24,9 +24,9 @@ class SpecializationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addspecializations()
     {
-        //
+        return view('admin/addspecializations');
     }
 
     /**
@@ -38,6 +38,12 @@ class SpecializationsController extends Controller
     public function store(Request $request)
     {
         //
+        // Code to safe to database
+        $specialization = new Specializations();
+        $specialization->spec_id = $request->spec_id;
+        $specialization->specialization_name = $request->specialization_name;
+        $specialization->save();
+        return redirect()->route('admin.dashboard.specialization_dashboard')->with('success', 'Specialization added successfully');
     }
 
     /**
@@ -69,9 +75,14 @@ class SpecializationsController extends Controller
      * @param  \App\Models\Specializations  $specializations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Specializations $specializations)
+    public function updateSpecialization(Request $request, $spec_id)
     {
         //
+        $specialization = Specializations::findOrFail($spec_id);
+        $specialization->specialization_name = $request->input('occupation_name');
+        $specialization->save();
+
+        // return redirect()->route('admin.services')->with('success', 'Service updated successfully');
     }
 
     /**
@@ -83,7 +94,8 @@ class SpecializationsController extends Controller
     public function delete(Specializations $spec_id)
     {
         //
-        $specializations = Specializations::find($spec_id);
-        $specializations->delete();
+        $specialization = Specializations::find($spec_id);
+        $specialization->delete();
+        return redirect()->back();
     }
 }

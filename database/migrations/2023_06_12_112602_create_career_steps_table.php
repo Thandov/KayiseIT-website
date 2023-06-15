@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('u_id')->nullable()->unsigned(); //FK
             $table->integer('occup_id')->nullable()->unsigned();    //FK
             $table->integer('spec_id')->nullable()->unsigned(); //FK
-            $table->string('step_number');
+            $table->integer('step_number');
             $table->string('qualification');
             $table->timestamps();
         });

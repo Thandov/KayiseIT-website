@@ -158,6 +158,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin/dashboard/careermapping_dashboard', function () {
         return view('admin.dashboard.careermapping_dashboard');
     })->name('careermapping_dashboard');
+
+    Route::get('viewoccupations', function () {
+        return view('viewoccupations');
+    })->name('viewoccupations');
+
     Route::GET('/admin/dashboard/careermapping_dashboard', [OccupationsController::class, 'occupations'])->name('admin.dashboard.careermapping_dashboard');
 
 });

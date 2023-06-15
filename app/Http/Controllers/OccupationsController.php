@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Occupations;
+use App\Models\Specializations;
 use Illuminate\Http\Request;
 
 class OccupationsController extends Controller
@@ -60,6 +61,8 @@ class OccupationsController extends Controller
     public function show(Occupations $occupations)
     {
         //
+        $occupations = Occupations::all();
+
     }
 
     /**
@@ -80,9 +83,22 @@ class OccupationsController extends Controller
      * @param  \App\Models\Occupations  $occupations
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Occupations $occupations)
+    public function updateOccupation(Request $request, $occup_id)
     {
         //
+        $occupation = Occupations::findOrFail($occup_id);
+        $occupation->occupation_name = $request->input('occupation_name');
+        $occupation->save();
+        
+        // //$specialization = $request->input('subservices');
+        // foreach ($specializations as $subserviceId => $subserviceData) {
+        //     $specialization = Specializations::findOrFail($subserviceId);
+        //     $specialization->name = $subserviceData['name'];
+        //     $specialization->price = $subserviceData['price'];
+        //     $specialization->save();
+        // }
+
+        // return redirect()->route('admin.services')->with('success', 'Service updated successfully');
     }
 
     /**

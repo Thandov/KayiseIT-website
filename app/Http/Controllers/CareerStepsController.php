@@ -24,9 +24,9 @@ class CareerStepsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addcareersteps()
     {
-        //
+        return view('admin/addcareersteps');
     }
 
     /**
@@ -38,6 +38,13 @@ class CareerStepsController extends Controller
     public function store(Request $request)
     {
         //
+        // Code to safe to database
+        $careerStep = new CareerSteps();
+        $careerStep->steps_id = $request->steps_id;
+        $careerStep->step_number = $request->step_number;
+        $careerStep->qualification = $request->qualification;
+        $careerStep->save();
+        return redirect()->route('admin.dashboard.careersteps_dashboard')->with('success', 'Career step added successfully');
     }
 
     /**
@@ -69,9 +76,13 @@ class CareerStepsController extends Controller
      * @param  \App\Models\CareerSteps  $careerSteps
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CareerSteps $careerSteps)
+    public function updateCareerStep(Request $request, $steps_id)
     {
         //
+        $careerStep = CareerSteps::findOrFail($steps_id);
+        $careerStep->step_number = $request->input('step_number');
+        $careerStep->qualification = $request->input('qualification');
+        $careerStep->save();
     }
 
     /**
@@ -83,7 +94,8 @@ class CareerStepsController extends Controller
     public function delete(CareerSteps $steps_id)
     {
         //
-        $careerSteps = CareerSteps::find($steps_id);
-        $careerSteps->delete();
+        $careerStep = CareerSteps::find($steps_id);
+        $careerStep->delete();
+        return redirect()->back();
     }
 }
