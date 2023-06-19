@@ -90,15 +90,13 @@ class OccupationsController extends Controller
         $occupation->occupation_name = $request->input('occupation_name');
         $occupation->save();
         
-        // //$specialization = $request->input('subservices');
-        // foreach ($specializations as $subserviceId => $subserviceData) {
-        //     $specialization = Specializations::findOrFail($subserviceId);
-        //     $specialization->name = $subserviceData['name'];
-        //     $specialization->price = $subserviceData['price'];
-        //     $specialization->save();
-        // }
-
-        // return redirect()->route('admin.services')->with('success', 'Service updated successfully');
+        $specializations = $request->input('specializations');
+        foreach ($specializations as $spec_id => $SpecializationData) {
+            $specialization = Specializations::findOrFail($spec_id);
+            $specialization->specialization_name = $SpecializationData['specialization_name'];
+            $specialization->save();
+        }
+        return redirect()->back()->with('success', 'Occupation updated successfully.');
     }
 
     /**

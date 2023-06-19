@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Specializations;
+use App\Models\CareerSteps;
+use App\Models\Occupations;
 use Illuminate\Http\Request;
 
 class SpecializationsController extends Controller
@@ -35,11 +37,16 @@ class SpecializationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         //
+        $occupation = Occupations::find($id);
+        $id = $occupation->id;
+        $occup_id = $occupation->occup_id;
+
         // Code to safe to database
         $specialization = new Specializations();
+        $specialization->occup_id = $occup_id;
         $specialization->spec_id = $request->spec_id;
         $specialization->specialization_name = $request->specialization_name;
         $specialization->save();
@@ -79,10 +86,17 @@ class SpecializationsController extends Controller
     {
         //
         $specialization = Specializations::findOrFail($spec_id);
-        $specialization->specialization_name = $request->input('occupation_name');
+        $specialization->specialization_name = $request->input('specialization_name');
         $specialization->save();
 
-        // return redirect()->route('admin.services')->with('success', 'Service updated successfully');
+        $career_steps = $request->input('career_steps');
+        foreach ($career_steps as $steps_id => $career_stepData) {
+            $career_step = CareerSteps::findOrFail($steps_id);
+            $career_step->step_number = $career_stepData['step_number'];
+            $career_step->qualification = $career_stepData['qualification'];
+            $career_step->save();
+        }
+        return redirect()->back()->with('success', 'Specialization updated successfully.');
     }
 
     /**

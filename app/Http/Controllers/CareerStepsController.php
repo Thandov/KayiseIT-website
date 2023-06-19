@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CareerSteps;
+use App\Models\Specializations;
 use Illuminate\Http\Request;
 
 class CareerStepsController extends Controller
@@ -35,11 +36,17 @@ class CareerStepsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
+        //Might need a third level to connect occupations to specializations
         //
+        $Specialization = Specializations::find($id);
+        $id = $Specialization->id;
+        $spec_id = $Specialization->spec_id;
+
         // Code to safe to database
         $careerStep = new CareerSteps();
+        $careerStep->spec_id = $spec_id;
         $careerStep->steps_id = $request->steps_id;
         $careerStep->step_number = $request->step_number;
         $careerStep->qualification = $request->qualification;
@@ -83,6 +90,8 @@ class CareerStepsController extends Controller
         $careerStep->step_number = $request->input('step_number');
         $careerStep->qualification = $request->input('qualification');
         $careerStep->save();
+
+        return redirect()->back()->with('success', 'career Step updated successfully.');
     }
 
     /**
