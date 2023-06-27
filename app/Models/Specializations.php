@@ -9,4 +9,5 @@ class Specializations extends Model
 {
     use HasFactory;
     protected $table = 'specializations';
+    protected $primaryKey = 'spec_id'; //To make sure the PK is found By the controller or blade 
 }

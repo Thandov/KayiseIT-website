@@ -13,6 +13,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OccupationsController;
+use App\Http\Controllers\SpecializationsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Occupations;
@@ -133,6 +134,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
     Route::post('admin/services/addsubservices/{id}', [SubServicesController::class, 'storing'])->name('addsubservices.storing');
     Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
+    Route::post('/admin/dashboard/careermapping_dashboard', [OccupationsController::class, 'store'])->name('careermapping_dashboard.store');
 
     //quotations & invoice
     Route::get('/admin/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
@@ -155,18 +157,26 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/viewtestimonial/{id}', [TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
 
     //Career Mapping
-    Route::get('/admin/dashboard/careermapping_dashboard', function () {
-        return view('admin.dashboard.careermapping_dashboard');
-    })->name('careermapping_dashboard');
-
-    Route::get('viewoccupations', function () {
-        return view('viewoccupations');
-    })->name('viewoccupations');
-
     Route::GET('/admin/dashboard/careermapping_dashboard', [OccupationsController::class, 'occupations'])->name('admin.dashboard.careermapping_dashboard');
+    Route::delete('/occupations/{occupation}', [OccupationsController::class, 'delete'])->name('occupations.delete');
+    Route::GET('/admin/admin_viewoccupations/{occup_id}', [OccupationsController::class, 'showadmin_viewoccupations'])->name('admin.admin_viewoccupations');
+    Route::post('addoccupation-form', [OccupationsController::class, 'addoccupation']);
+    Route::post('admin/admin_viewoccupations/{occup_id}', [SpecializationsController::class, 'addspecialization'])->name('addspecialization');
+    Route::GET('/admin/career_mapping/viewspecialization/{spec_id}', [SpecializationsController::class, 'viewspecialization'])->name('admin.career_mapping.viewspecialization');
+    Route::delete('/specializations/{specialization}', [SpecializationsController::class, 'delete'])->name('specializations.delete');
+    Route::post('/admin/career_mapping/specialization/edit/{spec_id}', [SpecializationsController::class, 'updateSpecialization']);
+
+    Route::get('/admin/career_mapping/specialization/edit', function () {
+        return view('/admin/career_mapping/specialization/edit');
+    });
 
 });
 //==================================End of Admin Controls==================================================
+
+// Career Maps
+Route::GET('career-mapping', [OccupationsController::class, 'showoccupations'])->name('career-mapping');
+Route::GET('viewoccupations/{occup_id}', [OccupationsController::class, 'showviewoccupations'])->name('viewoccupations');
+
 
 //Service Controller
 

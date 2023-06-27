@@ -36,9 +36,7 @@ class ServicesController extends Controller
 
 
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
-
         $request->icon->move(public_path('images/service_logo'), $newImageName);
-
 
         $service = new Service;
         $service->id = $request->id;
@@ -90,7 +88,6 @@ class ServicesController extends Controller
             $subservice->price = $subserviceData['price'];
             $subservice->save();
         }
-
         return redirect()->back();
     }
 

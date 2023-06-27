@@ -9,82 +9,50 @@ use Illuminate\Http\Request;
 
 class SpecializationsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function specializations()
     {
-        //
         $specializations = Specializations::all();
         return view('careermapping_dashboard', compact('occupations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function showviewspecialization(Request $request, $spec_id)
+    {
+        $specializations = Specializations::findOrFail($spec_id);
+        $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
+        $storedOptions = unserialize($request->session()->get('key'));
+
+        return view('viewoccupations', compact('specializations', 'careerSteps'));
+    }
+
     public function addspecializations()
     {
         return view('admin/addspecializations');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, $id)
+    public function addspecialization(Request $request, $occup_id)
     {
         //
-        $occupation = Occupations::find($id);
-        $id = $occupation->id;
+        $occupation = Occupations::find($occup_id);
         $occup_id = $occupation->occup_id;
 
-        // Code to safe to database
+        // Code to save to database
         $specialization = new Specializations();
         $specialization->occup_id = $occup_id;
-        $specialization->spec_id = $request->spec_id;
-        $specialization->specialization_name = $request->specialization_name;
+        $specialization->u_id = auth()->user()->id;
+        $specialization->specialization_name = $request->specialization;
         $specialization->save();
-        return redirect()->route('admin.dashboard.specialization_dashboard')->with('success', 'Specialization added successfully');
+        return redirect()->route('admin.admin_viewoccupations', ['occup_id' => $occup_id])->with('success', 'Specialization added successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Specializations  $specializations
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Specializations $specializations)
+    public function viewspecialization($spec_id)
     {
-        //
+        $specializations = Specializations::find($spec_id);
+        return view('admin/career_mapping/viewspecialization', compact('specializations'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Specializations  $specializations
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Specializations $specializations)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Specializations  $specializations
-     * @return \Illuminate\Http\Response
-     */
     public function updateSpecialization(Request $request, $spec_id)
     {
         //
+        dd($request->input());
         $specialization = Specializations::findOrFail($spec_id);
         $specialization->specialization_name = $request->input('specialization_name');
         $specialization->save();
@@ -99,15 +67,8 @@ class SpecializationsController extends Controller
         return redirect()->back()->with('success', 'Specialization updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Specializations  $specializations
-     * @return \Illuminate\Http\Response
-     */
     public function delete(Specializations $spec_id)
     {
-        //
         $specialization = Specializations::find($spec_id);
         $specialization->delete();
         return redirect()->back();

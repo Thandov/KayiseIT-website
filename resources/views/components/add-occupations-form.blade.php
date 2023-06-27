@@ -1,6 +1,6 @@
-<dialog>
     <!-- form to submit user inputs for occupation -->
-    <form>
+    <form action="{{url('addoccupation-form')}}" method="post" enctype="multipart/form-data">
+        @csrf
         <!-- image drag and drop -->
         <div class="mb-4 relative">
             <label for="image" class="block text-sm font-medium text-gray-700">Image:</label>
@@ -22,25 +22,23 @@
         <br><br>
 
         <div class="flex justify-end modal-footer"> <!--might need to change-->
-            <!-- <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">ADD</button> -->
+            <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">ADD</button>
         </div>
-        <input type="submit" value="Submit">
     </form>
-</dialog>
-<!-- java script -->
-<script>
-    function previewImage(event) {
-        var file = event.target.files[0];
-        var formData = new FormData();
-        formData.append('image', file);
+    <!-- java script -->
+    <script>
+        function previewImage(event) {
+            var file = event.target.files[0];
+            var formData = new FormData();
+            formData.append('image', file);
 
-        var preview = document.getElementById('preview');
-        preview.style.display = 'block';
-        preview.src = URL.createObjectURL(file);
+            var preview = document.getElementById('preview');
+            preview.style.display = 'block';
+            preview.src = URL.createObjectURL(file);
 
-        // Send the FormData object to the server using AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/store-form');
-        xhr.send(formData);
-    }
-</script>
+            // Send the FormData object to the server using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/store-form');
+            xhr.send(formData);
+        }
+    </script>

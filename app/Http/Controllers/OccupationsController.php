@@ -36,18 +36,19 @@ class OccupationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function addoccupation(Request $request)
     {
         //
-        $newImageName = time() . '_' . $request->occupation_name . '.' . $request->image->extension();
+        $newImageName = $request->occupation_name . '.' . $request->image->extension();
 
-        $request->icon->move(public_path('images/occupations_logo'), $newImageName);
+        $request->image->move(public_path('images/occupations_logo'), $newImageName);
 
         // Code to safe to database
         $occupation = new Occupations();
-        $occupation->occup_id = $request->occup_id;
         $occupation->image = $newImageName;
         $occupation->occupation_name = $request->occupation_name;
+        $occupation->u_id = auth()->user()->id;
+        //Save to database
         $occupation->save();
         return redirect()->route('admin.dashboard.careermapping_dashboard')->with('success', 'Occupation added successfully');
     }
@@ -58,11 +59,29 @@ class OccupationsController extends Controller
      * @param  \App\Models\Occupations  $occupations
      * @return \Illuminate\Http\Response
      */
-    public function show(Occupations $occupations)
+    public function showoccupations()
     {
         //
         $occupations = Occupations::all();
+        return view('career-mapping', compact('occupations'));
+    }
 
+    public function showviewoccupations(Request $request, $occup_id)
+    {
+        $occupations = Occupations::findOrFail($occup_id);
+        $specializations = Specializations::where('occup_id', $occupations->occup_id)->get();
+        $storedOptions = unserialize($request->session()->get('key'));
+
+        return view('viewoccupations', compact('occupations', 'specializations'));
+    }
+
+    public function showadmin_viewoccupations(Request $request, $occup_id)
+    {
+        $occupations = Occupations::findOrFail($occup_id);
+        $specializations = Specializations::where('occup_id', $occupations->occup_id)->get();
+        $storedOptions = unserialize($request->session()->get('key'));
+
+        return view('admin.admin_viewoccupations', compact('occupations', 'specializations'));
     }
 
     /**
@@ -89,7 +108,7 @@ class OccupationsController extends Controller
         $occupation = Occupations::findOrFail($occup_id);
         $occupation->occupation_name = $request->input('occupation_name');
         $occupation->save();
-        
+
         $specializations = $request->input('specializations');
         foreach ($specializations as $spec_id => $SpecializationData) {
             $specialization = Specializations::findOrFail($spec_id);
@@ -105,11 +124,16 @@ class OccupationsController extends Controller
      * @param  \App\Models\Occupations  $occupations
      * @return \Illuminate\Http\Response
      */
-    public function delete(Occupations $occup_id)
+    public function delete($occup_id)
     {
-        //
         $occupation = Occupations::find($occup_id);
+
+        //Checks if Occupations Exists
+        if (!$occupation) {
+            return redirect()->back()->withErrors('Occupation not found.');
+        }
+
         $occupation->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Occupation deleted successfully.');
     }
 }
