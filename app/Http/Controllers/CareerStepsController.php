@@ -21,27 +21,16 @@ class CareerStepsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function addcareersteps()
-    {
-        return view('admin/addcareersteps');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function addcareersteps(Request $request)
     {
         //Might need a third level to connect occupations to specializations
         //
-        $Specialization = Specializations::find($id);
-        $id = $Specialization->id;
+        $Specialization = Specializations::find($request->input('spec_id'));
         $spec_id = $Specialization->spec_id;
 
         // Code to safe to database
@@ -51,7 +40,7 @@ class CareerStepsController extends Controller
         $careerStep->step_number = $request->step_number;
         $careerStep->qualification = $request->qualification;
         $careerStep->save();
-        return redirect()->route('admin.dashboard.careersteps_dashboard')->with('success', 'Career step added successfully');
+        return redirect()->back()->with('success', 'Career step added successfully');
     }
 
     /**
@@ -83,15 +72,15 @@ class CareerStepsController extends Controller
      * @param  \App\Models\CareerSteps  $careerSteps
      * @return \Illuminate\Http\Response
      */
-    public function updateCareerStep(Request $request, $steps_id)
+    public function updateCareerStep(Request $request)
     {
         //
-        $careerStep = CareerSteps::findOrFail($steps_id);
+        $careerStep = CareerSteps::findOrFail($request->input('step_id'));
         $careerStep->step_number = $request->input('step_number');
         $careerStep->qualification = $request->input('qualification');
         $careerStep->save();
 
-        return redirect()->back()->with('success', 'career Step updated successfully.');
+        return redirect()->back()->with('success', 'Career Step updated successfully.');
     }
 
     /**
@@ -100,11 +89,14 @@ class CareerStepsController extends Controller
      * @param  \App\Models\CareerSteps  $careerSteps
      * @return \Illuminate\Http\Response
      */
-    public function delete(CareerSteps $steps_id)
+    public function delete(CareerSteps $careerstep)
     {
-        //
-        $careerStep = CareerSteps::find($steps_id);
-        $careerStep->delete();
+        // checks if exists
+        if (!$careerstep) {
+            return redirect()->back()->withErrors('Career Step not found.');
+        }
+
+        $careerstep->delete();
         return redirect()->back();
     }
 }

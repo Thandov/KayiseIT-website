@@ -3,11 +3,11 @@
     <section id="career-mapping">
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <!--Page Content-->
-            <p class="smalltxt font-bold text-center"><strong>Occupation</strong></p>
-            <h2 class="bigtxt font-bold text-5xl mb-6 text-center">Occupation Name</h2>
+            <p class="smalltxt font-bold text-center"><strong>Career Mapping</strong></p>
+            <h2 class="bigtxt font-bold text-5xl mb-6 text-center">Occupations</h2>
             <!--Grid-->
-            <div class="pt-6">
-            <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 w-10/12 flex justify-center">
+            <div class="flex justify-center pt-6">
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 w-10/12 flex justify-center">
                 <!--Cards-->
                 @foreach($occupations as $occupation)
                 <a href="{{ url('viewoccupations/'.$occupation->occup_id) }}">

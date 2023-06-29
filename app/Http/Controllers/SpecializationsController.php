@@ -21,7 +21,16 @@ class SpecializationsController extends Controller
         $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
         $storedOptions = unserialize($request->session()->get('key'));
 
-        return view('viewoccupations', compact('specializations', 'careerSteps'));
+        return view('viewspecialization', compact('specializations', 'careerSteps'));
+    }
+
+    public function showadmin_viewspecialization(Request $request, $spec_id)
+    {
+        $specializations = Specializations::findOrFail($spec_id);
+        $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
+        $storedOptions = unserialize($request->session()->get('key'));
+
+        return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps'));
     }
 
     public function addspecializations()
@@ -49,27 +58,21 @@ class SpecializationsController extends Controller
         return view('admin/career_mapping/viewspecialization', compact('specializations'));
     }
 
-    public function updateSpecialization(Request $request, $spec_id)
+    public function updateSpecialization(Request $request)
     {
-        //
-        dd($request->input());
-        $specialization = Specializations::findOrFail($spec_id);
+        $specialization = Specializations::findOrFail($request->input('spec_id'));
         $specialization->specialization_name = $request->input('specialization_name');
         $specialization->save();
-
-        $career_steps = $request->input('career_steps');
-        foreach ($career_steps as $steps_id => $career_stepData) {
-            $career_step = CareerSteps::findOrFail($steps_id);
-            $career_step->step_number = $career_stepData['step_number'];
-            $career_step->qualification = $career_stepData['qualification'];
-            $career_step->save();
-        }
-        return redirect()->back()->with('success', 'Specialization updated successfully.');
+        return back()->with('success', 'Specialization updated Successfully.');
     }
 
-    public function delete(Specializations $spec_id)
+    public function delete(Specializations $specialization)
     {
-        $specialization = Specializations::find($spec_id);
+        // checks if exists
+        if (!$specialization) {
+            return redirect()->back()->withErrors('Specialization not found.');
+        }
+
         $specialization->delete();
         return redirect()->back();
     }

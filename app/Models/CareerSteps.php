@@ -9,4 +9,5 @@ class CareerSteps extends Model
 {
     use HasFactory;
     protected $table = 'career_steps';
+    protected $primaryKey = 'steps_id';
 }
