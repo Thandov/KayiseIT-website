@@ -41,7 +41,6 @@ class SubServicesController extends Controller
         return redirect('admin/services')->with('status', 'Sub Service Added');
     }
 
-
     public function storing(Request $request, $id)
     {
         $service = Service::find($id);

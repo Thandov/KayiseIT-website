@@ -7,18 +7,14 @@
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <!-- Sales Stats -->
         <div class="bg-white overflow-hidden shadow rounded-lg">
-
         </div>
         <!-- Leads and Clients -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
-
             </div>
             <div class="bg-white overflow-hidden shadow rounded-lg">
-
             </div>
         </div>
-
         <!-- Invoices and Quotations -->
         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
@@ -27,28 +23,32 @@
                     <div class="mt-5">
                         <div class="bg-gray-200 rounded-lg">
                             <div
-                                class="grid grid-cols-1 md:grid-cols-4 flex justify-items-center gap-8 py-12 px-4 md:px-8 max-w-screen-xl mx-auto">
+                                class="grid grid-cols-1 md:grid-cols-5 flex justify-items-center gap-8 py-12 px-4 md:px-8 max-w-screen-xl mx-auto">
 
                                 <div class="col-span-2 md:col-span-1">
 
                                     <a href="{{ url('admin/clients') }}"
-                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         Clients
                                     </a>
                                 </div>
                                 <div class="col-span-2 md:col-span-1">
-
                                     <a href="{{ url('admin/staff') }}"
-                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         Staff
                                     </a>
-
+                                </div>
+                                <div class="col-span-2 md:col-span-1">
+                                    <a href="{{ url('admin/dashboard/careermapping_dashboard') }}"
+                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Career Mapping
+                                    </a>
                                 </div>
                                 <div class="col-span-2 md:col-span-1">
 
                                     <a href="{{ url('admin/invoices') }}"
-                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        
+                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+
                                         <dl>
                                             <dt>
                                                 Invoices
@@ -59,14 +59,14 @@
                                                 </div>
                                             </dd>
                                         </dl>
-                                        
+
                                     </a>
 
                                 </div>
                                 <div class="col-span-1 md:col-span-1">
 
                                     <a href="{{ url('admin/quotations') }}"
-                                        class="inline-flex items-center justify-content-center w-64 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
 
                                         <dl>
                                             <dt>
@@ -88,7 +88,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Services -->
         <div class="col-span-12 sm:col-span-6 md:col-span-4 mt-6 bg-white shadow overflow-hidden rounded-lg">
             @include('admin.dashboard.dashservices')
@@ -127,18 +126,18 @@
     });
 
     function previewImage(event) {
-    var file = event.target.files[0];
-    var formData = new FormData();
-    formData.append('icon', file);
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('icon', file);
 
-    var preview = document.getElementById('preview');
-    preview.style.display = 'block';
-    preview.src = URL.createObjectURL(file);
+        var preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        preview.src = URL.createObjectURL(file);
 
-    // Send the FormData object to the server using AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/upload');
-    xhr.send(formData);
-}
+        // Send the FormData object to the server using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload');
+        xhr.send(formData);
+    }
 
 </script>

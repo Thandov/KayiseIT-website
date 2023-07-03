@@ -86,7 +86,6 @@ class ServicesController extends Controller
             $subservice->price = $subserviceData['price'];
             $subservice->save();
         }
-
         return redirect()->back();
     }
 
