@@ -75,7 +75,7 @@ class CareerStepsController extends Controller
     public function updateCareerStep(Request $request)
     {
         //
-        $careerStep = CareerSteps::findOrFail($request->input('step_id'));
+        $careerStep = CareerSteps::findOrFail($request->input('steps_id'));
         $careerStep->step_number = $request->input('step_number');
         $careerStep->qualification = $request->input('qualification');
         $careerStep->save();

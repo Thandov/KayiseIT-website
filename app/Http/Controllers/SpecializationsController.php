@@ -39,18 +39,21 @@ class SpecializationsController extends Controller
     }
     public function addspecialization(Request $request, $occup_id)
     {
-        //
-        $occupation = Occupations::find($occup_id);
-        $occup_id = $occupation->occup_id;
+        // Get the array of specialization names from the request
+        $specializationData = $request->input('spec_name');
 
-        // Code to save to database
-        $specialization = new Specializations();
-        $specialization->occup_id = $occup_id;
-        $specialization->u_id = auth()->user()->id;
-        $specialization->specialization_name = $request->specialization;
-        $specialization->save();
-        return redirect()->route('admin.admin_viewoccupations', ['occup_id' => $occup_id])->with('success', 'Specialization added successfully');
+        // Loop through the array and save each specialization
+        foreach ($specializationData as $specializationName) {
+            $specialization = new Specializations();
+            $specialization->occup_id = $occup_id;
+            $specialization->specialization_name = $specializationName;
+            $specialization->save();
+        }
+
+        // Redirect or return a response according to your needs
+        return redirect()->back()->with('success', 'Specializations added successfully.');
     }
+    
 
     public function viewspecialization($spec_id)
     {

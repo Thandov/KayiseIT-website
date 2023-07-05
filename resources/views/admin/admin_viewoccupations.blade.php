@@ -9,7 +9,8 @@
             <div class="bg-white rounded-md shadow-md">
                 <div class="p-4 sm:p-6">
                     <div>
-                        <img class="h-28 w-28 rounded-md mx-auto" src="{{ asset('images/occupations_logo/'.$occupations->image) }}"></div>
+                        <img class="h-28 w-auto rounded-md mx-auto" src="{{ asset('images/occupations_logo/'.$occupations->image) }}">
+                    </div>
                     <h3 class="text-center font-bold text-4xl my-4">{{ $occupations->occupation_name }}</h3>
                     <button id="spec-btn" class="inline-flex items-center mb-4 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Specialization</button>
                     <table class="min-w-full divide-y divide-gray-200">
@@ -36,10 +37,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">{{ $specialization->specialization_name }}</div>
                                 </td>
-
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <div class="grid grid-cols-3">
-                                        <a href="{{ route('admin.career_mapping.viewspecialization', $specialization->spec_id) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                    <a href="{{ route('admin.career_mapping.viewspecialization', $specialization->spec_id) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <a href="{{ url('/admin/career_mapping/specialization/edit',$specialization->spec_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
@@ -60,35 +59,49 @@
             </div>
         </div>
     </section>
-
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+                    <h4 class="modal-title" id="myModalLabel">Add Specializations</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
+                <!-- Modal Code  -->
                 <div class="modal-body">
                     <div>
                         <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
                         <form action="{{ route('addspecialization', $occupations->occup_id) }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <div class="mb-4">
-                                <label for="specialization" class="block text-sm font-medium text-gray-700">Specialization Name:</label>
-                                <input type="specialization" name="specialization" id="specialization" class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
-                            </div>
+                            <table id="table" class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Specialization Name
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            action
+                                        </th>
+                                    </tr>
+                                </thead>
 
-                            <div class="flex justify-end modal-footer">
-                                <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Submit</button>
-                            </div>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="text" name="spec_name[]" placeholder="Enter Specialization Name" id="specialization" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button type="button" name="add" id="add" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">add More</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Submit</button>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 
     <script>
         document.querySelector('#spec-btn').addEventListener('click', function(e) {
@@ -102,19 +115,60 @@
             $('#myModal').modal('hide');
         });
 
-        function previewImage(event) {
-            var file = event.target.files[0];
-            var formData = new FormData();
-            formData.append('icon', file);
+        document.getElementById('add').addEventListener('click', function(e) {
+            e.preventDefault();
 
-            var preview = document.getElementById('preview');
-            preview.style.display = 'block';
-            preview.src = URL.createObjectURL(file);
+            // Get the table body element
+            var tableBody = document.querySelector('#table tbody');
 
-            // Send the FormData object to the server using AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/store-form');
-            xhr.send(formData);
-        }
+            // Get the number of existing input fields
+            var inputCount = tableBody.querySelectorAll('input[name^="spec_name"]').length;
+
+            // Create a new table row
+            var newRow = document.createElement('tr');
+
+            // Create the cell for the specialization name input
+            var nameCell = document.createElement('td');
+            nameCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
+
+            // Create the input element for specialization name
+            var specializationInput = document.createElement('input');
+            specializationInput.setAttribute('type', 'text');
+            specializationInput.setAttribute('name', 'spec_name[' + inputCount + ']');
+            specializationInput.setAttribute('placeholder', 'Enter Specialization Name');
+            specializationInput.setAttribute('id', 'specialization');
+            specializationInput.classList.add('form-control', 'mt-1', 'block', 'w-full', 'py-2', 'px-3', 'border', 'border-gray-300', 'bg-white', 'rounded-md', 'shadow-sm', 'focus:outline-none', 'focus:ring-green-500', 'focus:border-green-500');
+
+            // Append the specialization input to the name cell
+            nameCell.appendChild(specializationInput);
+
+            // Create the cell for the action button
+            var actionCell = document.createElement('td');
+            actionCell.classList.add('px-6', 'py-4', 'whitespace-nowrap', 'text-sm', 'font-medium');
+
+            // Create the "Remove" button
+            var removeButton = document.createElement('button');
+            removeButton.setAttribute('type', 'button');
+            removeButton.classList.add('inline-flex', 'items-center', 'px-4', 'py-2', 'border', 'border-transparent', 'rounded-md', 'font-semibold', 'text-xs', 'text-white', 'bg-red-600', 'hover:bg-red-700', 'focus:outline-none', 'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-red-500');
+            removeButton.textContent = 'Remove';
+
+            // Add an event listener to the "Remove" button to remove its parent row
+            removeButton.addEventListener('click', function() {
+                var row = this.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+            });
+
+            // Append the "Remove" button to the action cell
+            actionCell.appendChild(removeButton);
+
+            // Append the cells to the new row
+            newRow.appendChild(nameCell);
+            newRow.appendChild(actionCell);
+
+            // Append the new row to the table body
+            tableBody.appendChild(newRow);
+
+            
+        });
     </script>
 </x-app-layout>

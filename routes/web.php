@@ -175,6 +175,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         return view('/admin/career_mapping/specialization/edit');
     });
 
+    Route::get('/admin/career_mapping/careersteps/edit/{steps_id}', function () {
+        return view('/admin/career_mapping/careersteps/edit');
+    });
+
 });
 //==================================End of Admin Controls==================================================
 
