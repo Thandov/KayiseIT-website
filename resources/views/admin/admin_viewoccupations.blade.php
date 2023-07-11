@@ -4,7 +4,7 @@
             {{ __('CAREER MAPPING') }}
         </h2>
     </x-slot>
-    <section id="occupations_dashboard">
+    <section id="viewOccupations">
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <div class="bg-white rounded-md shadow-md">
                 <div class="p-4 sm:p-6">
@@ -58,50 +58,50 @@
                 </div>
             </div>
         </div>
-    </section>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Add Specializations</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <!-- Modal Code  -->
-                <div class="modal-body">
-                    <div>
-                        <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-                        <form action="{{ route('addspecialization', $occupations->occup_id) }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <table id="table" class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Specialization Name
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            action
-                                        </th>
-                                    </tr>
-                                </thead>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Add Specializations</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <!-- Modal Code  -->
+                    <div class="modal-body">
+                        <div>
+                            <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
+                            <form action="{{ route('addspecialization', $occupations->occup_id) }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <table id="table" class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Specialization Name
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                action
+                                            </th>
+                                        </tr>
+                                    </thead>
 
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            <input type="text" name="spec_name[]" placeholder="Enter Specialization Name" id="specialization" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button type="button" name="add" id="add" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">add More</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Submit</button>
-                        </form>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <input type="text" name="spec_name[]" placeholder="Enter Specialization Name" id="specialization" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <button type="button" name="add" id="add" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">add More</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <script>
         document.querySelector('#spec-btn').addEventListener('click', function(e) {
@@ -168,7 +168,7 @@
             // Append the new row to the table body
             tableBody.appendChild(newRow);
 
-            
+
         });
     </script>
 </x-app-layout>

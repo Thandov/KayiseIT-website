@@ -26,34 +26,32 @@ class SpecializationsController extends Controller
 
     public function showadmin_viewspecialization(Request $request, $spec_id)
     {
+        //show career steps on view specializations blade
         $specializations = Specializations::findOrFail($spec_id);
         $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
         $storedOptions = unserialize($request->session()->get('key'));
+        $highestValue = CareerSteps::max('step_number'); //
+        $updatedHighestValue = $highestValue + 1;
+        $occup_id = $specializations->occup_id;
 
-        return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps'));
+        return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'updatedHighestValue', 'occup_id'));
     }
 
-    public function addspecializations()
-    {
-        return view('admin/addspecializations');
-    }
     public function addspecialization(Request $request, $occup_id)
     {
         // Get the array of specialization names from the request
-        $specializationData = $request->input('spec_name');
+        $specializations = $request->input('spec_name');
 
-        // Loop through the array and save each specialization
-        foreach ($specializationData as $specializationName) {
+        foreach ($specializations as $specializationName) {
+            // Create a new specialization instance
             $specialization = new Specializations();
             $specialization->occup_id = $occup_id;
             $specialization->specialization_name = $specializationName;
             $specialization->save();
         }
 
-        // Redirect or return a response according to your needs
         return redirect()->back()->with('success', 'Specializations added successfully.');
     }
-    
 
     public function viewspecialization($spec_id)
     {
