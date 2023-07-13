@@ -129,9 +129,6 @@
             // Get the table body element
             var tableBody = document.querySelector('#table tbody');
 
-            
-            
-
             // Create a new table row
             var newRow = document.createElement('tr');
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CareerSteps;
 use App\Models\Specializations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CareerStepsController extends Controller
 {
@@ -31,29 +32,34 @@ class CareerStepsController extends Controller
     public function addcareersteps(Request $request)
     {
         // Retrieve the input data from the request
-        $stepNumbers = $request->input('step_number');
-        $qualifications = $request->input('qualification');
-        $specId = $request->input('spec_id'); // Assuming you have a field named 'spec_id' in the form
-        $occupId = $request->input('occup_id'); // Assuming you have a field named 'occup_id' in the form
+        $stepNumbers = $request->input('step_number');  //from form
+        $qualifications = $request->input('qualification'); //from form
+        $specId = $request->input('spec_id'); //from form hidden
+        $occupId = $request->input('occup_id'); //from form hidden
+        $results = DB::table('career_steps')->where('spec_id', $specId)->orderBy('step_number')->get(); //limit the selection and order in assending order
+        $arrlength = count($results);   // to get the length of the array
+        $number = 1; //initialzie the number 
 
-
-        // Loop through the input data and create new career steps
-        foreach ($stepNumbers as $key => $stepNumber) {
-            $qualification = $qualifications[$key];
-
-            // Create a new CareerStep instance
-            $careerStep = new CareerSteps();
-            $careerStep->step_number = $stepNumber;
-            $careerStep->qualification = $qualification;
-            $careerStep->spec_id = $specId;// additions
-            $careerStep->occup_id = $occupId;// additions
-
-            // Save the career step to the database
-            $careerStep->save();
+        //code to correct the sequence of numbers in the Array
+        for ($x = 0; $x < $arrlength; $x++) {
+            $results[$x]->step_number = $number;
+            $number++;
+        }
+        // Update the step_number column in the career_steps table
+        foreach ($results as $result) {
+            DB::table('career_steps')->where('steps_id', $result->steps_id)->update(['step_number' => $result->step_number]);
         }
 
+        dd($results);
+        // Loop through the input data and create new career steps
+        foreach ($stepNumbers as $key => $stepNumber) {
+        }
+
+        $highestValue = CareerSteps::max('step_number')->where(); // fix
+        $updatedHighestValue = $highestValue + 1; //adds 1 to highest in DB
+
         // Redirect or return a response as needed
-        return redirect()->back()->with('success', 'Career steps added successfully.');
+        return redirect()->back()->with('success', 'Career steps added successfully.')->with('highestValue', $updatedHighestValue);
     }
 
     /**
@@ -113,3 +119,4 @@ class CareerStepsController extends Controller
         return redirect()->back();
     }
 }
+////////////////Kray_ATM

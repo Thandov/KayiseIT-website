@@ -30,18 +30,16 @@ class SpecializationsController extends Controller
         $specializations = Specializations::findOrFail($spec_id);
         $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
         $storedOptions = unserialize($request->session()->get('key'));
-        $highestValue = CareerSteps::max('step_number'); //
-        $updatedHighestValue = $highestValue + 1;
         $occup_id = $specializations->occup_id;
 
         return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'updatedHighestValue', 'occup_id'));
     }
-
+    
     public function addspecialization(Request $request, $occup_id)
     {
         // Get the array of specialization names from the request
         $specializations = $request->input('spec_name');
-
+    
         foreach ($specializations as $specializationName) {
             // Create a new specialization instance
             $specialization = new Specializations();
@@ -49,7 +47,7 @@ class SpecializationsController extends Controller
             $specialization->specialization_name = $specializationName;
             $specialization->save();
         }
-
+    
         return redirect()->back()->with('success', 'Specializations added successfully.');
     }
 
