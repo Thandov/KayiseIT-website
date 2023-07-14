@@ -30,6 +30,8 @@ class SpecializationsController extends Controller
         $specializations = Specializations::findOrFail($spec_id);
         $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
         $storedOptions = unserialize($request->session()->get('key'));
+        $highestValue = CareerSteps::max('step_number'); //
+        $updatedHighestValue = $highestValue + 1; //adds 1 to highest in DB
         $occup_id = $specializations->occup_id;
 
         return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'updatedHighestValue', 'occup_id'));
