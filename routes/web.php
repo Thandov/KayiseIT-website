@@ -208,7 +208,7 @@ Route::get('viewblog/{id}', [BlogController::class, 'viewblog'])->name('viewblog
 //checkout
 Route::get('checkout/checkout', [CheckoutController::class, 'checkout'])->middleware('auth');
 
-Route::post('viewsubservice/check/{subservice_id}', [CheckoutController::class, 'check'])->name('viewsubservice.check');
+Route::get('viewsubservice/check/{subservice_id}', [CheckoutController::class, 'check'])->name('viewsubservice.check');
 
 Route::POST('checkout/credit_card', [PaymentController::class, 'credit_card'])->name('checkout.credit_card')->middleware('auth');
 
@@ -217,6 +217,9 @@ Route::post('/store-selected-options', function (Illuminate\Http\Request $reques
     session(['selectedOptions' => $selectedOptions]);
     return response()->json(['message' => 'Selected options stored successfully']);
 })->name('store.selected.options');
+
+Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
+Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
 
 
 require __DIR__ . '/auth.php';
