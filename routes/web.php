@@ -220,6 +220,8 @@ Route::post('/store-selected-options', function (Illuminate\Http\Request $reques
 
 Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
 Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
+Route::post('/admin/career_mapping/viewspecialization', [CareerStepController::class, 'updatePosition'])->name('admin.career_mapping.viewspecialization');
+
 
 
 require __DIR__ . '/auth.php';
