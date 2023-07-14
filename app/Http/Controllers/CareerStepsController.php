@@ -60,6 +60,18 @@ class CareerStepsController extends Controller
         return redirect()->back()->with('success', 'Career steps added successfully.');
     }
 
+    public function updatePosition(Request $request)
+    {
+        $steps_id = $request->input('steps_id');
+        $newPosition = $request->input('newPosition');
+    
+        // Update the position in the database based on the $stepId and $newPosition
+    
+        // Return a response (e.g., JSON response)
+        return response()->json(['success' => true]);
+    }
+    
+
     /**
      * Display the specified resource.
      *
@@ -70,6 +82,7 @@ class CareerStepsController extends Controller
     {
         //
     }
+
 
     /**
      * Show the form for editing the specified resource.
