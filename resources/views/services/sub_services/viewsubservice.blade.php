@@ -30,7 +30,7 @@
          </div>
          <div class="col">
             <div class="bg-white rounded-lg shadow p-4">
-               <form id="checkout-form" action="{{ route('viewsubservice.check', ['subservice_id' => $subservice->id]) }}" method="post" enctype="multipart/form-data">
+               <form id="checkout-form" action="{{ route('viewsubservice.createQuote', ['subservice_id' => $subservice->id]) }}" method="post" enctype="multipart/form-data">
                   @csrf
                   <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
                   <div id="options-form"></div>

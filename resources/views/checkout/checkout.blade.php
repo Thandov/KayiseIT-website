@@ -66,42 +66,33 @@
                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
                         </svg>
                      </span>
-                     <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Payment Details</h3>
-                     <div class="radio m-4">
+                     <h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">Payment Method</h3>
+
+                        <div class="radio m-4">
                         <label class="inline-flex items-center">
                            <input type="radio" class="form-radio text-indigo-600" name="radio-group" onclick="showCardForm()">
-                           <span class="ml-2">credit/debit card</span>
+                           <span class="ml-2">PayPal</span>
                         </label>
 
                         <label class="inline-flex items-center">
                            <input type="radio" class="form-radio text-indigo-600" name="radio-group" onclick="showBankForm()">
-                           <span class="ml-2">net banking</span>
+                           <span class="ml-2">Ozow</span>
                         </label>
 
                         <label class="inline-flex items-center">
                            <input type="radio" class="form-radio text-indigo-600" name="radio-group" onclick="showVoucherForm()">
-                           <span class="ml-2">EFT Payment</span>
+                           <span class="ml-2">PayFast</span>
                         </label>
                      </div>
 
                      <div id="cardForm" style="display: none;">
                         <!-- Credit/Debit Card Form -->
-                        <button class="bg-blue-500 mb-4 text-white px-4 py-2 rounded" onclick="showAddNewCardForm()">Add New</button>
-                        <div id="addNewCardForm" style="display: none;">
-                           <!-- Add New Credit/Debit Card Form -->
-                           @include('checkout._creditcard_form')
-                        </div>
-                        <!-- cards -->
-                        <div class="flex gap-3">
-                           @foreach($credit_card as $credit)
-                           <div class="box-border h-24 w-44 rounded p-4 border-4">
-                              <input type="radio" name="credit_card" id="credit_card_{{$credit->card_number}}" value="{{$credit->card_number}}">
-                              <label for="credit_card_{{$credit->card_number}}">{{$credit->card_number}}</label>
-                           </div>
-                           @endforeach
-
-                        </div>
-
+                        <form action="save_invoice" method="post" id="paypal_form">
+                           @csrf
+                           <input type="hidden" name="action" value="store">
+                           <input type="hidden" name="paypal_response" id="paypal_response" value="">
+                        </form>
+                        <div id="paypal-button-container" data-total-usd="{{ $totalUSD }}"></div>
                      </div>
 
                      <div id="bankForm" style="display: none;">
@@ -128,14 +119,16 @@
                   </li>
                </ol>
 
-               <button class="inline-flex m-4 ml-5 items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit">PAy</button>
-
             </div>
 
             <div class="col-span-1">
                <div class="bg-white rounded-lg shadow p-4 mb-4">
                   <h2 class="text-lg font-bold mb-4">Order Details</h2>
                   <table class="w-full">
+                     <tr>
+                        <td>Quotation ID</td>
+                        <td>{{ $_GET['quotation_no'] }}</td>
+                     </tr>
                      <tr>
                         <td>Price</td>
                         <td>R{{ $subtotal }}</td>
