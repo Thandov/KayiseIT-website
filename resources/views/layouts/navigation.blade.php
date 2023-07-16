@@ -1,28 +1,33 @@
 @if (empty(Auth::user()->name))
-<nav class="grid grid-cols-2 bg-white border-b border-gray-100 py-3">
-    <div class="col-start-2 d-flex justify-content-end pr-10 md:grid md:grid-cols-5">
+<nav class="grid grid-cols-2 bg-white border-b border-gray-100 px-5 py-3">
+    <div class="col-start-2 md:grid md:grid-cols-4">
         @if (Route::has('login'))
         @auth @else @if (Route::has('login'))
-        <x-nav-link :href="route('login')" :active="request()->routeIs('login')" class="justify-end col-start-2">
-            {{ __('Login') }}
-        </x-nav-link>
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-3">
+            <x-nav-link :href="route('login')" :active="request()->routeIs('login')" class="justify-end col-start-2">
+                {{ __('Login') }}
+            </x-nav-link>
+        </div>
         @endif @if (Route::has('register'))
-        <x-nav-link :href="route('register')" :active="request()->routeIs('register')" class="justify-end">
-            {{ __('Register') }}
-        </x-nav-link>
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-4">
+
+            <x-nav-link :href="route('register')" :active="request()->routeIs('register')" class="justify-end">
+                {{ __('Register') }}
+            </x-nav-link>
+        </div>
         @endif @endauth
         @endif
     </div>
 </nav>
 @endif
-<nav x-data="{ open: false }" class="grid grid-cols-2 bg-white">
+<nav x-data="{ open: false }" class="bg-white px-5 grid grid-cols-7">
     <!-- Logo -->
-    <div class="grid grid-cols-5">
+    <div class="">
         <a href="{{ route('home') }}" class="col-start-2">
             <x-application-logo class="block h-5 w-auto fill-current text-gray-600" />
         </a>
     </div>
-    <div class="flex items-center justify-end pr-10">
+    <div class="d-flex items-center justify-end col-span-6">
         <!-- Navigation Links -->
         @if (!empty(Auth::user()->name))
         @if(Auth::user()->hasRole('admin'))
@@ -72,8 +77,13 @@
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('career-mapping')" :active="request()->routeIs('about')">
+            <x-nav-link :href="route('career-mapping')" :active="request()->routeIs('career-mapping')">
                 {{ __('Career Mapping') }}
+            </x-nav-link>
+        </div>
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('contact')" :active="request()->routeIs('xxxxx')">
+                {{ __('xxxxxxxx') }}
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -175,7 +185,7 @@
                 </x-slot>
             </x-dropdown>
         </div>
-        
+
         <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                 {{ __('About') }}

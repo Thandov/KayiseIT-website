@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
 
-        $user->attachRole('1');
+        $user->attachRole($request->role_id);
 
         event(new Registered($user));
 

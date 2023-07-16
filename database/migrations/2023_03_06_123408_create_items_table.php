@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('user_id')->on('quotations')->onDelete('cascade');
             $table->string('name');
             $table->decimal('price');
             $table->integer('qty')->nullable();
@@ -24,6 +23,9 @@ return new class extends Migration
             $table->string('QI_id');
             $table->foreign('QI_id')->references('quotation_no')->on('quotations')->onDelete('cascade');
             $table->timestamps();
+        });
+        Schema::table('items', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -89,11 +89,23 @@ Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create
 
 //=================================================Admin ==================================================
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::GET('/admin/clients/', [AdminController::class, 'all_employees'])->name('admin.clients');
 
+    Route::GET('/admin/clients/newclient', function () {
+        return view('admin.clients.newclient');
+    })->name('admin.client.newclient');
+
+    Route::GET('/admin/staff/', [AdminController::class, 'all_employees'])->name('admin.staff');
+    Route::GET('/admin/staff/newstaff', function () {
+        return view('admin.staff.newstaff');
+    })->name('admin.staff.newstaff');
+    Route::post('/admin/staff/create', [AdminController::class, 'new_employee']);
+    Route::DELETE('/admin/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
+    Route::POST('/admin/staff/viewstaff/update/', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
+    Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
     Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
-    Route::GET('/admin/staff', [AdminController::class, 'staff'])->name('admin.staff');
     Route::GET('/admin/clients', [AdminController::class, 'clients'])->name('admin.clients');
     Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
     Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');

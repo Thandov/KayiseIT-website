@@ -1,3 +1,10 @@
-<a {{ $attributes->merge([ 'class' => 'inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150']) }}>
-    {{ $slot }}
-</a>
+<?php
+if ($color === "red") :
+    $color = "rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"; ?>
+    <input type="submit" value="Delete" class="{{$color}}">
+<?php elseif ($color === "blue") :
+    $color = "rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"; ?>
+    <a href="{{ $linking }}" class="{{$color}}" id="{{$showme}}">{{$name}}</a>
+<?php
+endif;
+?>

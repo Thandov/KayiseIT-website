@@ -26,7 +26,6 @@
     "dependencies": {
         "animate.css": "^4.1.1",
         "aos": "^2.3.4",
-        "flowbite": "^1.6.5",
         "owl.carousel": "^2.3.4",
         "swiper": "^9.1.1",
         "watch": "^0.13.0"
