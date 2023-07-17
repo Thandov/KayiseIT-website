@@ -15,11 +15,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('quotations', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('quotation_no')->default('Q'.Str::padLeft(Str::random(6), 6, '0'))->unique();
             $table->decimal('total_price', 10, 2)->default(0);
             $table->timestamps();
+        });
+        Schema::table('quotations', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

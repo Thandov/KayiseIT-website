@@ -2,6 +2,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 /* Font Sizes Variables */
 /*=================================================*/
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+html body, body body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
 .qty_count {
   width: 50px;
   position: relative;
@@ -652,10 +666,6 @@ div.sticky {
   color: #1e9a13 !important;
 }
 
-* {
-  font-family: "Montserrat", sans-serif;
-}
-
 #terms ul {
   list-style-type: circle;
   color: black;
@@ -988,4 +998,18 @@ footer .bottom-details .bottom_text {
   display: block;
   -webkit-box-orient: horizontal;
   -webkit-line-clamp: none;
+}
+
+.client_logo_wrapper {
+  height: 100px;
+}
+
+.dashcard {
+  width: 100%;
+  height: 100px;
+}
+
+.teamcard {
+  width: 200px;
+  height: 250px;
 }/*# sourceMappingURL=style.css.map */

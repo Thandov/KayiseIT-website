@@ -36,9 +36,7 @@
                 </div>
 
                 <div class="data my-4">
-                    <x-front-end-btn href="{{ route('contact') }}">
-                        {{ __('Contact Us') }}
-                    </x-front-end-btn>
+                    <x-front-end-btn linking="contact" color="blue" showme="zzzzzzzz" name="Contact Us" />
                 </div>
             </div>
         </div>

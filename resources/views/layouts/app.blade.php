@@ -1,5 +1,5 @@
 @php
-session_start(); 
+session_start();
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -35,30 +35,31 @@ session_start();
     <script src="{{ asset('/js/app.js') }}" defer></script>
     <script src="{{ asset('/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('/js/scripts.js') }}" defer></script>
+    <script src="{{ asset('/js/live_img_change.js') }}" defer></script>
     <script>
-        let i = 0;
-        $("#duplicate-form").click(function() {
-            i++;
-            var form = $("#subservice-form").clone();
-            form.attr("id", "subservice-form-" + (i + 1));
-            form.find("input[name=name]").attr("id", "name-" + (i + 1));
-            form.find("input[name=description]").attr("id", "description-" + (i + 1));
-            form.find("input[name=price]").attr("id", "price-" + (i + 1));
-            form.appendTo("body");
-            form.find("input[type=text], textarea").val("");
-        });
+    let i = 0;
+    $("#duplicate-form").click(function() {
+        i++;
+        var form = $("#subservice-form").clone();
+        form.attr("id", "subservice-form-" + (i + 1));
+        form.find("input[name=name]").attr("id", "name-" + (i + 1));
+        form.find("input[name=description]").attr("id", "description-" + (i + 1));
+        form.find("input[name=price]").attr("id", "price-" + (i + 1));
+        form.appendTo("body");
+        form.find("input[type=text], textarea").val("");
+    });
     </script>
     <script>
-        $(document).ready(function() {
-            $('button.nav-link').on('show.bs.tab', function(e) {
-                console.log($(e.target).attr('data-bs-target').replace('#', ''));
-                localStorage.setItem('activeTab', $(e.target).attr('data-bs-target'));
-            });
-            var activeTab = localStorage.getItem('activeTab');
-            if (activeTab) {
-                $('#pills-tab button[data-bs-target="' + activeTab + '"]').tab('show');
-            }
+    $(document).ready(function() {
+        $('button.nav-link').on('show.bs.tab', function(e) {
+            console.log($(e.target).attr('data-bs-target').replace('#', ''));
+            localStorage.setItem('activeTab', $(e.target).attr('data-bs-target'));
         });
+        var activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('#pills-tab button[data-bs-target="' + activeTab + '"]').tab('show');
+        }
+    });
     </script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

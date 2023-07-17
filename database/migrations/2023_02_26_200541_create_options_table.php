@@ -20,6 +20,8 @@ return new class extends Migration
             $table->boolean('quantified')->nullable();
             $table->decimal('price', 10, 2);
             $table->timestamps();
+        });
+        Schema::table('options', function (Blueprint $table) {
             $table->foreign('unq_id')->references('subserv_id')->on('subservices')->onDelete('cascade');
         });
     }

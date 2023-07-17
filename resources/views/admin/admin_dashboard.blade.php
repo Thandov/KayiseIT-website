@@ -4,92 +4,32 @@
             {{ __('ADMIN DASHBOARD') }}
         </h2>
     </x-slot>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Sales Stats -->
         <div class="bg-white overflow-hidden shadow rounded-lg">
+            SALES STATS
         </div>
         <!-- Leads and Clients -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-            </div>
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-            </div>
+            CLIENT LEADS
         </div>
         <!-- Invoices and Quotations -->
         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-6">
             <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="px-4 py-5 sm:p-6">
+                <div class="px-4 pt-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Action Page</h3>
-                    <div class="mt-5">
-                        <div class="bg-gray-200 rounded-lg">
-                            <div
-                                class="grid grid-cols-1 md:grid-cols-5 flex justify-items-center gap-8 py-12 px-4 md:px-8 max-w-screen-xl mx-auto">
-
-                                <div class="col-span-2 md:col-span-1">
-
-                                    <a href="{{ url('admin/clients') }}"
-                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Clients
-                                    </a>
-                                </div>
-                                <div class="col-span-2 md:col-span-1">
-                                    <a href="{{ url('admin/staff') }}"
-                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Staff
-                                    </a>
-                                </div>
-                                <div class="col-span-2 md:col-span-1">
-                                    <a href="{{ url('admin/dashboard/careermapping_dashboard') }}"
-                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Career Mapping
-                                    </a>
-                                </div>
-                                <div class="col-span-2 md:col-span-1">
-
-                                    <a href="{{ url('admin/invoices') }}"
-                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-
-                                        <dl>
-                                            <dt>
-                                                Invoices
-                                            </dt>
-                                            <dd>
-                                                <div class="text-lg font-medium text-center text-gray-900">
-                                                    {{ $invoices->count() }}
-                                                </div>
-                                            </dd>
-                                        </dl>
-
-                                    </a>
-
-                                </div>
-                                <div class="col-span-1 md:col-span-1">
-
-                                    <a href="{{ url('admin/quotations') }}"
-                                        class="inline-flex items-center justify-content-center w-48 h-40 px-4 px-4 py-2 border border-transparent rounded-md font-semibold text-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-
-                                        <dl>
-                                            <dt>
-                                                Quotations
-                                            </dt>
-                                            <dd>
-                                                <div class="text-lg font-medium text-center text-gray-900">
-                                                    {{ $quotations->count() }}
-                                                </div>
-                                            </dd>
-                                        </dl>
-
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-5 justify-items-center mx-auto py-4 gap-4">
+                        <x-dash-card name="Clients" href="admin/clients"></x-dash-card>
+                        <x-dash-card name="Staff" href="admin/staff"></x-dash-card>
+                        <x-dash-card name="Career Mapping" href="admin/dashboard/careermapping_dashboard"></x-dash-card>
+                        <x-dash-card name="Carousel" href="admin/invoices"></x-dash-card>
+                        <x-dash-card name="Blog" href="admin/quotations"></x-dash-card>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Services -->
-        <div class="col-span-12 sm:col-span-6 md:col-span-4 mt-6 bg-white shadow overflow-hidden rounded-lg">
+        <div class="my-4 bg-white shadow overflow-hidden rounded-lg">
             @include('admin.dashboard.dashservices')
         </div>
     </div>
@@ -114,12 +54,12 @@
 </x-app-layout>
 
 <script>
-    document.querySelector('#add-service-btn').addEventListener('click', function (e) {
+    document.querySelector('#add-service-btn').addEventListener('click', function(e) {
         e.preventDefault();
         // your code here
         $('#myModal').modal('show');
     });
-    document.querySelector('.close').addEventListener('click', function (e) {
+    document.querySelector('.close').addEventListener('click', function(e) {
         e.preventDefault();
         // your code here
         $('#myModal').modal('hide');
@@ -139,5 +79,4 @@
         xhr.open('POST', '/upload');
         xhr.send(formData);
     }
-
 </script>

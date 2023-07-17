@@ -127,5 +127,4 @@
         // your code here
         $('#myModal').modal('hide');
     });
-
 </script>
