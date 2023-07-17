@@ -229,6 +229,10 @@ function save_to_db(data) {
     document.getElementById("paypal_response").value = details;
     $('#paypal_form').submit();
 
+    // Call the callback function after submitting the form
+    if (typeof callback === 'function') {
+        callback();
+    }
 }
 
    </script>
