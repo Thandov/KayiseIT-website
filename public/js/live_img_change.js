@@ -20,7 +20,6 @@ function handleFileInputChange(event) {
         reader.readAsDataURL(file);
     }
 }
-
 // Add click event listener to the profile picture label
 document.querySelector('label[for="profile_picture_input"]').addEventListener('click', handleImageClick);
 
