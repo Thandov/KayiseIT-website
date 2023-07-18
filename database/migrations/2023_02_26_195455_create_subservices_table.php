@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('service_id');
             $table->foreign('service_id')->references('service_id')->on('services')->onDelete('cascade');
             $table->string('name');
+            $table->string('icon')->nullable();
             $table->enum('subservice_type', ['static', 'dynamic']);
             $table->decimal('price', 10, 2);
             $table->timestamps();

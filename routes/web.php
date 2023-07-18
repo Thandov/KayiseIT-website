@@ -5,6 +5,7 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SubServicesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -86,14 +87,17 @@ Route::middleware('auth')->group(function () {
 //Route::post('store-form',[QuotationController::class, 'store']);
 Route::post('quote-form', [QuotationController::class, 'quote'])->middleware('auth');
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
-
 //=================================================Admin ==================================================
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    Route::GET('/admin/clients/', [AdminController::class, 'all_employees'])->name('admin.clients');
-
+    //Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
+    Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
     Route::GET('/admin/clients/newclient', function () {
         return view('admin.clients.newclient');
     })->name('admin.client.newclient');
+    Route::post('/admin/clients/create', [ClientController::class, 'store']);
+    Route::GET('/admin/clients/viewclient/{id}', [ClientController::class, 'show'])->name('admin.clients.viewclient');
+    Route::POST('/admin/clients/viewclient/update/', [ClientController::class, 'update'])->name('admin.clients.viewclient.update');
+
 
     Route::GET('/admin/staff/', [AdminController::class, 'all_employees'])->name('admin.staff');
     Route::GET('/admin/staff/newstaff', function () {
@@ -106,7 +110,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
     Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
-    Route::GET('/admin/clients', [AdminController::class, 'clients'])->name('admin.clients');
     Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
     Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
     Route::GET('/admin/users', [AdminController::class, 'users'])->name('admin.users');

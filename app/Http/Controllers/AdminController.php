@@ -326,11 +326,4 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Employee updated successfully.');
     }
 
-    /* Clients */
-    public function all_clients()
-    {
-        $employees = Client::all();
-
-        return view('/admin/staff', compact('employees'));
-    }
 }
