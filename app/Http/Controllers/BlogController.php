@@ -10,8 +10,8 @@ class BlogController extends Controller
     //
     public function blog()
     {
-        $blog = Blog::all();
-        return view('admin.blog', compact('blog'));
+        $blogs = Blog::all();
+        return view('admin.blogs.view_all_blogs', compact('blogs'));
     }
     
     public function addblog()
@@ -59,15 +59,16 @@ class BlogController extends Controller
         return redirect()->back()->with('success', 'blog has been deleted!');
     }
 
-    public function updateblog(Request $request, $id)
+    public function updateblog(Request $request)
     {
-        $blog = Blog::findOrFail($id);
+        dd($request->all());
+        $blog = Blog::findOrFail($request->input('id'));
         $blog->title = $request->input('title');
         $blog->subtitle = $request->input('subtitle');
-        $blog->content = $request->input('content');
+        $blog->content = $request->textarea('content');
         $blog->save();
     
-        return redirect()->route('admin.blog', $id)->with('success', 'blog updated successfully');
+        return redirect()-back()->with('success', 'blog updated successfully');
     }
 
     public function viewblogg($id)

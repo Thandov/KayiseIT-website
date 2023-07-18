@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
+    Route::GET('/admin/blogs/view_all_blogs', [AdminController::class, 'view_all_blogs'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
     Route::GET('/admin/clients', [AdminController::class, 'clients'])->name('admin.clients');
     Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
@@ -160,10 +161,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     //blogs
     Route::post('storeblog-form', [BlogController::class, 'storeblog']);
-    Route::GET('/admin/blog', [BlogController::class, 'blog'])->name('admin.blog');
+    Route::GET('/admin/blogs/view_all_blogs', [BlogController::class, 'blog'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/addblog', [BlogController::class, 'addblog'])->name('admin.addblog');
     Route::get('blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-    Route::put('/blog/{id}', [BlogController::class, 'updateblog'])->name('blog.update');
+    Route::post('/admin/blogs/update_blog', [BlogController::class, 'updateblog'])->name('admin.blogs.update_blog');
     Route::GET('/admin/viewblogg/{id}', [BlogController::class, 'viewblogg'])->name('admin.viewblogg');
 
     //Testimonials
@@ -225,7 +226,7 @@ Route::get('viewblog/{id}', [BlogController::class, 'viewblog'])->name('viewblog
 //checkout
 Route::get('checkout/checkout', [CheckoutController::class, 'checkout'])->middleware('auth');
 
-Route::post('viewsubservice/check/{subservice_id}', [CheckoutController::class, 'check'])->name('viewsubservice.check');
+Route::get('viewsubservice/check/{subservice_id}', [CheckoutController::class, 'check'])->name('viewsubservice.check');
 
 Route::POST('checkout/credit_card', [PaymentController::class, 'credit_card'])->name('checkout.credit_card')->middleware('auth');
 

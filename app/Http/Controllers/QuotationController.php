@@ -17,6 +17,7 @@ use App\Models\Items;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 
 
@@ -97,36 +98,116 @@ class QuotationController extends Controller
         $request->session()->put('selectedOptions', $selectedOptions);
 
         return back()->with('success', 'Quotation request submitted successfully!');
+
     }
 
-    public function sendInvoice($id)
+    public function createQuote(Request $request)
     {
-        $quotation = Quotation::findOrFail($id);
-        // Logic for sending invoice to the user who submitted the quotation
-        // You can use a library like Laravel Cashier to generate and send the invoice
+        // Create an empty array to store the selected options
+        $selectedOptions = [];
 
-        $invoice = new Invoice;
-        $invoice->user_id = $quotation->user_id;
-        $invoice->invoice_no = $quotation->quotation_no;
-        $invoice->total_price = $quotation->total_price;
-        // populate other fields as needed
-        //$invoice->status = 'Unpaid'; // or 'Pending'
-        $invoice->save();
+        $quotation = new Quotation;
+        $quotation->user_id = auth()->user()->id;
+        $quotation->quotation_no = 'Q' . mt_rand(100000, 999999);
+        $quotation->save();
 
-        $items = Items::where('QI_id', $quotation->quotation_no)->get();
+        $subservice = Subservice::find($request->input('subservice_id'));
+        $item = new Items;
+        $item->user_id = auth()->user()->id;
+        $item->name = $subservice->name;
+        $item->price = $subservice->price;
+        $item->qty = 1;
+        $item->sub_total = $subservice->price;
+        $item->QI_id = $quotation->quotation_no;
+        $item->save();
 
-        $user = User::findOrFail($quotation->user_id);
+        // Loop through all the options
+        if (!is_null($request->options)) {
+            foreach ($request->options as $option) {
+                // Check if the checkbox is checked for this option
+                if (!empty($option['id']) && !empty($option['qty'])) {
+                    // If it is checked, add it to the selectedOptions array
+                    $selectedOptions[] = $option;
+                }
+            }
+        }
+
+        // Loop through the selectedOptions array and print the selected options
+        foreach ($selectedOptions as $option) {
+            $option_id = $option['id'];
+            $option_name = $option['name'];
+            $option_qty = $option['qty'];
+            $option_price = $option['price'];
+
+            // Do something with the selected option
+            $sub_total = $option_qty * $option_price;
+
+            $item = new Items;
+            $item->user_id = auth()->user()->id;
+            $item->name = $option_name;
+            $item->price = $option_price;
+            $item->qty = $option_qty;
+            $item->sub_total = $sub_total;
+            $item->QI_id = $quotation->quotation_no;
+            $item->save();
+        }
+
+        $total_price = Items::where('QI_id', $quotation->quotation_no)->sum('sub_total');
+        $vat_total = $total_price * 0.15;
+        $total = $total_price + $vat_total;
+        $quotation->total_price = $total;
+        $quotation->save();
+
+        $userEmail = auth()->user()->email;
         $data = [
             'quotation' => $quotation,
+            'total_price' => $total_price,
+            'vat_total' => $vat_total,
             'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
         ];
-        Mail::send('emails.invoice', $data, function ($message) use ($user) {
-            $message->to($user->email, $user->name)
-                ->subject('Invoice');
-        });
-        return redirect()->back()->with('status', 'Invoice sent successfully!');
+
+        
+
+        $request->session()->put('selectedOptions', $selectedOptions);
+
+        //return back()->with('success', 'Quotation request submitted successfully!');
+        return redirect()->route('viewsubservice.check', ['subservice_id' => $request->subservice_id, 'quotation_no' => $quotation->quotation_no])->with('success', 'Quotation created');
+
     }
 
+    public function save_invoice(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'action' => 'required|string',
+            'paypal_response' => 'required|string',
+        ]);
+    
+        if ($validatedData['action'] === 'store') {
+            // Retrieve the authenticated user
+            $user = Auth::user();
+    
+            // Parse the PayPal response
+            $response = json_decode($validatedData['paypal_response'], true);
+    
+            // Create a new instance of the Invoice model
+            $invoice = new Invoice();
+    
+            // Set the attributes of the new invoice
+            $invoice->user_id = $user->id;
+            $invoice->invoice_no = $response['id'];
+            $invoice->total_price = $response['purchase_units'][0]['amount']['value'];
+    
+            // Save the invoice to the database
+            $invoice->save();
+    
+            // Return a response indicating success
+            return response()->json(['message' => 'Invoice stored successfully']);
+        }
+    
+        // Return a response indicating an invalid action
+        return response()->json(['message' => 'Invalid action'], 400);
+    }
 
     public function quotationPDF($id)
     {
@@ -170,4 +251,3 @@ class QuotationController extends Controller
         return Response::make($pdfContent, 200, $headers);
     }
 }
-

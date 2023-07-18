@@ -56,6 +56,12 @@ class AdminController extends Controller
         return view('admin.invoices', compact('invoices'));
     }
 
+    public function view_all_blogs()
+    {
+
+        return view('admin.blogs.view_all_blogs');
+    }
+
     public function clients()
     {
 
