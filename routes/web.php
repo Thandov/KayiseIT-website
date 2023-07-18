@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/admin/clients/create', [ClientController::class, 'store']);
     Route::GET('/admin/clients/viewclient/{id}', [ClientController::class, 'show'])->name('admin.clients.viewclient');
     Route::POST('/admin/clients/viewclient/update/', [ClientController::class, 'update'])->name('admin.clients.viewclient.update');
+    Route::DELETE('/admin/clients/delete/{id}', [ClientController::class, 'delete_employee'])->name('admin.clients.delete');
 
 
     Route::GET('/admin/staff/', [AdminController::class, 'all_employees'])->name('admin.staff');
