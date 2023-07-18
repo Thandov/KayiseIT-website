@@ -119,6 +119,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+dd();
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',

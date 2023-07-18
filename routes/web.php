@@ -91,13 +91,12 @@ Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     //Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
     Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
-
     Route::GET('/admin/clients/newclient', function () {
         return view('admin.clients.newclient');
     })->name('admin.client.newclient');
     Route::post('/admin/clients/create', [ClientController::class, 'store']);
     Route::GET('/admin/clients/viewclient/{id}', [ClientController::class, 'show'])->name('admin.clients.viewclient');
-    Route::POST('/admin/clients/viewclient/update/', [AdminController::class, 'update_employee'])->name('admin.clients.viewclient.update');
+    Route::POST('/admin/clients/viewclient/update/', [ClientController::class, 'update'])->name('admin.clients.viewclient.update');
 
 
     Route::GET('/admin/staff/', [AdminController::class, 'all_employees'])->name('admin.staff');

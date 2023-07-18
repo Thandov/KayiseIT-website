@@ -34,7 +34,7 @@
         <!-- New display -->
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
             <div class="p-6 bg-white border-b border-gray-200">
-                <form action="{{ url('admin/staff/viewstaff/update') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.clients.viewclient.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="action" value="update_client">
                     <input type="hidden" name="user_id" value="{{ $client->user_id ?? ''}}">
@@ -81,7 +81,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-span-6">
+                        <div class="col-span-6 sm:col-span-3">
                             <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
                             <input type="text" name="address" id="address" value="{{ $client->address ??'' }}" autocomplete="address" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('address') border-red-500 @enderror" value="{{ old('address') }}">
                             @error('address')
@@ -91,9 +91,28 @@
 
                         <div class="col-span-6 sm:col-span-3">
                             <label for="province" class="block text-sm font-medium text-gray-700">Province</label>
-                            <input type="text" name="province" id="province" value="{{ $client->province ??'' }}" autocomplete="province" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('province') border-red-500 @enderror" value="{{ old('province') }}">
+                            <select name="province" id="province" autocomplete="province" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('province') border-red-500 @enderror">
+                                <option value="">Select Province</option>
+                                <option value="Eastern Cape">Eastern Cape</option>
+                                <option value="Free State">Free State</option>
+                                <option value="Gauteng">Gauteng</option>
+                                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                <option value="Limpopo">Limpopo</option>
+                                <option value="Mpumalanga">Mpumalanga</option>
+                                <option value="North West">North West</option>
+                                <option value="Northern Cape">Northern Cape</option>
+                                <option value="Western Cape">Western Cape</option>
+                            </select>
                             @error('province')
                             <p class="text-red-500 text-sm">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
+                            <input type="text" name="company" id="company" value="{{ $client->company ??'' }}" autocomplete="company" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('company') border-red-500 @enderror" value="{{ old('company') }}">
+                            @error('company')
+                                <p class="text-red-500 text-sm">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -103,10 +122,10 @@
                     </div>
                 </form>
                 <div class="xxxxxxx">
-                    <form action="{{url('admin/staff/delete', $client->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this client?')">
+                    <form action="{{ url('admin/clients/delete', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this client?')">
                         @csrf
                         @method('DELETE')
-                        <x-front-end-btn linking="/admin/staff/delete" color="red" showme="delete_staff" name='Delete' />
+                        <x-front-end-btn linking="/admin/clients/delete" color="red" showme="delete_staff" name='Delete' />
                     </form>
                 </div>
             </div>
