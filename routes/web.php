@@ -87,6 +87,11 @@ Route::middleware('auth')->group(function () {
 Route::post('quote-form', [QuotationController::class, 'quote'])->middleware('auth');
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
+//paypal routes
+Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
+Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
+
+
 //=================================================Admin ==================================================
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/clients/', [AdminController::class, 'all_employees'])->name('admin.clients');

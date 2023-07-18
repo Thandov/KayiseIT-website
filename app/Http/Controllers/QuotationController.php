@@ -170,3 +170,4 @@ class QuotationController extends Controller
         return Response::make($pdfContent, 200, $headers);
     }
 }
+
