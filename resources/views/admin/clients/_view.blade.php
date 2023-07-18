@@ -12,21 +12,26 @@
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
+            @foreach ($clients as $client)
             <tr>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">sssss</div>
+                    <div class="text-sm text-gray-900">{{ $client->first_name }}</div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap font-medium flex justify-end">
+                <td class="pl-6 py-4 whitespace-nowrap font-medium flex justify-end">
                     <div class="flex">
+                        <x-front-end-btn linking="" color="blue" showme="" name="View" />
                         <x-front-end-btn linking="" color="blue" showme="" name="Edit" />
-                        <form action="" method="get" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                        <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="inline-flex items-center px-4 py-2 ml-4 bg-red-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
+                            <input type="hidden" name="user_id" value="{{ $client->user_id }}">
+                            <button type="submit" class="h-100 inline-flex items-center px-4 py-2 ml-4 bg-red-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
                         </form>
                     </div>
                 </td>
             </tr>
+            @endforeach
+
         </tbody>
         <tfoot>
             <tr>
