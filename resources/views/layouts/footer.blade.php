@@ -57,27 +57,27 @@
         </div>
         @endif
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
-          @csrf
-          @if (Auth::check())
-          <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe To Our Newsletter</p>
-          <div class="input-group">
-            <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
+                @csrf
+                @if (Auth::check())
+                <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe To Our Newsletter</p>
+                <div class="input-group">
+                  <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
+                </div>
+            </div>
+            @else
+            <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe</p>
+            <div class="input-group">
+              <input type="text" name="email" class="form-control rounded-md border-0" placeholder="Enter your email">
+              <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
+            </div>
           </div>
-      </div>
-      @else
-      <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe</p>
-      <div class="input-group">
-        <input type="text" name="email" class="form-control rounded-md border-0" placeholder="Enter your email">
-        <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
+          @endif
+        </form>
       </div>
     </div>
-    @endif
-    </form>
-  </div>
-  </div>
-  <div class="bottom-details">
+    <div class="bottom-details">
     <div class="row align-items-center justify-content-center py-2">
-      <div class="col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
+      <div class="flex justify-content-center">
         @include('_pop')
       </div>
     </div>
