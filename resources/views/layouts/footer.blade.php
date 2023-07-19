@@ -12,8 +12,8 @@
         <a href="https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
-    <div class="row link-boxes">
-      <ul class="col-sm-4">
+    <div class="grid grid-cols-3">
+      <ul class="">
         <div class="mt-1 text-base">
           <li id="footer-underline" class="link_name mb-3 mt-1 text-base fw-bold smalltxt">Company</li>
         </div>
@@ -33,7 +33,7 @@
           <li><a href="../terms" id="footertxt-white">Terms & Conditions</a></li>
         </div>
       </ul>
-      <ul class="col-sm-4">
+      <ul class="">
         <div>
           <li id="footer-underline" class="link_name mb-3 mt-2 text-base fw-bold smalltxt">Services</li>
         </div>
@@ -50,7 +50,7 @@
           <li><a href="services" id="footertxt-white">ICT Skills training</a></li>
         </div>
       </ul>
-      <div class="col-sm-4">
+      <div class="">
         @if (session('error'))
         <div class="alert alert-danger">
           {{ session('error') }}

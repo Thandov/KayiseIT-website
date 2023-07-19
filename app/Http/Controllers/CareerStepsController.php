@@ -125,9 +125,16 @@ class CareerStepsController extends Controller
         if (!$careerstep) {
             return redirect()->back()->withErrors('Career Step not found.');
         }
-
-        $careerstep->delete();
+        
+        $stepNumber = $careerstep->step_number; // Get the step number of the career step being deleted
+    
+        $careerstep->delete(); // Delete the career step from the database
+    
+        // Update the step numbers of remaining career steps with step numbers greater than the deleted step number
+        CareerSteps::where('step_number', '>', $stepNumber)->decrement('step_number');
+    
         return redirect()->back();
     }
+    
 }
 ////////////////Kray_ATM
