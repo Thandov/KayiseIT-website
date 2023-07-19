@@ -12,8 +12,8 @@
         <a href="https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
-    <div class="grid grid-cols-3">
-      <ul class="">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <ul>
         <div class="mt-1 text-base">
           <li id="footer-underline" class="link_name mb-3 mt-1 text-base fw-bold smalltxt">Company</li>
         </div>
@@ -33,7 +33,7 @@
           <li><a href="../terms" id="footertxt-white">Terms & Conditions</a></li>
         </div>
       </ul>
-      <ul class="">
+      <ul>
         <div>
           <li id="footer-underline" class="link_name mb-3 mt-2 text-base fw-bold smalltxt">Services</li>
         </div>
@@ -50,7 +50,7 @@
           <li><a href="services" id="footertxt-white">ICT Skills training</a></li>
         </div>
       </ul>
-      <div class="">
+      <!-- <div class="">
         @if (session('error'))
         <div class="alert alert-danger">
           {{ session('error') }}
@@ -73,18 +73,20 @@
           </div>
           @endif
         </form>
-      </div>
-    </div>
-    <div class="bottom-details">
-    <div class="row align-items-center justify-content-center py-2">
-      <div class="flex justify-content-center">
-        @include('_pop')
-      </div>
-    </div>
-    <div class="row justify-content-center py-2">
-      <div class="col-6 d-flex align-items-center justify-content-center">
-        <span class="text-white">Copyright © <a href="#">KAYISE IT.</a>All rights reserved</span>
-      </div>
+      </div> -->
     </div>
   </div>
+  <div class="bg-[#22C55E]">
+    <div class="container px-4 md:px-8 max-w-screen-xl mx-auto">
+      <div class="row align-items-center justify-content-center py-2">
+        <div class="flex justify-content-center">
+          @include('_pop')
+        </div>
+      </div>
+      <div class="row justify-content-center py-2">
+        <div class="col-6 d-flex align-items-center justify-content-center">
+          <span class="text-white">Copyright © <a href="#">KAYISE IT.</a>All rights reserved</span>
+        </div>
+      </div>
+    </div>
 </footer>
