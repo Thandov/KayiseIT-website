@@ -15,7 +15,7 @@
                     <div>
                         <button id="show" class="inline-flex items-center mb-4 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Career Step</button>
                     </div>
-                    <div class="sortable-table">
+                    <div class="">
                         <table id="sortable-table" class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
@@ -73,7 +73,7 @@
                 <!-- table  -->
                 <table id="table" class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
-                        <tr>
+                        <tr class="sortable-row" data-step-id="{{ $careerStep->steps_id }}">
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Step Number
                             </th>

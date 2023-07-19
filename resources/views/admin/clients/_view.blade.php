@@ -20,8 +20,7 @@
                 <td class="pl-6 py-4 whitespace-nowrap font-medium flex justify-end">
                     <div class="flex gap-2">
                         <x-front-end-btn linking="/admin/clients/viewclient/{{ $client->user_id }}" color="blue" showme="" name="View" />
-                        <x-front-end-btn linking="/admin/clients/viewclient/update/{{ $client->user_id }}" color="blue" showme="" name="Edit" />
-                        <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                        <form action="{{ url('admin/clients/delete', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="user_id" value="{{ $client->user_id }}">

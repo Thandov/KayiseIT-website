@@ -38,7 +38,7 @@
                                     <div class="text-sm text-gray-900">{{ $specialization->specialization_name }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('admin.career_mapping.viewspecialization', $specialization->spec_id) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                    <a href="{{ route('admin.career_mapping.viewspecialization', ['spec_id' => $specialization->spec_id]) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <a href="{{ url('/admin/career_mapping/specialization/edit',$specialization->spec_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
@@ -104,71 +104,71 @@
     </section>
 
     <script>
-        document.querySelector('#spec-btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            // your code here
-            $('#myModal').modal('show');
+    document.querySelector('#spec-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    // your code here
+    $('#myModal').modal('show');
+    });
+    document.querySelector('.close').addEventListener('click', function(e) {
+    e.preventDefault();
+    // your code here
+    $('#myModal').modal('hide');
+    });
+
+    document.getElementById('add').addEventListener('click', function(e) {
+    e.preventDefault();
+
+        // Get the table body element
+        var tableBody = document.querySelector('#table tbody');
+
+        // Get the number of existing input fields
+        var inputCount = tableBody.querySelectorAll('input[name^="spec_name"]').length;
+
+        // Create a new table row
+        var newRow = document.createElement('tr');
+
+        // Create the cell for the specialization name input
+        var nameCell = document.createElement('td');
+        nameCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
+
+        // Create the input element for specialization name
+        var specializationInput = document.createElement('input');
+        specializationInput.setAttribute('type', 'text');
+        specializationInput.setAttribute('name', 'spec_name[' + inputCount + ']');
+        specializationInput.setAttribute('placeholder', 'Enter Specialization Name');
+        specializationInput.setAttribute('id', 'specialization');
+        specializationInput.classList.add('form-control', 'mt-1', 'block', 'w-full', 'py-2', 'px-3', 'border', 'border-gray-300', 'bg-white', 'rounded-md', 'shadow-sm', 'focus:outline-none', 'focus:ring-green-500', 'focus:border-green-500');
+
+        // Append the specialization input to the name cell
+        nameCell.appendChild(specializationInput);
+
+        // Create the cell for the action button
+        var actionCell = document.createElement('td');
+        actionCell.classList.add('px-6', 'py-4', 'whitespace-nowrap', 'text-sm', 'font-medium');
+
+        // Create the "Remove" button
+        var removeButton = document.createElement('button');
+        removeButton.setAttribute('type', 'button');
+        removeButton.classList.add('inline-flex', 'items-center', 'px-4', 'py-2', 'border', 'border-transparent', 'rounded-md', 'font-semibold', 'text-xs', 'text-white', 'bg-red-600', 'hover:bg-red-700', 'focus:outline-none', 'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-red-500');
+        removeButton.textContent = 'Remove';
+
+        // Add an event listener to the "Remove" button to remove its parent row
+        removeButton.addEventListener('click', function() {
+        var row = this.parentNode.parentNode;
+        row.parentNode.removeChild(row);
         });
-        document.querySelector('.close').addEventListener('click', function(e) {
-            e.preventDefault();
-            // your code here
-            $('#myModal').modal('hide');
-        });
 
-        document.getElementById('add').addEventListener('click', function(e) {
-            e.preventDefault();
+        // Append the "Remove" button to the action cell
+        actionCell.appendChild(removeButton);
 
-            // Get the table body element
-            var tableBody = document.querySelector('#table tbody');
+        // Append the cells to the new row
+        newRow.appendChild(nameCell);
+        newRow.appendChild(actionCell);
 
-            // Get the number of existing input fields
-            var inputCount = tableBody.querySelectorAll('input[name^="spec_name"]').length;
-
-            // Create a new table row
-            var newRow = document.createElement('tr');
-
-            // Create the cell for the specialization name input
-            var nameCell = document.createElement('td');
-            nameCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
-
-            // Create the input element for specialization name
-            var specializationInput = document.createElement('input');
-            specializationInput.setAttribute('type', 'text');
-            specializationInput.setAttribute('name', 'spec_name[' + inputCount + ']');
-            specializationInput.setAttribute('placeholder', 'Enter Specialization Name');
-            specializationInput.setAttribute('id', 'specialization');
-            specializationInput.classList.add('form-control', 'mt-1', 'block', 'w-full', 'py-2', 'px-3', 'border', 'border-gray-300', 'bg-white', 'rounded-md', 'shadow-sm', 'focus:outline-none', 'focus:ring-green-500', 'focus:border-green-500');
-
-            // Append the specialization input to the name cell
-            nameCell.appendChild(specializationInput);
-
-            // Create the cell for the action button
-            var actionCell = document.createElement('td');
-            actionCell.classList.add('px-6', 'py-4', 'whitespace-nowrap', 'text-sm', 'font-medium');
-
-            // Create the "Remove" button
-            var removeButton = document.createElement('button');
-            removeButton.setAttribute('type', 'button');
-            removeButton.classList.add('inline-flex', 'items-center', 'px-4', 'py-2', 'border', 'border-transparent', 'rounded-md', 'font-semibold', 'text-xs', 'text-white', 'bg-red-600', 'hover:bg-red-700', 'focus:outline-none', 'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-red-500');
-            removeButton.textContent = 'Remove';
-
-            // Add an event listener to the "Remove" button to remove its parent row
-            removeButton.addEventListener('click', function() {
-                var row = this.parentNode.parentNode;
-                row.parentNode.removeChild(row);
-            });
-
-            // Append the "Remove" button to the action cell
-            actionCell.appendChild(removeButton);
-
-            // Append the cells to the new row
-            newRow.appendChild(nameCell);
-            newRow.appendChild(actionCell);
-
-            // Append the new row to the table body
-            tableBody.appendChild(newRow);
+        // Append the new row to the table body
+        tableBody.appendChild(newRow);
 
 
-        });
+    });
     </script>
 </x-app-layout>

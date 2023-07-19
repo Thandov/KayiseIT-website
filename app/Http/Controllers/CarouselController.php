@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
-use App\Models\User;
+use App\Models\Carousel;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 
-class ClientController extends Controller
+class CarouselController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +18,11 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = DB::table('clients')
-        ->join('users', 'users.id', '=', 'clients.user_id')
-        ->select('users.name AS first_name', 'users.email', 'clients.*')
-        ->get();
-        
-        return view('/admin/clients', compact('clients'));
+        $carousels = DB::table('carousels')
+            ->select('carousels.*')
+            ->get();
+
+        return view('/admin/carousel/carousel', compact('carousels'));
     }
 
     /**
@@ -47,27 +45,15 @@ class ClientController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                'first_name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                //'email' => 'required|email|unique:clients',
-                'phone' => 'required|string',
-                'address' => 'required|string',
-                'company' => 'required|string',
-                'province' => 'required|string',
+                'title' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+                'image' => 'required|string',
             ]);
 
-            // Create a new user
-            $user = new User();
-            $user->name = $validatedData['first_name'];
-            $user->surname = $validatedData['last_name'];
-            $user->password = bcrypt('K@y1s31T'); // Set the temporary password
-            $user->phone = $validatedData['phone'];
-            $user->email = $request->email;
             // Set values for other user fields
-            $user->save();
-            $client = new Client();
+            $client = new Carousel();
             $client->user_id = $user->id;
-            
+
             $client->address = $validatedData['address'];
             $client->company = $validatedData['company'];
             $client->province = $validatedData['province'];
@@ -79,7 +65,7 @@ class ClientController extends Controller
                 return response()->json(['message' => 'Client created successfully.']);
             }
 
-            return redirect()->route('admin.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
+            return redirect()->route('admin.carousel.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
@@ -93,13 +79,13 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = DB::table('clients')
-            ->join('users', 'users.id', '=', 'clients.user_id')
-            ->where('clients.user_id', (int)$id)
-            ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'clients.*')
+        $client = DB::table('carousels')
+            ->join('users', 'users.id', '=', 'carousel.user_id')
+            ->where('carousel.user_id', (int)$id)
+            ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'carousel.*')
             ->first();
 
-        return view('admin/clients/viewclient', compact('client'));
+        return view('admin/carousel/viewclient', compact('client'));
     }
 
     /**
@@ -131,7 +117,7 @@ class ClientController extends Controller
             'province' => 'required|string|max:255',
             'company' => 'required|string|max:255',
         ]);
-        
+
         $client = Client::where('user_id', $request->user_id)->first();
         $user = User::find($request->user_id);
         $changedFields = [];
@@ -163,7 +149,7 @@ class ClientController extends Controller
             $client->company = $validatedData['company'];
             $changedFields[] = 'company';
         }
-        
+
         if ($client->address !== $validatedData['address']) {
             $client->address = $validatedData['address'];
             $changedFields[] = 'address';
@@ -190,29 +176,23 @@ class ClientController extends Controller
     {
 
         $id = (int)$id;
-        $client = DB::table('clients')->where('id', $id)->first();
+        $client = DB::table('carousels')->where('id', $id)->first();
         $user = DB::table('users')->where('id', $client->user_id)->first();
 
-        if ($client && $user) {
+        if ($client) {
             // Perform your desired operations with the $client and $user models
-
-            // Delete the client
-            DB::table('clients')->where('id', $id)->delete();
-
-            // Delete the associated user
-            DB::table('users')->where('id', $client->user_id)->delete();
-
+            DB::table('carousels')->where('id', $id)->delete();
             if ($request->ajax()) {
                 return response()->json(['message' => 'client and associated user have been deleted.']);
             }
 
-            return redirect()->route('admin.clients')->with('success', 'client and associated user have been deleted.');
+            return redirect()->route('admin.carousel')->with('success', 'client and associated user have been deleted.');
         } else {
             if ($request->ajax()) {
                 return response()->json(['message' => 'client or associated user not found.'], 404);
             }
 
-            return redirect()->route('admin.clients')->with('error', 'client or associated user not found.');
+            return redirect()->route('admin.carousel')->with('error', 'client or associated user not found.');
         }
     }
 }

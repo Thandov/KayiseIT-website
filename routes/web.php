@@ -16,6 +16,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OccupationsController;
 use App\Http\Controllers\SpecializationsController;
 use App\Http\Controllers\CareerStepsController;
+use App\Http\Controllers\CarouselController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Occupations;
@@ -71,7 +72,7 @@ Route::get('terms', function () {
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -94,11 +95,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/clients/newclient', function () {
         return view('admin.clients.newclient');
     })->name('admin.client.newclient');
-    Route::post('/admin/clients/create', [ClientController::class, 'store']);
+    Route::POST('/admin/clients/create', [ClientController::class, 'store'])->name('admin.clients.create');
     Route::GET('/admin/clients/viewclient/{id}', [ClientController::class, 'show'])->name('admin.clients.viewclient');
     Route::POST('/admin/clients/viewclient/update/', [ClientController::class, 'update'])->name('admin.clients.viewclient.update');
-    Route::DELETE('/admin/clients/delete/{id}', [ClientController::class, 'delete_employee'])->name('admin.clients.delete');
-
+    Route::DELETE('/admin/clients/delete/{id}', [ClientController::class, 'destroy'])->name('admin.clients.delete');
 
     Route::GET('/admin/staff/', [AdminController::class, 'all_employees'])->name('admin.staff');
     Route::GET('/admin/staff/newstaff', function () {
@@ -194,6 +194,16 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin/career_mapping/careersteps/edit/{steps_id}', function () {
         return view('/admin/career_mapping/careersteps/edit');
     });
+    //Carousel
+    Route::GET('/admin/carousel/carousel', [CarouselController::class, 'index']);
+    Route::GET('/admin/carousel', [CarouselController::class, 'index'])->name('admin.carousel');
+    Route::GET('/admin/carousel/newcarousel', function () {
+        return view('admin.carousel.newcarousel');
+    })->name('admin.carousel.newcarousel');
+    Route::POST('/admin/carousel/create', [CarouselController::class, 'store'])->name('admin.carousel.create');
+    Route::GET('/admin/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('admin.carousel.viewcarousel');
+    Route::POST('/admin/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('admin.carousel.viewcarousel.update');
+    Route::DELETE('/admin/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.delete');
 
 });
 //==================================End of Admin Controls==================================================
@@ -237,7 +247,7 @@ Route::post('/store-selected-options', function (Illuminate\Http\Request $reques
 //paypal routes
 Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
 Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
-Route::post('/admin/career_mapping/viewspecialization', [CareerStepController::class, 'updatePosition'])->name('admin.career_mapping.viewspecialization');
+//Route::post('/admin/career_mapping/viewspecialization', [CareerStepController::class, 'updatePosition'])->name('admin.career_mapping.viewspecialization');
 
 
 
