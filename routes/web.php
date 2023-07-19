@@ -136,7 +136,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('users/delete/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('delete/{id}', [ServicesController::class, 'delete']);
     Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
-    Route::put('/updatesubservice/{id}', [SubServicesController::class, 'updateSubservice']);
+    Route::put('/updatesubservice', [SubServicesController::class, 'updateSubservice']);
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
     //Add services, subservices, options Blades
@@ -160,12 +160,14 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
     //blogs
+
     Route::post('storeblog-form', [BlogController::class, 'storeblog']);
     Route::GET('/admin/blogs/view_all_blogs', [BlogController::class, 'blog'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/addblog', [BlogController::class, 'addblog'])->name('admin.addblog');
-    Route::get('blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-    Route::post('/admin/blogs/update_blog', [BlogController::class, 'updateblog'])->name('admin.blogs.update_blog');
-    Route::GET('/admin/viewblogg/{id}', [BlogController::class, 'viewblogg'])->name('admin.viewblogg');
+    Route::GET('/admin/blog', [BlogController::class, 'blog'])->name('admin.blog');
+    Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
+    Route::post('/admin/blogs/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.update_blog');
+    Route::GET('/admin/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.viewblog');
 
     //Testimonials
     Route::GET('/admin/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');

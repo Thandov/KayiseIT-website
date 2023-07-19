@@ -6,10 +6,9 @@
         <div class="col-md-7">
             <div class="card">
 
-            <form method="POST" action="{{ url('/blog/'.$blog->id) }}">
-    @csrf
-    @method('PUT')
-
+                <form method="post" action="{{ route('admin.blogs.update_blog', ['id' => $blog->id]) }}">
+                    @csrf
+   
 <div class="m-3 row">
 <label for="title" class="col-sm-3 form-label fw-bold text-md-end">Title:</label> 
 <div class="col-sm-9">              
@@ -27,7 +26,7 @@
 <div class="m-3 row">
 <label for="content" class="col-sm-3 form-label fw-bold text-md-end">Post:</label> 
 <div class="col-sm-9">              
-<textarea name="content" value="{{ $blog->content }}" class="form-control">{{ $blog->content }}</textarea>
+<textarea name="content" value="{{ $blog->contet }}" class="form-control">{{ $blog->content }}</textarea>
 </div>
 </div>
 

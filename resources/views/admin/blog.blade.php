@@ -20,7 +20,7 @@
 
     <div class="d-flex justify-content-center align-items-center">
               <div class="row">
-            @foreach($blog as $blog)
+                @foreach($blogs as $blog)
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="card">
                 <img src="{{ asset('images/'.$blog->icon)}}" class="card-img" alt="Your Image">
