@@ -214,7 +214,7 @@ Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('
 
 
 //Blog
-Route::get('blog', [BlogController::class, 'blogpage'])->name('blogpage');
+Route::get('blog', [BlogController::class, 'blogpage'])->name('blog');
 Route::get('viewblog/{id}', [BlogController::class, 'viewblog'])->name('viewblog');
 
 //checkout

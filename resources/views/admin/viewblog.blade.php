@@ -27,7 +27,7 @@
 <div class="m-3 row">
 <label for="content" class="col-sm-3 form-label fw-bold text-md-end">Post:</label> 
 <div class="col-sm-9">              
-<textarea name="content" value="{{ $blog->content }}" class="form-control">{{ $blog->content }}</textarea>
+<input name="content" value="{!! $blog->content !!}" class="form-control">
 </div>
 </div>
 

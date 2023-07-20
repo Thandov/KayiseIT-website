@@ -13,32 +13,31 @@ class BlogController extends Controller
         $blog = Blog::all();
         return view('admin.blog', compact('blog'));
     }
-    
+
     public function addblog()
     {
         return view('admin/addblog');
     }
 
-    public function storeblog(Request $request)
-    {
-        $request->validate([
-            'icon' => 'required|mimes:jpg,png,jpeg|max:5048'
-        ]);
+public function storeblog(Request $request)
+{
+    
 
-        $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
+    $newImageName = time() . '_' . $request->title . '.' . $request->file('icon')->extension();
+    $request->file('icon')->move(public_path('images'), $newImageName);
 
-        $request->icon->move(public_path('images'), $newImageName);
-        
+    $blog = new Blog;
+    $blog->icon = $newImageName;
+    $blog->title = $request->title;
+    $blog->subtitle = $request->subtitle;
+    // $blog->category = $request->category;
+    $blog->content = $request->content;
+    $blog->save();
 
-        $blog = new Blog;
-        $blog->icon = $newImageName;
-        $blog->title = $request->title;
-        $blog->subtitle = $request->subtitle;
-        $blog->content = $request->content;
-        $blog->save();
-          
-        return redirect()->route('admin.blog')->with('success', 'testimony added successfully');
-    }
+    return redirect()->route('admin.blog')->with('success', 'Testimony added successfully');
+}
+
+
 
     public function blogpage()
     {
@@ -48,8 +47,8 @@ class BlogController extends Controller
 
     public function viewblog($id)
     {
-    $blog = Blog::find($id);
-    return view('viewblog', compact('blog'));
+        $blog = Blog::find($id);
+        return view('viewblog', compact('blog'));
     }
 
     public function destroyblog($id)
@@ -66,7 +65,7 @@ class BlogController extends Controller
         $blog->subtitle = $request->input('subtitle');
         $blog->content = $request->input('content');
         $blog->save();
-    
+
         return redirect()->route('admin.blog', $id)->with('success', 'blog updated successfully');
     }
 
