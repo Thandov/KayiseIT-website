@@ -94,8 +94,8 @@
                                 <!-- Input field for occup_id -->
                                 <input type="hidden" name="occup_id" value="{{ $occup_id }}">
 
-                                <input type="hidden" name="highest_value" value="{{ $updatedHighestValue }}">
-                                <input type="number" name="step_number[]" value="{{ $updatedHighestValue }}" id="step_number" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                                <input type="hidden" name="highest_value" value="{{ $arrlength }}">
+                                <input type="number" name="step_number[]" value="{{ $arrlength }}" id="step_number" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <input type="text" name="qualification[]" placeholder="Enter Qualification Name" id="qualification" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">

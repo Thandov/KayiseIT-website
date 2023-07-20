@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Specializations;
 use App\Models\CareerSteps;
 use App\Models\Occupations;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class SpecializationsController extends Controller
@@ -28,13 +29,15 @@ class SpecializationsController extends Controller
     {
         //show career steps on view specializations blade
         $specializations = Specializations::findOrFail($spec_id);
-        $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->get();
+        $careerSteps = CareerSteps::where('spec_id', $specializations->spec_id)->orderBy('step_number', 'asc')->get();
         $storedOptions = unserialize($request->session()->get('key'));
-        $highestValue = CareerSteps::max('step_number'); //
-        $updatedHighestValue = $highestValue + 1; //adds 1 to highest in DB
+        $results = DB::table('career_steps')->where('spec_id', $spec_id)->get(); //limit the selection
+        $arrlength = count($results);   // to get the length of the array
+        $arrlength = ++$arrlength;
+
         $occup_id = $specializations->occup_id;
 
-        return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'updatedHighestValue', 'occup_id'));
+        return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'arrlength', 'occup_id'));
     }
     
     public function addspecialization(Request $request, $occup_id)
@@ -49,7 +52,6 @@ class SpecializationsController extends Controller
             $specialization->specialization_name = $specializationName;
             $specialization->save();
         }
-    
         return redirect()->back()->with('success', 'Specializations added successfully.');
     }
 

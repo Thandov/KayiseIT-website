@@ -50,7 +50,6 @@ class CareerStepsController extends Controller
         foreach ($results as $result) {
             DB::table('career_steps')->where('steps_id', $result->steps_id)->update(['step_number' => $result->step_number]);
         }
-        dd($results);
 
         // Loop through the input data and create new career steps
         foreach ($stepNumbers as $key => $stepNumber) {
@@ -64,13 +63,13 @@ class CareerStepsController extends Controller
     {
         $steps_id = $request->input('steps_id');
         $newPosition = $request->input('newPosition');
-    
+
         // Update the position in the database based on the $stepId and $newPosition
-    
+
         // Return a response (e.g., JSON response)
         return response()->json(['success' => true]);
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -125,16 +124,27 @@ class CareerStepsController extends Controller
         if (!$careerstep) {
             return redirect()->back()->withErrors('Career Step not found.');
         }
-        
-        $stepNumber = $careerstep->step_number; // Get the step number of the career step being deleted
-    
+
+        $occupId = $careerstep->occup_id;
+        $specId = $careerstep->spec_id;
         $careerstep->delete(); // Delete the career step from the database
-    
-        // Update the step numbers of remaining career steps with step numbers greater than the deleted step number
-        CareerSteps::where('step_number', '>', $stepNumber)->decrement('step_number');
-    
+
+        // Limit the selection
+        $results = DB::table('career_steps')->where('occup_id', $occupId)->where('spec_id', $specId)->orderBy('step_number')->get(); // Orderby step number might be needed
+        $arrlength = count($results);   // to get the length of the array
+        $number = 1; //initialzie the number
+
+        //code to correct the sequence of numbers in the Array
+        for ($x = 0; $x < $arrlength; $x++) {
+            $results[$x]->step_number = $number;
+            $number++;
+        }
+
+        foreach ($results as $result) {
+            DB::table('career_steps')->where('steps_id', $result->steps_id)->update(['step_number' => $result->step_number]);
+        }
+
         return redirect()->back();
     }
-    
 }
 ////////////////Kray_ATM
