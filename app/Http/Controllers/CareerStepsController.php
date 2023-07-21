@@ -36,7 +36,7 @@ class CareerStepsController extends Controller
         $qualifications = $request->input('qualification'); //from form
         $specId = $request->input('spec_id'); //from form hidden
         $occupId = $request->input('occup_id'); //from form hidden
-        $results = DB::table('career_steps')->where('spec_id', $specId)->get(); //limit the selection and order in assending order
+        $results = DB::table('career_steps')->where('spec_id', $specId)->orderBy('step_number')->get(); //limit the selection and order in assending order
         $arrlength = count($results);   // to get the length of the array
         $number = 1; //initialzie the number 
 
@@ -45,16 +45,24 @@ class CareerStepsController extends Controller
             $results[$x]->step_number = $number;
             $number++;
         }
-
         // Update the step_number column in the career_steps table
         foreach ($results as $result) {
             DB::table('career_steps')->where('steps_id', $result->steps_id)->update(['step_number' => $result->step_number]);
-        }
-
-        // Loop through the input data and create new career steps
+        } 
+        
         foreach ($stepNumbers as $key => $stepNumber) {
+            // Create a new CareerStep instance
+            $careerStep = new CareerSteps();
+            $careerStep->step_number = $stepNumber;
+            $careerStep->qualification = $qualifications[$key];
+            $careerStep->u_id = null; // Replace this with the actual user ID if you have it
+            $careerStep->occup_id = $occupId;
+            $careerStep->spec_id = $specId;
+            $careerStep->save();
+    
+            // Increment the number for the next step (if needed)
+            $number++;
         }
-
         // Redirect or return a response as needed
         return redirect()->back()->with('success', 'Career steps added successfully.');
     }

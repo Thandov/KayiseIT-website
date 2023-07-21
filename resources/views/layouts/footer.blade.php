@@ -85,7 +85,7 @@
       </div>
       <div class="row justify-content-center py-2">
         <div class="col-6 d-flex align-items-center justify-content-center">
-          <span class="text-white">Copyright © <a href="#">KAYISE IT.</a>All rights reserved</span>
+          <span class="text-white text-center">Copyright © <a href="#">KAYISE IT.</a>All rights reserved</span>
         </div>
       </div>
     </div>
