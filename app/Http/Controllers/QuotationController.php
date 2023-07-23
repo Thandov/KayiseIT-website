@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 
 class QuotationController extends Controller
@@ -98,117 +99,141 @@ class QuotationController extends Controller
         $request->session()->put('selectedOptions', $selectedOptions);
 
         return back()->with('success', 'Quotation request submitted successfully!');
-
     }
 
     public function createQuote(Request $request)
     {
-        // Create an empty array to store the selected options
-        $selectedOptions = [];
 
-        $quotation = new Quotation;
-        $quotation->user_id = auth()->user()->id;
-        $quotation->quotation_no = 'Q' . mt_rand(100000, 999999);
-        $quotation->save();
+        $requestData = request()->all(); // Assuming the form data is sent through POST request
+        $reponse_type = "";
+        $response_msg = "";
+        $subservice_id = $requestData['subservice_id'];
+        $subservice_name = $requestData['subservice_name'];
 
-        $subservice = Subservice::find($request->input('subservice_id'));
-        $item = new Items;
-        $item->user_id = auth()->user()->id;
-        $item->name = $subservice->name;
-        $item->price = $subservice->price;
-        $item->qty = 1;
-        $item->sub_total = $subservice->price;
-        $item->QI_id = $quotation->quotation_no;
-        $item->save();
+        $quotation = Quotation::where('job_type', $subservice_name)
+            ->latest('created_at')
+            ->first();
 
-        // Loop through all the options
-        if (!is_null($request->options)) {
-            foreach ($request->options as $option) {
-                // Check if the checkbox is checked for this option
-                if (!empty($option['id']) && !empty($option['qty'])) {
-                    // If it is checked, add it to the selectedOptions array
-                    $selectedOptions[] = $option;
+        if ($quotation) {
+            // Compare the created_at time with the current time
+            $createdAt = Carbon::parse($quotation->created_at);
+            $currentTime = Carbon::now();
+            $timeDifference = $currentTime->diffInMinutes($createdAt);
+
+            // If the time difference is less than 5 minutes, it's a potential double booking
+            if ($timeDifference < 300) {
+                // Handle the double booking error here
+                // For example, you can throw an exception, display an error message, or take appropriate action.
+                // For demonstration purposes, I'm just returning a message here.
+                $reponse_type = "error";
+                $response_msg = "Double booking detected! Please try again later.";
+            } else {
+                // Create an empty array to store the selected options
+                $selectedOptions = [];
+
+                $quotation = new Quotation;
+                $quotation->user_id = auth()->user()->id;
+                $quotation->quotation_no = 'Q' . mt_rand(100000, 999999);
+                $quotation->save();
+
+                $subservice = Subservice::find($request->input('subservice_id'));
+                $item = new Items;
+                $item->user_id = auth()->user()->id;
+                $item->name = $subservice->name;
+                $item->price = $subservice->price;
+                $item->qty = 1;
+                $item->sub_total = $subservice->price;
+                $item->QI_id = $quotation->quotation_no;
+                $item->save();
+
+                // Loop through all the options
+                if (!is_null($request->options)) {
+                    foreach ($request->options as $option) {
+                        // Check if the checkbox is checked for this option
+                        if (!empty($option['id']) && !empty($option['qty'])) {
+                            // If it is checked, add it to the selectedOptions array
+                            $selectedOptions[] = $option;
+                        }
+                    }
                 }
+
+                // Loop through the selectedOptions array and print the selected options
+                foreach ($selectedOptions as $option) {
+                    $option_id = $option['id'];
+                    $option_name = $option['name'];
+                    $option_qty = $option['qty'];
+                    $option_price = $option['price'];
+
+                    // Do something with the selected option
+                    $sub_total = $option_qty * $option_price;
+
+                    $item = new Items;
+                    $item->user_id = auth()->user()->id;
+                    $item->name = $option_name;
+                    $item->price = $option_price;
+                    $item->qty = $option_qty;
+                    $item->sub_total = $sub_total;
+                    $item->QI_id = $quotation->quotation_no;
+                    $item->save();
+                }
+
+                $total_price = Items::where('QI_id', $quotation->quotation_no)->sum('sub_total');
+                $vat_total = $total_price * 0.15;
+                $total = $total_price + $vat_total;
+                $quotation->total_price = $total;
+                $quotation->save();
+
+                $userEmail = auth()->user()->email;
+                $data = [
+                    'quotation' => $quotation,
+                    'total_price' => $total_price,
+                    'vat_total' => $vat_total,
+                    'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
+                ];
+
+                $reponse_type = "success";
+                $response_msg = "Quotation request submitted successfully!";
+
+                $request->session()->put('selectedOptions', $selectedOptions);
             }
         }
-
-        // Loop through the selectedOptions array and print the selected options
-        foreach ($selectedOptions as $option) {
-            $option_id = $option['id'];
-            $option_name = $option['name'];
-            $option_qty = $option['qty'];
-            $option_price = $option['price'];
-
-            // Do something with the selected option
-            $sub_total = $option_qty * $option_price;
-
-            $item = new Items;
-            $item->user_id = auth()->user()->id;
-            $item->name = $option_name;
-            $item->price = $option_price;
-            $item->qty = $option_qty;
-            $item->sub_total = $sub_total;
-            $item->QI_id = $quotation->quotation_no;
-            $item->save();
-        }
-
-        $total_price = Items::where('QI_id', $quotation->quotation_no)->sum('sub_total');
-        $vat_total = $total_price * 0.15;
-        $total = $total_price + $vat_total;
-        $quotation->total_price = $total;
-        $quotation->save();
-
-        $userEmail = auth()->user()->email;
-        $data = [
-            'quotation' => $quotation,
-            'total_price' => $total_price,
-            'vat_total' => $vat_total,
-            'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
-        ];
-
-        
-
-        $request->session()->put('selectedOptions', $selectedOptions);
-
-        //return back()->with('success', 'Quotation request submitted successfully!');
-        return redirect()->route('viewsubservice.check', ['subservice_id' => $request->subservice_id, 'quotation_no' => $quotation->quotation_no])->with('success', 'Quotation created');
-
+        return redirect()->route('viewsubservice.check', ['subservice_id' => $request->subservice_id, 'quotation_no' => $quotation->quotation_no])->with($reponse_type, $response_msg);
     }
 
 
     public function save_invoice(Request $request)
-{
-    // Validate the incoming request data
-    $validatedData = $request->validate([
-        'action' => 'required|string',
-        'paypal_response' => 'required|string',
-    ]);
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'action' => 'required|string',
+            'paypal_response' => 'required|string',
+        ]);
 
-    if ($validatedData['action'] === 'store') {
-        // Retrieve the authenticated user
-        $user = auth::user();
+        if ($validatedData['action'] === 'store') {
+            // Retrieve the authenticated user
+            $user = auth::user();
 
-        // Parse the PayPal response
-        $response = json_decode($validatedData['paypal_response'], true);
+            // Parse the PayPal response
+            $response = json_decode($validatedData['paypal_response'], true);
 
-         //Create a new instance of the Invoice model
-        $invoice = new Invoice();
+            //Create a new instance of the Invoice model
+            $invoice = new Invoice();
 
-        // Set the attributes of the new invoice
-        $invoice->user_id = $user->id;
-        $invoice->invoice_no = $response['id'];
-        $invoice->total_price = $response['purchase_units'][0]['amount']['value'];
+            // Set the attributes of the new invoice
+            $invoice->user_id = $user->id;
+            $invoice->invoice_no = $response['id'];
+            $invoice->total_price = $response['purchase_units'][0]['amount']['value'];
 
-        // Save the invoice to the database
-        $invoice->save();
+            // Save the invoice to the database
+            $invoice->save();
 
-        // Return a response indicating success
-        return response()->json(['message' => 'Invoice stored successfully'], 201);
+            // Return a response indicating success
+            return response()->json(['message' => 'Invoice stored successfully'], 201);
+        }
+
+        // Return a response indicating an invalid action
+        return response()->json(['message' => 'Invalid action'], 400);
     }
-
-    // Return a response indicating an invalid action
-    return response()->json(['message' => 'Invalid action'], 400);
-}
 
     public function quotationPDF($id)
     {

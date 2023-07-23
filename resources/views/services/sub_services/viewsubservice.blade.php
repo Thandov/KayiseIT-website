@@ -33,6 +33,7 @@
                <form id="checkout-form" action="{{ route('viewsubservice.createQuote', ['subservice_id' => $subservice->id]) }}" method="post" enctype="multipart/form-data">
                   @csrf
                   <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
+                  <input type="hidden" name="subservice_name" value="{{ $subservice->name }}">
                   <div id="options-form"></div>
                   <h2 class="text-lg font-bold mb-4">Checkout Area</h2>
                   <!-- Your checkout card content goes here  -->
