@@ -8,7 +8,7 @@
                 </tr>
                 <tr>
                     <th scope="col" class="px-6 py-2">
-                        <form action="/admin/addblog" method="get">
+                        <form action="/admin/blogs/addblog" method="get">
                             @csrf
                             <button id="show" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Blog</button>
                         </form>  
@@ -26,7 +26,7 @@
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap font-medium flex justify-end">
                         <div class="flex">
-                            <x-front-end-btn linking="{{url('/admin/viewblog', $blog->id)}}" color="blue" showme="" name="Edit" />
+                            <x-front-end-btn linking="{{url('/admin/blogs/viewblog', $blog->id)}}" color="blue" showme="" name="Edit" />
                             <form action="{{ url('/blog/delete', $blog->id) }}" method="get" onsubmit="return confirm('Are you sure you want to delete this service?');">
                                 @csrf
                                 @method('DELETE')

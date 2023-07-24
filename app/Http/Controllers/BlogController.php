@@ -16,7 +16,7 @@ class BlogController extends Controller
     
     public function addblog()
     {
-        return view('admin/addblog');
+        return view('admin/blogs/addblog');
     }
 
     public function storeblog(Request $request)
@@ -37,7 +37,7 @@ class BlogController extends Controller
         $blog->content = $request->content;
         $blog->save();
           
-        return view('/admin/blog')->with('success', 'blog post added successfully');
+        return view('/admin/blogs/blog')->with('success', 'blog post added successfully');
     }
 
     public function blogpage()
@@ -69,6 +69,6 @@ class BlogController extends Controller
     public function viewblog($id)
     {
         $blog = Blog::find($id);
-        return view('admin/viewblog', compact('blog'));
+        return view('admin/blogs/viewblog', compact('blog'));
     }
 }
