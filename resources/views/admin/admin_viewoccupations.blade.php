@@ -44,7 +44,7 @@
                                     <a href="{{ url('/admin/career_mapping/specialization/edit',$specialization->spec_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <form action="{{ route('specializations.delete', $specialization->spec_id) }}" method="POST">
+                                    <form action="{{ route('specializations.delete', $specialization->spec_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this specialization?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>

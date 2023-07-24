@@ -47,7 +47,7 @@
                                         <a href="{{ url('/admin/career_mapping/careersteps/edit',$careerStep->steps_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST">
+                                        <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Career Step?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
@@ -68,7 +68,7 @@
             <div class="flex justify-end">
                 <button id="hide">&times</button>
             </div>
-            <form action="{{url('addcareersteps-form')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('addcareersteps-form')}}" method="post" enctype="multipart/form-data" >
                 @csrf
                 <!-- table  -->
                 <table id="table" class="min-w-full divide-y divide-gray-200">

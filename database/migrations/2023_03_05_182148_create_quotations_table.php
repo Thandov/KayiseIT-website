@@ -18,14 +18,16 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('quotation_no')->default('Q'.Str::padLeft(Str::random(6), 6, '0'))->unique();
-            $table->string('job_type')->unsigned()->nullable();
+            $table->string('job_type')->nullable(); // Remove 'unsigned' from here
             $table->decimal('total_price', 10, 2)->default(0);
             $table->timestamps();
         });
+        
         Schema::table('quotations', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
+    
 
 
     /**
