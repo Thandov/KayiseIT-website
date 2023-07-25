@@ -36,16 +36,15 @@ class BlogController extends Controller
         $blog->subtitle = $request->subtitle;
         $blog->content = $request->content;
         $blog->save();
-          
-        return view('/admin/blogs/blog')->with('success', 'blog post added successfully');
+        
+        return view('/admin/blogs/blog', compact('blogs'))->with('success', 'blog post added successfully');
     }
 
     public function blogpage()
     {
-        $blog = Blog::all();
-        return view('blog', compact('blog'));
+        $blogs = Blog::all();
+        return view('blog', compact('blogs'));
     }
-
    
 
     public function destroyblog($id)
@@ -71,4 +70,24 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         return view('admin/blogs/viewblog', compact('blog'));
     }
+    
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload'))  {
+
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time(). '.' . $extension;
+
+            $request->file('upload')->move(public_path('media'), $fileName);
+            $url = asset('media/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1 
+             , 'url' => $url]);
+        }
+    }
+
+    
+
+
 }

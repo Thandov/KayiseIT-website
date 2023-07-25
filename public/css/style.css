@@ -1013,3 +1013,7 @@ footer .bottom-details .bottom_text {
   width: 200px;
   height: 250px;
 }/*# sourceMappingURL=style.css.map */
+
+.ck-editor__editable_inline{
+height: 400px;
+}

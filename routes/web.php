@@ -164,10 +164,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('storeblog-form', [BlogController::class, 'storeblog']);
     Route::GET('/admin/blogs/view_all_blogs', [BlogController::class, 'blog'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
-    Route::post('/admin/blog', [BlogController::class, 'blogpage'])->name('admin.blog');
+    Route::GET('/admin/blogs/blog', [BlogController::class, 'blogpage'])->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
     Route::post('/admin/blogs/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.update_blog');
     Route::GET('/admin/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
+    Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
 
     //Testimonials
     Route::GET('/admin/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');

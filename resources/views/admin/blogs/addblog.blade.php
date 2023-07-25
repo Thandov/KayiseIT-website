@@ -2,7 +2,7 @@
     
     <div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-md-7">
+        <div class="col-md-12">
             <div class="card">
 
     
@@ -33,7 +33,7 @@
 <div class="m-3 row">
 <label for="content" class="col-sm-3 form-label fw-bold text-md-end">Post:</label> 
 <div class="col-sm-9">              
-<textarea type="text" name="content" id="content" class="form-control"></textarea>
+<textarea type="text" name="content" id="task-textarea" class="form-control"></textarea>
 </div>
 </div>
 
@@ -53,4 +53,16 @@
     </div>
 </div>
 </x-app-layout>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#task-textarea'), {
+            ckfinder: {
+                uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
