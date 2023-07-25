@@ -1,49 +1,19 @@
+<!-- blog.blade.php -->
+
 <x-app-layout>
-    
-
     <div class="container mt-3">
-    <div class="row justify-content-center">
-        <div class="col-md-7">
-            <div class="card">
-
-                <form method="post" action="{{ route('admin.blogs.update_blog', ['id' => $blog->id]) }}">
-                    @csrf
-   
-<div class="m-3 row">
-<label for="title" class="col-sm-3 form-label fw-bold text-md-end">Title:</label> 
-<div class="col-sm-9">              
-<input name="title" value="{{ $blog->title }}" class="form-control">
-</div>
-</div>
-
-<div class="m-3 row">
-<label for="subtitle" class="col-sm-3 form-label fw-bold text-md-end">Sub Title:</label> 
-<div class="col-sm-9">              
-<input name="subtitle" value="{{ $blog->subtitle }}" class="form-control">
-</div>
-</div>
-
-<div class="m-3 row">
-<label for="content" class="col-sm-3 form-label fw-bold text-md-end">Post:</label> 
-<div class="col-sm-9">              
-<textarea name="content" value="{{ $blog->contet }}" class="form-control">{{ $blog->content }}</textarea>
-</div>
-</div>
-
-
-<div class="row">
-             <div class="col">
-                 <div class="d-flex align-items-center justify-content-end">
-                     <button  style="background-color: green" class="btn btn-success m-3" type="submit">Update</button>
-                 </div>
-             </div>
-         </div>
-
-</form>
-
-           </div>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    @if($blog->icon)
+                        <img src="{{ asset('images/' . $blog->icon) }}" alt="Blog Icon" class="card-img-top" style="max-width: 830px; max-height: 400px;">
+                    @endif
+                    <div class="card-body">
+                        <h2 style="color: #64bc5c" class="text-center mb-5 font-bold text-5xl md:text-5xl">{{ $blog->title }}</h2>
+                        <p class="card-text">{!! $blog->content !!}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </x-app-layout>
-
