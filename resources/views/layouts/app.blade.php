@@ -32,12 +32,14 @@ session_start();
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=Aaq9Jhzs7pMXZLUEmCSwHWDB34sZP5LKoMMv8YEGKFPSLcnYX_No11nJEy87QxP9t9pvVNtAVUpj9BAh"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
     <script src="{{ asset('/js/app.js') }}" defer></script>
     <script src="{{ asset('/js/owl.carousel.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('/js/scripts.js') }}" defer></script>
     <script src="{{ asset('/js/live_img_change.js') }}" defer></script>
-    
+
     <script>
     let i = 0;
     $("#duplicate-form").click(function() {

@@ -88,6 +88,12 @@ Route::middleware('auth')->group(function () {
 //Route::post('store-form',[QuotationController::class, 'store']);
 Route::post('quote-form', [QuotationController::class, 'quote'])->middleware('auth');
 Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
+
+//paypal routes
+Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
+Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
+
+
 //=================================================Admin ==================================================
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     //Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
@@ -110,6 +116,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
+    Route::GET('/admin/blogs/view_all_blogs', [AdminController::class, 'view_all_blogs'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
     Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
     Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
@@ -134,7 +141,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('users/delete/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('delete/{id}', [ServicesController::class, 'delete']);
     Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
-    Route::put('/updatesubservice/{id}', [SubServicesController::class, 'updateSubservice']);
+    Route::put('/updatesubservice', [SubServicesController::class, 'updateSubservice']);
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
     //Add services, subservices, options Blades
@@ -158,12 +165,16 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
     //blogs
+
     Route::post('storeblog-form', [BlogController::class, 'storeblog']);
-    Route::GET('/admin/blog', [BlogController::class, 'blog'])->name('admin.blog');
-    Route::GET('/admin/addblog', [BlogController::class, 'addblog'])->name('admin.addblog');
-    Route::get('blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-    Route::put('/blog/{id}', [BlogController::class, 'updateblog'])->name('blog.update');
-    Route::GET('/admin/viewblogg/{id}', [BlogController::class, 'viewblogg'])->name('admin.viewblogg');
+    Route::GET('/admin/blogs/view_all_blogs', [BlogController::class, 'blog'])->name('admin.blogs.view_all_blogs');
+    Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
+    Route::GET('/admin/blogs/blog', [BlogController::class, 'blogpage'])->name('admin.blogs.blog');
+    Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
+    Route::post('/admin/blogs/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.update_blog');
+    Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
+    Route::GET('/admin/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
+    Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
 
     //Testimonials
     Route::GET('/admin/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');

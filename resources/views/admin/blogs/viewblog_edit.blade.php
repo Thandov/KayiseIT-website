@@ -3,13 +3,12 @@
 
     <div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-md-7">
+        <div class="col-md-12">
             <div class="card">
 
-            <form method="POST" action="{{ url('/blog/'.$blog->id) }}">
-    @csrf
-    @method('PUT')
-
+                <form method="post" action="{{ route('admin.blogs.update_blog', ['id' => $blog->id]) }}">
+                    @csrf
+   
 <div class="m-3 row">
 <label for="title" class="col-sm-3 form-label fw-bold text-md-end">Title:</label> 
 <div class="col-sm-9">              
@@ -27,7 +26,7 @@
 <div class="m-3 row">
 <label for="content" class="col-sm-3 form-label fw-bold text-md-end">Post:</label> 
 <div class="col-sm-9">              
-<textarea name="content" value="{{ $blog->content }}" class="form-control">{{ $blog->content }}</textarea>
+<textarea name="content" id="task-textarea" value="{{ $blog->contet }}" class="form-control">{{ $blog->content }}</textarea>
 </div>
 </div>
 
@@ -48,3 +47,14 @@
 </div>
 </x-app-layout>
 
+<script>
+    ClassicEditor
+        .create(document.querySelector('#task-textarea'), {
+            ckfinder: {
+                uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>

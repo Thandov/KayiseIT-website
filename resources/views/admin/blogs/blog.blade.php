@@ -12,7 +12,7 @@
                   <div class="row justify-content-center">
                      <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 w-11/12 gap-5 p-4 ">
 
-                        @foreach($blog as $blog)
+                        @foreach($blogs as $blog)
                         <div class="max-w-sm lg:max-w-sm rounded overflow-hidden shadow-lg border">
                            <div class="card-content">
                               <div class="relative">

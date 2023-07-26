@@ -10,13 +10,13 @@ class BlogController extends Controller
     //
     public function blog()
     {
-        $blog = Blog::all();
-        return view('admin.blog', compact('blog'));
+        $blogs = Blog::all();
+        return view('admin.blogs.view_all_blogs', compact('blogs'));
     }
     
     public function addblog()
     {
-        return view('admin/addblog');
+        return view('admin/blogs/addblog');
     }
 
     public function storeblog(Request $request)
@@ -36,21 +36,16 @@ class BlogController extends Controller
         $blog->subtitle = $request->subtitle;
         $blog->content = $request->content;
         $blog->save();
-          
-        return redirect()->route('admin.blog')->with('success', 'testimony added successfully');
+        $blogs = Blog::all();
+        return redirect()->route('admin.blogs.blog');
     }
 
     public function blogpage()
     {
-        $blog = Blog::all();
-        return view('blog', compact('blog'));
+        $blogs = Blog::all();
+        return view('/admin/blogs/blog', compact('blogs'));
     }
-
-    public function viewblog($id)
-    {
-    $blog = Blog::find($id);
-    return view('viewblog', compact('blog'));
-    }
+   
 
     public function destroyblog($id)
     {
@@ -67,12 +62,38 @@ class BlogController extends Controller
         $blog->content = $request->input('content');
         $blog->save();
     
-        return redirect()->route('admin.blog', $id)->with('success', 'blog updated successfully');
+        return redirect()->back()->with('success', 'Blog updated successfully');
     }
 
-    public function viewblogg($id)
+    public function viewblog_edit($id)
     {
         $blog = Blog::find($id);
-        return view('admin/viewblog', compact('blog'));
+        return view('admin/blogs/viewblog_edit', compact('blog'));
     }
+    
+    public function viewblog($id)
+    {
+        $blog = Blog::find($id);
+        return view('admin/blogs/viewblog', compact('blog'));
+    }
+    
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload'))  {
+
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName . '_' . time(). '.' . $extension;
+
+            $request->file('upload')->move(public_path('media'), $fileName);
+            $url = asset('media/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1 
+             , 'url' => $url]);
+        }
+    }
+
+    
+
+
 }
