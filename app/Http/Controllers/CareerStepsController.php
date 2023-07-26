@@ -111,6 +111,11 @@ class CareerStepsController extends Controller
      */
     public function updateCareerStep(Request $request)
     {
+        $request->validate([
+            'steps_id' => 'required|integer',
+            'step_number' => 'required|integer',
+            'qualification' => 'required|string|max:255', 
+        ]);
         //
         $careerStep = CareerSteps::findOrFail($request->input('steps_id'));
         $careerStep->step_number = $request->input('step_number');
