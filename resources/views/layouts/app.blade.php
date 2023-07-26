@@ -39,7 +39,6 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('/js/scripts.js') }}" defer></script>
     <script src="{{ asset('/js/live_img_change.js') }}" defer></script>
-
     <script>
     let i = 0;
     $("#duplicate-form").click(function() {
