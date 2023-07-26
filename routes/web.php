@@ -15,9 +15,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OccupationsController;
 use App\Http\Controllers\SpecializationsController;
 use App\Http\Controllers\CareerStepsController;
+use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Occupations;
+use App\Models\PostCategories;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,6 +172,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
     Route::GET('/admin/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
+    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
 
     //Testimonials
     Route::GET('/admin/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
