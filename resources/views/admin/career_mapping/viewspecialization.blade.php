@@ -4,10 +4,6 @@
             {{ __('CAREER MAPPING') }}
         </h2>
     </x-slot>
-    <!-- Add an error block to display validation errors -->
-    <!-- Add an error block to display validation errors -->
-
-
     <section>
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow rounded-lg">
@@ -19,51 +15,47 @@
                     <div>
                         <button id="show" class="inline-flex items-center mb-4 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Career Step</button>
                     </div>
-                    <div class="">
-                        <table id="sortable-table" class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Step Number
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Qualification
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Edit
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Delete
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="sortable-body" class="bg-white divide-y divide-gray-200">
-                                <!-- start for each loop -->
-                                @foreach($careerSteps as $index => $careerStep)
-                                <tr class="sortable-row" data-step-id="{{ $careerStep->steps_id }}">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900 step-number">{{ $index + 1 }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $careerStep->qualification }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ url('/admin/career_mapping/careersteps/edit',$careerStep->steps_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Career Step?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <!-- end for each loop -->
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Step Number
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Qualification
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Edit
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Delete
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 sortable-table-body"> <!-- start for each loop -->
+                            @foreach($careerSteps as $index => $careerStep)
+                            <tr data-step-id="{{ $careerStep->steps_id }}">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900 step-number">{{ $index + 1 }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $careerStep->qualification }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="{{ url('/admin/career_mapping/careersteps/edit',$careerStep->steps_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Career Step?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <!-- end for each loop -->
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -118,7 +110,7 @@
     </section>
     <!-- JavaScript to provide the "Show/Close" functionality -->
     <script type="text/JavaScript">
-                (function () {
+        (function () {
         var dialog = document.getElementById('addSpecializationsModal');
         document.getElementById('show').onclick = function () {
             dialog.showModal();
@@ -215,17 +207,20 @@
         });
         }
 
-        //
+        //Alert for input validation error 
         document.addEventListener("DOMContentLoaded", function() {
-                    var errorMessages = @json($errors->all());
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Validation Error',
-                        html: '<ul>' +
-                                errorMessages.map(error => '<li>' + error + '</li>').join('') +
-                            '</ul>',
-                    });
+            var errorMessages = @json($errors->all());
+
+            if (errorMessages.length > 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: '<ul>' +
+                            errorMessages.map(error => '<li>' + error + '</li>').join('') +
+                          '</ul>',
                 });
+            }
+        });
 
         //Alert for Career Step Successfully Added 
         document.addEventListener("DOMContentLoaded", function() {
@@ -238,63 +233,27 @@
                 @endif
             });
 
+            //Make table sortable
+            document.addEventListener('DOMContentLoaded', function () {
+            const tbody = document.querySelector('.sortable-table-body');
+            const sortable = new Sortable(tbody, {
+            animation: 150,
+            onUpdate: function (evt) {
+                // Get the new order of rows after dragging
+                const rows = evt.from.children;
+                const newOrder = Array.from(rows).map(row => row.dataset.stepId);
 
-        const sortableTable = document.getElementById('sortable-table');
-        const sortableBody = document.getElementById('sortable-body');
-        const sortableRows = sortableBody.getElementsByClassName('sortable-row');
+                // You can now send the newOrder array to your backend to update the database.
+                // You may use Ajax or other Laravel methods to update the order.
+                console.log(newOrder);
 
-        let draggingElement = null;
-
-        // Function to update the position numbers and the database
-        function updatePositionAndDatabase() {
-            const rows = sortableBody.getElementsByClassName('sortable-row');
-            for (let i = 0; i < rows.length; i++) {
-                const stepId = rows[i].getAttribute('data-step-id');
-                const stepNumberElement = rows[i].querySelector('.step-number');
-                if (stepNumberElement) {
-                    stepNumberElement.innerText = i + 1;
-                    
-                    fetch('/admin/career_mapping/viewspecialization', {
-        method: 'POST',
-        body: JSON.stringify({ stepId: stepId, newPosition: i + 1 }),
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Handle the response or do any necessary actions
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-                        
-                    }
-                }
-            }
-
-            // Event listener for drag start
-            sortableTable.addEventListener('dragstart', (e) => {
-                draggingElement = e.target.closest('.sortable-row');
-            });
-
-            // Event listener for drag over
-            sortableTable.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                const targetElement = e.target.closest('.sortable-row');
-                if (targetElement && draggingElement && targetElement !== draggingElement) {
-                    const rect = targetElement.getBoundingClientRect();
-                    const nextElement = (e.clientY - rect.top > rect.height / 2) ? targetElement.nextSibling : targetElement;
-                    sortableBody.insertBefore(draggingElement, nextElement);
-                    updatePositionAndDatabase();
-                }
-            });
-
-            // Event listener for drag end
-            sortableTable.addEventListener('dragend', () => {
-                draggingElement = null;
+                // Update the displayed step numbers
+                const stepNumberElements = document.querySelectorAll('.step-number');
+                stepNumberElements.forEach((element, index) => {
+                    element.textContent = index + 1;
+                        });
+                    },
+                });
             });
     </script>
 </x-app-layout>

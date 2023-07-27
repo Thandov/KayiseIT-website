@@ -64,17 +64,6 @@ class CareerStepsController extends Controller
         return redirect()->back()->with('success', 'Career Step(s) added successfully.');
     }
 
-    public function updatePosition(Request $request)
-    {
-        $steps_id = $request->input('steps_id');
-        $newPosition = $request->input('newPosition');
-
-        // Update the position in the database based on the $stepId and $newPosition
-
-        // Return a response (e.g., JSON response)
-        return response()->json(['success' => true]);
-    }
-
     public function updateCareerStep(Request $request)
     {
         $request->validate([

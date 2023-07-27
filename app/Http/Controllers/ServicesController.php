@@ -33,6 +33,27 @@ class ServicesController extends Controller
 
     public function store(Request $request)
     {
+        // Custom validation messages for each field
+        $customMessages = [
+            'required' => 'The :attribute field is required.',
+            'string' => 'The :attribute field must be a string.',
+            'max' => 'The :attribute field cannot be longer than :max characters.',
+            'in' => 'The selected :attribute is invalid.',
+            'numeric' => 'The :attribute field must be a number.',
+            'image' => 'The :attribute must be an image.',
+            'mimes' => 'The :attribute must be a file of type: :values.',
+            'max' => 'The :attribute must not be greater than :max kilobytes.',
+        ];
+
+        // Validate the input data with custom messages
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'service_type' => 'required|in:static,dynamic',
+            'price' => 'required|numeric',
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
+        ], $customMessages);
+
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
         $request->icon->move(public_path('images/service_logo'), $newImageName);
 
