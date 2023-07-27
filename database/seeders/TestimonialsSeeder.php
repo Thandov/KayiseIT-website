@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Testimonial;
+use Illuminate\Support\Facades\DB;
 
 class TestimonialsSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class TestimonialsSeeder extends Seeder
     public function run()
     {
         
-    $testimonials = [
+    $data = [
         [
             'icon' => 'thaps.jpg',
             'name' => 'Maluka Thapelo',
@@ -25,29 +25,22 @@ class TestimonialsSeeder extends Seeder
                            They are the best at what they do.',
         ],
         [
-            'icon' => 'lebo.jpg',
-            'name' => 'john Murray',
+            'icon' => 'Tshepiso.jpg',
+            'name' => 'Tshepiso Pitsi',
             'ratings' => '4',
             'testimony' => 'I recommend Kayise IT to everyone for IT solutions and needs.They have a dedicated team that knows
                             what they are doing.',
         ],
         [
-            'icon' => 'lele.jpg',
-            'name' => 'Malele Tsepi',
+            'icon' => 'Mduduzi.jpg',
+            'name' => 'Mduduzi Magagula',
             'ratings' => '5',
             'testimony' => 'It was way easier starting my business with the help of Kayise IT with their IT solutions and
                             great marketing skills',
         ],
     ];
 
-    foreach ($testimonials as $testimonial) {
+    DB::table('testimonials')->insert($data);
 
-        $Testimonials = new Testimonial();
-        $Testimonials->icon = $testimonial['icon'];
-        $Testimonials->name = $testimonial['name'];
-        $Testimonials->testimony = $testimonial['testimony'];
-        $Testimonials->ratings = $testimonial['ratings'];
-        $Testimonials->save();
-    }
     }
 }

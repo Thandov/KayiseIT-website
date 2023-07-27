@@ -1,28 +1,6 @@
 <x-app-layout title="clients Dashboard">
 
-    @if (session('error'))
-    <script>
-        // Display SweetAlert for error message
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: "{{ session('error') }}",
-        });
-    </script>
-    @endif
-
-    @if (session('success'))
-    <script>
-        // Display SweetAlert for success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: "{{ session('success') }}",
-        });
-    </script>
-    @endif
-
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-4">
             <div class="p-6 bg-white border-b border-gray-200">
                 <nav class="flex" aria-label="Breadcrumb">

@@ -13,27 +13,7 @@
         <x-hero-banner hero="contact-hero" title="Contact Us"></x-hero-banner>
     </section>
 
-    @if (session('error'))
-  <script>
-    // Display SweetAlert for error message
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: "{{ session('error') }}",
-    });
-  </script>
-@endif
-
-@if (session('success'))
-  <script>
-    // Display SweetAlert for success message
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: "{{ session('success') }}",
-    });
-  </script>
-@endif
+   
 
     <!-- Contact Info -->
         <section id="contact-info" class="bg-white">
