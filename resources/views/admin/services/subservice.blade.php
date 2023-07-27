@@ -4,6 +4,7 @@
             {{ __('ADD Service') }}
         </h2>
     </x-slot>
+
 {{ $service }}
     <div class="container">
     <div class="row justify-content-center">

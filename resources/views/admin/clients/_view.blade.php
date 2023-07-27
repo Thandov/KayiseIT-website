@@ -1,4 +1,27 @@
 <div class="mt-6">
+
+    @if (session('error'))
+    <script>
+        // Display SweetAlert for error message
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "{{ session('error') }}",
+        });
+    </script>
+    @endif
+
+    @if (session('success'))
+    <script>
+        // Display SweetAlert for success message
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}",
+        });
+    </script>
+    @endif
+
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
             <tr>

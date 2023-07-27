@@ -4,6 +4,7 @@
             {{ __('ADMIN DASHBOARD') }}
         </h2>
     </x-slot>
+    
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Sales Stats -->
         <div class="bg-white overflow-hidden shadow rounded-lg">
