@@ -206,7 +206,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         return view('/admin/career_mapping/careersteps/edit');
     });
     //Carousel
-    Route::GET('/admin/carousel/carousel', [CarouselController::class, 'index']);
+    Route::GET('/admin/carousel/carousels', [CarouselController::class, 'index']);
     Route::GET('/admin/carousel', [CarouselController::class, 'index'])->name('admin.carousel');
     Route::GET('/admin/carousel/newcarousel', function () {
         return view('admin.carousel.newcarousel');

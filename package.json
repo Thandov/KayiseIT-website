@@ -28,7 +28,7 @@
         "aos": "^2.3.4",
         "esbuild": "^0.18.14",
         "owl.carousel": "^2.3.4",
-        "sweetalert2": "^11.7.18",
+        "sweetalert2": "^11.6.13",
         "swiper": "^9.1.1",
         "watch": "^0.13.0"
     }

@@ -38,19 +38,13 @@
                     @csrf
                     <input type="hidden" name="action" value="update_employee">
                     <input type="hidden" name="user_id" value="{{ $employee->user_id ?? ''}}">
-                    <div id="profile_pic_wrapper" class="w-48 h-40 mb-4 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg flex items-center justify-center">
-                        <label for="profile_picture_input">
-                            @if ($employee->profile_picture)
-                            <img id="profile_picture_preview" src="{{ asset($employee->profile_picture) ?? '' }}" alt="Profile Picture">
-                            @endif
-                        </label>
-                        <input id="profile_picture_input" type="file" name="profile_picture" style="display: none;">
-                    </div>
+
+                    <x-img-upload image="{{$employee->profile_picture}}" />
 
                     <div class="mb-4">
                         <h2 class="text-3xl font-bold">{{ $employee->first_name ??'' }} {{ $employee->last_name ??'' }}</h2>
                     </div>
-                    <div class="grid grid-cols-6 gap-6">
+                    <div class=" grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-3">
                             <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
                             <input type="text" name="first_name" id="first_name" value="{{ $employee->first_name ??'' }}" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('first_name') border-red-500 @enderror" value="{{ old('first_name') }}">

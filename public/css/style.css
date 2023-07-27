@@ -2,18 +2,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 /* Font Sizes Variables */
 /*=================================================*/
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   overflow-x: hidden;
 }
-html body, body body {
+html body,
+body body {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
+}
+
+/* Position the file input element off-screen */
+#profile_pic_wrapper {
+  height: 100%;
+  overflow: hidden;
+}
+#profile_pic_wrapper #profile_picture_input {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
 }
 
 .qty_count {
@@ -76,7 +89,7 @@ input::-webkit-inner-spin-button {
 }
 
 .bigtxt {
-  color: #22C55E;
+  color: #22c55e;
 }
 
 .homecard {
@@ -209,7 +222,7 @@ input[type=number] {
 }
 .owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .hero-content .h1Title {
   font-size: 10vw;
-  color: #22C55E !important;
+  color: #22c55e !important;
   font-weight: 900;
   font-size: 3rem;
 }
@@ -332,7 +345,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #22C55E;
+  border: 1px solid #22c55e;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -351,11 +364,11 @@ li {
   transform-origin: 50% 50%;
 }
 .radioBoxparent :checked + label {
-  border-color: #22C55E;
+  border-color: #22c55e;
 }
 .radioBoxparent :checked + label:before {
   content: "✓";
-  background-color: #22C55E;
+  background-color: #22c55e;
   transform: scale(1);
 }
 .radioBoxparent :checked + label img {
@@ -380,7 +393,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #22C55E;
+  border: 1px solid #22c55e;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -399,11 +412,11 @@ li {
   transform-origin: 50% 50%;
 }
 .checkboxparent :checked + label {
-  border-color: #22C55E;
+  border-color: #22c55e;
 }
 .checkboxparent :checked + label:before {
   content: "✓";
-  background-color: #22C55E;
+  background-color: #22c55e;
   transform: scale(1);
 }
 .checkboxparent :checked + label img {
@@ -428,7 +441,7 @@ li {
   content: " ";
   display: block;
   border-radius: 50%;
-  border: 1px solid #22C55E;
+  border: 1px solid #22c55e;
   position: absolute;
   top: -5px;
   left: -5px;
@@ -447,11 +460,11 @@ li {
   transform-origin: 50% 50%;
 }
 .extraservdiv :checked + label {
-  border-color: #22C55E;
+  border-color: #22c55e;
 }
 .extraservdiv :checked + label:before {
   content: "✓";
-  background-color: #22C55E;
+  background-color: #22c55e;
   transform: scale(1);
 }
 .extraservdiv :checked + label img {
@@ -630,7 +643,7 @@ div.sticky {
 }
 
 #contact-socials {
-  color: #22C55E !important;
+  color: #22c55e !important;
 }
 
 #white-text {
@@ -717,7 +730,7 @@ footer::before {
   top: 100px;
   height: 1.5px;
   width: 100%;
-  background: #00C050;
+  background: #00c050;
 }
 
 footer .footer-content {
@@ -762,7 +775,7 @@ footer .footer-content .top {
 
 .top .media-icons a:nth-child(1):hover {
   color: #ffffff;
-  background: #4267B2;
+  background: #4267b2;
 }
 
 .top .media-icons a:nth-child(2) {
@@ -771,7 +784,7 @@ footer .footer-content .top {
 }
 
 .top .media-icons a:nth-child(2):hover {
-  background: #E1306C;
+  background: #e1306c;
   color: #fff;
 }
 
@@ -781,7 +794,7 @@ footer .footer-content .top {
 }
 
 .top .media-icons a:nth-child(3):hover {
-  background: #1DA1F2;
+  background: #1da1f2;
   color: #fff;
 }
 
@@ -790,7 +803,7 @@ footer .footer-content .top {
 }
 
 .top .media-icons a:nth-child(4):hover {
-  color: #0077B5;
+  color: #0077b5;
   background: #fff;
 }
 
@@ -799,7 +812,7 @@ footer .footer-content .top {
 }
 
 .top .media-icons a:nth-child(5):hover {
-  color: #FF0000;
+  color: #ff0000;
   background: #fff;
 }
 
@@ -860,7 +873,7 @@ footer .footer-content .link-boxes .box {
   height: 40px;
   width: calc(100% + 55px);
   outline: none;
-  border: 2px solid #AFAFB6;
+  border: 2px solid #afafb6;
   background: #fff;
   border-radius: 4px;
   padding: 0 15px;
@@ -870,12 +883,12 @@ footer .footer-content .link-boxes .box {
 }
 
 .link-boxes .input-box input::-moz-placeholder {
-  color: #AFAFB6;
+  color: #afafb6;
   font-size: 16px;
 }
 
 .link-boxes .input-box input::placeholder {
-  color: #AFAFB6;
+  color: #afafb6;
   font-size: 16px;
 }
 
@@ -947,7 +960,7 @@ footer .footer-content .link-boxes .box {
 }
 
 .top .media-icons a:nth-child(4):hover {
-  background: #FF0000;
+  background: #ff0000;
   color: #fff;
 }
 
@@ -976,7 +989,3 @@ footer .footer-content .link-boxes .box {
   width: 200px;
   height: 250px;
 }/*# sourceMappingURL=style.css.map */
-
-.ck-editor__editable_inline{
-height: 400px;
-}

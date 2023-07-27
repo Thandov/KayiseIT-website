@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('icon')->nullable();
             $table->string('title');
+            $table->string('subtitle');
             $table->text('content');
             $table->timestamps();
         });

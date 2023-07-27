@@ -22,8 +22,7 @@
                         <x-dash-card name="Clients" href="admin/clients"></x-dash-card>
                         <x-dash-card name="Staff" href="admin/staff"></x-dash-card>
                         <x-dash-card name="Career Mapping" href="admin/dashboard/careermapping_dashboard"></x-dash-card>
-                        <x-dash-card name="Invoices" href="/admin/carousel/carousels"></x-dash-card>
-                        <x-dash-card name="Quotations" href="admin/blog/"></x-dash-card>
+                        <x-dash-card name="Carousel" href="/admin/carousel/carousels"></x-dash-card>
                         <x-dash-card name="Blogs" href="admin/blogs/view_all_blogs"></x-dash-card>
                     </div>
                 </div>
@@ -55,29 +54,29 @@
 </x-app-layout>
 
 <script>
-document.querySelector('#add-service-btn').addEventListener('click', function(e) {
-    e.preventDefault();
-    // your code here
-    $('#myModal').modal('show');
-});
-document.querySelector('.close').addEventListener('click', function(e) {
-    e.preventDefault();
-    // your code here
-    $('#myModal').modal('hide');
-});
+    document.querySelector('#add-service-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        // your code here
+        $('#myModal').modal('show');
+    });
+    document.querySelector('.close').addEventListener('click', function(e) {
+        e.preventDefault();
+        // your code here
+        $('#myModal').modal('hide');
+    });
 
-function previewImage(event) {
-    var file = event.target.files[0];
-    var formData = new FormData();
-    formData.append('icon', file);
+    function previewImage(event) {
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('icon', file);
 
-    var preview = document.getElementById('preview');
-    preview.style.display = 'block';
-    preview.src = URL.createObjectURL(file);
+        var preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        preview.src = URL.createObjectURL(file);
 
-    // Send the FormData object to the server using AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/upload');
-    xhr.send(formData);
-}
+        // Send the FormData object to the server using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload');
+        xhr.send(formData);
+    }
 </script>

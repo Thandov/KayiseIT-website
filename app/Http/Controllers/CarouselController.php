@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CarouselController extends Controller
 {
@@ -43,30 +44,50 @@ class CarouselController extends Controller
      */
     public function store(Request $request)
     {
+        $userId = Auth::id();
         try {
-            $validatedData = $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string|max:255',
-                'image' => 'required|string',
+            $validatedData = $request->validate(['head_title' => 'required|string|max:255',
+                'middletxt' => 'required|string|max:255',
+                'btmtxt' => 'required|string|max:255',
             ]);
 
             // Set values for other user fields
-            $client = new Carousel();
-            $client->user_id = $user->id;
+            $carousel = new Carousel();
+            $carousel->user_id = $userId;
+            $carousel->title = $validatedData['head_title'];
+            $carousel->middletxt = $validatedData['middletxt'];
+            $carousel->btmtxt = $validatedData['btmtxt'];
+            $originalName = $request->file('profile_picture')->getClientOriginalName();
 
-            $client->address = $validatedData['address'];
-            $client->company = $validatedData['company'];
-            $client->province = $validatedData['province'];
-            // Set values for additional fields
+            // Handle profile picture upload
+            $profilePicturePath = null;
+            if ($request->hasFile('profile_picture')) {
+                $profilePicture = $request->file('profile_picture');
+                $carousel->image = $originalName;
 
-            $client->save();
-            $clientId = $client->user_id;
-            if ($request->ajax()) {
-                return response()->json(['message' => 'Client created successfully.']);
+
+                if ($profilePicture->isValid()) {
+
+
+                    $extension = $profilePicture->getClientOriginalExtension();
+
+                    $profilePicture->storeAs('/images/carousel', $originalName);
+                } else {
+                    throw ValidationException::withMessages([
+                        'profile_picture' => 'The profile picture is not valid.',
+                    ]);
+                }
             }
 
-            return redirect()->route('admin.carousel.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
+            $carousel->save();
+            $carouselID = $carousel->id;
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Carousel created successfully.']);
+            }
+
+            return redirect()->route('admin.carousel.viewcarousel', ['id' => $carouselID])->with('success', 'Carousel created successfully.');
         } catch (ValidationException $e) {
+            dd("fAIL");
             return back()->withErrors($e->errors())->withInput();
         }
     }
@@ -74,27 +95,23 @@ class CarouselController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Carousel  $carousel
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $client = DB::table('carousels')
-            ->join('users', 'users.id', '=', 'carousel.user_id')
-            ->where('carousel.user_id', (int)$id)
-            ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'carousel.*')
-            ->first();
+        $carousel = Carousel::find($id)->first();
 
-        return view('admin/carousel/viewclient', compact('client'));
+        return view('admin/carousel/viewcarousel', compact('carousel'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Carousel  $carousel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Client $client)
+    public function edit(Carousel $carousel)
     {
         //
     }
@@ -103,96 +120,74 @@ class CarouselController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Carousel  $carousel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Carousel $carousel)
     {
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'phone' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'province' => 'required|string|max:255',
-            'company' => 'required|string|max:255',
-        ]);
-
-        $client = Client::where('user_id', $request->user_id)->first();
-        $user = User::find($request->user_id);
         $changedFields = [];
 
-        if ($user->name !== $validatedData['first_name']) {
-            $user->name = $validatedData['first_name'];
-            $changedFields[] = 'first_name';
+        if ($request->filled('title')) {
+            $carousel->title = $request->input('title');
+            $changedFields[] = 'title';
         }
 
-        if ($user->surname !== $validatedData['last_name']) {
-            $user->surname = $validatedData['last_name'];
-            $changedFields[] = 'last_name';
+        if ($request->filled('middletxt')) {
+            $carousel->middletxt = $request->input('middletxt');
+            $changedFields[] = 'middletxt';
         }
 
-        if ($user->email !== $validatedData['email']) {
-            $user->email = $validatedData['email'];
-            $changedFields[] = 'email';
+        if ($request->filled('btmtxt')) {
+            $carousel->btmtxt = $request->input('btmtxt');
+            $changedFields[] = 'btmtxt';
         }
-        if ($user->phone !== $validatedData['phone']) {
-            $user->phone = $validatedData['phone'];
-            $changedFields[] = 'phone';
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Delete the previous image if it exists
+            if ($carousel->image && Storage::exists('images/carousel/' . $carousel->image)) {
+                Storage::delete('images/carousel/' . $carousel->image);
+            }
+
+            $imagePath = $request->file('image')->store('images/carousel', 'public');
+            $carousel->image = $imagePath;
+            $changedFields[] = 'image';
         }
-        // Save the user model if any changes were made to the "users" table fields
+
+        // Save the carousel model if any changes were made to the carousel fields
         if (!empty($changedFields)) {
-            $user->save();
+            $carousel->save();
         }
 
-        if ($client->company !== $validatedData['company']) {
-            $client->company = $validatedData['company'];
-            $changedFields[] = 'company';
-        }
-
-        if ($client->address !== $validatedData['address']) {
-            $client->address = $validatedData['address'];
-            $changedFields[] = 'address';
-        }
-
-        if ($client->province !== $validatedData['province']) {
-            $client->province = $validatedData['province'];
-            $changedFields[] = 'province';
-        }
-        if (!empty($changedFields)) {
-            $client->save();
-        }
-
-        return redirect()->back()->with('success', 'client updated successfully.');
+        return redirect()->back()->with('success', 'Carousel updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
+     * @param  \App\Models\Carousel  $carousel
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
 
         $id = (int)$id;
-        $client = DB::table('carousels')->where('id', $id)->first();
-        $user = DB::table('users')->where('id', $client->user_id)->first();
+        $carousel = DB::table('carousels')->where('id', $id)->first();
+        $user = DB::table('users')->where('id', $carousel->user_id)->first();
 
-        if ($client) {
-            // Perform your desired operations with the $client and $user models
+        if ($carousel) {
+            // Perform your desired operations with the $carousel and $user models
             DB::table('carousels')->where('id', $id)->delete();
             if ($request->ajax()) {
-                return response()->json(['message' => 'client and associated user have been deleted.']);
+                return response()->json(['message' => 'Carousel and associated user have been deleted.']);
             }
 
-            return redirect()->route('admin.carousel')->with('success', 'client and associated user have been deleted.');
+            return redirect()->route('admin.carousel')->with('success', 'Carousel and associated user have been deleted.');
         } else {
             if ($request->ajax()) {
-                return response()->json(['message' => 'client or associated user not found.'], 404);
+                return response()->json(['message' => 'Carousel or associated user not found.'], 404);
             }
 
-            return redirect()->route('admin.carousel')->with('error', 'client or associated user not found.');
+            return redirect()->route('admin.carousel')->with('error', 'Carousel or associated user not found.');
         }
     }
 }

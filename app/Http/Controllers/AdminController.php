@@ -309,11 +309,28 @@ class AdminController extends Controller
             $changedFields[] = 'ID_number';
         }
 
+        // Handle profile picture upload
+        $profilePicturePath = null;
         if ($request->hasFile('profile_picture')) {
             $profilePicture = $request->file('profile_picture');
-            $profilePicturePath = $profilePicture->store('profile_pictures', 'public');
-            $employee->profile_picture = $profilePicturePath;
-            $changedFields[] = 'profile_picture';
+
+            if ($profilePicture->isValid()) {
+                $firstName = strtolower($validatedData['first_name']);
+                $lastName = strtolower($validatedData['last_name']);
+                $id = strtolower($validatedData['ID_number']);
+
+                $extension = $profilePicture->getClientOriginalExtension();
+                $profilePictureName = $firstName . '_' . $lastName . '_' . $id . '.' . $extension;
+
+                $profilePicturePath = 'images/employees/' . $profilePictureName;
+                $profilePicture->storeAs('/images/employees', $profilePictureName);
+                $employee->profile_picture = $profilePicturePath;
+                $changedFields[] = 'profile_picture';
+            } else {
+                throw ValidationException::withMessages([
+                    'profile_picture' => 'The profile picture is not valid.',
+                ]);
+            }
         }
 
         $employee->id_verifi_doc = $validatedData['id_verifi_doc'] ?? false;
