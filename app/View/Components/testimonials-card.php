@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class add-specializations-form extends Component
+class testimonials-card extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class add-specializations-form extends Component
      */
     public function render()
     {
-        return view('components.add-specializations-form');
+        return view('components.testimonials-card');
     }
 }

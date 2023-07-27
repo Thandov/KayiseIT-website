@@ -25,15 +25,17 @@
     var input = event.target;
     var preview = document.getElementById('preview');
 
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-        reader.onload = function(e) {
-            preview.style.display = 'block';
-            preview.src = e.target.result;
+            reader.onload = function(e) {
+                preview.style.display = 'block';
+                preview.src = e.target.result;
+            }
+
+            reader.readAsDataURL(input.files[0]);
         }
-
-        reader.readAsDataURL(input.files[0]);
     }
-}
+
+
 </script>

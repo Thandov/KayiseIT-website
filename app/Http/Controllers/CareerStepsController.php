@@ -9,28 +9,25 @@ use Illuminate\Support\Facades\DB;
 
 class CareerStepsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function careersteps()
     {
-        //
+        //  Display Career Steps 
         $careerSteps = CareerSteps::all();
         return view('careersteps_dashboard', compact('careersteps'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-
-
     public function addcareersteps(Request $request)
     {
+        //  Input Validations
+        $request->validate([
+            'qualification.*' => 'required|string|max:255',
+        ], [
+            'qualification.*.required' => 'The qualification field cannot be empty.',
+            'qualification.*.string' => 'The qualification field must be a string.',
+            'qualification.*.max' => 'The qualification field must not exceed :max characters.',
+        ]);
+
         // Retrieve the input data from the request
         $stepNumbers = $request->input('step_number');  //from form
         $qualifications = $request->input('qualification'); //from form
@@ -64,51 +61,9 @@ class CareerStepsController extends Controller
             $number++;
         }
         // Redirect or return a response as needed
-        return redirect()->back()->with('success', 'Career steps added successfully.');
+        return redirect()->back()->with('success', 'Career Step(s) added successfully.');
     }
 
-    public function updatePosition(Request $request)
-    {
-        $steps_id = $request->input('steps_id');
-        $newPosition = $request->input('newPosition');
-
-        // Update the position in the database based on the $stepId and $newPosition
-
-        // Return a response (e.g., JSON response)
-        return response()->json(['success' => true]);
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\CareerSteps  $careerSteps
-     * @return \Illuminate\Http\Response
-     */
-    public function show(CareerSteps $careerSteps)
-    {
-        //
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\CareerSteps  $careerSteps
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CareerSteps $careerSteps)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CareerSteps  $careerSteps
-     * @return \Illuminate\Http\Response
-     */
     public function updateCareerStep(Request $request)
     {
         $request->validate([
@@ -125,12 +80,6 @@ class CareerStepsController extends Controller
         return redirect()->back()->with('success', 'Career Step updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CareerSteps  $careerSteps
-     * @return \Illuminate\Http\Response
-     */
     public function delete(CareerSteps $careerstep)
     {
         // checks if exists

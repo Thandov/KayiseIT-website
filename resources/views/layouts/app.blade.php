@@ -39,7 +39,8 @@ session_start();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('/js/scripts.js') }}" defer></script>
     <script src="{{ asset('/js/live_img_change.js') }}" defer></script>
-
+    <!-- sortable row  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script>
     let i = 0;
     $("#duplicate-form").click(function() {

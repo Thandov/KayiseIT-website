@@ -13,7 +13,7 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return view('admin.blogs.view_all_blogs', compact('blogs'));
     }
-    
+
     public function addblog()
     {
         return view('admin/blogs/addblog');
@@ -28,7 +28,7 @@ class BlogController extends Controller
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
 
         $request->icon->move(public_path('images'), $newImageName);
-        
+
 
         $blog = new Blog;
         $blog->icon = $newImageName;
@@ -45,7 +45,7 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return view('/admin/blogs/blog', compact('blogs'));
     }
-   
+
 
     public function destroyblog($id)
     {
@@ -61,7 +61,7 @@ class BlogController extends Controller
         $blog->subtitle = $request->input('subtitle');
         $blog->content = $request->input('content');
         $blog->save();
-    
+
         return redirect()->back()->with('success', 'Blog updated successfully');
     }
 
@@ -70,30 +70,27 @@ class BlogController extends Controller
         $blog = Blog::find($id);
         return view('admin/blogs/viewblog_edit', compact('blog'));
     }
-    
+
     public function viewblog($id)
     {
         $blog = Blog::find($id);
         return view('admin/blogs/viewblog', compact('blog'));
     }
-    
+
     public function upload(Request $request)
     {
-        if ($request->hasFile('upload'))  {
+        if ($request->hasFile('upload')) {
 
             $originName = $request->file('upload')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time(). '.' . $extension;
+            $fileName = $fileName . '_' . time() . '.' . $extension;
 
             $request->file('upload')->move(public_path('media'), $fileName);
             $url = asset('media/' . $fileName);
-            return response()->json(['fileName' => $fileName, 'uploaded' => 1 
-             , 'url' => $url]);
+            return response()->json([
+                'fileName' => $fileName, 'uploaded' => 1, 'url' => $url
+            ]);
         }
     }
-
-    
-
-
 }

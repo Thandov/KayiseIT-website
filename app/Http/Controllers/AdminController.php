@@ -221,7 +221,7 @@ class AdminController extends Controller
             $employee->save();
 
             // Optionally, you can also display a success message
-            return redirect()->route('admin.staff.viewstaff', ['id' => $employee->user_id]);
+            return redirect()->route('admin.staff.viewstaff', ['id' => $employee->user_id])->with('success', 'Employee created successfully!');
             //return back()->with('success', 'Employee created successfully!');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
@@ -348,5 +348,4 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Employee updated successfully.');
     }
-
 }

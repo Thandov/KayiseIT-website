@@ -15,51 +15,47 @@
                     <div>
                         <button id="show" class="inline-flex items-center mb-4 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Career Step</button>
                     </div>
-                    <div class="">
-                        <table id="sortable-table" class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Step Number
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Qualification
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Edit
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Delete
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody id="sortable-body" class="bg-white divide-y divide-gray-200">
-                                <!-- start for each loop -->
-                                @foreach($careerSteps as $index => $careerStep)
-                                <tr class="sortable-row" data-step-id="{{ $careerStep->steps_id }}">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900 step-number">{{ $index + 1 }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $careerStep->qualification }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <a href="{{ url('/admin/career_mapping/careersteps/edit',$careerStep->steps_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Career Step?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                <!-- end for each loop -->
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Step Number
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Qualification
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Edit
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Delete
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 sortable-table-body"> <!-- start for each loop -->
+                            @foreach($careerSteps as $index => $careerStep)
+                            <tr data-step-id="{{ $careerStep->steps_id }}">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900 step-number">{{ $index + 1 }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $careerStep->qualification }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="{{ url('/admin/career_mapping/careersteps/edit',$careerStep->steps_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Career Step?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <!-- end for each loop -->
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -68,7 +64,7 @@
             <div class="flex justify-end">
                 <button id="hide">&times</button>
             </div>
-            <form action="{{url('addcareersteps-form')}}" method="post" enctype="multipart/form-data" >
+            <form action="{{url('addcareersteps-form')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <!-- table  -->
                 <table id="table" class="min-w-full divide-y divide-gray-200">
@@ -94,8 +90,10 @@
                                 <!-- Input field for occup_id -->
                                 <input type="hidden" name="occup_id" value="{{ $occup_id }}">
 
+                                <!-- Display the step number using a span -->
+                                <span class="text-sm text-gray-900 step-number">{{ $arrlength }}</span>
                                 <input type="hidden" name="highest_value" value="{{ $arrlength }}">
-                                <input type="number" name="step_number[]" value="{{ $arrlength }}" id="step_number" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                                <input type="hidden" name="step_number[]" value="{{ $arrlength }}" id="step_number" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <input type="text" name="qualification[]" placeholder="Enter Qualification Name" id="qualification" class="form-control mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
@@ -112,146 +110,150 @@
     </section>
     <!-- JavaScript to provide the "Show/Close" functionality -->
     <script type="text/JavaScript">
-        (function() {
+        (function () {
         var dialog = document.getElementById('addSpecializationsModal');
-        document.getElementById('show').onclick = function() {
-            dialog.showModal(); //Use showModal() to make it a modal. Show() makes it a dialog 
+        document.getElementById('show').onclick = function () {
+            dialog.showModal();
         };
-        document.getElementById('hide').onclick = function() {
+        document.getElementById('hide').onclick = function () {
             dialog.close();
         };
         })();
 
-        // Get the number of existing input fields
+        // Initialize inputCount with the highest value from the hidden input + 1
         var highestValueInput = document.querySelector('input[name="highest_value"]');
-        var inputCount = parseInt(highestValueInput.value);
+        var inputCount = parseInt(highestValueInput.value) + 1;
 
-        document.getElementById('add').addEventListener('click', function(e) {
-            e.preventDefault();
+        document.getElementById('add').addEventListener('click', function (e) {
+        e.preventDefault();
 
-            // Get the table body element
-            var tableBody = document.querySelector('#table tbody');
+        // Get the table body element
+        var tableBody = document.querySelector('#table tbody');
 
-            // Create a new table row
-            var newRow = document.createElement('tr');
+        // Create a new table row
+        var newRow = document.createElement('tr');
 
-            // Create the cell for the Step Number name input
-            var numCell = document.createElement('td');
-            numCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
+        // Create the cell for the Step Number label
+        var numCell = document.createElement('td');
+        numCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
 
-            // Create the input element for Step Number
-            var stepnumberInput = document.createElement('input');
-            stepnumberInput.setAttribute('type', 'number');
-            stepnumberInput.setAttribute('name', 'step_number[' + inputCount + ']');
-            stepnumberInput.setAttribute('placeholder', 'Enter Step Number');
-            stepnumberInput.setAttribute('id', 'step_number');
-            stepnumberInput.classList.add('form-control', 'mt-1', 'block', 'w-full', 'py-2', 'px-3', 'border', 'border-gray-300', 'bg-white', 'rounded-md', 'shadow-sm', 'focus:outline-none', 'focus:ring-green-500', 'focus:border-green-500');
+        // Create the span element for displaying Step Number
+        var stepNumberLabel = document.createElement('span');
+        stepNumberLabel.classList.add('text-sm', 'text-gray-900', 'step-number');
+        stepNumberLabel.textContent = inputCount; // Use the current inputCount as the step number label
 
-            // Create the cell for the Qualification name input
-            var nameCell = document.createElement('td');
-            nameCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
+        // Create the hidden input element for Step Number to submit its value
+        var stepNumberInput = document.createElement('input');
+        stepNumberInput.setAttribute('type', 'hidden');
+        stepNumberInput.setAttribute('name', 'step_number[' + (inputCount - 1) + ']');
+        stepNumberInput.value = inputCount - 1; // Use the current inputCount - 1 as the step number value
 
-             // Create the input element for specialization name
-             var qualificationInput = document.createElement('input');
-             qualificationInput.setAttribute('type', 'text');
-             qualificationInput.setAttribute('name', 'qualification[' + inputCount + ']');
-             qualificationInput.setAttribute('placeholder', 'Enter Qualification Name');
-             qualificationInput.setAttribute('id', 'qualification');
-             qualificationInput.classList.add('form-control', 'mt-1', 'block', 'w-full', 'py-2', 'px-3', 'border', 'border-gray-300', 'bg-white', 'rounded-md', 'shadow-sm', 'focus:outline-none', 'focus:ring-green-500', 'focus:border-green-500');
-             inputCount++;
-             stepnumberInput.value = inputCount; // Set the value of the input to inputCount
-             
-            // Append the specialization input to the name cell
-            numCell.appendChild(stepnumberInput);
+        // Append the label and hidden input to the numCell
+        numCell.appendChild(stepNumberLabel);
+        numCell.appendChild(stepNumberInput);
 
-            // Append the specialization input to the name cell
-            nameCell.appendChild(qualificationInput);
+        // Create the cell for the Qualification name input
+        var nameCell = document.createElement('td');
+        nameCell.classList.add('px-6', 'py-4', 'whitespace-nowrap');
 
-            // Create the cell for the action button
-            var actionCell = document.createElement('td');
-            actionCell.classList.add('px-6', 'py-4', 'whitespace-nowrap', 'text-sm', 'font-medium');
+        // Create the input element for qualification name
+        var qualificationInput = document.createElement('input');
+        qualificationInput.setAttribute('type', 'text');
+        qualificationInput.setAttribute('name', 'qualification[' + (inputCount - 1) + ']');
+        qualificationInput.setAttribute('placeholder', 'Enter Qualification Name');
+        qualificationInput.setAttribute('id', 'qualification');
+        qualificationInput.classList.add('form-control', 'mt-1', 'block', 'w-full', 'py-2', 'px-3', 'border', 'border-gray-300', 'bg-white', 'rounded-md', 'shadow-sm', 'focus:outline-none', 'focus:ring-green-500', 'focus:border-green-500');
 
-            // Create the "Remove" button
-            var removeButton = document.createElement('button');
-            removeButton.setAttribute('type', 'button');
-            removeButton.classList.add('inline-flex', 'items-center', 'px-4', 'py-2', 'border', 'border-transparent', 'rounded-md', 'font-semibold', 'text-xs', 'text-white', 'bg-red-600', 'hover:bg-red-700', 'focus:outline-none', 'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-red-500');
-            removeButton.textContent = 'Remove';
+        // Append the specialization input to the name cell
+        nameCell.appendChild(qualificationInput);
 
-            // Add an event listener to the "Remove" button to remove its parent row
-            removeButton.addEventListener('click', function() {
-                var row = this.parentNode.parentNode;
-                row.parentNode.removeChild(row);
-            });
+        // Create the cell for the action button
+        var actionCell = document.createElement('td');
+        actionCell.classList.add('px-6', 'py-4', 'whitespace-nowrap', 'text-sm', 'font-medium');
 
-            // Append the "Remove" button to the action cell
-            actionCell.appendChild(removeButton);
+        // Create the "Remove" button
+        var removeButton = document.createElement('button');
+        removeButton.setAttribute('type', 'button');
+        removeButton.classList.add('inline-flex', 'items-center', 'px-4', 'py-2', 'border', 'border-transparent', 'rounded-md', 'font-semibold', 'text-xs', 'text-white', 'bg-red-600', 'hover:bg-red-700', 'focus:outline-none', 'focus:ring-2', 'focus:ring-offset-2', 'focus:ring-red-500');
+        removeButton.textContent = 'Remove';
 
-            // Append the cells to the new row
-            newRow.appendChild(numCell);
-            newRow.appendChild(nameCell);
-            newRow.appendChild(actionCell);
-
-            // Append the new row to the table body
-            tableBody.appendChild(newRow); 
-            
+        // Add an event listener to the "Remove" button to remove its parent row, update step numbers, and adjust inputCount
+        removeButton.addEventListener('click', function () {
+            var row = this.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            updateStepNumbers();
+            inputCount--; // Decrement the inputCount when a row is removed
         });
 
-        const sortableTable = document.getElementById('sortable-table');
-        const sortableBody = document.getElementById('sortable-body');
-        const sortableRows = sortableBody.getElementsByClassName('sortable-row');
+        // Append the "Remove" button to the action cell
+        actionCell.appendChild(removeButton);
 
-        let draggingElement = null;
+        // Append the cells to the new row
+        newRow.appendChild(numCell);
+        newRow.appendChild(nameCell);
+        newRow.appendChild(actionCell);
 
-        // Function to update the position numbers and the database
-        function updatePositionAndDatabase() {
-            const rows = sortableBody.getElementsByClassName('sortable-row');
-            for (let i = 0; i < rows.length; i++) {
-                const stepId = rows[i].getAttribute('data-step-id');
-                const stepNumberElement = rows[i].querySelector('.step-number');
-                if (stepNumberElement) {
-                    stepNumberElement.innerText = i + 1;
-                    
-                    fetch('/admin/career_mapping/viewspecialization', {
-    method: 'POST',
-    body: JSON.stringify({ stepId: stepId, newPosition: i + 1 }),
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    },
-})
-.then(response => response.json())
-.then(data => {
-    // Handle the response or do any necessary actions
-})
-.catch(error => {
-    console.error('Error:', error);
-});
+        // Append the new row to the table body
+        tableBody.appendChild(newRow);
 
-                    
-                }
-            }
+        inputCount++; // Increment the inputCount for the next step number
+        });
+
+        // Function to update step numbers after a row is removed
+        function updateStepNumbers() {
+        var stepNumberLabels = document.querySelectorAll('.step-number');
+        stepNumberLabels.forEach(function (label, index) {
+            label.textContent = index + 1;
+        });
         }
 
-        // Event listener for drag start
-        sortableTable.addEventListener('dragstart', (e) => {
-            draggingElement = e.target.closest('.sortable-row');
-        });
+        //Alert for input validation error 
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorMessages = @json($errors->all());
 
-        // Event listener for drag over
-        sortableTable.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            const targetElement = e.target.closest('.sortable-row');
-            if (targetElement && draggingElement && targetElement !== draggingElement) {
-                const rect = targetElement.getBoundingClientRect();
-                const nextElement = (e.clientY - rect.top > rect.height / 2) ? targetElement.nextSibling : targetElement;
-                sortableBody.insertBefore(draggingElement, nextElement);
-                updatePositionAndDatabase();
+            if (errorMessages.length > 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: '<ul>' +
+                            errorMessages.map(error => '<li>' + error + '</li>').join('') +
+                          '</ul>',
+                });
             }
         });
 
-        // Event listener for drag end
-        sortableTable.addEventListener('dragend', () => {
-            draggingElement = null;
-        });
+        //Alert for Career Step Successfully Added 
+        document.addEventListener("DOMContentLoaded", function() {
+                @if (session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: '{{ session('success') }}',
+                    });
+                @endif
+            });
+
+            //Make table sortable
+            document.addEventListener('DOMContentLoaded', function () {
+            const tbody = document.querySelector('.sortable-table-body');
+            const sortable = new Sortable(tbody, {
+            animation: 150,
+            onUpdate: function (evt) {
+                // Get the new order of rows after dragging
+                const rows = evt.from.children;
+                const newOrder = Array.from(rows).map(row => row.dataset.stepId);
+
+                // You can now send the newOrder array to your backend to update the database.
+                // You may use Ajax or other Laravel methods to update the order.
+                console.log(newOrder);
+
+                // Update the displayed step numbers
+                const stepNumberElements = document.querySelectorAll('.step-number');
+                stepNumberElements.forEach((element, index) => {
+                    element.textContent = index + 1;
+                        });
+                    },
+                });
+            });
     </script>
 </x-app-layout>

@@ -196,7 +196,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/admin/career_mapping/careersteps/editcareerstep', [CareerStepsController::class, 'updateCareerStep']); //look at
     Route::delete('/careersteps/{careerstep}', [CareerStepsController::class, 'delete'])->name('careersteps.delete');
 
-    Route::post('addcareersteps-form', [CareerStepsController::class, 'addcareersteps']); 
+    Route::post('addcareersteps-form', [CareerStepsController::class, 'addcareersteps']);
 
     Route::get('/admin/career_mapping/specialization/edit/{spec_id}', function () {
         return view('/admin/career_mapping/specialization/edit');
@@ -215,7 +215,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('admin.carousel.viewcarousel');
     Route::POST('/admin/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('admin.carousel.viewcarousel.update');
     Route::DELETE('/admin/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.delete');
-
 });
 //==================================End of Admin Controls==================================================
 
