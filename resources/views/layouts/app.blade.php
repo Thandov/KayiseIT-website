@@ -41,6 +41,8 @@ session_start();
     <script src="{{ asset('/js/live_img_change.js') }}" defer></script>
     <!-- sortable row  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <script>
         let i = 0;
         $("#duplicate-form").click(function() {
@@ -71,7 +73,9 @@ session_start();
 </head>
 
 <body class="font-sans antialiased">
+    <x-pageloader></x-pageloader>
     <div class="min-h-screen bg-gray-100">
+
 
         @if (session('error'))
         <script>
