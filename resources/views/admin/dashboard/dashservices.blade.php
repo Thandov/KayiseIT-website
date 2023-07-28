@@ -17,7 +17,7 @@
                 </dl>
             </div>
             <div class="ml-auto">
-                <x-front-end-btn linking="{{ route('admin.addservice') }}" color="blue" showme="add-service-btn" name="Add Service" />
+                <x-front-end-btn linking="{{ route('admin.services.addservice') }}" color="blue" showme="add-service-btn" name="Add Service" />
             </div>
         </div>
         <div class="mt-6">

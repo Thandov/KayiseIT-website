@@ -119,7 +119,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
-    Route::GET('/admin/blogs/view_all_blogs', [AdminController::class, 'view_all_blogs'])->name('admin.blogs.view_all_blogs');
+    Route::GET('/admin/blogs', function () {
+        $blogs = App\Models\Blog::all();
+        return view('admin.blogs', compact('blogs'));
+    })->name('admin.blogs');
     Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
     Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
     Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');

@@ -63,7 +63,6 @@ class AdminController extends Controller
 
     public function view_all_blogs()
     {
-
         return view('admin.blogs.view_all_blogs');
     }
 
