@@ -7,7 +7,7 @@
             <div class="col-span-2 relative">
                 <label for="logo" class="block text-sm font-medium text-gray-700">Logo:</label>
                 <div class="imguploadwrap">
-                    <x-img-upload image="" />
+                    <x-img-upload image="" classing="bigTall" />
                 </div>
             </div>
             <div class="col-span-3">
@@ -46,18 +46,18 @@
 </div>
 
 <script>
-function previewImage(event) {
-    var file = event.target.files[0];
-    var formData = new FormData();
-    formData.append('icon', file);
+    function previewImage(event) {
+        var file = event.target.files[0];
+        var formData = new FormData();
+        formData.append('icon', file);
 
-    var preview = document.getElementById('preview');
-    preview.style.display = 'block';
-    preview.src = URL.createObjectURL(file);
+        var preview = document.getElementById('preview');
+        preview.style.display = 'block';
+        preview.src = URL.createObjectURL(file);
 
-    // Send the FormData object to the server using AJAX
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/store-form');
-    xhr.send(formData);
-}
+        // Send the FormData object to the server using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/store-form');
+        xhr.send(formData);
+    }
 </script>

@@ -40,7 +40,7 @@
                     <input type="hidden" name="action" value="update_employee">
                     <input type="hidden" name="user_id" value="{{ $employee->user_id ?? ''}}">
 
-                    <x-img-upload image="{{$employee->profile_picture}}" />
+                    <x-img-upload image="{{$employee->profile_picture}}" classing="bigTall" />
 
                     <div class="mb-4">
                         <h2 class="text-3xl font-bold">{{ $employee->first_name ??'' }} {{ $employee->last_name ??'' }}</h2>

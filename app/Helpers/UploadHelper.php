@@ -14,10 +14,16 @@ class UploadHelper
             throw new \Exception('The profile picture is not valid.');
         }
 
+        // Use Str::slug to replace spaces with underscores and remove illegal characters
         $extension = $file->getClientOriginalExtension();
-        $profilePictureName = Str::slug($name) . '.' . $extension; // Use Str::slug to replace spaces with underscores
+        $profilePictureName = Str::slug($name) . '.' . $extension;
 
-        $profilePicturePath = $profilePictureName;
+        // Create the directory if it doesn't exist
+        if (!file_exists(public_path($path))) {
+            mkdir(public_path($path), 0755, true);
+        }
+
+        // Move the uploaded file to the destination path
         $file->storeAs($path, $profilePictureName);
 
         return $path . $profilePictureName;

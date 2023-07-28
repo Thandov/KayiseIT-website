@@ -174,12 +174,15 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     //blogs
 
-    Route::post('storeblog-form', [BlogController::class, 'storeblog']);
+    Route::post('/admin/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
     Route::GET('/admin/blogs/view_all_blogs', [BlogController::class, 'blog'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
     Route::GET('/admin/blogs/blog', [BlogController::class, 'blogpage'])->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-    Route::post('/admin/blogs/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.update_blog');
+    Route::post('/admin/blogs/viewblog_edit/{id}', function () {
+        return view('admin.blogs.viewblog_edit');
+    })->name('admin.blogs.viewblog_edit');
+    Route::POST('/admin/blogs/viewblog_edit/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
     Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
     Route::GET('/admin/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');

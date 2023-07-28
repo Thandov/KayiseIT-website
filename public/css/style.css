@@ -993,4 +993,8 @@ footer .footer-content .link-boxes .box {
 .teamcard {
   width: 200px;
   height: 250px;
+}
+
+.bigTall {
+  height: 150px !important;
 }/*# sourceMappingURL=style.css.map */

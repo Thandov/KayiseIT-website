@@ -23,6 +23,7 @@ body {
     color: #333;
   }
 }
+
 /* Position the file input element off-screen */
 #profile_pic_wrapper {
   height: 100%;
@@ -33,6 +34,7 @@ body {
     left: -9999px;
   }
 }
+
 .qty_count {
   width: 50px;
   position: relative;
@@ -1018,4 +1020,7 @@ footer .footer-content .link-boxes .box {
 .teamcard {
   width: 200px;
   height: 250px;
+}
+.bigTall{
+  height: 150px!important;
 }

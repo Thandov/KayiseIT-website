@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class imgUpload extends Component
 {
     public $image;
+    public $classing;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($image)
+    public function __construct($image, $classing)
     {
         $this->image = $image;
+        $this->classing = $classing;
     }
 
     /**

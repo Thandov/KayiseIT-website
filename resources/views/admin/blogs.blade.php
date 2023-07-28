@@ -30,56 +30,50 @@
                 </nav>
             </div>
         </div>
-        <div class="border rounded-lg shadow-lg p-4">
-            <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        <h3 class="text-2xl leading-6 font-bold mb-4 text-gray-900">Blog Posts</h3>
-                    </th>
-                </tr>
-                <tr>
-                    <th scope="col" class="px-2 py-3">
-                        <div class="flex space-x-2 space-y-1">
-                            <!-- Use flex container to make buttons close to each other -->
-                            <form action="/admin/blogs/addblog" method="get">
-                                @csrf
-                                <x-front-end-btn linking="{{url('/admin/blogs/addblog')}}" color="blue" showme="" name="Add Blog" class="mb-4" />
-                            </form>
-                            <x-front-end-btn linking="{{url('/admin/blogs/blog')}}" color="blue" showme="" name="View Posts" />
-                            <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="" name="Categories" />
+    </div>
+    <div class="max-w-7xl mx-auto mb-4 sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <div class="flex items-center mb-4">
+                    <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                        <i class="fas fa-cogs text-white"></i>
+                    </div>
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Blogs</h3>
+                            </dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">
+                                    <p class="mt-1 max-w-2xl text-sm text-gray-500">All our blogs.</p>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="ml-auto">
+                        <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="" name="Categories" />
+                        <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
+                    </div>
+                </div>
+                <div class="md:grid md:grid-cols-4 gap-4">
+                    @foreach ($blogs as $blog)
+                    <div class="max-w-sm rounded overflow-hidden shadow-lg border bg-white dark:bg-gray-800 relative">
+                        <span class="absolute top-0 left-0 bg-gray-800 text-white px-2 py-1 rounded-tr-lg text-xs font-semibold">{{ date('d M Y', strtotime($blog->created_at)) }}</span>
+                        <img class="w-full h-32 object-cover" src="{{ asset($blog->icon) }}" alt="Blog Image">
+                        <div class="px-4 py-2">
+                            <span class="inline-block bg-indigo-500 text-white text-xs px-2 py-1 rounded-full uppercase font-semibold">{{ $blog->category }}</span>
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white mt-2">{{ $blog->title }}</h3>
+                            <p class="text-gray-600 dark:text-gray-300 mt-1 text-sm">{{ $blog->subtitle }}</p>
                         </div>
-                    </th>
+                        <div class="px-4 py-2 flex items-center justify-between">
+                            <x-front-end-btn linking="/admin/blogs/viewblog_edit/{{$blog->id}}" color="blue" showme="" name="Edit" />
+                            <x-front-end-btn linking="viewblog/'.$blog->id" color="blue" showme="" name="View" />
+                        </div>
+                    </div>
 
-                    <th scope="col" class="relative px-6 py-3">
-                        <span class="sr-only">Edit</span>
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($blogs as $blog)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap border-b">
-                            <div class="text-sm text-gray-900">{{ $blog->title }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap font-medium flex justify-end">
-                            <div class="flex">
-                                <x-front-end-btn linking="{{url('/admin/blogs/viewblog_edit', $blog->id)}}" color="blue" showme="" name="Edit" />
-                                <form action="{{ url('/blog/delete', $blog->id) }}" method="get" onsubmit="return confirm('Are you sure you want to delete this service?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 ml-4 bg-red-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
                     @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <!-- Table footer content -->
-                    </tr>
-                </tfoot>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
 </x-app-layout>

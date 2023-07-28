@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="overflow-hidden shadow-sm sm:rounded-lg p-6 bg-white border-b border-gray-200 md:col-span-2">
-                    <x-img-upload image="" />
+                    <x-img-upload image="" classing="bigTall" />
                 </div>
 
             </div>

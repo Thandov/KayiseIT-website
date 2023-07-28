@@ -6,7 +6,7 @@
         <input name="icon" class="form-input w-full" type="file" id="icon">
     </div>
 
-    <x-img-upload image="" />
+    <x-img-upload image="" classing="bigTall" />
 
     <div class="mb-4">
         <label for="name" class="block text-gray-700 font-bold mb-2">Subservice Name:</label>
