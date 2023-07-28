@@ -40,29 +40,29 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <script>
-    let i = 0;
-    $("#duplicate-form").click(function() {
-        i++;
-        var form = $("#subservice-form").clone();
-        form.attr("id", "subservice-form-" + (i + 1));
-        form.find("input[name=name]").attr("id", "name-" + (i + 1));
-        form.find("input[name=description]").attr("id", "description-" + (i + 1));
-        form.find("input[name=price]").attr("id", "price-" + (i + 1));
-        form.appendTo("body");
-        form.find("input[type=text], textarea").val("");
-    });
+        let i = 0;
+        $("#duplicate-form").click(function() {
+            i++;
+            var form = $("#subservice-form").clone();
+            form.attr("id", "subservice-form-" + (i + 1));
+            form.find("input[name=name]").attr("id", "name-" + (i + 1));
+            form.find("input[name=description]").attr("id", "description-" + (i + 1));
+            form.find("input[name=price]").attr("id", "price-" + (i + 1));
+            form.appendTo("body");
+            form.find("input[type=text], textarea").val("");
+        });
     </script>
     <script>
-    $(document).ready(function() {
-        $('button.nav-link').on('show.bs.tab', function(e) {
-            console.log($(e.target).attr('data-bs-target').replace('#', ''));
-            localStorage.setItem('activeTab', $(e.target).attr('data-bs-target'));
+        $(document).ready(function() {
+            $('button.nav-link').on('show.bs.tab', function(e) {
+                console.log($(e.target).attr('data-bs-target').replace('#', ''));
+                localStorage.setItem('activeTab', $(e.target).attr('data-bs-target'));
+            });
+            var activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                $('#pills-tab button[data-bs-target="' + activeTab + '"]').tab('show');
+            }
         });
-        var activeTab = localStorage.getItem('activeTab');
-        if (activeTab) {
-            $('#pills-tab button[data-bs-target="' + activeTab + '"]').tab('show');
-        }
-    });
     </script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -73,23 +73,23 @@ session_start();
 
         @if (session('error'))
         <script>
-        // Display SweetAlert for error message
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: "{{ session('error') }}",
-        });
+            // Display SweetAlert for error message
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ session('error') }}",
+            });
         </script>
         @endif
 
         @if (session('success'))
         <script>
-        // Display SweetAlert for success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: "{{ session('success') }}",
-        });
+            // Display SweetAlert for success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+            });
         </script>
         @endif
 
