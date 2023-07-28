@@ -31,8 +31,10 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('admin.carousel.viewcarousel.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.carousel.viewcarousel.update', ['carousel' => $carousel->id]) }}" method="POST" enctype="multipart/form-data">
+        @method('PUT')
         @csrf
+        <input type="hidden" name="action" value="{{ $carousel->id }}">
         <!-- Form goes here -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="mb-4 grid grid-cols-1 md:grid-cols-5 gap-4">

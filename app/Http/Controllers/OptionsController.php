@@ -28,7 +28,7 @@ class OptionsController extends Controller
 
     $service_id = $subservice->service_id;
 
-    return redirect()->route('admin.viewsubservice', ['id' => $id])->with('status', 'Subservices added successfully.');
+        return redirect()->route('admin.subservices.viewsubservice', ['id' => $id])->with('status', 'Subservices added successfully.');
 }
 
 public function destroyoption(Request $request, $id)

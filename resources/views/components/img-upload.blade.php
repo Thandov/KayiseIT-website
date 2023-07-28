@@ -11,22 +11,22 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Function to handle the file input change event
-        function handleFileInputChange(event) {
-            const file = event.target.files[0];
-            if (file) {
-                // Read the selected file as a Data URL
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    // Set the preview image source to the selected file
-                    document.getElementById('profile_picture_preview').src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to handle the file input change event
+    function handleFileInputChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+            // Read the selected file as a Data URL
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Set the preview image source to the selected file
+                document.getElementById('profile_picture_preview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
+    }
 
-        // Add change event listener to the profile picture input
-        document.getElementById('profile_picture_input').addEventListener('change', handleFileInputChange);
-    });
+    // Add change event listener to the profile picture input
+    document.getElementById('profile_picture_input').addEventListener('change', handleFileInputChange);
+});
 </script>

@@ -20,12 +20,6 @@ class ServicesController extends Controller
         return view('services', compact('services'));
     }
 
-
-    public function addservice()
-    {
-        return view('admin/addservice');
-    }
-
     public function newaddservice()
     {
         return view('admin/newaddservice');
@@ -110,15 +104,13 @@ class ServicesController extends Controller
         return redirect()->back();
     }
 
-
     public function delete($id)
     {
+        $id = (int)$id;
         $service = Service::find($id);
         $service->delete();
-
         return redirect()->back();
     }
-
 
     public function footer()
     {

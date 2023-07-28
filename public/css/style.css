@@ -247,6 +247,11 @@ input[type=number] {
   width: 100vw;
 }
 
+.imguploadwrap #profile_pic_wrapper {
+  height: 250px;
+  width: 250px;
+}
+
 .image-upload-box {
   height: 120px;
   border-width: 2px;

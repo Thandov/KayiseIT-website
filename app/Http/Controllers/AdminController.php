@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Quotation;
 use App\Models\Service;
-use App\Models\client;
 use App\Models\SubService;
 use App\Models\Options;
 use App\Models\Items;
@@ -14,12 +13,18 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Validator;
+use App\Services\SubServicesService;
 
 
 
 class AdminController extends Controller
 {
+    private $subServicesService;
+
+    public function __construct(SubServicesService $subServicesService)
+    {
+        $this->subServicesService = $subServicesService;
+    }
     public function index()
     {
         $services = Service::paginate(5); // Paginate with 10 items per page
@@ -126,14 +131,17 @@ class AdminController extends Controller
     {
         $service = Service::find($id);
         $subservices = SubService::where('service_id', $service->service_id)->get();
-        return view('admin/viewservice', compact('service', 'subservices'));
+        return view('admin/services/viewservice', compact('service', 'subservices'));
     }
 
     public function viewsubservice($id)
     {
-        $subservice = SubService::find($id);
+        $subservice = SubService::where('id', $id)->first();
         $options = Options::where('unq_id', $subservice->subserv_id)->get();
-        return view('admin/viewsubservice', compact('subservice', 'options'));
+        $serviceName = $this->subServicesService->findService($subservice->service_id)->name;
+        $serviceID = $this->subServicesService->findService($subservice->service_id)->id;
+
+        return view('admin/subservices/viewsubservice', compact('subservice', 'options', 'serviceName', 'serviceID'));
     }
     public function view_employee($id)
     {

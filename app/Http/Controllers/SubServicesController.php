@@ -5,15 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Models\Subservice;
 use App\Models\Options;
-use App\Models\SubServiceOption;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ServicesController;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Services\SubServicesService;
+
 
 
 class SubServicesController extends Controller
 {
+    private $subServicesService;
+
+    public function __construct(SubServicesService $subServicesService)
+    {
+        $this->subServicesService = $subServicesService;
+    }
+
     public function index($id)
     {
         $service = Service::find($id);
@@ -40,31 +46,13 @@ class SubServicesController extends Controller
 
         return redirect('admin/services')->with('status', 'Sub Service Added');
     }
-
     public function storing(Request $request, $id)
     {
-        $service = Service::find($id);
-        $id = $service->id;
-        $service_id = $service->service_id;
+        $service = Service::where('service_id', $request->service_id)->first();
+        $subService = $this->subServicesService->storeSubservice($request, $service->service_id);
 
-        $request->validate(['icon' => 'required|mimes:svg,jpg,png,jpeg|max:5048']);
-        $newImageName = $request->file('icon')->getClientOriginalName();
-        $request->icon->move(public_path('images/subservices'), $newImageName);
-
-        $subService = new Subservice();
-        $subService->service_id = $service_id;
-        $subService->name = $request->name;
-        $subService->icon = $newImageName;
-        $subService->subservice_type = $request->subservice_type;
-        $subService->price = $request->price;
-        $subService->subserv_id = Str::random(8); // generate a random 8-character string
-        while (Subservice::where('subserv_id', $subService->subserv_id)->exists()) {
-            $service->subserv_id = Str::random(8); // ensure uniqueness
-        }
-        $subService->save();
-        return redirect()->route('admin.viewservice', ['id' => $id])->with(['status' => 'Subservice Added', 'subserv_id' => $subService->id]);
+        return redirect()->route('admin.services.viewservice', ['id' => $id])->with(['status' => 'Subservice Added', 'subserv_id' => $subService->id]);
     }
-
     public function updateSubservice(Request $request, $id)
     {
         $subservice = Subservice::find($id);

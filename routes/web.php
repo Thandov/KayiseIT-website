@@ -124,8 +124,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
     Route::GET('/admin/services', [AdminController::class, 'services'])->name('admin.services');
     Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendInvoice'])->name('quotations.send-invoice');
-    Route::GET('/admin/viewservice/{id}', [AdminController::class, 'viewservice'])->name('admin.viewservice');
-    Route::GET('/admin/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('admin.viewsubservice');
+    Route::GET('/admin/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('admin.services.viewservice');
+    Route::GET('/admin/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('admin.subservices.viewsubservice');
 
     //download quotation&invoice PDFs
     Route::get('/admin/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
@@ -146,11 +146,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     //Add services, subservices, options Blades
 
-    Route::GET('/admin/addservice', [ServicesController::class, 'addservice'])->name('admin.addservice');
+    Route::GET('/admin/services/addservice', function () {
+        return view('admin.services.addservice');
+    })->name('admin.services.addservice');
     Route::GET('/admin/editservice/{id}', [ServicesController::class, 'updateService'])->name('admin.editservice');
     Route::GET('/admin/newaddservice', [ServicesController::class, 'newaddservice'])->name('admin.newaddservice');
-    Route::GET('/admin/deleteservice', [ServicesController::class, 'deleteservice'])->name('admin.deleteservice');
-    Route::get('admin/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('addsubservices');
+    Route::POST('/admin/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('admin.services.deleteservice');
+    Route::get('admin/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('admin.services.addsubservices');
     Route::get('admin/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
 
     //Forms

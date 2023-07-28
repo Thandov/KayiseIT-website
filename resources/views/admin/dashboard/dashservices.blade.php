@@ -41,7 +41,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap font-medium flex justify-end">
                             <div class="flex">
-                                <x-front-end-btn linking="'admin/viewservice/{{$service->id}}" color="blue" showme="" name="Edit" />
+                                <x-front-end-btn linking="/admin/services/viewservice/{{$service->id}}" color="blue" showme="" name="Edit" />
                                 <form action="{{ url('delete/'.$service->id) }}" method="get" onsubmit="return confirm('Are you sure you want to delete this service?');">
                                     @csrf
                                     @method('DELETE')

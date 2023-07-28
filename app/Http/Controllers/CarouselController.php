@@ -63,7 +63,7 @@ class CarouselController extends Controller
             $profilePicturePath = null;
             if ($request->hasFile('profile_picture')) {
                 $profilePicture = $request->file('profile_picture');
-                $carousel->image = $originalName;
+                $carousel->image = '/images/carousel/' . $originalName;
 
 
                 if ($profilePicture->isValid()) {
@@ -100,8 +100,9 @@ class CarouselController extends Controller
      */
     public function show($id)
     {
-        $carousel = Carousel::find($id)->first();
+        $cid = 3;
 
+        $carousel = Carousel::find($cid)->where("id", $cid)->first();
         return view('admin/carousel/viewcarousel', compact('carousel'));
     }
 
@@ -126,9 +127,15 @@ class CarouselController extends Controller
     public function update(Request $request, Carousel $carousel)
     {
         $changedFields = [];
-
-        if ($request->filled('title')) {
-            $carousel->title = $request->input('title');
+        dd($carousel);
+        if ($request->input('btmtxt') !== $carousel->btmtxt) {
+            dd("input value doesnt match \$carousel->btmtxt therefore it was changed");
+        } else {
+            dd("Not changed");
+        }
+        dd($request->input());
+        if ($request->filled('head_title')) {
+            $carousel->title = $request->input('head_title');
             $changedFields[] = 'title';
         }
 
@@ -152,12 +159,15 @@ class CarouselController extends Controller
             $carousel->image = $imagePath;
             $changedFields[] = 'image';
         }
+        $userId = Auth::id();
+
+        $carousel->user_id = $userId;
 
         // Save the carousel model if any changes were made to the carousel fields
         if (!empty($changedFields)) {
             $carousel->save();
         }
-
+        dd("Asdasdasd");
         return redirect()->back()->with('success', 'Carousel updated successfully.');
     }
 
