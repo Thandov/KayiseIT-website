@@ -82,5 +82,8 @@ $(window).on("load", function () {
 
 });
 
-
+document.addEventListener("DOMContentLoaded", function () {
+    // Hide the page loader once the page is fully loaded
+    document.getElementById("page-loader").style.display = "none";
+});
 
