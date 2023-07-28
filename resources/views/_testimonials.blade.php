@@ -3,9 +3,9 @@
     <x-titlestyle smheading="What People Say" bgheading="Client Testimonials" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
     <p class="mb-10 text-center">We hope that our clients' experiences will help you make an informed decision.</p>
     <!--Carousel-->
-    <div id="testimonial-carousel" class="owl-carousel owl-theme relative w-full">
+    <div id="testimonial-carousel" class="owl-carousel owl-theme">
         @foreach($testimonials as $testimonial)
-        <div class="duration-700 ease-in-out" style="height: 300px;">
+        <div>
         <x-testimonials-card :testimonial="$testimonial" />
             </div>
         @endforeach

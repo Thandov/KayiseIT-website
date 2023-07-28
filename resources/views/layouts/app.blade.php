@@ -37,7 +37,8 @@ session_start();
     <script src="{{ asset('/js/app.js') }}" defer></script>
     <script src="{{ asset('/js/owl.carousel.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('/js/scripts.js') }}" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <script>
     let i = 0;
     $("#duplicate-form").click(function() {
@@ -68,7 +69,31 @@ session_start();
 </head>
 
 <body class="font-sans antialiased">
+    <x-pageloader></x-pageloader>
     <div class="min-h-screen bg-gray-100">
+
+
+        @if (session('error'))
+        <script>
+        // Display SweetAlert for error message
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: "{{ session('error') }}",
+        });
+        </script>
+        @endif
+
+        @if (session('success'))
+        <script>
+        // Display SweetAlert for success message
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: "{{ session('success') }}",
+        });
+        </script>
+        @endif
 
         @php
         $services = App\Models\Service::all(); // Replace "YourModel" with the actual model you want to retrieve data from.

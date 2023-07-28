@@ -10,28 +10,6 @@
    @endsection
    <!-- Page Body -->
    <x-breadcrumb></x-breadcrumb>
-   @if (session('error'))
-  <script>
-    // Display SweetAlert for error message
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: "{{ session('error') }}",
-    });
-  </script>
-@endif
-
-@if (session('success'))
-  <script>
-    // Display SweetAlert for success message
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: "{{ session('success') }}",
-    });
-  </script>
-@endif
-
 
    <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">

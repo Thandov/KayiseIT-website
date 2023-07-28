@@ -4,27 +4,6 @@
             {{ __('CAREER MAPPING') }}
         </h2>
     </x-slot>
-    @if (session('error'))
-    <script>
-        // Display SweetAlert for error message
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: "{{ session('error') }}",
-        });
-    </script>
-    @endif
-
-    @if (session('success'))
-    <script>
-        // Display SweetAlert for success message
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: "{{ session('success') }}",
-        });
-    </script>
-    @endif
 
     <section id="viewOccupations">
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">

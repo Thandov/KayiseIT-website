@@ -66,17 +66,24 @@ $(window).on("load", function () {
     });
 
     $('#testimonial-carousel').owlCarousel({
-        loop:true,
-        margin:10,
-        nav:true,
-        responsive:{
-            0:{
-                items:1
+        loop: true,
+        margin: 10,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
             },
-        
+
         }
+        
     })
 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Hide the page loader once the page is fully loaded
+    document.getElementById("page-loader").style.display = "none";
+});
 
