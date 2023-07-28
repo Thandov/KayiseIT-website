@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use App\Models\PostCategories;
+
 
 class BlogController extends Controller
 {
@@ -16,7 +18,8 @@ class BlogController extends Controller
 
     public function addblog()
     {
-        return view('admin/blogs/addblog');
+        $postCategories = PostCategories::all();
+        return view('admin/blogs/addblog', compact('postCategories'));
     }
 
     public function storeblog(Request $request)
@@ -35,6 +38,7 @@ class BlogController extends Controller
         $blog->title = $request->title;
         $blog->subtitle = $request->subtitle;
         $blog->content = $request->content;
+        $blog->category_no = $request->category_no;
         $blog->save();
         $blogs = Blog::all();
         return redirect()->route('admin.blogs.blog');
