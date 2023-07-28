@@ -7,14 +7,15 @@
                     </th>
                 </tr>
                 <tr>
-                    <th scope="col" class="px-6 py-2">
-                        <form action="/admin/blogs/addblog" method="get">
-                            @csrf
-                            <button id="show" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Blog</button>
-                        </form>  
-                        <th scope="col" class="px-6 py-2">
-                        <x-front-end-btn linking="{{url('/admin/blogs/blog')}}" color="blue" showme="" name="View Posts" />
-                        </th>
+                    <th scope="col" class="px-2 py-3">
+                        <div class="flex space-x-2 space-y-1">  <!-- Use flex container to make buttons close to each other -->
+                            <form action="/admin/blogs/addblog" method="get">
+                                @csrf
+                                <x-front-end-btn linking="{{url('/admin/blogs/addblog')}}" color="blue" showme="" name="Add Blog" class="mb-4" />
+                            </form>
+                            <x-front-end-btn linking="{{url('/admin/blogs/blog')}}" color="blue" showme="" name="View Posts" />
+                            <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="" name="Categories" />
+                        </div>
                     </th>
                    
                     <th scope="col" class="relative px-6 py-3">

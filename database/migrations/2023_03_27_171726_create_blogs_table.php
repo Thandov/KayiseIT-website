@@ -17,11 +17,17 @@ return new class extends Migration
             $table->id();
             $table->string('icon')->nullable();
             $table->string('title');
+            $table->unsignedBigInteger('category_no')->nullable();            
             $table->string('subtitle');
             $table->text('content');
             $table->timestamps();
         });
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->foreign('category_no')->references('id')->on('post_categories')->onDelete('cascade');
+        });
     }
+
+    
 
     /**
      * Reverse the migrations.

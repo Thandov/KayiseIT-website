@@ -17,9 +17,12 @@ use App\Http\Controllers\OccupationsController;
 use App\Http\Controllers\SpecializationsController;
 use App\Http\Controllers\CareerStepsController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Occupations;
+use App\Models\PostCategories;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -175,6 +178,21 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
     Route::GET('/admin/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
+    //categories
+    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
+    // Route for displaying the list of post categories
+    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories.index');
+    // Route for showing the form to create a new post category
+    Route::get('/admin/blogs/categories/create', [PostCategoriesController::class, 'create'])->name('admin.blogs.categories.create');
+    // Route for storing the newly created post category
+    Route::post('/admin/blogs/categories', [PostCategoriesController::class, 'store'])->name('admin.blogs.categories.store');
+    // Route for showing the form to edit an existing post category
+    Route::get('/admin/blogs/categories/{postCategory}/edit', [PostCategoriesController::class, 'edit'])->name('admin.blogs.categories.edit');
+     // Route for updating an existing post category
+    Route::put('/admin/blogs/categories/{postCategory}', [PostCategoriesController::class, 'update'])->name('admin.blogs.categories.update');
+    // Route for deleting an existing post category
+    Route::delete('/admin/blogs/categories/{postCategory}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.destroy');
+
 
     //Testimonials
     Route::GET('/admin/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
