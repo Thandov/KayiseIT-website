@@ -1,82 +1,119 @@
 <!-- blog.blade.php -->
 
 <x-app-layout>
-    <div class="container mt-3">
-        <h2 style="color: #64bc5c" class="mb-5  font-bold text-5xl md:text-5xl">Categories</h2>
-        
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-header">
-                    <!-- modal with dialog tag  -->
-                        <div>
-                            <dialog id="addCategoryModal" class="bg-white shadow-md rounded-md w-1/2">
-                                <div class="flex justify-end">
-                                    <button id="hide">&times</button>
-                                </div>
-                                <form action="{{ route('admin.blogs.categories.store') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label class="form-label">Category Name</label>
-                                        <input type="text" class="form-control" name="category_name" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn me-auto btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
-                            </dialog>
-                            <button id="show" class="btn btn-sm btn-primary float-end" data-bs-toggle="modal" data-bs-target="#categories_modal">Add Category</button>
-
-                        </div>
-                                               
-                        <h3 class="text-lg leading-5 font-bold mb-2 text-gray-900">Category Name</h3> <!-- Adjust the font size (e.g., text-lg) as needed -->
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-4">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <nav class="flex" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="/admin/admin_dashboard" class="ml-1 text-sm font-medium inline-flex">
+                                <svg class="mr-2 w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                                    </path>
+                                </svg>
+                                Dashboard</a>
+                        </li>
+                        <!--                         <a href="/admin/staff/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            Staff
+                        </a> -->
+                        <li aria-current="page">
+                            <div class="flex items-center">
+                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">Blogs</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <div class="flex items-center mb-4">
+                    <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                        <i class="fas fa-cogs text-white"></i>
                     </div>
-                    <div class="card-body">
-                        <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden">
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($postCategories as $categories)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap border-b">
-                                    <div class="text-sm text-gray-900">{{ $categories->category_name }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap font-medium flex justify-end">
-                                    <div class="flex">
-                                        <x-front-end-btn linking="" color="blue" showme="" name="Edit" />
-                                        <form action="" method="get" onsubmit="return confirm('Are you sure you want to delete this service?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="inline-flex items-center px-4 py-2 ml-4 bg-red-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150">Delete</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <!-- Table footer content -->
-                            </tr>
-                        </tfoot>
-                    </table>
-                       
-                            
+                    <div class="ml-5 w-0 flex-1">
+                        <dl>
+                            <dt class="text-sm font-medium text-gray-500 truncate">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Categories</h3>
+                            </dt>
+                            <dd>
+                                <div class="text-lg font-medium text-gray-900">
+                                    <p class="mt-1 max-w-2xl text-sm text-gray-500">All our categories.</p>
+                                </div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="ml-auto">
+                        <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="show" name="Add Category" data-bs-toggle="modal" data-bs-target="#categories_modal" />
+                        <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
                     </div>
                 </div>
+                <x-dynamic-table thead="{{json_encode(['asa','qwer','qre'])}}" trcontent="{{json_encode($postCategories)}}" />
+
             </div>
         </div>
     </div>
+    <!-- The modal container -->
+
+    <div id="addCategoryModal" class="modal-backdrop fixed inset-0 flex items-center justify-center z-50 hidden">
+        <!-- Modal content -->
+        <div class="bg-white shadow-md rounded-md w-1/2">
+            <div class="modal-header flex justify-between items-center px-4 py-2 bg-gray-200">
+                <h5 class="text-lg font-bold">Modal Title</h5>
+                <button class="hideModal text-gray-600 hover:text-gray-800 p-2">
+                    &times;
+                </button>
+            </div>
+            <form action="{{ route('admin.blogs.categories.store') }}" method="POST">
+                @csrf
+                <div class="modal-body p-4">
+                    <label class="block font-medium text-gray-700 mb-2">Category Name</label>
+                    <input type="text" name="category_name" class="form-input w-full" required>
+                </div>
+                <div class="modal-footer flex justify-end p-4">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                        Save
+                    </button>
+                    <button type="button" class="hideModal bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded ml-4">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <script type="text/JavaScript">
-        (function() {
-        var dialog = document.getElementById('addCategoryModal');
-        document.getElementById('show').onclick = function() {
-            dialog.showModal(); //Use showModal() to make it a modal. Show() makes it a dialog 
-        };
-        document.getElementById('hide').onclick = function() {
-            dialog.close();
-        };
-        })();
-    </script>
+        // Get the trigger element that opens the modal (ID is "show")
+    const showModalBtn = document.getElementById('show');
+
+    // Get the modal container
+    const modalContainer = document.getElementById('addCategoryModal');
+
+    // Get the close button inside the modal
+    const hideModalBtn = modalContainer.querySelector('.hideModal');
+
+    // Add a click event listener to the trigger element
+    showModalBtn.addEventListener('click', (event) => {
+        // Prevent the default action (e.g., following a link or submitting a form)
+        event.preventDefault();
+
+        // Show the modal by removing the 'hidden' class
+        modalContainer.classList.remove('hidden');
+    });
+
+    // Add a click event listener to the close button inside the modal
+    hideModalBtn.addEventListener('click', () => {
+        // Hide the modal by adding the 'hidden' class
+        modalContainer.classList.add('hidden');
+    });
+</script>
+
 </x-app-layout>

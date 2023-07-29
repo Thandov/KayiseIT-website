@@ -997,4 +997,13 @@ footer .footer-content .link-boxes .box {
 
 .bigTall {
   height: 150px !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Black background with 60% opacity */
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px); /* Blurred effect */
+  z-index: 40; /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
 }/*# sourceMappingURL=style.css.map */

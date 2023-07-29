@@ -5,7 +5,7 @@
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="/dashboard" class="ml-1 text-sm font-medium inline-flex">
+                            <a href="/admin/admin_dashboard" class="ml-1 text-sm font-medium inline-flex">
                                 <svg class="mr-2 w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
                                     </path>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="md:grid md:grid-cols-4 gap-4">
                     @foreach ($blogs as $blog)
-                    <div class="max-w-sm rounded overflow-hidden shadow-lg border bg-white dark:bg-gray-800 relative">
+                    <div class="max-w-sm rounded-lg overflow-hidden shadow-sm border bg-white dark:bg-gray-800 relative">
                         <span class="absolute top-0 left-0 bg-gray-800 text-white px-2 py-1 rounded-tr-lg text-xs font-semibold">{{ date('d M Y', strtotime($blog->created_at)) }}</span>
                         <img class="w-full h-32 object-cover" src="{{ asset($blog->icon) }}" alt="Blog Image">
                         <div class="px-4 py-2">
@@ -65,9 +65,9 @@
                             <h3 class="text-xl font-semibold text-gray-800 dark:text-white mt-2">{{ $blog->title }}</h3>
                             <p class="text-gray-600 dark:text-gray-300 mt-1 text-sm">{{ $blog->subtitle }}</p>
                         </div>
-                        <div class="px-4 py-2 flex items-center justify-between">
-                            <x-front-end-btn linking="/admin/blogs/viewblog_edit/{{$blog->id}}" color="blue" showme="" name="Edit" />
-                            <x-front-end-btn linking="{{route('blogs.displayblog', ['id' => $blog->id])}}" color="blue" showme="" name="View" />
+                        <div class="grid grid-cols-2 items-center justify-between">
+                            <a href="/admin/blogs/viewblog_edit/{{$blog->id}}" class="bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</a>
+                            <a href="{{route('blogs.displayblog', ['id' => $blog->id])}}" class="bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Delete</a>
                         </div>
                     </div>
                     @endforeach

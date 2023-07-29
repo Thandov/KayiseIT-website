@@ -188,9 +188,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     //categories
     Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
     // Route for displaying the list of post categories
-    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories.index');
+    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories');
     // Route for showing the form to create a new post category
     Route::get('/admin/blogs/categories/create', [PostCategoriesController::class, 'create'])->name('admin.blogs.categories.create');
+    // Route for deleting the form to create a new post category
+    Route::POST('/admin/blogs/categories/deleting/{id}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.deleting');
     // Route for storing the newly created post category
     Route::post('/admin/blogs/categories', [PostCategoriesController::class, 'store'])->name('admin.blogs.categories.store');
     // Route for showing the form to edit an existing post category
