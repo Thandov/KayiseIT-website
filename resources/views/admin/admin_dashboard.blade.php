@@ -4,7 +4,7 @@
             {{ __('ADMIN DASHBOARD') }}
         </h2>
     </x-slot>
-    
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <!-- Sales Stats -->
         <div class="bg-white overflow-hidden shadow rounded-lg">
@@ -24,7 +24,7 @@
                         <x-dash-card name="Staff" href="admin/staff"></x-dash-card>
                         <x-dash-card name="Career Mapping" href="admin/dashboard/careermapping_dashboard"></x-dash-card>
                         <x-dash-card name="Carousel" href="/admin/carousel/carousels"></x-dash-card>
-                        <x-dash-card name="Blogs" href="admin/blogs/view_all_blogs"></x-dash-card>
+                        <x-dash-card name="Blogs" href="admin/blogs/"></x-dash-card>
                     </div>
                 </div>
             </div>

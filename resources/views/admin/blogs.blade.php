@@ -67,10 +67,9 @@
                         </div>
                         <div class="px-4 py-2 flex items-center justify-between">
                             <x-front-end-btn linking="/admin/blogs/viewblog_edit/{{$blog->id}}" color="blue" showme="" name="Edit" />
-                            <x-front-end-btn linking="viewblog/'.$blog->id" color="blue" showme="" name="View" />
+                            <x-front-end-btn linking="{{route('blogs.displayblog', ['id' => $blog->id])}}" color="blue" showme="" name="View" />
                         </div>
                     </div>
-
                     @endforeach
                 </div>
             </div>

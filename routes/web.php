@@ -175,7 +175,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     //blogs
 
     Route::post('/admin/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
-    Route::GET('/admin/blogs/view_all_blogs', [BlogController::class, 'blog'])->name('admin.blogs.view_all_blogs');
     Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
     Route::GET('/admin/blogs/blog', [BlogController::class, 'blogpage'])->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
@@ -265,7 +264,10 @@ Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('
 
 //Blog
 Route::get('blog', [BlogController::class, 'blogpage'])->name('blogpage');
-Route::get('viewblog/{id}', [BlogController::class, 'viewblog'])->name('viewblog');
+Route::get('/blogs/displayblog/{id}', function ($id) {
+    $blog = App\Models\Blog::where('id', $id)->first();
+    return view('blogs.displayblog', compact('blog'));
+})->name('blogs.displayblog');
 
 //checkout
 Route::get('checkout/checkout', [CheckoutController::class, 'checkout'])->middleware('auth');

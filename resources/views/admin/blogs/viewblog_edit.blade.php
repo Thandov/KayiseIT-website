@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-4">
             <div class="p-6 bg-white border-b border-gray-200">
                 <nav class="flex" aria-label="Breadcrumb">
@@ -36,27 +36,27 @@
             @csrf
             <div class="grid md:grid-cols-12 gap-4">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-9">
-                    <div class="m-3 row">
-                        <label for="title" class="col-sm-3 form-label fw-bold text-md-end">Title:</label>
-                        <div class="col-sm-9">
-                            <input type="title" name="title" id="title" class="form-control" value="{{ $blog->title }}" />
-                        </div>
-                    </div>
-                    <div class="m-3 row">
-                        <label for="subtitle" class="col-sm-3 form-label fw-bold text-md-end">Sub Title:</label>
-                        <div class="col-sm-9">
-                            <input type="title" name="subtitle" id="subtitle" class="form-control" value="{{ $blog->subtitle }}" />
-                        </div>
-                    </div>
-                    <div class="m-3 row">
-                        <label for="content" class="col-sm-3 form-label fw-bold text-md-end">Post:</label>
-                        <div class="col-sm-9">
-                            <textarea name="content" id="task-textarea" value="{{ $blog->contet }}" class="form-control">{{ $blog->content }}</textarea>
-                        </div>
+
+                    <div class="m-3">
+                        <textarea name="content" id="task-textarea" value="{{ $blog->contet }}" class="form-control">{{ $blog->content }}</textarea>
                     </div>
                 </div>
                 <div class="md:col-span-3">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg px-3 py-4 md:grid md:grid-row-3 gap-4">
+                        <div class="">
+                            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                            <input type="text" name="title" id="title" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('title') border-red-500 @enderror" value="{{ old('title') }}">
+                            @error('title')
+                            <p class="text-red-500 text-sm">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="">
+                            <label for="subtitle" class="block text-sm font-medium text-gray-700">Sub Title</label>
+                            <input type="text" name="subtitle" id="subtitle" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('subtitle') border-red-500 @enderror" value="{{ old('subtitle') }}">
+                            @error('subtitle')
+                            <p class="text-red-500 text-sm">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <x-img-upload image="{{$blog->icon}}" classing="bigTall" />
                         <select name="subtitle2" id="subtitle2" class="form-select block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="">Select a category</option>
