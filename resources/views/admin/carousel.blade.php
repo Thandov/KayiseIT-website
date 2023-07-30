@@ -56,13 +56,10 @@
                     </div>
                     <div class="md:grid md:grid-cols-2 gap-4">
                         @foreach ($carousels as $key => $carousel)
-                        @php
-                        print_r($carousel->title);
-                        @endphp
                         <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20" style="background-image: url('{{ asset($carousel->image) }}'); height: 250px; background-position: center; background-size:cover">
-                            <a href="{{ route('admin.carousel.viewcarousel', ['id' => $carousel->id]) }}">
+                            <a href="{{ route('admin.carousel.viewcarousel', $carousel->id) }}">
                                 <div class="flex items-center md:justify-center -mt-16 w-20 h-20 rounded-full bg-blue-500">
-                                    <p>{{$key+1}}</p>
+                                    <p class="font-lg">{{$key+1}}</p>
                                 </div>
                                 <div>
                                     <p class="text-gray-800 text-3xl font-semibold">{{$carousel->middletxt ?? ''}}</p>

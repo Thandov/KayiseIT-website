@@ -23,7 +23,7 @@
                         <x-dash-card name="Clients" href="admin/clients"></x-dash-card>
                         <x-dash-card name="Staff" href="admin/staff"></x-dash-card>
                         <x-dash-card name="Career Mapping" href="admin/dashboard/careermapping_dashboard"></x-dash-card>
-                        <x-dash-card name="Carousel" href="/admin/carousel/carousels"></x-dash-card>
+                        <x-dash-card name="Carousel" href="/admin/carousel"></x-dash-card>
                         <x-dash-card name="Blogs" href="admin/blogs/"></x-dash-card>
                     </div>
                 </div>

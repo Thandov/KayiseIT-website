@@ -234,7 +234,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     });
     //Carousel
     Route::GET('/admin/carousel', function () {
-        $carousels = Carousel::select('user_id', 'title', 'middletxt', 'btmtxt', 'image')
+        $carousels = Carousel::select('id', 'user_id', 'title', 'middletxt', 'btmtxt', 'image')
         ->get();
         return view('/admin/carousel', compact('carousels'));
     })->name('admin.carousel');
