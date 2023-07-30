@@ -20,7 +20,7 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Models\Occupations;
+use App\Models\Carousel;
 use App\Models\PostCategories;
 
 
@@ -233,8 +233,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         return view('/admin/career_mapping/careersteps/edit');
     });
     //Carousel
-    Route::GET('/admin/carousel/carousels', [CarouselController::class, 'index']);
-    Route::GET('/admin/carousel', [CarouselController::class, 'index'])->name('admin.carousel');
+    Route::GET('/admin/carousel', function () {
+        $carousels = Carousel::select('user_id', 'title', 'middletxt', 'btmtxt', 'image')
+        ->get();
+        return view('/admin/carousel', compact('carousels'));
+    })->name('admin.carousel');
     Route::GET('/admin/carousel/newcarousel', function () {
         return view('admin.carousel.newcarousel');
     })->name('admin.carousel.newcarousel');

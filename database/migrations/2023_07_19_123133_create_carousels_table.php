@@ -15,10 +15,15 @@ return new class extends Migration
     {
         Schema::create('carousels', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->string('title')->nullable();
+            $table->string('middletxt')->nullable();
+            $table->string('btmtxt')->nullable();
+            $table->string('image');
             $table->timestamps();
+        });
+        Schema::table('carousels', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

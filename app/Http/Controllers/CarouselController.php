@@ -19,11 +19,7 @@ class CarouselController extends Controller
      */
     public function index()
     {
-        $carousels = DB::table('carousels')
-            ->select('carousels.*')
-            ->get();
-
-        return view('/admin/carousel/carousel', compact('carousels'));
+        
     }
 
     /**
@@ -100,9 +96,7 @@ class CarouselController extends Controller
      */
     public function show($id)
     {
-        $cid = 3;
-
-        $carousel = Carousel::find($cid)->where("id", $cid)->first();
+        $carousel = Carousel::find($id)->where("id", (int)$id)->first();
         return view('admin/carousel/viewcarousel', compact('carousel'));
     }
 
@@ -124,16 +118,11 @@ class CarouselController extends Controller
      * @param  \App\Models\Carousel  $carousel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Carousel $carousel)
+    public function update(Request $request)
     {
         $changedFields = [];
-        dd($carousel);
-        if ($request->input('btmtxt') !== $carousel->btmtxt) {
-            dd("input value doesnt match \$carousel->btmtxt therefore it was changed");
-        } else {
-            dd("Not changed");
-        }
-        dd($request->input());
+        $carousel = Carousel::where('id', (int)$request->id)->first();
+
         if ($request->filled('head_title')) {
             $carousel->title = $request->input('head_title');
             $changedFields[] = 'title';
@@ -167,7 +156,6 @@ class CarouselController extends Controller
         if (!empty($changedFields)) {
             $carousel->save();
         }
-        dd("Asdasdasd");
         return redirect()->back()->with('success', 'Carousel updated successfully.');
     }
 

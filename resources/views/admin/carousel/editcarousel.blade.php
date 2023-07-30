@@ -31,5 +31,5 @@
             </div>
         </div>
     </div>
-    <x-carousel-form route="{{ route('admin.carousel.viewcarousel.update', ['carousel' => $carousel->id]) }}" slides="{{$carousel}}" />
+    <x-carousel-form route="{{ route('admin.carousel.update') }}" slides="" />
 </x-app-layout>

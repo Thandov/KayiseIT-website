@@ -999,6 +999,10 @@ footer .footer-content .link-boxes .box {
   height: 150px !important;
 }
 
+.bigTallest {
+  height: 100% !important;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
