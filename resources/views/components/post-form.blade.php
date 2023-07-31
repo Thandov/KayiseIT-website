@@ -3,6 +3,8 @@ $decodedString = htmlspecialchars_decode($post);
 //Convert the regular string to an array using json_decode
 $post = json_decode($decodedString);
 @endphp
+
+
 <form method="post" action="{{$action}}" enctype="multipart/form-data">
     @csrf
     <div class="grid md:grid-cols-12 gap-4">
@@ -37,8 +39,7 @@ $post = json_decode($decodedString);
                     <option value="{{ $category->id }}" @if(!empty($post->category_no) && $post->category_no == $category->id) selected @endif>{{ $category->category_name }}</option>
                     @endforeach
                 </select>
-                dsfsf
-                <x-front-end-btn linking="services" color="submit" showme="" name="Post" />
+                <x-front-end-btn linking="{{$buttonlinking}}" color="{{$buttoncolor}}" showme="{{$buttonshowme}}" name="{{$buttonname}}" />
             </div>
         </div>
     </div>

@@ -74,7 +74,7 @@ class BlogController extends Controller
 
     public function updateblog(Request $request, $id)
     {
-
+        dd("Sdfsdfsf45345");
         // Find the blog by its ID
         $blog = Blog::findOrFail($id);
         // Get the new data from the request
