@@ -27,7 +27,13 @@ class BlogController extends Controller
     public function storeblog(Request $request)
     {
 
-        $request->validate(['profile_picture' => 'required|mimes:jpg,png,jpeg|max:5048']);
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpg,png,jpeg|max:5048',
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
         $profilePicture = "";
         $name = $request->title;
 
