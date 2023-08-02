@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\PostCategories;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class PostCategoriesController extends Controller
 {
@@ -37,25 +39,36 @@ class PostCategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:post_categories|max:255',
+            'category_name' => 'required|array',
+            'category_name.*' => [
+                'required',
+                'max:255',
+                Rule::unique('post_categories', 'category_name'),
+            ],
         ]);
+        $categoryNames = $request->input('category_name');
 
-        $postCategory = new PostCategories;
-        $postCategory->category_name = $request->category_name;
-        do {
-            // Generate a random 3-digit number
-            $randomNumber = str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+        foreach ($categoryNames as $categoryName) {
+            $postCategory = new PostCategories;
+            $postCategory->category_name = $categoryName;
 
-            // Prepend "cat_" to the random number to create cat_id
-            $postCategory->cat_id = 'cat_' . $randomNumber;
+            do {
+                // Generate a random 3-digit number
+                $randomNumber = str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
 
-            // Check if the generated cat_id already exists in the database
-            $existingCategory = PostCategories::where('cat_id', $postCategory->cat_id)->first();
-        } while ($existingCategory);
-        $postCategory->save();
+                // Prepend "cat_" to the random number to create cat_id
+                $postCategory->cat_id = 'cat_' . $randomNumber;
 
-        return back()->with('success', 'Post category created successfully.');
+                // Check if the generated cat_id already exists in the database
+                $existingCategory = PostCategories::where('cat_id', $postCategory->cat_id)->first();
+            } while ($existingCategory);
+
+            $postCategory->save();
+        }
+
+        return back()->with('success', 'Post categories created successfully.');
     }
+
 
     /**
      * Display the specified resource.

@@ -271,7 +271,10 @@ Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('
 
 
 //Blog
-Route::get('blog', [BlogController::class, 'blogpage'])->name('blogpage');
+Route::get('/blogs', function () {
+    $blogs = App\Models\Blog::select('id', 'icon', 'title', 'category_no')->get();
+    return view('blogs', compact('blogs'));
+})->name('blogs');
 Route::get('/blogs/displayblog/{id}', function ($id) {
     $blog = App\Models\Blog::where('id', $id)->first();
     return view('blogs.displayblog', compact('blog'));
