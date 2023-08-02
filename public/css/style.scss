@@ -180,6 +180,27 @@ input[type="number"] {
     width: 350px;
   }
 }
+.caraslide {
+  .black-overlay::before {
+    content: "";
+    position: absolute;
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+  }
+  a {
+    z-index: 9999 !important;
+
+    div {
+      color: #fff;
+    }
+  }
+}
 .owl-carousel#headercara {
   height: 100%;
   div.owl-stage-outer {
@@ -245,12 +266,11 @@ input[type="number"] {
     }
   }
 }
-.imguploadwrap{
-  #profile_pic_wrapper{
+.imguploadwrap {
+  #profile_pic_wrapper {
     height: 250px;
     width: 250px;
   }
-
 }
 .image-upload-box {
   height: 120px;
@@ -1021,11 +1041,11 @@ footer .footer-content .link-boxes .box {
   width: 200px;
   height: 250px;
 }
-.bigTall{
-  height: 150px!important;
+.bigTall {
+  height: 150px !important;
 }
-.bigTallest{
-  height: 100%!important;
+.bigTallest {
+  height: 100% !important;
 }
 .modal-backdrop {
   position: fixed;

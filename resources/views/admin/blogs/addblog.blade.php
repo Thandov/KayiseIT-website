@@ -30,8 +30,7 @@
                 </nav>
             </div>
         </div>
-
-        <x-post-form id="businessdash" action="{{ route('admin.blogs.storeblog-form') }}" post="" />
+        @include('../admin/blogs/_blog-form', ['route' => 'admin.blogs.storeblog-form'])
     </div>
 
 </x-app-layout>
@@ -46,7 +45,6 @@
         .catch(error => {
             console.error(error);
         });
-
     ClassicEditor
         .create(document.querySelector('#task-textarea2'), {
             ckfinder: {

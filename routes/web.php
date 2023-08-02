@@ -21,6 +21,7 @@ use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Carousel;
+use App\Models\Blog;
 use App\Models\PostCategories;
 
 
@@ -113,9 +114,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/staff/newstaff', function () {
         return view('admin.staff.newstaff');
     })->name('admin.staff.newstaff');
-    Route::post('/admin/staff/create', [AdminController::class, 'new_employee']);
+    Route::POST('/admin/staff/create', [AdminController::class, 'new_employee'])->name('admin.staff.create');
     Route::DELETE('/admin/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
-    Route::POST('/admin/staff/viewstaff/update/', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
+    Route::POST('/admin/staff/viewstaff/update/{id}', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
     Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
@@ -176,7 +177,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     Route::post('/admin/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
     Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
-    Route::GET('/admin/blogs/blog', [BlogController::class, 'blogpage'])->name('admin.blogs.blog');
+    Route::GET('/admin/blogs/blog', function () {
+        $blogs = Blog::all();
+        return view('/admin/blogs/blog', compact('blogs'));
+    })->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
     Route::post('/admin/blogs/viewblog_edit/{id}', function () {
         return view('admin.blogs.viewblog_edit');

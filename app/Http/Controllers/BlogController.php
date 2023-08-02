@@ -26,7 +26,7 @@ class BlogController extends Controller
 
     public function storeblog(Request $request)
     {
-
+        
         $request->validate(['profile_picture' => 'required|mimes:jpg,png,jpeg|max:5048']);
         $profilePicture = "";
         $name = $request->title;
@@ -57,14 +57,6 @@ class BlogController extends Controller
         $blogs = Blog::all();
         return redirect()->route('admin.blogs.blog');
     }
-
-    public function blogpage()
-    {
-        $blogs = Blog::all();
-        return view('/admin/blogs/blog', compact('blogs'));
-    }
-
-
     public function destroyblog($id)
     {
         $blog = Blog::find($id);

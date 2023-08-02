@@ -1,9 +1,4 @@
-@php
-$decodedString = htmlspecialchars_decode($post);
-//Convert the regular string to an array using json_decode
-$post = json_decode($decodedString);
-@endphp
-<form method="post" action="{{$action}}" enctype="multipart/form-data">
+<form method="post" action="{{route($route)}}" enctype="multipart/form-data">
     @csrf
     <div class="grid md:grid-cols-12 gap-4">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-9">

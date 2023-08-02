@@ -1,7 +1,12 @@
+<!-- {"id":1,"user_id":1,"title":"Love","middletxt":"Lives","btmtxt":"Here","image":"\/images\/carousel\/Thando_Hlophe.jpg","created_at":"2023-07-30T07:43:28.000000Z","updated_at":"2023-07-30T07:58:52.000000Z"} -->
 <div class="jumbotron bg-gray-400 bg-gradient position-relative">
+    @php
+    $slides = App\Models\Carousel::select('title', 'middletxt', 'btmtxt', 'image')->get();
+    @endphp
+
     <div class="owl-carousel owl-theme" id="headercara">
-        <x-carousel-item pic="../images/landing-page/banner.jpeg" topTitle="We Specialize In" mainTitle="Web Development" bottomTitle="Get ready to be wowed by our cutting-edge design and unbeatable functionality - we're the top dog in the web development game." />
-        <x-carousel-item pic="../images/landing-page/banner2.jpg" topTitle="We specialize In" mainTitle="Software Development" bottomTitle="Embrace our software development ride, where we turn code into magic with our team of brilliant developers" />
-        <x-carousel-item pic="../images/landing-page/banner3.png" topTitle="We specialize In" mainTitle="Office Automation" bottomTitle="Say goodbye to tedious manual tasks and hello to unparalleled efficiency - we're the game-changers you've been waiting for." />
+        @foreach ($slides as $slide)
+        <x-carousel-item pic="{{$slide->image ?? ''}}" topTitle="{{$slide->title ?? ''}}" mainTitle="{{$slide->middletxt ?? ''}}" bottomTitle="{{$slide->btmtxt ?? ''}}" />
+        @endforeach
     </div>
 </div>
