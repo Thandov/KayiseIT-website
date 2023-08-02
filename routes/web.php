@@ -120,10 +120,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
     Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
-    Route::GET('/admin/blogs', function () {
-        $blogs = App\Models\Blog::all();
-        return view('admin.blogs', compact('blogs'));
-    })->name('admin.blogs');
     Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
     Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
     Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
@@ -174,7 +170,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
     //blogs
-
+    Route::GET('/admin/blogs', function () {
+        $blogs = App\Models\Blog::all();
+        return view('admin.blogs', compact('blogs'));
+    })->name('admin.blogs');
     Route::post('/admin/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
     Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
     Route::GET('/admin/blogs/blog', function () {

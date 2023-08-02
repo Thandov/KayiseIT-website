@@ -9,9 +9,12 @@ $post = json_decode($decodedString);
         <table class="w-full whitespace-no-wrap">
             <thead>
                 <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                    @if ($post[0] ?? '')
                     @foreach ($post[0] as $key => $value)
                     <th class="px-4 py-3">{{ $key }}</th>
                     @endforeach
+                    @endif
+
                     <th width="20%"></th>
                 </tr>
             </thead>

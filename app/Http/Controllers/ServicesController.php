@@ -45,7 +45,7 @@ class ServicesController extends Controller
             'description' => 'required|string',
             'service_type' => 'required|in:static,dynamic',
             'price' => 'required|numeric',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], $customMessages);
 
         $newImageName = time() . '_' . $request->name . '.' . $request->icon->extension();
@@ -77,7 +77,7 @@ class ServicesController extends Controller
         return view('viewservice', compact('service', 'subservices', 'testimonials'));
     }
 
-    public function display_service_name(Request $request , $slug)
+    public function display_service_name(Request $request, $slug)
     {
         $name = str_replace('-', ' ', ucwords($slug, '-'));
         $service = DB::table('services')->where('name', $name)->get()->first();
@@ -88,6 +88,14 @@ class ServicesController extends Controller
 
     public function updateService(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'subservices' => 'required|array',
+            'subservices.*.name' => 'required|string|max:255',
+            'subservices.*.price' => 'required|numeric|min:0',
+            'id' => 'required|exists:services,id',
+        ]);
 
         $service = Service::findOrFail($id);
         $service->name = $request->input('name');
