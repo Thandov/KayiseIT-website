@@ -31,5 +31,5 @@
             </div>
         </div>
     </div>
-    <x-carousel-form route="{{ route('admin.carousel.create') }}" slides="" />
+    @include('../admin/carousel/_carousel_form', ['route' => 'admin.carousel.create'])
 </x-app-layout>

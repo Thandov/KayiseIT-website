@@ -1,16 +1,14 @@
 <!-- Ensure the relevant framework-specific blade or HTML tags are added properly -->
-<div id="profile_pic_wrapper" class="{{$classing}} shadow overflow-hidden border-b border-gray-200 sm:rounded-lg flex items-center justify-center">
+<div id="profile_pic_wrapper" class="{{$classing}} shadow overflow-hidden border-b border-gray-200 sm:rounded-lg relative">
     <label for="profile_picture_input">
         @if (isset($image) && $image ?? '')
-        <img id="profile_picture_preview" src="{{ asset($image) }}" alt="Profile Picture">
+        <img id="profile_picture_preview" src="{{ asset($image) }}" alt="Profile Picture" class="object-cover w-full h-full">
         @else
-        <img id="profile_picture_preview" src="#" alt="Profile Picture"> <!-- Add a default image source or leave it blank -->
+        <img id="profile_picture_preview" src="#" alt="Profile Picture" class="object-cover w-full h-full"> <!-- Add a default image source or leave it blank -->
         @endif
     </label>
     <input id="profile_picture_input" type="file" name="profile_picture" style="display: none;">
 </div>
-
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Function to handle the file input change event

@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:8'], // Assuming you're using Laravel's default password validation rules
+            'password' => ['required', 'confirmed', 'min:8'],
         ]);
 
         $user = User::create([
@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
-        $user->attachRole($request->role_id); 
+        $user->attachRole($request->role_id);
 
         event(new Registered($user));
 

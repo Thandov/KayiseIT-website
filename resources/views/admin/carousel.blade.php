@@ -56,17 +56,13 @@
                     </div>
                     <div class="md:grid md:grid-cols-2 gap-4">
                         @foreach ($carousels as $key => $carousel)
-                        <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20" style="background-image: url('{{ asset($carousel->image) }}'); height: 250px; background-position: center; background-size:cover">
+                        <div class="caraslide max-w-md py-4 px-4 bg-white shadow-lg rounded-lg mb-4 relative" style="background-image: url('{{ asset($carousel->image) }}'); height: 250px; background-position: center; background-size:cover">
+                            <div class="black-overlay rounded-lg overflow-hidden"></div>
                             <a href="{{ route('admin.carousel.viewcarousel', $carousel->id) }}">
-                                <div class="flex items-center md:justify-center -mt-16 w-20 h-20 rounded-full bg-blue-500">
-                                    <p class="font-lg">{{$key+1}}</p>
-                                </div>
-                                <div>
-                                    <p class="text-gray-800 text-3xl font-semibold">{{$carousel->middletxt ?? ''}}</p>
-                                    <p class="mt-2 text-gray-600">{{$carousel->btmtxt ?? ''}}</p>
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <x-front-end-btn linking="edit" color="blue" showme="null" name="Edit" />
+                                <div class="rounded-lg h-100 flex flex-col justify-center items-start absolute p-4" style="z-index: 50; top: 0; bottom: 0; right: 0; left: 0">
+                                    <p class="text-white-800 text-md font-semibold">{{$carousel->title ?? ''}}</p>
+                                    <p class="text-white-800 text-md font-semibold">{{$carousel->middletxt ?? ''}}</p>
+                                    <p class="text-white-800 text-md font-semibold">{{$carousel->btmtxt ?? ''}}</p>
                                 </div>
                             </a>
                         </div>

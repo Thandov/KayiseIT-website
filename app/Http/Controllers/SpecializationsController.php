@@ -39,12 +39,18 @@ class SpecializationsController extends Controller
 
         return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'arrlength', 'occup_id'));
     }
-    
+
     public function addspecialization(Request $request, $occup_id)
     {
+        $request->validate([
+            'spec_name' => 'required|array',
+            'spec_name.*' => 'required|string|max:255',
+            'occup_id' => 'required|exists:specializations,occup_id',
+        ]);
+
         // Get the array of specialization names from the request
         $specializations = $request->input('spec_name');
-    
+
         foreach ($specializations as $specializationName) {
             // Create a new specialization instance
             $specialization = new Specializations();
@@ -63,6 +69,12 @@ class SpecializationsController extends Controller
 
     public function updateSpecialization(Request $request)
     {
+        //Input Validations
+        $request->validate([
+            'spec_id' => 'required|exists:specializations,id',
+            'specialization_name' => 'required|string|max:255', 
+        ]);
+
         $specialization = Specializations::findOrFail($request->input('spec_id'));
         $specialization->specialization_name = $request->input('specialization_name');
         $specialization->save();
@@ -77,6 +89,6 @@ class SpecializationsController extends Controller
         }
 
         $specialization->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Specialization deleted Successfully.');
     }
 }

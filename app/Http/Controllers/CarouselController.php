@@ -138,13 +138,13 @@ class CarouselController extends Controller
             $changedFields[] = 'btmtxt';
         }
 
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        if ($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
             // Delete the previous image if it exists
             if ($carousel->image && Storage::exists('images/carousel/' . $carousel->image)) {
                 Storage::delete('images/carousel/' . $carousel->image);
             }
 
-            $imagePath = $request->file('image')->store('images/carousel', 'public');
+            $imagePath = $request->file('profile_picture')->store('images/carousel', 'public');
             $carousel->image = $imagePath;
             $changedFields[] = 'image';
         }

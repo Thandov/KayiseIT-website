@@ -55,29 +55,36 @@
                         <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
                     </div>
                 </div>
-                <x-dynamic-table thead="{{json_encode(['asa','qwer','qre'])}}" trcontent="{{json_encode($postCategories)}}" />
+                <x-dynamic-table thead="" trcontent="{{json_encode($postCategories)}}" />
 
             </div>
         </div>
     </div>
     <!-- The modal container -->
-
     <div id="addCategoryModal" class="modal-backdrop fixed inset-0 flex items-center justify-center z-50 hidden">
         <!-- Modal content -->
-        <div class="bg-white shadow-md rounded-md w-1/2">
-            <div class="modal-header flex justify-between items-center px-4 py-2 bg-gray-200">
-                <h5 class="text-lg font-bold">Modal Title</h5>
+        <div class="bg-white shadow-md rounded-lg p-6 w-1/2">
+            <div class="modal-header flex justify-between items-center pb-4 border-b-2 border-gray-200">
+                <h5 class="text-lg font-bold">Add Category</h5>
                 <button class="hideModal text-gray-600 hover:text-gray-800 p-2">
                     &times;
                 </button>
             </div>
             <form action="{{ route('admin.blogs.categories.store') }}" method="POST">
                 @csrf
-                <div class="modal-body p-4">
+                <div class="modal-body py-4" id="categoryInputsContainer">
                     <label class="block font-medium text-gray-700 mb-2">Category Name</label>
-                    <input type="text" name="category_name" class="form-input w-full" required>
+                    <div class="category-inputs">
+                        <div class="flex items-center mb-2 rounded-lg px-4 py-2 bg-gray-100">
+                            <span class="font-bold rounded-lg bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-2">1</span>
+                            <input type="text" name="category_name[]" class="form-input w-full" required>
+                        </div>
+                    </div>
+                    <button type="button" id="addCategoryButton" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
+                        Add Category
+                    </button>
                 </div>
-                <div class="modal-footer flex justify-end p-4">
+                <div class="modal-footer flex justify-end pt-4 border-t-2 border-gray-200">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                         Save
                     </button>
@@ -88,8 +95,6 @@
             </form>
         </div>
     </div>
-
-
     <script type="text/JavaScript">
         // Get the trigger element that opens the modal (ID is "show")
     const showModalBtn = document.getElementById('show');
@@ -114,6 +119,29 @@
         // Hide the modal by adding the 'hidden' class
         modalContainer.classList.add('hidden');
     });
-</script>
 
+    // Add a click event listener to the "Add Category" button
+    const addCategoryButton = document.getElementById('addCategoryButton');
+    addCategoryButton.addEventListener('click', () => {
+        const categoryInputsContainer = document.getElementById('categoryInputsContainer');
+        const categoryInputs = categoryInputsContainer.querySelector('.category-inputs');
+        const categoryCount = categoryInputs.childElementCount;
+
+        const newInputContainer = document.createElement('div');
+        newInputContainer.classList.add('flex', 'items-center', 'mb-2', 'rounded-lg', 'px-4', 'py-2', 'bg-gray-100');
+
+        const countSpan = document.createElement('span');
+        countSpan.textContent = categoryCount + 1;
+        countSpan.classList.add('font-bold', 'rounded-lg', 'bg-blue-500', 'text-white', 'w-8', 'h-8', 'flex', 'items-center', 'justify-center', 'mr-2');
+
+        const newInput = document.createElement('input');
+        newInput.type = 'text';
+        newInput.name = 'category_name[]'; // Use the '[]' to make it an array in form submission
+        newInput.classList.add('form-input', 'w-full', 'focus:outline-none');
+
+        newInputContainer.appendChild(countSpan);
+        newInputContainer.appendChild(newInput);
+        categoryInputs.appendChild(newInputContainer);
+    });
+</script>
 </x-app-layout>

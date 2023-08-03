@@ -21,6 +21,7 @@ use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Carousel;
+use App\Models\Blog;
 use App\Models\PostCategories;
 
 
@@ -114,6 +115,19 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('dashboard.staff');
     Route::GET('/dashboard/staff/newstaff', function () {
         return view('admin.staff.newstaff');
+    })->name('admin.staff.newstaff');
+    Route::POST('/admin/staff/create', [AdminController::class, 'new_employee'])->name('admin.staff.create');
+    Route::DELETE('/admin/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
+    Route::POST('/admin/staff/viewstaff/update/{id}', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
+    Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
+    Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
+    Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
+    Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
+    Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
+    Route::GET('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::GET('/admin/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
+    Route::GET('/admin/services', [AdminController::class, 'services'])->name('admin.services');
     })->name('dashboard.staff.newstaff');
     Route::post('/dashboard/staff/create', [AdminController::class, 'new_employee']);
     Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
@@ -177,7 +191,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     })->name('admin.blogs');
     Route::post('/admin/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
     Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
-    Route::GET('/admin/blogs/blog', [BlogController::class, 'blogpage'])->name('admin.blogs.blog');
+    Route::GET('/admin/blogs/blog', function () {
+        $blogs = Blog::all();
+        return view('/admin/blogs/blog', compact('blogs'));
+    })->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
     Route::post('/admin/blogs/viewblog_edit/{id}', function () {
         return view('admin.blogs.viewblog_edit');
@@ -269,7 +286,10 @@ Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('
 
 
 //Blog
-Route::get('blog', [BlogController::class, 'blogpage'])->name('blogpage');
+Route::get('/blogs', function () {
+    $blogs = App\Models\Blog::select('id', 'icon', 'title', 'category_no')->get();
+    return view('blogs', compact('blogs'));
+})->name('blogs');
 Route::get('/blogs/displayblog/{id}', function ($id) {
     $blog = App\Models\Blog::where('id', $id)->first();
     return view('blogs.displayblog', compact('blog'));

@@ -26,9 +26,18 @@ class SubServicesController extends Controller
         return view('admin/services/addsubservices', compact('service'));
     }
 
-
     public function store(Request $request, $id)
     {
+        //Input Validations
+        $request->validate([
+            'name' => 'required|array',
+            'name.*' => 'required|string|max:255',
+            'description' => 'required|array',
+            'description.*' => 'nullable|string',
+            'price' => 'required|array',
+            'price.*' => 'required|numeric|min:0',
+        ]);
+
         $service = Service::find($id);
         $service_id = $service->id;
         $names = $request->name;
@@ -55,6 +64,13 @@ class SubServicesController extends Controller
     }
     public function updateSubservice(Request $request, $id)
     {
+        //input validations
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'id' => 'required|exists:subservices,id',
+        ]);
+
         $subservice = Subservice::find($id);
         $subservice->name = $request->name;
         $subservice->price = $request->price;
@@ -63,11 +79,15 @@ class SubServicesController extends Controller
         return redirect()->back()->with('success', 'Subservice updated successfully.');
     }
 
-
-
-
     public function update(Request $request, $id)
     {
+        //input validations
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'id' => 'required|exists:subservices,id',
+        ]);
+
         $subservice = Subservice::findOrFail($id);
         $subservice->name = $request->name;
         $subservice->price = $request->price;
