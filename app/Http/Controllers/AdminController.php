@@ -31,8 +31,9 @@ class AdminController extends Controller
         $quotations = Quotation::all();
         $invoices = Invoice::all();
         $users = User::all();
+        $urlSegments = explode('/', request()->path());
 
-        return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices'));
+        return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices', 'urlSegments'));
     }
 
     public function remove($id)
@@ -142,9 +143,11 @@ class AdminController extends Controller
 
         return view('admin/subservices/viewsubservice', compact('subservice', 'options', 'serviceName', 'serviceID'));
     }
-    public function view_employee($id)
+    public function view_employee($name)
     {
-        $employee = DB::table('employees')->where('user_id', (int)$id)->first();
+        $id = DB::table('employees')->select('user_id')->where('first_name', $name)->first();
+        $id = $id->user_id;
+        $employee = DB::table('employees')->where('user_id', $id)->first();
         return view('admin/staff/viewstaff', compact('employee'));
     }
 
@@ -228,7 +231,7 @@ class AdminController extends Controller
             $employee->save();
 
             // Optionally, you can also display a success message
-            return redirect()->route('admin.staff.viewstaff', ['id' => $employee->user_id])->with('success', 'Employee created successfully!');
+            return redirect()->route('dashboard.staff.viewstaff', ['staffName' => $employee->first_name])->with('success', 'Employee created successfully!');
             //return back()->with('success', 'Employee created successfully!');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
@@ -264,7 +267,7 @@ class AdminController extends Controller
     }
     public function update_employee(Request $request)
     {
-
+    
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -339,7 +342,7 @@ class AdminController extends Controller
                 ]);
             }
         }
-
+        
         $employee->id_verifi_doc = $validatedData['id_verifi_doc'] ?? false;
         $employee->proof_address_verifi_doc = $validatedData['proof_address_verifi_doc'] ?? false;
         $employee->bank_confi_verifi = $validatedData['bank_confi_verifi'] ?? false;
@@ -353,6 +356,6 @@ class AdminController extends Controller
             $employee->save();
         }
 
-        return redirect()->back()->with('success', 'Employee updated successfully.');
+        return view('admin.staff.viewstaff')->with('success', 'Employee updated successfully.')->with('first_name', $employee->first_name);
     }
 }

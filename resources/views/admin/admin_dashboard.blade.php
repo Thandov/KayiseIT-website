@@ -20,11 +20,11 @@
                 <div class="px-4 pt-4">
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Action Page</h3>
                     <div class="grid grid-cols-1 md:grid-cols-5 justify-items-center mx-auto py-4 gap-4">
-                        <x-dash-card name="Clients" href="admin/clients"></x-dash-card>
-                        <x-dash-card name="Staff" href="admin/staff"></x-dash-card>
-                        <x-dash-card name="Career Mapping" href="admin/dashboard/careermapping_dashboard"></x-dash-card>
-                        <x-dash-card name="Carousel" href="/admin/carousel"></x-dash-card>
-                        <x-dash-card name="Blogs" href="admin/blogs/"></x-dash-card>
+                        <x-dash-card name="Clients" href="dashboard/clients"></x-dash-card>
+                        <x-dash-card name="Staff" href="dashboard/staff"></x-dash-card>
+                        <x-dash-card name="Career Mapping" href="dashboard/dashboard/careermapping_dashboard"></x-dash-card>
+                        <x-dash-card name="Carousel" href="/dashboard/carousel"></x-dash-card>
+                        <x-dash-card name="Blogs" href="dashboard/blogs/"></x-dash-card>
                     </div>
                 </div>
             </div>

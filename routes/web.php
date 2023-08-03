@@ -99,39 +99,41 @@ Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQu
 
 //=================================================Admin ==================================================
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    //Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
-    Route::GET('/admin/clients', [ClientController::class, 'index'])->name('admin.clients');
-    Route::GET('/admin/clients/newclient', function () {
-        return view('admin.clients.newclient');
-    })->name('admin.client.newclient');
-    Route::POST('/admin/clients/create', [ClientController::class, 'store'])->name('admin.clients.create');
-    Route::GET('/admin/clients/viewclient/{id}', [ClientController::class, 'show'])->name('admin.clients.viewclient');
-    Route::POST('/admin/clients/viewclient/update/', [ClientController::class, 'update'])->name('admin.clients.viewclient.update');
-    Route::DELETE('/admin/clients/delete/{id}', [ClientController::class, 'destroy'])->name('admin.clients.delete');
+    Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    //Route::GET('/dashboard/clients', [ClientController::class, 'index'])->name('dashboard.clients');
+    Route::GET('/dashboard/clients', [ClientController::class, 'index'])->name('dashboard.clients');
+    Route::GET('/dashboard/clients/newclient', function () {
+        $urlSegments = explode('/', request()->path());
+        return view('admin.clients.newclient', compact('urlSegments'));
+    })->name('dashboard.newclient');
+    Route::POST('/dashboard/clients/create', [ClientController::class, 'store'])->name('dashboard.clients.create');
+    Route::GET('/dashboard/clients/viewclient/{id}', [ClientController::class, 'show'])->name('dashboard.clients.viewclient');
+    Route::POST('/dashboard/clients/viewclient/update/', [ClientController::class, 'update'])->name('dashboard.clients.viewclient.update');
+    Route::DELETE('/dashboard/clients/delete/{id}', [ClientController::class, 'destroy'])->name('dashboard.clients.delete');
 
-    Route::GET('/admin/staff/', [AdminController::class, 'all_employees'])->name('admin.staff');
-    Route::GET('/admin/staff/newstaff', function () {
+    Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('dashboard.staff');
+    Route::GET('/dashboard/staff/newstaff', function () {
         return view('admin.staff.newstaff');
-    })->name('admin.staff.newstaff');
-    Route::post('/admin/staff/create', [AdminController::class, 'new_employee']);
-    Route::DELETE('/admin/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
-    Route::POST('/admin/staff/viewstaff/update/', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
-    Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
-    Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
-    Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
-    Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
-    Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
-    Route::GET('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::GET('/admin/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
-    Route::GET('/admin/services', [AdminController::class, 'services'])->name('admin.services');
+    })->name('dashboard.staff.newstaff');
+    Route::post('/dashboard/staff/create', [AdminController::class, 'new_employee']);
+    Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
+    Route::POST('/dashboard/staff/{staffName}/update/', [AdminController::class, 'update_employee'])->name('dashboard.staff.viewstaff.update');
+    Route::get('/dashboard/staff/{staffName}', [AdminController::class, 'view_employee'])->name('dashboard.staff.viewstaff');
+    
+    Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
+    Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
+    Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
+    Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
+    Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
+    Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('admin.services');
     Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendInvoice'])->name('quotations.send-invoice');
-    Route::GET('/admin/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('admin.services.viewservice');
-    Route::GET('/admin/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('admin.subservices.viewsubservice');
+    Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('admin.services.viewservice');
+    Route::GET('/dashboard/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('admin.subservices.viewsubservice');
 
     //download quotation&invoice PDFs
-    Route::get('/admin/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
-    Route::get('/admin/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');
+    Route::get('/dashboard/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
+    Route::get('/dashboard/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');
 
     //update
     Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
