@@ -1,6 +1,7 @@
 <!-- blog.blade.php -->
 
 <x-app-layout>
+    
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-8">

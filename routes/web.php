@@ -115,20 +115,19 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('dashboard.staff');
     Route::GET('/dashboard/staff/newstaff', function () {
         return view('admin.staff.newstaff');
-    })->name('admin.staff.newstaff');
-    Route::POST('/admin/staff/create', [AdminController::class, 'new_employee'])->name('admin.staff.create');
-    Route::DELETE('/admin/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
-    Route::POST('/admin/staff/viewstaff/update/{id}', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
-    Route::GET('/admin/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
-    Route::GET('/admin/admin_dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::GET('/admin/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
-    Route::GET('/admin/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
-    Route::GET('/admin/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
-    Route::GET('/admin/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
-    Route::GET('/admin/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::GET('/admin/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
-    Route::GET('/admin/services', [AdminController::class, 'services'])->name('admin.services');
     })->name('dashboard.staff.newstaff');
+    Route::POST('/dashboard/staff/create', [AdminController::class, 'new_employee'])->name('admin.staff.create');
+    Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
+    Route::POST('/dashboard/staff/viewstaff/update/{id}', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
+    Route::GET('/dashboard/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
+    Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
+    Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
+    Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
+    Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
+    Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
+    Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('admin.services');
     Route::post('/dashboard/staff/create', [AdminController::class, 'new_employee']);
     Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
     Route::POST('/dashboard/staff/{staffName}/update/', [AdminController::class, 'update_employee'])->name('dashboard.staff.viewstaff.update');
@@ -164,12 +163,12 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     //Add services, subservices, options Blades
 
-    Route::GET('/admin/services/addservice', function () {
+    Route::GET('/dashboard/services/addservice', function () {
         return view('admin.services.addservice');
     })->name('admin.services.addservice');
-    Route::GET('/admin/editservice/{id}', [ServicesController::class, 'updateService'])->name('admin.editservice');
-    Route::GET('/admin/newaddservice', [ServicesController::class, 'newaddservice'])->name('admin.newaddservice');
-    Route::POST('/admin/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('admin.services.deleteservice');
+    Route::GET('/dashboard/editservice/{id}', [ServicesController::class, 'updateService'])->name('admin.editservice');
+    Route::GET('/dashboard/newaddservice', [ServicesController::class, 'newaddservice'])->name('admin.newaddservice');
+    Route::POST('/dashboard/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('admin.services.deleteservice');
     Route::get('admin/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('admin.services.addsubservices');
     Route::get('admin/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
 
@@ -178,91 +177,91 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
     Route::post('admin/services/addsubservices/{id}', [SubServicesController::class, 'storing'])->name('addsubservices.storing');
     Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
-    Route::post('/admin/dashboard/careermapping_dashboard', [OccupationsController::class, 'store'])->name('careermapping_dashboard.store');
+    Route::post('/dashboard/dashboard/careermapping_dashboard', [OccupationsController::class, 'store'])->name('careermapping_dashboard.store');
 
     //quotations & invoice
-    Route::get('/admin/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
+    Route::get('/dashboard/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
     Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
     //blogs
-    Route::GET('/admin/blogs', function () {
+    Route::GET('/dashboard/blogs', function () {
         $blogs = App\Models\Blog::all();
         return view('admin.blogs', compact('blogs'));
     })->name('admin.blogs');
-    Route::post('/admin/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
-    Route::GET('/admin/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
-    Route::GET('/admin/blogs/blog', function () {
+    Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
+    Route::GET('/dashboard/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
+    Route::GET('/dashboard/blogs/blog', function () {
         $blogs = Blog::all();
-        return view('/admin/blogs/blog', compact('blogs'));
+        return view('/dashboard/blogs/blog', compact('blogs'));
     })->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-    Route::post('/admin/blogs/viewblog_edit/{id}', function () {
+    Route::post('/dashboard/blogs/viewblog_edit/{id}', function () {
         return view('admin.blogs.viewblog_edit');
     })->name('admin.blogs.viewblog_edit');
-    Route::POST('/admin/blogs/viewblog_edit/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
-    Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
-    Route::GET('/admin/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
+    Route::POST('/dashboard/blogs/viewblog_edit/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
+    Route::GET('/dashboard/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
+    Route::GET('/dashboard/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
     //categories
-    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
+    Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
     // Route for displaying the list of post categories
-    Route::get('/admin/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories');
+    Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories');
     // Route for showing the form to create a new post category
-    Route::get('/admin/blogs/categories/create', [PostCategoriesController::class, 'create'])->name('admin.blogs.categories.create');
+    Route::get('/dashboard/blogs/categories/create', [PostCategoriesController::class, 'create'])->name('admin.blogs.categories.create');
     // Route for deleting the form to create a new post category
-    Route::POST('/admin/blogs/categories/deleting/{id}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.deleting');
+    Route::POST('/dashboard/blogs/categories/deleting/{id}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.deleting');
     // Route for storing the newly created post category
-    Route::post('/admin/blogs/categories', [PostCategoriesController::class, 'store'])->name('admin.blogs.categories.store');
+    Route::post('/dashboard/blogs/categories', [PostCategoriesController::class, 'store'])->name('admin.blogs.categories.store');
     // Route for showing the form to edit an existing post category
-    Route::get('/admin/blogs/categories/{postCategory}/edit', [PostCategoriesController::class, 'edit'])->name('admin.blogs.categories.edit');
+    Route::get('/dashboard/blogs/categories/{postCategory}/edit', [PostCategoriesController::class, 'edit'])->name('admin.blogs.categories.edit');
      // Route for updating an existing post category
-    Route::put('/admin/blogs/categories/{postCategory}', [PostCategoriesController::class, 'update'])->name('admin.blogs.categories.update');
+    Route::put('/dashboard/blogs/categories/{postCategory}', [PostCategoriesController::class, 'update'])->name('admin.blogs.categories.update');
     // Route for deleting an existing post category
-    Route::delete('/admin/blogs/categories/{postCategory}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.destroy');
+    Route::delete('/dashboard/blogs/categories/{postCategory}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.destroy');
 
 
     //Testimonials
-    Route::GET('/admin/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
-    Route::GET('/admin/addtestimony', [TestimonialsController::class, 'addtestimony'])->name('admin.addtestimony');
+    Route::GET('/dashboard/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
+    Route::GET('/dashboard/addtestimony', [TestimonialsController::class, 'addtestimony'])->name('admin.addtestimony');
     Route::post('storetestimony-form', [TestimonialsController::class, 'storetestimony']);
     Route::get('testimonial/delete/{id}', [TestimonialsController::class, 'destroytestimonial'])->name('admin.destroytestimonial');
     Route::put('/testimonial/{id}', [TestimonialsController::class, 'updatetestimonial'])->name('testimonial.update');
-    Route::GET('/admin/viewtestimonial/{id}', [TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
+    Route::GET('/dashboard/viewtestimonial/{id}', [TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
 
     //Career Mapping
-    Route::GET('/admin/dashboard/careermapping_dashboard', [OccupationsController::class, 'occupations'])->name('admin.dashboard.careermapping_dashboard');
+    Route::GET('/dashboard/careermapping', [OccupationsController::class, 'occupations'])->name('dashboard.careermapping');
     Route::delete('/occupations/{occupation}', [OccupationsController::class, 'delete'])->name('occupations.delete');
-    Route::GET('/admin/admin_viewoccupations/{occup_id}', [OccupationsController::class, 'showadmin_viewoccupations'])->name('admin.admin_viewoccupations');
+    Route::GET('/dashboard/admin_viewoccupations/{occup_id}', [OccupationsController::class, 'showadmin_viewoccupations'])->name('admin.admin_viewoccupations');
     Route::post('addoccupation-form', [OccupationsController::class, 'addoccupation']);
     Route::post('admin/admin_viewoccupations/{occup_id}', [SpecializationsController::class, 'addspecialization'])->name('addspecialization');
-    Route::GET('/admin/career_mapping/viewspecialization/{spec_id}', [SpecializationsController::class, 'showadmin_viewspecialization'])->name('admin.career_mapping.viewspecialization');
+    Route::GET('/dashboard/career_mapping/viewspecialization/{spec_id}', [SpecializationsController::class, 'showadmin_viewspecialization'])->name('admin.career_mapping.viewspecialization');
     Route::delete('/specializations/{specialization}', [SpecializationsController::class, 'delete'])->name('specializations.delete');
-    Route::post('/admin/career_mapping/specialization/editspecialization', [SpecializationsController::class, 'updateSpecialization']); //reference
-    Route::post('/admin/career_mapping/careersteps/editcareerstep', [CareerStepsController::class, 'updateCareerStep']); //look at
+    Route::post('/dashboard/career_mapping/specialization/editspecialization', [SpecializationsController::class, 'updateSpecialization']); //reference
+    Route::post('/dashboard/career_mapping/careersteps/editcareerstep', [CareerStepsController::class, 'updateCareerStep']); //look at
     Route::delete('/careersteps/{careerstep}', [CareerStepsController::class, 'delete'])->name('careersteps.delete');
 
     Route::post('addcareersteps-form', [CareerStepsController::class, 'addcareersteps']);
 
-    Route::get('/admin/career_mapping/specialization/edit/{spec_id}', function () {
-        return view('/admin/career_mapping/specialization/edit');
+    Route::get('/dashboard/career_mapping/specialization/edit/{spec_id}', function () {
+        return view('/dashboard/career_mapping/specialization/edit');
     });
 
-    Route::get('/admin/career_mapping/careersteps/edit/{steps_id}', function () {
-        return view('/admin/career_mapping/careersteps/edit');
+    Route::get('/dashboard/career_mapping/careersteps/edit/{steps_id}', function () {
+        return view('/dashboard/career_mapping/careersteps/edit');
     });
     //Carousel
-    Route::GET('/admin/carousel', function () {
+    Route::GET('/dashboard/carousel', function () {
         $carousels = Carousel::select('id', 'user_id', 'title', 'middletxt', 'btmtxt', 'image')
         ->get();
-        return view('/admin/carousel', compact('carousels'));
+        return view('/dashboard/carousel', compact('carousels'));
     })->name('admin.carousel');
-    Route::GET('/admin/carousel/newcarousel', function () {
+    Route::GET('/dashboard/carousel/newcarousel', function () {
         return view('admin.carousel.newcarousel');
     })->name('admin.carousel.newcarousel');
-    Route::POST('/admin/carousel/create', [CarouselController::class, 'store'])->name('admin.carousel.create');
-    Route::GET('/admin/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('admin.carousel.viewcarousel');
-    Route::POST('/admin/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('admin.carousel.viewcarousel.update');
-    Route::DELETE('/admin/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.delete');
+    Route::POST('/dashboard/carousel/create', [CarouselController::class, 'store'])->name('admin.carousel.create');
+    Route::GET('/dashboard/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('admin.carousel.viewcarousel');
+    Route::POST('/dashboard/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('admin.carousel.viewcarousel.update');
+    Route::DELETE('/dashboard/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.delete');
 });
 //==================================End of Admin Controls==================================================
 
@@ -311,7 +310,7 @@ Route::post('/store-selected-options', function (Illuminate\Http\Request $reques
 //paypal routes
 Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
 Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
-//Route::post('/admin/career_mapping/viewspecialization', [CareerStepController::class, 'updatePosition'])->name('admin.career_mapping.viewspecialization');
+//Route::post('/dashboard/career_mapping/viewspecialization', [CareerStepController::class, 'updatePosition'])->name('admin.career_mapping.viewspecialization');
 
 
 
