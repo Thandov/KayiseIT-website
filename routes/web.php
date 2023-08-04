@@ -108,8 +108,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         return view('admin.clients.newclient', compact('urlSegments'));
     })->name('dashboard.newclient');
     Route::POST('/dashboard/clients/create', [ClientController::class, 'store'])->name('dashboard.clients.create');
-    Route::GET('/dashboard/clients/viewclient/{id}', [ClientController::class, 'show'])->name('dashboard.clients.viewclient');
-    Route::POST('/dashboard/clients/viewclient/update/', [ClientController::class, 'update'])->name('dashboard.clients.viewclient.update');
+    Route::GET('/dashboard/clients/{id}', [ClientController::class, 'show'])->name('dashboard.clients.viewclient');
+    Route::POST('/dashboard/clients/update/', [ClientController::class, 'update'])->name('dashboard.clients.update');
     Route::DELETE('/dashboard/clients/delete/{id}', [ClientController::class, 'destroy'])->name('dashboard.clients.delete');
 
     Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('dashboard.staff');

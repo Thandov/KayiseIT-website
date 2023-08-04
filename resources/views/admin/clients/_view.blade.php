@@ -20,8 +20,8 @@
                 </td>
                 <td class="pl-6 py-4 whitespace-nowrap font-medium flex justify-end">
                     <div class="flex gap-2">
-                        <x-front-end-btn linking="/admin/clients/viewclient/{{ $client->user_id }}" color="blue" showme="" name="View" />
-                        <form action="{{ url('admin/clients/delete', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                        <x-front-end-btn linking="/dashboard/clients/{{ $client->user_id }}" color="blue" showme="" name="View" />
+                        <form action="{{ url('dashboard/clients/delete', $client->user_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="user_id" value="{{ $client->user_id }}">

@@ -1,6 +1,6 @@
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
     <div class="p-6 bg-white border-b border-gray-200">
-        <form action="{{ route('admin.clients.viewclient.update') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dashboard.clients.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="action" value="update_client">
             <input type="hidden" name="user_id" value="{{ $client->user_id ?? ''}}">
@@ -63,16 +63,21 @@
                     @enderror
                 </div>
             </div>
-            <div class="px-4 py-3 bg-gray-50 text-right">
-                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
-            </div>
+            <!-- Footer of the form -->
+            <div class="formfoot mt-4 relative grid grid-cols-3">
+                <div class="updatewrp text-right col-start-2">
+                <x-front-end-btn linking="update" color="submit" showme="" name="Update" />
+                </div>
         </form>
-        <div class="xxxxxxx">
-            <form action="{{ url('admin/clients/delete', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this client?')">
-                @csrf
-                @method('DELETE')
-                <x-front-end-btn linking="/admin/clients/delete" color="red" showme="delete_staff" name='Delete' />
-            </form>
+        <div class="relative deletewrp col-start-3">
+            <div class="kingbtn">
+                <form action="{{ url('dashboard/clients/delete', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this client?')">
+                    @csrf
+                    @method('DELETE')
+                    <x-front-end-btn linking="/dashboard/clients/delete" color="red" showme="delete_staff" name='Delete' />
+                </form>
+            </div>
         </div>
     </div>
+</div>
 </div>

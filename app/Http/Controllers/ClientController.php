@@ -98,7 +98,6 @@ class ClientController extends Controller
             ->where('clients.user_id', (int)$id)
             ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'clients.*')
             ->first();
-
         return view('admin/clients/viewclient', compact('client'));
     }
 
