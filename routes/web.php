@@ -190,19 +190,24 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     })->name('admin.blogs');
     Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
     Route::GET('/dashboard/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
-    Route::GET('/dashboard/blogs/blog', function () {
+    Route::GET('/blog', function () {
         $blogs = Blog::all();
-        return view('/dashboard/blogs/blog', compact('blogs'));
+        return view('admin.blogs.viewblog', compact('blogs'));
     })->name('admin.blogs.blog');
     Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
-    Route::post('/dashboard/blogs/viewblog_edit/{id}', function () {
-        return view('admin.blogs.viewblog_edit');
-    })->name('admin.blogs.viewblog_edit');
-    Route::POST('/dashboard/blogs/viewblog_edit/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
-    Route::GET('/dashboard/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
+
+   // Route::get('/dashboard/edit_blog/{id}', function () {
+      //  return view('admin.blogs.viewblog_edit');
+  //  })->name('admin.blogs.viewblog_edit');
+    Route::get('/dashboard/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
+    Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
     Route::GET('/dashboard/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
     //categories
+    Route::get('/categories', function () {
+         return view('admin.blogs.categories');
+     })->name('admin.blogs.categories');
+
     Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
     // Route for displaying the list of post categories
     Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories');

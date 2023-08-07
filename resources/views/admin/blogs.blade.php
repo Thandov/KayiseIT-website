@@ -51,7 +51,7 @@
                         </dl>
                     </div>
                     <div class="ml-auto">
-                        <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="" name="Categories" />
+                        <x-front-end-btn linking="{{url('/categories')}}" color="blue" showme="" name="Categories" />
                         <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
                     </div>
                 </div>

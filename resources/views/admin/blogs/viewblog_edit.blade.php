@@ -30,7 +30,7 @@
                 </nav>
             </div>
         </div>
-        <x-post-form action="{{ route('admin.blogs.viewblog_edit.update_blog', ['id' => $blog->id]) }}" post="{{$blog}}" buttonlinking="/admin/blogs/viewblog_edit/update_blog" buttoncolor="blue" buttonshowme="update_blogPost" buttonname="Update" />
+        <x-post-form action="{{ route('admin.blogs.viewblog_edit.update_blog', ['id' => $blog->id]) }}" post="{{$blog}}" buttonlinking="/dashboard/update_blog/{{$blog->id}}" buttoncolor="blue" buttonshowme="update_blogPost" buttonname="Update" />
     </div>
 </x-app-layout>
 
