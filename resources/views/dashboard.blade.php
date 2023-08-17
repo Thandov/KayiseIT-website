@@ -8,9 +8,9 @@
     <div class="jumbotron bg-gray-400 bg-gradient position-relative">
         <img src="/images/logo.png" alt="logo" srcset="/images/logo.png" class="landinglogo animate__animated animate__fadeInUp">
         <div class="owl-carousel owl-theme" id="headercara">
-            <x-carousel-item pic="../images/carousel/banner1.png" topTitle="Aaaa" mainTitle="asasA" bottomTitle="dddd" />
-            <x-carousel-item pic="../images/carousel/banner2.png" topTitle="We specialize" mainTitle="Commercial Cleaning" bottomTitle="dddd" />
-            <x-carousel-item pic="../images/carousel/banner3.png" topTitle="We specialize" mainTitle="Event Cleaning" bottomTitle="asd" />
+            <x-carousel-item pic="../images/landing-page/banner.jpeg" topTitle="Aaaa" mainTitle="asasA" bottomTitle="dddd" />
+            <x-carousel-item pic="../images/landing-page/banner2.jpg" topTitle="We specialize" mainTitle="Commercial Cleaning" bottomTitle="dddd" />
+            <x-carousel-item pic="../images/landing-page/banner3.png" topTitle="We specialize" mainTitle="Event Cleaning" bottomTitle="asd" />
         </div>
     </div>
     <div class="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">

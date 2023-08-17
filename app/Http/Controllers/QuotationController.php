@@ -104,7 +104,7 @@ class QuotationController extends Controller
     public function createQuote(Request $request)
     {
         // Create an empty array to store the selected options
-        $selectedOptizons = [];
+        $selectedOptions = [];
 
         $quotation = new Quotation;
         $quotation->user_id = auth()->user()->id;

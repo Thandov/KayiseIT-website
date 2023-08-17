@@ -199,9 +199,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
    // Route::get('/dashboard/edit_blog/{id}', function () {
       //  return view('admin.blogs.viewblog_edit');
   //  })->name('admin.blogs.viewblog_edit');
-    Route::get('/dashboard/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
+    Route::POST('/dashboard/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
     Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
-    Route::GET('/dashboard/blogs/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
+    Route::GET('/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
     //categories
     Route::get('/categories', function () {

@@ -61,7 +61,7 @@ class BlogController extends Controller
         $blog->category_no = 1;
         $blog->save();
         $blogs = Blog::all();
-        return redirect()->route('admin.blogs.blog');
+        return redirect()->route('blogs');
     }
     public function destroyblog($id)
     {
@@ -73,6 +73,7 @@ class BlogController extends Controller
     public function updateblog(Request $request, $id)
     {
        
+
         // Find the blog by its ID
         $blog = Blog::findOrFail($id);
         // Get the new data from the request

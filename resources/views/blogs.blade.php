@@ -1,4 +1,7 @@
 <x-app-layout>
+  
+   <x-breadcrumb></x-breadcrumb>
+
     <div class="max-w-7xl mx-auto mb-4 sm:px-6 lg:px-8">
         <div class="md:grid md:grid-cols-4 gap-4">
             @foreach($blogs as $blog)
@@ -11,7 +14,8 @@
                     <p class="text-gray-600 dark:text-gray-300 mt-1 text-sm">{{ $blog->subtitle }}</p>
                 </div>
                 <div class="grid grid-cols-2 items-center justify-between">
-                    <a href="/blogs/viewblog/{{$blog->id}}" class="bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</a>
+                    <a href="/viewblog/{{$blog->id}}" class="bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">View More
+                    </a>
                 </div>
             </div>
             @endforeach

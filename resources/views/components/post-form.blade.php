@@ -10,7 +10,7 @@ $post = json_decode($decodedString);
     <div class="grid md:grid-cols-12 gap-4">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-9">
             <div class="m-3">
-                <textarea name="content" id="task-textarea" value="{{ $post->content ?? '' }}" class="form-control">{{ $post->content ?? '' }}</textarea>
+                <textarea name="content" id="task-textarea" value="{{ $post->content }}" class="form-control">{{ $post->content }}</textarea>
             </div>
         </div>
         <div class="md:col-span-3">
@@ -24,7 +24,7 @@ $post = json_decode($decodedString);
                 </div>
                 <div class="">
                     <label for="subtitle" class="block text-sm font-medium text-gray-700">Sub Title</label>
-                    <input type="text" value="{{ $post->subtitle ?? '' }}" name="subtitle" id="subtitle" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('subtitle') border-red-500 @enderror" value="{{ old('subtitle') }}">
+                    <input type="text" value="{{ $post->subtitle }}" name="subtitle" id="subtitle" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('subtitle') border-red-500 @enderror" value="{{ old('subtitle') }}">
                     @error('subtitle')
                     <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
