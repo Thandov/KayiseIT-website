@@ -188,6 +188,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         $blogs = App\Models\Blog::all();
         return view('admin.blogs', compact('blogs'));
     })->name('admin.blogs');
+    
     Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
     Route::GET('/dashboard/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
     Route::GET('/blog', function () {

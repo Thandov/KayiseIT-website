@@ -1030,3 +1030,4 @@ footer .footer-content .link-boxes .box {
           backdrop-filter: blur(4px); /* Blurred effect */
   z-index: 40; /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
 }/*# sourceMappingURL=style.css.map */
+

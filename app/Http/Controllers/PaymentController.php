@@ -19,4 +19,5 @@ class PaymentController extends Controller
           
         return redirect()->back();
     }
+    
 }

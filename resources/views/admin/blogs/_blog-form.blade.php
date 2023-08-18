@@ -2,7 +2,10 @@
     @csrf
     <div class="grid md:grid-cols-12 gap-4">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-9">
+            <h1 style="color: #64bc5c" class="text-center mb-3 font-bold text-5xl md:text-5xl">{{ $blog->title ?? ''}}</h1>
+
             <div class="m-3">
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                 <textarea name="content" id="task-textarea" value="{{ $post->content ?? '' }}" class="form-control">{{ $post->content ?? '' }}</textarea>
             </div>
         </div>

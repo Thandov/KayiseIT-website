@@ -30,6 +30,7 @@
                 </nav>
             </div>
         </div>
+        <h6 class=" mb-3 font-bold text-5xl md:text-2xl">Add New Post</h6>
         @include('../admin/blogs/_blog-form', ['route' => 'admin.blogs.storeblog-form'])
     </div>
 

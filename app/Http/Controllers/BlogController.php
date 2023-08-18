@@ -15,7 +15,8 @@ class BlogController extends Controller
     public function blog()
     {
         $blogs = Blog::all();
-        return view('admin.blogs.view_all_blogs', compact('blogs'));
+        $blog = Blog::first();
+        return view('admin.blogs.view_all_blogs', compact('blogs','blog'));
     }
 
     public function addblog()
@@ -135,8 +136,9 @@ class BlogController extends Controller
 
     public function viewblog($id)
     {
+        $blogs = Blog::where('id', '!=', $id)->take(3)->get();
         $blog = Blog::find($id);
-        return view('admin/blogs/viewblog', compact('blog'));
+        return view('admin/blogs/viewblog', compact('blog', 'blogs'));
     }
 
     public function upload(Request $request)
