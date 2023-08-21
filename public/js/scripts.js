@@ -77,7 +77,7 @@ $(window).on("load", function () {
             },
 
         }
-        
+
     })
 
 });
@@ -87,3 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("page-loader").style.display = "none";
 });
 
+// Initialize Bootstrap tabs
+$(document).ready(function () {
+    $('.nav-tabs a').tab();
+});

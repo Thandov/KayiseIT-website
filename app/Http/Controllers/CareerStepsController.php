@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class CareerStepsController extends Controller
 {
-   
+
     public function careersteps()
     {
         //  Display Career Steps 
@@ -45,8 +45,8 @@ class CareerStepsController extends Controller
         // Update the step_number column in the career_steps table
         foreach ($results as $result) {
             DB::table('career_steps')->where('steps_id', $result->steps_id)->update(['step_number' => $result->step_number]);
-        } 
-        
+        }
+
         foreach ($stepNumbers as $key => $stepNumber) {
             // Create a new CareerStep instance
             $careerStep = new CareerSteps();
@@ -56,7 +56,7 @@ class CareerStepsController extends Controller
             $careerStep->occup_id = $occupId;
             $careerStep->spec_id = $specId;
             $careerStep->save();
-    
+
             // Increment the number for the next step (if needed)
             $number++;
         }
@@ -69,7 +69,7 @@ class CareerStepsController extends Controller
         $request->validate([
             'steps_id' => 'required|integer',
             'step_number' => 'required|integer',
-            'qualification' => 'required|string|max:255', 
+            'qualification' => 'required|string|max:255',
         ]);
         //
         $careerStep = CareerSteps::findOrFail($request->input('steps_id'));

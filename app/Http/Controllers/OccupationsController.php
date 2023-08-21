@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Occupations;
 use App\Models\Specializations;
+use App\Models\CareerSteps;
 use Illuminate\Http\Request;
 
 class OccupationsController extends Controller
@@ -53,10 +54,23 @@ class OccupationsController extends Controller
     {
         $occupations = Occupations::findOrFail($occup_id);
         $specializations = Specializations::where('occup_id', $occupations->occup_id)->get();
+
+        // Initialize an array to hold career steps for each specialization
+        $careerStepsArray = [];
+
+        foreach ($specializations as $specialization) {
+            // Retrieve career steps for the current specialization
+            $careerSteps = CareerSteps::where('spec_id', $specialization->spec_id)->get();
+
+            // Add career steps to the array
+            $careerStepsArray[$specialization->spec_id] = $careerSteps;
+        }
+
         $storedOptions = unserialize($request->session()->get('key'));
 
-        return view('viewoccupations', compact('occupations', 'specializations'));
+        return view('viewoccupations', compact('occupations', 'specializations', 'careerStepsArray'));
     }
+
 
     public function showadmin_viewoccupations(Request $request, $occup_id)
     {
