@@ -21,17 +21,17 @@
                 <div class="tab-pane fade {{ $index === 0 ? 'show active' : '' }}" id="content{{ $index }}" role="tabpanel" aria-labelledby="tab{{ $index }}">
                     <!-- Content for each tab -->
                     <!-- <a href="{{ route('viewspecialization', $specialization->spec_id) }}"> -->
-                    <div class="bg-white rounded-lg shadow-md items-center justify-center w-auto">
+                    <div class="bg-white rounded-lg shadow-md items-center justify-center p-3 w-auto">
                         <h2 class="text-xl font-bold smalltxt text-center">{{ $specialization->specialization_name }}</h2>
                         <!-- Career Steps Display -->
-                        @foreach ($careerStepsArray[$specialization->spec_id] as $step)
                         <ul>
-                            <li class="flex  items-center my-2">
+                            @foreach ($careerStepsArray[$specialization->spec_id] as $step)
+                            <li class="flex flex justify-center items-center my-2">
                                 <p class="text-sm font-bold smalltxt mr-2">{{ $step->step_number }} -</p>
                                 <p class="font-bold">{{ $step->qualification }}</p>
                             </li>
+                            @endforeach
                         </ul>
-                        @endforeach
                     </div>
                     <!-- </a> -->
                 </div>
