@@ -87,7 +87,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("page-loader").style.display = "none";
 });
 
-// Initialize Bootstrap tabs
-$(document).ready(function () {
-    $('.nav-tabs a').tab();
-});
+    
+
+    // Initialize Bootstrap tabs
+    $(document).ready(function () {
+        $('#myTabs a[data-toggle="tab"]').on('shown.bs.tab', function () {
+            // Adjust scroll position after tab switch
+            $('.nav-scrollable').scrollTop(0);
+        });
+    });
