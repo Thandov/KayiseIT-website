@@ -11,38 +11,71 @@
    <!-- Page Body -->
    <x-breadcrumb></x-breadcrumb>
 
-   <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
-         <div class="col-span-2">
-            <!-- Your form goes here -->
-            @include('services.sub_services._addons')
-         </div>
-         <div class="col">
-            <div class="bg-white rounded-lg shadow p-4">
-               <form id="checkout-form" action="{{ route('viewsubservice.createQuote', ['subservice_id' => $subservice->id]) }}" method="post" enctype="multipart/form-data">
-                  @csrf
-                  <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
-                  <input type="hidden" name="subservice_name" value="{{ $subservice->name }}">
-                  <div id="options-form"></div>
-                  <h2 class="text-lg font-bold mb-4">Checkout Area</h2>
-                  <!-- Your checkout card content goes here  -->
-                  <p>{{ $subservice->name }}</p>
-                  <div class="checkout-area">
-                     <!-- Selected options will appear here dynamically  -->
-                  </div>
-                  <div class="grid grid-cols-2 gap-1">
-                     @if(Auth::check())
-                     <button class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit">Checkout</button>
-                     @else
-                     <button type="button" id="checkModal-btn" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" data-toggle="loginModal" data-target="#loginModal">Checkout</button>
-                     @endif
-                  </div>
-               </form>
-            </div>
-         </div>
-      </div>
+   @if (session('success'))
+   <div class="alert alert-success">
+      {{ session('success') }}
    </div>
+   @endif
 
+   @if (session('error'))
+   <div class="alert alert-danger">
+      {{ session('error') }}
+   </div>
+   @endif
+
+
+
+   
+   <div class="container mb-20">
+      <div class="row">
+          <div class="col-md-4 ml-16">
+              <div class="card mb-3 border-0 bg-gray-100" style="height: 400px; overflow: hidden; width: 400px;">
+                  <div style="padding-right: 20px; animation: scrollImage 10s infinite linear;">
+                      <img src="/images/onepagerwebsite.png" class="card-img-top" alt="Product Image" style="width: 100%; height: auto;">
+                  </div>
+              </div>
+          </div> 
+          <div class="col-md-6 px-12">
+              <div class="card border-0 bg-white-100">
+                  <div class="card-body mb-4">
+                     <form action="{{ route('viewsubservice.quote') }}" method="post" enctype="multipart/form-data">
+                        @csrf                     
+                     <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
+                     <div id="options-form"></div>
+                    
+                      <h1 class="card-title mb-20 ml-16 font-bold text-5xl md:text-4xl" style="color: #64bc5c"> {{ $subservice->name }}</h1>
+
+                      </h4>
+                      <h1>Utilize Our Skilled IT Website Services to Transform Your
+                        Online Presence! In the digital sphere, we bring your brand to life with slick
+                        designs and flawless functioning. Discover the impact that an engaging website 
+                        can have on visitors who convert and stay on the page.</h1>
+                     
+                      <div class="data py-20 d-flex justify-content-between align-items-center mr-16">
+                        @if(Auth::check())
+                        <button class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit">Request Quotation</button>
+                        @else
+                        <button type="button" id="checkModal-btn" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" data-toggle="loginModal" data-target="#loginModal">Send Quotation</button>
+                        @endif
+                      </form>
+                      <form id="checkout-form" action="{{ route('viewsubservice.check', ['subservice_id' => $subservice->id]) }}" method="get" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Checkout</button>                      
+                    </form>
+                    
+                        </div>                   
+              </div>
+          </div>
+      </div>
+  </div>
+
+ 
+
+
+
+  
+  
    <!-- Modal -->
    @include('modal._loginModal')
 

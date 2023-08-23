@@ -38,7 +38,7 @@
          <div class="slider-container">
        <div class="slider-content">
         @foreach($blogs->skip(1)->take(3) as $relatedBlog)
-        <div class="max-w-xs rounded-lg overflow-hidden shadow-sm border bg-white dark:bg-gray-800 relative slide-left inline-block mx-2 p-2">
+        <div class="max-w-xs rounded-lg overflow-hidden shadow-sm border bg-white dark:bg-gray-800 relative slide-left inline-block mx-2">
             <span class="absolute top-0 left-0 bg-gray-800 text-white px-2 py-1 rounded-tr-lg text-xs font-semibold">{{ date('d M Y', strtotime($relatedBlog->created_at)) }}</span>
                 <img class="w-full h-32 object-cover" src="{{ asset($relatedBlog->icon) }}" alt="Blog Image">
                 <div class="px-4 py-2">

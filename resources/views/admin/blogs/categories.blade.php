@@ -54,7 +54,7 @@
                         <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="show" name="Add Category" data-bs-toggle="modal" data-bs-target="#categories_modal" />
                         <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
                     </div>
-                </div>
+                </div> 
                 <x-dynamic-table thead="" trcontent="{{json_encode($postCategories)}}" />
 
             </div>

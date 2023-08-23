@@ -67,7 +67,7 @@
                         </div>
                         <div class="grid grid-cols-2 items-center justify-between">
                             <a href="/admin/blogs/viewblog_edit/{{$blog->id}}" class="bg-indigo-600 px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</a>
-                            <form action="{{ url('/blog/delete', $blog->id) }}" method="get" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                            <form action="{{ url('/blog/delete', $blog->id) }}" method="get" onsubmit="return confirm('Are you sure you want to delete this Blog?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-600 px-12 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Delete</button>
