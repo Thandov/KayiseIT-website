@@ -205,11 +205,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
     //categories
-    Route::get('/categories', function () {
-         return view('admin.blogs.categories');
-     })->name('admin.blogs.categories');
-
-    Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('categories');
+    Route::get('/categories', [PostCategoriesController::class, 'index'])->name('categories');
     // Route for displaying the list of post categories
     Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories');
     // Route for showing the form to create a new post category
