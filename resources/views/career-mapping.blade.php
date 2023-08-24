@@ -5,7 +5,7 @@
             <!--Page Content-->
             <p class="smalltxt font-bold text-center"><strong>Career Mapping</strong></p>
             <h2 class="bigtxt font-bold text-5xl mb-6 text-center">Occupations</h2>
-            <p class="text-center">Choose your Occupation</p>
+            <p class="text-center text-lg">Choose your Occupation</p>
 
             <!--Grid-->
             <div class="flex justify-center pt-6">
