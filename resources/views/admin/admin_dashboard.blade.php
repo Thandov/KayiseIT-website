@@ -6,10 +6,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <!-- Sales Stats -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
-            SALES STATS
-        </div>
+@include('admin.dashboard.sales._salestats')
         <!-- Leads and Clients -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
             CLIENT LEADS
@@ -25,6 +22,9 @@
                         <x-dash-card name="Career Mapping" href="dashboard/careermapping"></x-dash-card>
                         <x-dash-card name="Carousel" href="/dashboard/carousel"></x-dash-card>
                         <x-dash-card name="Blogs" href="dashboard/blogs/"></x-dash-card>
+                        <x-dash-card name="Services" href="dashboard/services/"></x-dash-card>
+                        <x-dash-card name="Invoices" href="dashboard/invoices/"></x-dash-card>
+                        <x-dash-card name="Quotations" href="dashboard/quotations/"></x-dash-card>
                     </div>
                 </div>
             </div>

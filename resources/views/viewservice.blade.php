@@ -15,7 +15,6 @@
                 <!-- Content for left column -->
                 <h2 class="font-bold text-5xl mb-8">{{$service->name}}</h2>
                 <p class="text-justify text-base text-gray-600 mb-8">{{ $service->description}}</p>
-
                 <div class="flex justify-center">
                     <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 justify-center">
                         @foreach($subservices as $subservice)
@@ -34,7 +33,6 @@
                         @endforeach
                     </div>
                 </div>
-
                 <div class="data my-4">
                     <x-front-end-btn linking="contact" color="blue" showme="zzzzzzzz" name="Contact Us" />
                 </div>

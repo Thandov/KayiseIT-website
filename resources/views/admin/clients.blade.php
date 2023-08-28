@@ -23,7 +23,7 @@
                         <x-front-end-btn linking="{{ url('admin/clients/newclient') }}" color="blue" showme="add-client-btn" name="Add Client" />
                     </div>
                 </div>
-                @include('admin.clients._view')
+                @include('admin.dashboard.clients._view')
             </div>
         </div>
     </div>

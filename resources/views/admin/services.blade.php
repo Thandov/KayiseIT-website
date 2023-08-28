@@ -6,7 +6,7 @@
                 <nav class="flex" aria-label="Breadcrumb">
                     <ol class="inline-flex items-center space-x-1 md:space-x-3">
                         <li class="inline-flex items-center">
-                            <a href="/admin/admin_dashboard" class="ml-1 text-sm font-medium inline-flex">
+                            <a href="/dashboard/admin_dashboard" class="ml-1 text-sm font-medium inline-flex">
                                 <svg class="mr-2 w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
                                     </path>
@@ -44,7 +44,7 @@
                         </dl>
                     </div>
                     <div class="ml-auto">
-                        <x-front-end-btn linking="{{ route('admin.services.addservice') }}" color="blue" showme="add-service-btn" name="Add Service" />
+                        <x-front-end-btn linking="{{ route('dashboard.services.addservice') }}" color="blue" showme="add-service-btn" name="Add Service" />
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-3 gap-4">
@@ -60,10 +60,11 @@
                             </div>
 
                             <div class="flex justify-between">
-                                <x-front-end-btn linking="/admin/services/viewservice/{{$service->id}}" color="blue" showme=" " name="View" class="w-1/2 mr-1" />
-                                <form action="{{ route('admin.services.deleteservice', ['id' => $service->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                                <x-front-end-btn linking="/dashboard/services/{{$service->slug}}" color="blue" showme=" " name="View" class="w-1/2 mr-1" />
+                                <!-- <x-front-end-btn linking="/dashboard/services/viewservice/{{$service->id}}" color="blue" showme=" " name="View" class="w-1/2 mr-1" /> -->
+                                <form action="{{ route('dashboard.services.deleteservice', ['id' => $service->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                                     @csrf
-                                    <x-front-end-btn type="submit" linking="admin.deleteservice" color="red" showme="deleteService" name="Delete" class="w-1/2 ml-1" />
+                                    <x-front-end-btn type="submit" linking="dashboard.deleteservice" color="red" showme="deleteService" name="Delete" class="w-1/2 ml-1" />
                                 </form>
                             </div>
                         </div>

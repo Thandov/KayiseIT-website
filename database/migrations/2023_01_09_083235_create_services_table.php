@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('service_id')->unique();
             $table->string('icon')->nullable();
             $table->string('name');
+            $table->string('slug');
             $table->text('description');
             $table->enum('service_type', ['static', 'dynamic']);
             $table->decimal('price', 10, 2);

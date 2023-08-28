@@ -1,4 +1,4 @@
-<form action="{{ route('addsubservices.storing', $service->id) }}" method="post" enctype="multipart/form-data" class="px-6 py-4">
+<form action="{{ route('dashboard.services.slug.addsubservices', ['slug' => $service->slug]) }}" method="post" enctype="multipart/form-data" class="px-6 py-4">
     @csrf
     <input type="hidden" name="service_id" value="{{$service->service_id}}">
     <div class="mb-4">

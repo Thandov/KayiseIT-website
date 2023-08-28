@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OccupationsTableSeeder::class);
         $this->call(SpecializationsTableSeeder::class);
         $this->call(CareerStepsTableSeeder::class);
+        $this->call(AdminUserSeeder::class);
         $this->call(CarouselSeeder::class);
 
     }

@@ -81,7 +81,7 @@ class CarouselController extends Controller
                 return response()->json(['message' => 'Carousel created successfully.']);
             }
 
-            return redirect()->route('admin.carousel.viewcarousel', ['id' => $carouselID])->with('success', 'Carousel created successfully.');
+            return redirect()->route('admin.dashboard.carousel.viewcarousel', ['id' => $carouselID])->with('success', 'Carousel created successfully.');
         } catch (ValidationException $e) {
             dd("fAIL");
             return back()->withErrors($e->errors())->withInput();
@@ -179,13 +179,13 @@ class CarouselController extends Controller
                 return response()->json(['message' => 'Carousel and associated user have been deleted.']);
             }
 
-            return redirect()->route('admin.carousel')->with('success', 'Carousel and associated user have been deleted.');
+            return redirect()->route('admin.dashboard.carousel')->with('success', 'Carousel and associated user have been deleted.');
         } else {
             if ($request->ajax()) {
                 return response()->json(['message' => 'Carousel or associated user not found.'], 404);
             }
 
-            return redirect()->route('admin.carousel')->with('error', 'Carousel or associated user not found.');
+            return redirect()->route('admin.dashboard.carousel')->with('error', 'Carousel or associated user not found.');
         }
     }
 }

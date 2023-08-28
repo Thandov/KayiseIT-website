@@ -8,6 +8,8 @@ use App\Models\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\SubServicesService;
+use App\Helpers\RespondingHelper;
+
 
 
 
@@ -26,19 +28,11 @@ class SubServicesController extends Controller
         return view('admin/services/addsubservices', compact('service'));
     }
 
-    public function store(Request $request, $id)
+    public function storing(Request $request, $serviceSlug)
     {
-        //Input Validations
-        $request->validate([
-            'name' => 'required|array',
-            'name.*' => 'required|string|max:255',
-            'description' => 'required|array',
-            'description.*' => 'nullable|string',
-            'price' => 'required|array',
-            'price.*' => 'required|numeric|min:0',
-        ]);
-
-        $service = Service::find($id);
+        $service = Service::where('slug',$serviceSlug)->first();
+        dd($service->id);
+        
         $service_id = $service->id;
         $names = $request->name;
         $descriptions = $request->description;
@@ -55,12 +49,11 @@ class SubServicesController extends Controller
 
         return redirect('admin/services')->with('status', 'Sub Service Added');
     }
-    public function storing(Request $request, $id)
+    public function store(Request $request, $serviceSlug)
     {
-        $service = Service::where('service_id', $request->service_id)->first();
+        $service = Service::where('slug', $serviceSlug)->first();
         $subService = $this->subServicesService->storeSubservice($request, $service->service_id);
-
-        return redirect()->route('admin.services.viewservice', ['id' => $id])->with(['status' => 'Subservice Added', 'subserv_id' => $subService->id]);
+        return redirect()->back()->with(['status' => 'Subservice Added', 'subserv_id' => $subService->id]);
     }
     public function updateSubservice(Request $request, $id)
     {
@@ -97,16 +90,21 @@ class SubServicesController extends Controller
     }
 
 
-    public function destroy(Request $request, $subservice_id)
+    public function destroy(Request $request)
     {
-        // find the subservice
-        $subservice = Subservice::find($subservice_id);
+        $subservice_id = $request->input("subservice_id");
 
-        // delete the subservice
+        // Find the subservice
+        $subservice = Subservice::where('subserv_id', $subservice_id)->first();
+
+        if (!$subservice) {
+            return RespondingHelper::respond(null, 'Subservice not found', 'error', 'back');
+        }
+
+        // Delete the subservice
         $subservice->delete();
 
-        // redirect back to the view service page
-        return redirect()->back()->with('success', 'User has been deleted!');
+        return RespondingHelper::respond(null, 'Subservice deleted successfully', 'success', 'back');
     }
 
     public function show($id)
