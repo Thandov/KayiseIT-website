@@ -23,6 +23,8 @@ use App\Http\Controllers\UserController;
 use App\Models\Carousel;
 use App\Models\Blog;
 use App\Models\PostCategories;
+use App\Http\Controllers\SubscriptionController;
+
 
 
 /*
@@ -62,8 +64,6 @@ Route::get('services', function () {
 Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
-
-
 
 
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
@@ -269,6 +269,14 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::DELETE('/dashboard/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('dashboard.carousel.delete');
 });
 //==================================End of Admin Controls==================================================
+
+//Events 
+Route::get('Events', function () {
+    return view('Events.events');
+})->name('events');
+
+Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
 
 // Career Maps
 Route::GET('career-mapping', [OccupationsController::class, 'showoccupations'])->name('career-mapping');
