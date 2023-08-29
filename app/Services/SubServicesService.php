@@ -30,10 +30,10 @@ class SubServicesService
         } else {
             $profilePicturePath = "null";
         }
-
         $subService = new Subservice();
         $subService->service_id = $serviceId;
         $subService->name = $requestData->name;
+        $subService->slug = strtolower(str_replace(" ", "_", $requestData->name));
         $subService->icon = $profilePicturePath;
         $subService->subservice_type = $requestData->subservice_type;
         $subService->price = $requestData->price;
@@ -44,7 +44,6 @@ class SubServicesService
         } while (Subservice::where('subserv_id', $subService->subserv_id)->exists());
 
         $subService->save();
-
         return $subService;
     }
     public function findService($serviceId)

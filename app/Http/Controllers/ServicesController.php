@@ -7,6 +7,7 @@ use App\Models\Subservice;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
+use App\Helpers\RespondingHelper;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -86,30 +87,22 @@ class ServicesController extends Controller
         return view('viewservice', compact('service', 'subservices'));
     }
 
-    public function updateService(Request $request, $id)
+    public function updateService(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'subservices' => 'required|array',
-            'subservices.*.name' => 'required|string|max:255',
-            'subservices.*.price' => 'required|numeric|min:0',
-            'id' => 'required|exists:services,id',
-        ]);
+        $id = $request->input('id');
+        $service = Service::where('service_id', $id)->first();
 
-        $service = Service::findOrFail($id);
+        if (!$service) {
+            return RespondingHelper::respond(null, 'Service not found', 'error', 'back');
+        }
+        $price = ($request->input('service_type') === 'dynamic') ? 0 : $request->input('price') ;
         $service->name = $request->input('name');
+        $service->price = $price;
+        $service->service_type = $request->input('service_type');
         $service->description = $request->input('description');
         $service->save();
 
-        $subservices = $request->input('subservices');
-        foreach ($subservices as $subserviceId => $subserviceData) {
-            $subservice = Subservice::findOrFail($subserviceId);
-            $subservice->name = $subserviceData['name'];
-            $subservice->price = $subserviceData['price'];
-            $subservice->save();
-        }
-        return redirect()->back();
+        return RespondingHelper::respond($service, 'Service updated successfully', 'success', 'back');
     }
 
     public function delete($id)

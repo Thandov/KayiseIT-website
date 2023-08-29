@@ -19,6 +19,7 @@ class SubServicesTableSeeder extends Seeder
     $subservices = [
         [
             'name' => 'WordPress One Page',
+            'slug' => 'wordpress_one_page',
             'price' => 1000.00,
             'icon' => 'wordpress.png',
             'service_id' => 'S001',
@@ -26,6 +27,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'WordPress Standard',
+            'slug' => 'wordpress_standard',
             'price' => 1000.00,
             'icon' => 'wordpress.png',
             'service_id' => 'S001',
@@ -33,6 +35,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'App Development',
+            'slug' => 'app_development',
             'price' => 1000.00,
             'icon' => 'app.png',
             'service_id' => 'S002',
@@ -40,6 +43,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Tech Support',
+            'slug' => 'tech_support',
             'price' => 1000.00,
             'icon' => 'tech.png',
             'service_id' => 'S003',
@@ -47,6 +51,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Coding',
+            'slug' => 'coding',
             'price' => 1000.00,
             'icon' => 'coding.png',
             'service_id' => 'S004',
@@ -54,6 +59,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Robotics',
+            'slug' => 'robotics',
             'price' => 1000.00,
             'icon' => 'robot.png',
             'service_id' => 'S004',
@@ -61,6 +67,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Cyber Security For SMEs',
+            'slug' => 'cyber_security_for_smes',
             'price' => 1000.00,
             'icon' => 'cyber.png',
             'service_id' => 'S004',
@@ -68,6 +75,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Video Conferencing Cross-Platform',
+            'slug' => 'video_conferencing_cross-platform',
             'price' => 1000.00,
             'icon' => 'vid.png',
             'service_id' => 'S004',
@@ -75,6 +83,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Microsoft PowerPoint Advanced',
+            'slug' => 'microsoft_powerpoint_advanced',
             'price' => 1000.00,
             'icon' => 'power.png',
             'service_id' => 'S004',
@@ -82,6 +91,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Microsoft Word Advanced',
+            'slug' => 'microsoft_word_advanced',
             'price' => 1000.00,
             'icon' => 'word.png',
             'service_id' => 'S004',
@@ -89,6 +99,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Microsoft Excel Advanced',
+            'slug' => 'microsoft_excel_advanced',
             'price' => 1000.00,
             'icon' => 'excel.png',
             'service_id' => 'S004',
@@ -96,6 +107,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Microsoft Office Hybrid',
+            'slug' => 'microsoft_office_hybrid',
             'price' => 1000.00,
             'icon' => 'office.png',
             'service_id' => 'S004',
@@ -103,6 +115,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'IT Integration Solution',
+            'slug' => 'it_integration_solution',
             'price' => 1000.00,
             'icon' => 'inter.png',
             'service_id' => 'S005',
@@ -110,6 +123,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'IT Outsourcing',
+            'slug' => 'it_outsourcing',
             'price' => 1000.00,
             'icon' => 'out.png',
             'service_id' => 'S006',
@@ -117,6 +131,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Company Profile Design',
+            'slug' => 'company_profile_design',
             'price' => 1000.00,
             'icon' => 'comp.png',
             'service_id' => 'S007',
@@ -124,6 +139,7 @@ class SubServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Logo Design',
+            'slug' => 'logo design',
             'price' => 500.00,
             'icon' => 'log.png',
             'service_id' => 'S008',
@@ -136,6 +152,7 @@ class SubServicesTableSeeder extends Seeder
         $subService = new Subservice();
         $subService->service_id = $subservice['service_id'];
         $subService->name = $subservice['name'];
+        $subService->slug = $subservice['slug'];
         $subService->icon = $subservice['icon'];
         $subService->price = $subservice['price'];
         $subService->subserv_id = $subservice['subserv_id'];

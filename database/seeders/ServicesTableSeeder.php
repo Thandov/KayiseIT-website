@@ -18,6 +18,7 @@ class ServicesTableSeeder extends Seeder
     $services = [
         [
             'name' => 'Web Development',
+            'slug' => 'web_development',
             'description' => 'Our company specializes in creating contemporary and adaptable websites. You can view our available packages listed below.',
             'price' => 0.00,
             'icon' => 'web.png',
@@ -25,6 +26,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'App Development',
+            'slug' => 'app_development',
             'description' => 'We develop morden and compatable applications for mobiles and tablets. Check out our packages below.',
             'price' => 0.00,
             'icon' => 'app.png',
@@ -32,6 +34,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Tech Support',
+            'slug' => 'tech_support',
             'description' => 'We offer support to companies and customers when they have problems using tech equipment, software, and/or services.',
             'price' => 0.00,
             'icon' => 'tech.png',
@@ -39,6 +42,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => '4IR Skills Training',
+            'slug' => '4ir_skills_training',
             'description' => 'We provide 4th Industrial Revolution skills training programmes',
             'price' => 0.00,
             'icon' => '4ir.png',
@@ -46,6 +50,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'IT Integration Solution',
+            'slug' => 'it_integration_solution',
             'description' => 'We enhance productivity and collect data completely to allow for exact business analyses. Thus, we ensure your company’s competitiveness. IT integration interlinks your system components in a way that will make your IT structure work seamlessly.',
             'price' => 0.00,
             'icon' => 'inter.png',
@@ -53,6 +58,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'IT Outsourcing',
+            'slug' => 'it_outsourcing',
             'description' => 'We outsource our services to businesses to effectively deliver IT-enabled business process, application service and infrastructure solutions for business outcomes.',
             'price' => 0.00,
             'icon' => 'out.png',
@@ -60,6 +66,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Company Profile Design',
+            'slug' => 'company_profile_design',
             'description' => 'Unlock your brands potential with our expertly crafted Company Profile Designs. We specialize in creating captivating and professional profiles that help small businesses make a big impact.',
             'price' => 1000.00,
             'icon' => 'comp.png',
@@ -67,6 +74,7 @@ class ServicesTableSeeder extends Seeder
         ],
         [
             'name' => 'Logo Design',
+            'slug' => 'logo_design',
             'description' => 'Unleash your brands potential with our professional Logo Design service. We create captivating logos that make your small business stand out and leave a lasting impression.',
             'price' => 500.00,
             'icon' => 'logo.png',
@@ -77,6 +85,7 @@ class ServicesTableSeeder extends Seeder
     foreach ($services as $service) {
         $newService = new Service();
         $newService->name = $service['name'];
+        $newService->slug = $service['slug'];
         $newService->description = $service['description'];
         $newService->price = $service['price'];
         $newService->icon = $service['icon'];

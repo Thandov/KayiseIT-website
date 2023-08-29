@@ -23,6 +23,8 @@ use App\Http\Controllers\UserController;
 use App\Models\Carousel;
 use App\Models\Blog;
 use App\Models\PostCategories;
+use App\Http\Controllers\SubscriptionController;
+
 
 
 /*
@@ -64,8 +66,6 @@ Route::get('career-mapping', function () {
 })->name('career-mapping');
 
 
-
-
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
 //terms and conditions
@@ -91,7 +91,6 @@ Route::middleware('auth')->group(function () {
 
 //Route::post('store-form',[QuotationController::class, 'store']);
 Route::post('quote-form', [QuotationController::class, 'quote'])->middleware('auth');
-Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
 //paypal routes
 Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
@@ -116,127 +115,130 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/staff/newstaff', function () {
         return view('admin.staff.newstaff');
     })->name('dashboard.staff.newstaff');
-    Route::POST('/dashboard/staff/create', [AdminController::class, 'new_employee'])->name('admin.staff.create');
-    Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('admin.staff.delete');
-    Route::POST('/dashboard/staff/viewstaff/update/{id}', [AdminController::class, 'update_employee'])->name('admin.staff.viewstaff.update');
-    Route::GET('/dashboard/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('admin.staff.viewstaff');
+    Route::POST('/dashboard/staff/create', [AdminController::class, 'new_employee'])->name('dashboard.staff.create');
+    Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
+    Route::POST('/dashboard/staff/viewstaff/update/{id}', [AdminController::class, 'update_employee'])->name('dashboard.staff.viewstaff.update');
+    Route::GET('/dashboard/staff/viewstaff/{id}', [AdminController::class, 'view_employee'])->name('dashboard.staff.viewstaff');
     Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
-    Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
-    Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
-    Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
-    Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
-    Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('admin.services');
+    Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('dashboard.quotations');
+    Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('dashboard.invoices');
+    Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('dashboard.viewquotations');
+    Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('dashboard.viewinvoice');
+    Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('dashboard.users');
+    Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('dashboard.viewuser');
     Route::post('/dashboard/staff/create', [AdminController::class, 'new_employee']);
     Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
     Route::POST('/dashboard/staff/{staffName}/update/', [AdminController::class, 'update_employee'])->name('dashboard.staff.viewstaff.update');
     Route::get('/dashboard/staff/{staffName}', [AdminController::class, 'view_employee'])->name('dashboard.staff.viewstaff');
-    
-    Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('admin.quotations');
-    Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('admin.invoices');
-    Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('admin.viewquotations');
-    Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('admin.viewinvoice');
-    Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('admin.viewuser');
-    Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('admin.services');
+
+    Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('dashboard.quotations');
+    Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('dashboard.invoices');
+    Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('dashboard.viewquotations');
+    Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('dashboard.viewinvoice');
+    Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('dashboard.users');
+    Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('dashboard.viewuser');
     Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendInvoice'])->name('quotations.send-invoice');
-    Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('admin.services.viewservice');
-    Route::GET('/dashboard/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('admin.subservices.viewsubservice');
+
+    //Subservices
+    Route::GET('/dashboard/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('dashboard.subservices.viewsubservice');
+    Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
+    Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
+    Route::put('/updatesubservice', [SubServicesController::class, 'updateSubservice']);
+    Route::get('/dashboard/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('dashboard.services.addsubservices');
+    Route::post('/dashboard/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
+    Route::POST('/dashboard/subservices/deletesubservice', [SubServicesController::class, 'destroy'])->name('dashboard.subservices.deletesubservice');
+    Route::get('services/{slug}/{subslug}', [SubServicesController::class, 'display_subservice_name']);
+    Route::POST('dashboard/services/{slug}/addsubservices', [SubServicesController::class, 'store'])->name('dashboard.services.slug.addsubservices');
+    Route::get('viewsubservice/{id}', [SubServicesController::class, 'show'])->name('show');
 
     //download quotation&invoice PDFs
     Route::get('/dashboard/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
     Route::get('/dashboard/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');
 
     //update
-    Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
     Route::put('/service/{id}', [ServicesController::class, 'updateService'])->name('service.update');
 
     //delete
-    Route::get('quotations/delete/{id}', [AdminController::class, 'remove'])->name('admin.remove');
-    Route::get('invoices/delete/{id}', [AdminController::class, 'removeinvoice'])->name('admin.removeinvoice');
-    Route::get('users/delete/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
+    Route::get('quotations/delete/{id}', [AdminController::class, 'remove'])->name('dashboard.remove');
+    Route::get('invoices/delete/{id}', [AdminController::class, 'removeinvoice'])->name('dashboard.removeinvoice');
+    Route::get('users/delete/{id}', [AdminController::class, 'destroy'])->name('dashboard.destroy');
     Route::get('delete/{id}', [ServicesController::class, 'delete']);
-    Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
-    Route::put('/updatesubservice', [SubServicesController::class, 'updateSubservice']);
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
-    //Add services, subservices, options Blades
-
+    //Add services
+    Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('dashboard.services');
+    Route::GET('/dashboard/services/{slug}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
+    Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
     Route::GET('/dashboard/services/addservice', function () {
         return view('admin.services.addservice');
-    })->name('admin.services.addservice');
-    Route::GET('/dashboard/editservice/{id}', [ServicesController::class, 'updateService'])->name('admin.editservice');
-    Route::GET('/dashboard/newaddservice', [ServicesController::class, 'newaddservice'])->name('admin.newaddservice');
-    Route::POST('/dashboard/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('admin.services.deleteservice');
-    Route::get('admin/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('admin.services.addsubservices');
-    Route::get('admin/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
+    })->name('dashboard.services.addservice');
+    Route::POST('/dashboard/editservice', [ServicesController::class, 'updateService'])->name('dashboard.editservice');
+    Route::GET('/dashboard/newaddservice', [ServicesController::class, 'newaddservice'])->name('dashboard.newaddservice');
+    Route::POST('/dashboard/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('dashboard.services.deleteservice');
+    Route::get('dashboard/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
 
     //Forms
     Route::post('store-form', [ServicesController::class, 'store']);
-    Route::post('admin/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
-    Route::post('admin/services/addsubservices/{id}', [SubServicesController::class, 'storing'])->name('addsubservices.storing');
-    Route::post('admin/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
+    Route::post('dashboard/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
     Route::post('/dashboard/dashboard/careermapping_dashboard', [OccupationsController::class, 'store'])->name('careermapping_dashboard.store');
 
     //quotations & invoice
     Route::get('/dashboard/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
-    Route::post('/invoices/create/{quotationId}', [InvoiceController::class, 'create'])->name('invoices.create');
 
     //blogs
     Route::GET('/dashboard/blogs', function () {
         $blogs = App\Models\Blog::all();
         return view('admin.blogs', compact('blogs'));
-    })->name('admin.blogs');
+    })->name('dashboard.blogs');
     
-    Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('admin.blogs.storeblog-form');;
-    Route::GET('/dashboard/blogs/addblog', [BlogController::class, 'addblog'])->name('admin.blogs.addblog');
+    Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('dashboard.blogs.storeblog-form');;
+    Route::GET('/dashboard/blogs/addblog', [BlogController::class, 'addblog'])->name('dashboard.blogs.addblog');
     Route::GET('/blog', function () {
         $blogs = Blog::all();
         return view('admin.blogs.viewblog', compact('blogs'));
-    })->name('admin.blogs.blog');
-    Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('admin.destroyblog');
+    })->name('dashboard.blogs.blog');
+    Route::get('/blog/delete/{id}', [BlogController::class, 'destroyblog'])->name('dashboard.destroyblog');
 
    // Route::get('/dashboard/edit_blog/{id}', function () {
       //  return view('admin.blogs.viewblog_edit');
-  //  })->name('admin.blogs.viewblog_edit');
-    Route::POST('/dashboard/update_blog/{id}', [BlogController::class, 'updateblog'])->name('admin.blogs.viewblog_edit.update_blog');
-    Route::GET('/admin/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('admin.blogs.viewblog_edit');
-    Route::GET('/viewblog/{id}', [BlogController::class, 'viewblog'])->name('admin.blogs.viewblog');
+  //  })->name('dashboard.blogs.viewblog_edit');
+    Route::POST('/dashboard/update_blog/{id}', [BlogController::class, 'updateblog'])->name('dashboard.blogs.viewblog_edit.update_blog');
+    Route::GET('/dashboard/blogs/viewblog_edit/{id}', [BlogController::class, 'viewblog_edit'])->name('dashboard.blogs.viewblog_edit');
+    Route::GET('/viewblog/{id}', [BlogController::class, 'viewblog'])->name('dashboard.blogs.viewblog');
     Route::post('/upload', [BlogController::class, 'upload'])->name('ckeditor.upload');
     //categories
     Route::get('/categories', [PostCategoriesController::class, 'index'])->name('categories');
     // Route for displaying the list of post categories
-    Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('admin.blogs.categories');
+    Route::get('/dashboard/blogs/categories', [PostCategoriesController::class, 'index'])->name('dashboard.blogs.categories');
     // Route for showing the form to create a new post category
-    Route::get('/dashboard/blogs/categories/create', [PostCategoriesController::class, 'create'])->name('admin.blogs.categories.create');
+    Route::get('/dashboard/blogs/categories/create', [PostCategoriesController::class, 'create'])->name('dashboard.blogs.categories.create');
     // Route for deleting the form to create a new post category
-    Route::POST('/dashboard/blogs/categories/deleting/{id}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.deleting');
+    Route::POST('/dashboard/blogs/categories/deleting/{id}', [PostCategoriesController::class, 'destroy'])->name('dashboard.blogs.categories.deleting');
     // Route for storing the newly created post category
-    Route::post('/dashboard/blogs/categories', [PostCategoriesController::class, 'store'])->name('admin.blogs.categories.store');
+    Route::post('/dashboard/blogs/categories', [PostCategoriesController::class, 'store'])->name('dashboard.blogs.categories.store');
     // Route for showing the form to edit an existing post category
-    Route::get('/dashboard/blogs/categories/{postCategory}/edit', [PostCategoriesController::class, 'edit'])->name('admin.blogs.categories.edit');
+    Route::get('/dashboard/blogs/categories/{postCategory}/edit', [PostCategoriesController::class, 'edit'])->name('dashboard.blogs.categories.edit');
      // Route for updating an existing post category
-    Route::put('/dashboard/blogs/categories/{postCategory}', [PostCategoriesController::class, 'update'])->name('admin.blogs.categories.update');
+    Route::put('/dashboard/blogs/categories/{postCategory}', [PostCategoriesController::class, 'update'])->name('dashboard.blogs.categories.update');
     // Route for deleting an existing post category
-    Route::delete('/dashboard/blogs/categories/{postCategory}', [PostCategoriesController::class, 'destroy'])->name('admin.blogs.categories.destroy');
+    Route::delete('/dashboard/blogs/categories/{postCategory}', [PostCategoriesController::class, 'destroy'])->name('dashboard.blogs.categories.destroy');
 
 
     //Testimonials
-    Route::GET('/dashboard/testimonials', [TestimonialsController::class, 'testimonials'])->name('admin.testimonials');
-    Route::GET('/dashboard/addtestimony', [TestimonialsController::class, 'addtestimony'])->name('admin.addtestimony');
+    Route::GET('/dashboard/testimonials', [TestimonialsController::class, 'testimonials'])->name('dashboard.testimonials');
+    Route::GET('/dashboard/addtestimony', [TestimonialsController::class, 'addtestimony'])->name('dashboard.addtestimony');
     Route::post('storetestimony-form', [TestimonialsController::class, 'storetestimony']);
-    Route::get('testimonial/delete/{id}', [TestimonialsController::class, 'destroytestimonial'])->name('admin.destroytestimonial');
+    Route::get('testimonial/delete/{id}', [TestimonialsController::class, 'destroytestimonial'])->name('dashboard.destroytestimonial');
     Route::put('/testimonial/{id}', [TestimonialsController::class, 'updatetestimonial'])->name('testimonial.update');
-    Route::GET('/dashboard/viewtestimonial/{id}', [TestimonialsController::class, 'viewtestimonial'])->name('admin.viewtestimonial');
+    Route::GET('/dashboard/viewtestimonial/{id}', [TestimonialsController::class, 'viewtestimonial'])->name('dashboard.viewtestimonial');
 
     //Career Mapping
     Route::GET('/dashboard/careermapping', [OccupationsController::class, 'occupations'])->name('dashboard.careermapping');
     Route::delete('/occupations/{occupation}', [OccupationsController::class, 'delete'])->name('occupations.delete');
-    Route::GET('/dashboard/admin_viewoccupations/{occup_id}', [OccupationsController::class, 'showadmin_viewoccupations'])->name('admin.admin_viewoccupations');
+    Route::GET('/dashboard/admin_viewoccupations/{occup_id}', [OccupationsController::class, 'showadmin_viewoccupations'])->name('dashboard.admin_viewoccupations');
     Route::post('addoccupation-form', [OccupationsController::class, 'addoccupation']);
-    Route::post('admin/admin_viewoccupations/{occup_id}', [SpecializationsController::class, 'addspecialization'])->name('addspecialization');
-    Route::GET('/dashboard/career_mapping/viewspecialization/{spec_id}', [SpecializationsController::class, 'showadmin_viewspecialization'])->name('admin.career_mapping.viewspecialization');
+    Route::post('dashboard/admin_viewoccupations/{occup_id}', [SpecializationsController::class, 'addspecialization'])->name('addspecialization');
+    Route::GET('/dashboard/career_mapping/viewspecialization/{spec_id}', [SpecializationsController::class, 'showadmin_viewspecialization'])->name('dashboard.career_mapping.viewspecialization');
     Route::delete('/specializations/{specialization}', [SpecializationsController::class, 'delete'])->name('specializations.delete');
     Route::post('/dashboard/career_mapping/specialization/editspecialization', [SpecializationsController::class, 'updateSpecialization']); //reference
     Route::post('/dashboard/career_mapping/careersteps/editcareerstep', [CareerStepsController::class, 'updateCareerStep']); //look at
@@ -256,17 +258,25 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         $carousels = Carousel::select('id', 'user_id', 'title', 'middletxt', 'btmtxt', 'image')
         ->get();
 
-        return view('/dashboard/carousel', compact('carousels'));
-    })->name('admin.carousel');
+        return view('admin.dashboard.carousel.viewcarousel', compact('carousels'));
+    })->name('dashboard.carousel');
     Route::GET('/dashboard/carousel/newcarousel', function () {
-        return view('admin.carousel.newcarousel');
-    })->name('admin.carousel.newcarousel');
-    Route::POST('/dashboard/carousel/create', [CarouselController::class, 'store'])->name('admin.carousel.create');
-    Route::GET('/dashboard/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('admin.carousel.viewcarousel');
-    Route::POST('/dashboard/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('admin.carousel.viewcarousel.update');
-    Route::DELETE('/dashboard/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.delete');
+        return view('admin.dashboard.carousel.newcarousel');
+    })->name('dashboard.carousel.newcarousel');
+    Route::POST('/dashboard/carousel/create', [CarouselController::class, 'store'])->name('dashboard.carousel.create');
+    Route::GET('/dashboard/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('dashboard.carousel.viewcarousel');
+    Route::POST('/dashboard/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('dashboard.carousel.viewcarousel.update');
+    Route::DELETE('/dashboard/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('dashboard.carousel.delete');
 });
 //==================================End of Admin Controls==================================================
+
+//Events 
+Route::get('Events', function () {
+    return view('Events.events');
+})->name('events');
+
+Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+
 
 // Career Maps
 Route::GET('career-mapping', [OccupationsController::class, 'showoccupations'])->name('career-mapping');
@@ -277,10 +287,8 @@ Route::get('viewspecialization/{spec_id}', [SpecializationsController::class, 's
 
 Route::get('viewservice/{slug}', [ServicesController::class, 'show'])->name('show');
 Route::get('services/{slug}', [ServicesController::class, 'display_service_name'])->name('service.show');
-Route::get('services/{slug}/{subslug}', [SubServicesController::class, 'display_subservice_name']);
 
 
-Route::get('viewsubservice/{id}', [SubServicesController::class, 'show'])->name('show');
 Route::post('viewsubservice/quote', [QuotationController::class, 'quote'])->name('viewsubservice.quote');
 
 Route::post('contact/contact', [ContactController::class, 'contact'])->name('contact.contact');

@@ -127,11 +127,13 @@ class AdminController extends Controller
         return view('admin/services', compact('services'));
     }
 
-    public function viewservice($id)
+    public function viewservice($slug)
     {
-        $service = Service::find($id);
+        $service = Service::where('slug',$slug)->first();
         $subservices = SubService::where('service_id', $service->service_id)->get();
-        return view('admin/services/viewservice', compact('service', 'subservices'));
+
+        $extras = (count($subservices) === 0) ? $extras = false : $extras = true ;
+        return view('admin/services/viewservice', compact('service', 'subservices', 'extras'));
     }
 
     public function viewsubservice($id)
@@ -139,9 +141,10 @@ class AdminController extends Controller
         $subservice = SubService::where('id', $id)->first();
         $options = Options::where('unq_id', $subservice->subserv_id)->get();
         $serviceName = $this->subServicesService->findService($subservice->service_id)->name;
+        $serviceDesc = $this->subServicesService->findService($subservice->service_id)->description;
         $serviceID = $this->subServicesService->findService($subservice->service_id)->id;
-
-        return view('admin/subservices/viewsubservice', compact('subservice', 'options', 'serviceName', 'serviceID'));
+ dd("viewsubservice");
+        return view('admin/subservices/viewsubservice', compact('id', 'subservice', 'options', 'serviceName', 'serviceID', 'serviceDesc'));
     }
     public function view_employee($name)
     {
