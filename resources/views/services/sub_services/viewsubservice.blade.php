@@ -41,11 +41,6 @@
                <button type="button" id="checkModal-btn" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" data-toggle="loginModal" data-target="#loginModal">Send Quotation</button>
                @endif
          </form>
-         <form id="checkout-form" action="{{ route('viewsubservice.check', ['subservice_id' => $subservice->id]) }}" method="get" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="subservice_id" value="{{ $subservice->id }}">
-            <button type="submit" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Checkout</button>
-         </form>
       </div>
    </div>
 

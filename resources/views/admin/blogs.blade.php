@@ -51,8 +51,8 @@
                         </dl>
                     </div>
                     <div class="ml-auto">
-                        <x-front-end-btn linking="{{url('/categories')}}" color="blue" showme="" name="Categories" />
-                        <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
+                        <x-front-end-btn linking="{{route('categories')}}" color="blue" showme="" name="Categories" />
+                        <x-front-end-btn linking="{{ route('dashboard.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-4 gap-4">

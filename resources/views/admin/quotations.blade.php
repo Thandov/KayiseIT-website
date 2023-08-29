@@ -26,33 +26,30 @@
                         </thead>
                         <tbody>
                             @foreach($quotations as $quotation)
-                                <!-- Inside the <tbody> of #subservice-list -->
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $quotation->id }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $quotation->quotation_no }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $quotation->total_price }}</td>
-                                    <td class="py-3 px-6 text-center row">
-                                        <div class="py-3 px-6 col-4">
-                                            <a href="{{ url('admin/viewquotations/'.$quotation->id) }}"
-                                                title="View">
-                                                <i class="far fa-eye"></i>
-                                            </a>
-                                        </div>
-                                        <div class="py-3 px-6 col-4">
-                                            <a href="{{ url('admin/download_quotation/'.$quotation->id) }}?format=pdf"
-                                                title="download">
-                                                <i class="fa fa-download"></i>
-                                            </a>
-                                        </div>
-                                        <div class="py-3 px-6 col-4">
-                                            <a href="{{ url('quotations/delete/'.$quotation->id) }}"
-                                                title="delete">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
-                                        </div>
-                                    </td>
+                            <!-- Inside the <tbody> of #subservice-list -->
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $quotation->id }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $quotation->quotation_no }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">{{ $quotation->total_price }}</td>
+                                <td class="py-3 px-6 text-center row">
+                                    <div class="py-3 px-6 col-4">
+                                        <a href="{{ url('dashboard/viewquotations/'.$quotation->id) }}" title="View">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+                                    </div>
+                                    <div class="py-3 px-6 col-4">
+                                        <a href="{{ url('dashboard/download_quotation/'.$quotation->id) }}?format=pdf" title="download">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                    </div>
+                                    <div class="py-3 px-6 col-4">
+                                        <a href="{{ url('quotations/delete/'.$quotation->id) }}" title="delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </td>
 
-                                </tr>
+                            </tr>
 
                             @endforeach
                         </tbody>

@@ -51,10 +51,10 @@
                         </dl>
                     </div>
                     <div class="ml-auto">
-                        <x-front-end-btn linking="{{url('/admin/blogs/categories')}}" color="blue" showme="show" name="Add Category" data-bs-toggle="modal" data-bs-target="#categories_modal" />
-                        <x-front-end-btn linking="{{ route('admin.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
+                        <x-front-end-btn linking="{{route('dashboard.blogs.categories')}}" color="blue" showme="show" name="Add Category" data-bs-toggle="modal" data-bs-target="#categories_modal" />
+                        <x-front-end-btn linking="{{ route('dashboard.blogs.addblog') }}" color="blue" showme="add-blog-btn" name="Add Blog" />
                     </div>
-                </div> 
+                </div>
                 <x-dynamic-table thead="" trcontent="{{json_encode($postCategories)}}" />
 
             </div>
@@ -70,7 +70,7 @@
                     &times;
                 </button>
             </div>
-            <form action="{{ route('admin.blogs.categories.store') }}" method="POST">
+            <form action="{{ route('dashboard.blogs.categories.store') }}" method="POST">
                 @csrf
                 <div class="modal-body py-4" id="categoryInputsContainer">
                     <label class="block font-medium text-gray-700 mb-2">Category Name</label>

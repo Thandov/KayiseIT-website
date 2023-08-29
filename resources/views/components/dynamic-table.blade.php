@@ -27,9 +27,9 @@ $post = json_decode($decodedString);
                     @endforeach
                     <td class="px-4 py-3 grid grid-cols-2 gap-1 justify-end items-center">
                         <x-front-end-btn linking="" color="blue" showme="" name="Edit" />
-                        <form action="{{route('admin.blogs.categories.deleting', ['id' => $item->{'Category ID'}])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                        <form action="{{route('dashboard.blogs.categories.deleting', ['id' => $item->{'Category ID'}])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this service?');">
                             @csrf
-                            <x-front-end-btn linking="{{route('admin.blogs.categories.deleting', ['id' => $item->{'Category ID'}])}}" color="submit" showme="category_delete" name="Delete" />
+                            <x-front-end-btn linking="{{route('dashboard.blogs.categories.deleting', ['id' => $item->{'Category ID'}])}}" color="submit" showme="category_delete" name="Delete" />
                         </form>
                     </td>
                 </tr>

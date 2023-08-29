@@ -110,11 +110,13 @@ class SubServicesController extends Controller
     public function show($id)
     {
         $subservice = Subservice::find($id);
+        dd($id);  
         $options = Options::where('unq_id', $subservice->subserv_id)->get();
         return view('services/sub_services/viewsubservice', compact('subservice', 'options'));
     }
     public function display_subservice_name($slug, $subslug)
     {
+        //dd('display_subservice_name');
         $name = str_replace('-', ' ', ucwords($subslug, '-'));
         $subservice = DB::table('subservices')->where('name', $name)->get()->first();
         // Return the blade file corresponding to the slug with the service and name data

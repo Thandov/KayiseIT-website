@@ -28,7 +28,7 @@ class QuotationController extends Controller
     {
         // Create an empty array to store the selected options
         $selectedOptions = [];
-
+dd("34ff33".$request->input());
         $quotation = new Quotation;
         $quotation->user_id = auth()->user()->id;
         $quotation->quotation_no = 'Q' . mt_rand(100000, 999999);
@@ -89,11 +89,11 @@ class QuotationController extends Controller
             'items' => Items::where('QI_id', $quotation->quotation_no)->get(),
         ];
 
-        Mail::send('emails.quotation', $data, function ($message) use ($userEmail, $quotation) {
+        /* Mail::send('emails.quotation', $data, function ($message) use ($userEmail, $quotation) {
             $message->to($userEmail)
                 ->subject('Quotation Request - ' . $quotation->quotation_no);
             //->attachData(Quotation::generatePdf($quotation), 'quotation_'.$quotation->quotation_no.'.pdf');
-        });
+        }); */
 
         $request->session()->put('selectedOptions', $selectedOptions);
 
