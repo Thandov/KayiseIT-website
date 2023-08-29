@@ -20,7 +20,7 @@
                         </dl>
                     </div>
                     <div class="ml-auto">
-                        <x-front-end-btn linking="{{ url('admin/clients/newclient') }}" color="blue" showme="add-client-btn" name="Add Client" />
+                        <x-front-end-btn linking="{{ url('admin/dashboard/clients/newclient') }}" color="blue" showme="add-client-btn" name="Add Client" />
                     </div>
                 </div>
                 @include('admin.dashboard.clients._view')

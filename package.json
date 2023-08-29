@@ -11,7 +11,7 @@
         "@popperjs/core": "^2.11.6",
         "@tailwindcss/forms": "^0.5.2",
         "@vitejs/plugin-vue": "^4.0.0",
-        "alpinejs": "^3.4.2",
+        "alpinejs": "^3.13.0",
         "autoprefixer": "^10.4.2",
         "axios": "^1.2.4",
         "bootstrap": "^5.2.3",
@@ -26,6 +26,7 @@
     "dependencies": {
         "animate.css": "^4.1.1",
         "aos": "^2.3.4",
+        "chart.js": "^4.4.0",
         "esbuild": "^0.18.14",
         "owl.carousel": "^2.3.4",
         "sweetalert2": "^11.6.13",

@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->string('team_ids')->nullable();
-            $table->string('company')->nullable();
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('email')->unique();
             $table->string('phone')->nullable();
+            $table->string('company')->nullable();
             $table->string('address')->nullable();
             $table->string('province')->nullable();
             $table->timestamps();

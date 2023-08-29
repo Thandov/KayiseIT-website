@@ -101,17 +101,17 @@ Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQu
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     //Route::GET('/dashboard/clients', [ClientController::class, 'index'])->name('dashboard.clients');
-    Route::GET('/dashboard/clients', [ClientController::class, 'index'])->name('dashboard.clients');
-    Route::GET('/dashboard/clients/newclient', function () {
+    Route::GET('dashboard/clients', [ClientController::class, 'index'])->name('dashboard.clients');
+    Route::GET('admin/dashboard/clients/newclient', function () {
         $urlSegments = explode('/', request()->path());
-        return view('admin.clients.newclient', compact('urlSegments'));
-    })->name('dashboard.newclient');
-    Route::POST('/dashboard/clients/create', [ClientController::class, 'store'])->name('dashboard.clients.create');
-    Route::GET('/dashboard/clients/{id}', [ClientController::class, 'show'])->name('dashboard.clients.viewclient');
+        return view('admin.dashboard.clients.newclient', compact('urlSegments'));
+    })->name('admin.dashboard.newclient');
+    Route::POST('/dashboard/clients/create', [ClientController::class, 'store'])->name('admin.dashboard.clients.create');
+    Route::GET('/dashboard/clients/viewclient/{id}', [ClientController::class, 'show'])->name('dashboard.clients.viewclient');
     Route::POST('/dashboard/clients/update/', [ClientController::class, 'update'])->name('dashboard.clients.update');
-    Route::DELETE('/dashboard/clients/delete/{id}', [ClientController::class, 'destroy'])->name('dashboard.clients.delete');
+    Route::DELETE('/dashboard/clients/delete/{id}', [ClientController::class, 'destroy'])->name('admin.dashboard.clients.delete');
 
-    Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('dashboard.staff');
+    Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('admin.dashboard.staff');
     Route::GET('/dashboard/staff/newstaff', function () {
         return view('admin.staff.newstaff');
     })->name('dashboard.staff.newstaff');
@@ -248,25 +248,25 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     Route::get('/dashboard/career_mapping/specialization/edit/{spec_id}', function () {
         return view('/dashboard/career_mapping/specialization/edit');
-    });
+    })->name('dashboard.career_mapping.specialization.edit');
 
     Route::get('/dashboard/career_mapping/careersteps/edit/{steps_id}', function () {
         return view('/dashboard/career_mapping/careersteps/edit');
     });
     //Carousel
+    Route::GET('admin/carousel', [CarouselController::class, 'index'])->name('admin.carousel');
     Route::GET('/dashboard/carousel', function () {
         $carousels = Carousel::select('id', 'user_id', 'title', 'middletxt', 'btmtxt', 'image')
         ->get();
-
-        return view('admin.dashboard.carousel.viewcarousel', compact('carousels'));
-    })->name('dashboard.carousel');
-    Route::GET('/dashboard/carousel/newcarousel', function () {
+        return view('admin.dashboard.carousel.carousel', compact('carousels'));
+    })->name('admin.dashboard.carousel');
+    Route::GET('admin/dashboard/carousel/newcarousel', function () {
         return view('admin.dashboard.carousel.newcarousel');
-    })->name('dashboard.carousel.newcarousel');
-    Route::POST('/dashboard/carousel/create', [CarouselController::class, 'store'])->name('dashboard.carousel.create');
-    Route::GET('/dashboard/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('dashboard.carousel.viewcarousel');
-    Route::POST('/dashboard/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('dashboard.carousel.viewcarousel.update');
-    Route::DELETE('/dashboard/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('dashboard.carousel.delete');
+    })->name('admin.dashboard.carousel.newcarousel');
+    Route::POST('admin/dashboard/carousel/create', [CarouselController::class, 'store'])->name('admin.dashboard.carousel.create');
+    Route::GET('admin/dashboard/carousel/viewcarousel/{id}', [CarouselController::class, 'show'])->name('admin.dashboard.carousel.viewcarousel');
+    Route::POST('admin/dashboard/carousel/viewcarousel/update/', [CarouselController::class, 'update'])->name('admin.dashboard.carousel.viewcarousel.update');
+    Route::DELETE('admin/dashboard/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.dashboard.carousel.delete');
 });
 //==================================End of Admin Controls==================================================
 

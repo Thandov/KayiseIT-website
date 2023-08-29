@@ -5,5 +5,4 @@
         <!-- New display -->
         <x-client-form :client="$client" />
     </div>
-
 </x-app-layout>

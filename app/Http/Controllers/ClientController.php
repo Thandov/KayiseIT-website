@@ -6,8 +6,9 @@ use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class ClientController extends Controller
@@ -57,17 +58,12 @@ class ClientController extends Controller
             ]);
 
             // Create a new user
-            $user = new User();
-            $user->name = $validatedData['first_name'];
-            $user->surname = $validatedData['last_name'];
-            $user->password = bcrypt('K@y1s31T'); // Set the temporary password
-            $user->phone = $validatedData['phone'];
-            $user->email = $request->email;
-            // Set values for other user fields
-            $user->save();
             $client = new Client();
-            $client->user_id = $user->id;
-            
+            $client->name = $validatedData['first_name'];
+            $client->surname = $validatedData['last_name'];
+            $client->phone = $validatedData['phone'];
+            $client->email = $request->email;            
+            $client->user_id = Auth::user()->id;  
             $client->address = $validatedData['address'];
             $client->company = $validatedData['company'];
             $client->province = $validatedData['province'];
@@ -79,7 +75,7 @@ class ClientController extends Controller
                 return response()->json(['message' => 'Client created successfully.']);
             }
 
-            return redirect()->route('admin.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
+            return redirect()->route('admin.dashboard.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
@@ -98,7 +94,8 @@ class ClientController extends Controller
             ->where('clients.user_id', (int)$id)
             ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'clients.*')
             ->first();
-        return view('admin/clients/viewclient', compact('client'));
+            dd($id);  
+        return view('admin/dashboard/clients/viewclient', compact('client'));
     }
 
     /**
@@ -205,13 +202,26 @@ class ClientController extends Controller
                 return response()->json(['message' => 'client and associated user have been deleted.']);
             }
 
-            return redirect()->route('admin.clients')->with('success', 'client and associated user have been deleted.');
+            return redirect()->route('admin.dashboard.clients')->with('success', 'client and associated user have been deleted.');
         } else {
             if ($request->ajax()) {
                 return response()->json(['message' => 'client or associated user not found.'], 404);
             }
 
-            return redirect()->route('admin.clients')->with('error', 'client or associated user not found.');
+            return redirect()->route('admin.dashboard.clients')->with('error', 'client or associated user not found.');
         }
+    }
+    /**
+     * Show newly registered clients created within the last day.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function brandNewClients()
+    {
+        // Calculate the date one day ago from now
+        $oneDayAgo = Carbon::now()->subDay();
+
+        // Retrieve clients created within the last day
+        return Client::where('created_at', '>=', $oneDayAgo)->get();
     }
 }

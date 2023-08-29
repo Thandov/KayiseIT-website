@@ -17,7 +17,7 @@
                             <div class="flex justify-end">
                                 <button id="hide">&times</button>
                             </div>
-                             <x-add-occupations-form />
+                            <x-add-occupations-form />
                         </dialog>
                         <button id="show" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Occupation</button>
                     </div>
@@ -32,7 +32,7 @@
                                     <img class="w-auto h-auto" src="{{ asset('images/occupations_logo/'.$occupation->image) }}">
                                     <h3 class="py-2 text-center">{{ $occupation->occupation_name }}</h3>
                                     <div class=" flex justify-center">
-                                        <a href="{{ route('admin.admin_viewoccupations', $occupation->occup_id) }}" class="inline-flex items-center w-24 px-4 py-2 bg-blue-800 border-transparent rounded-l-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">View</a>
+                                        <a href="{{ route('dashboard.admin_viewoccupations', $occupation->occup_id) }}" class="inline-flex items-center w-24 px-4 py-2 bg-blue-800 border-transparent rounded-l-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">View</a>
                                         <form action="{{ route('occupations.delete', $occupation->occup_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this occupation?');">
                                             @csrf <!--To secure the form -->
                                             @method('DELETE')

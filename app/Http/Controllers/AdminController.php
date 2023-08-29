@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Services\SubServicesService;
+use App\Helpers\getNewClientsHelper;
+
 
 
 
@@ -32,8 +34,9 @@ class AdminController extends Controller
         $invoices = Invoice::all();
         $users = User::all();
         $urlSegments = explode('/', request()->path());
+        $newClients = getNewClients();
 
-        return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices', 'urlSegments'));
+        return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
     }
 
     public function remove($id)

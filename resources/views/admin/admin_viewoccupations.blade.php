@@ -39,10 +39,10 @@
                                     <div class="text-sm text-gray-900">{{ $specialization->specialization_name }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('admin.career_mapping.viewspecialization', ['spec_id' => $specialization->spec_id]) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                    <a href="{{ route('dashboard.career_mapping.viewspecialization', ['spec_id' => $specialization->spec_id]) }}" class="text-indigo-600 hover:text-indigo-900">View</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ url('/admin/career_mapping/specialization/edit',$specialization->spec_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="{{ route('dashboard.career_mapping.specialization.edit',$specialization->spec_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <form action="{{ route('specializations.delete', $specialization->spec_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this specialization?');">

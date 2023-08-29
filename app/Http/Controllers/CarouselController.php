@@ -19,7 +19,8 @@ class CarouselController extends Controller
      */
     public function index()
     {
-        
+        $carousels = Carousel::all();
+        return view('admin/dashboard/carousel/carousel', compact('carousels'));
     }
 
     /**
@@ -96,8 +97,8 @@ class CarouselController extends Controller
      */
     public function show($id)
     {
-        $carousel = Carousel::find($id)->where("id", (int)$id)->first();
-        return view('admin/carousel/viewcarousel', compact('carousel'));
+        $carousels = Carousel::find($id)->where("id", (int)$id)->first();
+        return view('admin/dashboard/carousel/viewcarousel', compact('carousels'));
     }
 
     /**
