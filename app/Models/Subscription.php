@@ -9,4 +9,6 @@ class Subscription extends Model
 {
     use HasFactory;
     protected $table = 'subscriptions';
+    protected $fillable = ['name', 'email']; // Add 'name' to the fillable fields
+
 }

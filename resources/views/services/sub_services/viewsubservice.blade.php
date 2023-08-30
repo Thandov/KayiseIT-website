@@ -46,10 +46,6 @@
 
 
 
-
-
-
-
    <!-- Modal -->
    @include('modal._loginModal')
 
