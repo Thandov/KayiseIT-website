@@ -1,5 +1,130 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+/* Montserrat-Black */
+@font-face {
+  font-family: "Montserrat-Black";
+  font-weight: 900;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Black.ttf") format("truetype");
+}
+/* Montserrat-BlackItalic */
+@font-face {
+  font-family: "Montserrat-BlackItalic";
+  font-weight: 900;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-BlackItalic.ttf") format("truetype");
+}
+/* Montserrat-Bold */
+@font-face {
+  font-family: "Montserrat-Bold";
+  font-weight: 700;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+/* Montserrat-BoldItalic */
+@font-face {
+  font-family: "Montserrat-BoldItalic";
+  font-weight: 700;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-BoldItalic.ttf") format("truetype");
+}
+/* Montserrat-ExtraBold */
+@font-face {
+  font-family: "Montserrat-ExtraBold";
+  font-weight: 800;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-ExtraBold.ttf") format("truetype");
+}
+/* Montserrat-ExtraBoldItalic */
+@font-face {
+  font-family: "Montserrat-ExtraBoldItalic";
+  font-weight: 800;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-ExtraBoldItalic.ttf") format("truetype");
+}
+/* Montserrat-ExtraLight */
+@font-face {
+  font-family: "Montserrat-ExtraLight";
+  font-weight: 200;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-ExtraLight.ttf") format("truetype");
+}
+/* Montserrat-ExtraLightItalic */
+@font-face {
+  font-family: "Montserrat-ExtraLightItalic";
+  font-weight: 200;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-ExtraLightItalic.ttf") format("truetype");
+}
+/* Montserrat-Italic */
+@font-face {
+  font-family: "Montserrat-Italic";
+  font-weight: normal;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-Italic.ttf") format("truetype");
+}
+/* Montserrat-Light */
+@font-face {
+  font-family: "Montserrat-Light";
+  font-weight: 300;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Light.ttf") format("truetype");
+}
+/* Montserrat-LightItalic */
+@font-face {
+  font-family: "Montserrat-LightItalic";
+  font-weight: 300;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-LightItalic.ttf") format("truetype");
+}
+/* Montserrat-Medium */
+@font-face {
+  font-family: "Montserrat-Medium";
+  font-weight: 500;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Medium.ttf") format("truetype");
+}
+/* Montserrat-MediumItalic */
+@font-face {
+  font-family: "Montserrat-MediumItalic";
+  font-weight: 500;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-MediumItalic.ttf") format("truetype");
+}
+/* Montserrat-Regular */
+@font-face {
+  font-family: "Montserrat";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+/* Montserrat-SemiBold */
+@font-face {
+  font-family: "Montserrat-SemiBold";
+  font-weight: 600;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-SemiBold.ttf") format("truetype");
+}
+/* Montserrat-SemiBoldItalic */
+@font-face {
+  font-family: "Montserrat-SemiBoldItalic";
+  font-weight: 600;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-SemiBoldItalic.ttf") format("truetype");
+}
+/* Montserrat-Thin */
+@font-face {
+  font-family: "Montserrat-Thin";
+  font-weight: 100;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Thin.ttf") format("truetype");
+}
+/* Montserrat-ThinItalic */
+@font-face {
+  font-family: "Montserrat-ThinItalic";
+  font-weight: 100;
+  font-style: italic;
+  src: url("../fonts/montserrat/Montserrat-ThinItalic.ttf") format("truetype");
+}
 /* Font Sizes Variables */
 /*=================================================*/
 html,
@@ -10,12 +135,21 @@ body {
   width: 100%;
   overflow-x: hidden;
 }
-html body,
-body body {
-  font-family: "Montserrat", sans-serif;
+
+body {
   font-size: 16px;
   line-height: 1.5;
   color: #333;
+}
+
+p {
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 17px;
+  color: #000000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat-Black", sans-serif !important;
 }
 
 /* Position the file input element off-screen */
@@ -47,11 +181,6 @@ body body {
   font-weight: bold;
   font-weight: 800;
   color: #183ea4;
-}
-.overview p {
-  font-size: 17px;
-  font-weight: bold;
-  color: #000000;
 }
 .overview .img_overview {
   width: 30px;
@@ -297,10 +426,11 @@ input[type=number] {
   margin-bottom: 10px;
 }
 #hitparent .phonepicwrap .hitwrapper div .instring {
-  border: 3px solid black;
-  border-radius: 25px;
   height: 25px;
-  width: 25px;
+  border: 3px solid black;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
   line-height: 20px;
   display: inline-block;
   text-align: center;
@@ -308,10 +438,11 @@ input[type=number] {
 }
 
 .instring {
-  border: 3px solid black;
-  border-radius: 25px;
   height: 25px;
-  width: 25px;
+  border: 3px solid black;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
   line-height: 20px;
   display: inline-block;
   text-align: center;
@@ -988,11 +1119,14 @@ footer .footer-content .link-boxes .box {
   color: #fff;
 }
 
+#client_logo_carousel {
+  height: 400px;
+}
+
 .viewblog {
   width: 80%;
   margin: 50px;
   font-size: 1.25rem;
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   text-align: justify;
   overflow: visible;
   display: block;
@@ -1001,7 +1135,7 @@ footer .footer-content .link-boxes .box {
 }
 
 .client_logo_wrapper {
-  height: 100px;
+  height: 50px;
 }
 
 .dashcard {
@@ -1030,97 +1164,3 @@ footer .footer-content .link-boxes .box {
           backdrop-filter: blur(4px); /* Blurred effect */
   z-index: 40; /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
 }/*# sourceMappingURL=style.css.map */
-
-.card-stack {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Updated this line */
-  min-height: 60vh; /* Changed height to min-height */
-}
-
-.card.active {
-    transform: scale(1.1);
-    z-index: 2;
-    position: relative; /* Add this line */
-
-}
-.left-card {
-  z-index: 0; /* Behind the middle card */
-  left: -35px; /* Adjust as needed */
-  transform: scale(1.1); /* Adjust to increase the size */
-
-}
-
-.right-card {
-  z-index: -5; /* Behind the middle card */
-  right: 45px; /* Adjust as needed */
-}
-
-.middle-card {
-  z-index: -5; /* Behind the middle card */
-
-}
-
-.card {
-  width: 200px;
-  height: 200px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, z-index 0.1s;
-}
-
-
-
-.card-container {
-  display: flex;
-  justify-content: right; /* Center the cards horizontally */
-  align-items: center; /* Center the cards vertically */
-  width: 600px; /* Adjust the width as needed */
-}
-
-.tilted-card {
-  width: 210px; /* Adjust the card width as needed */
-  height: 400px; /* Adjust the card height as needed */
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transform-origin: top center;
-  transition: transform 0.3s ease;
-}
-
-.tilted-card:hover {
-  transform: translateY(-20px) rotate(3deg);
-}
-
-.left {
-  background-color: #003db7; /* Left card background color */
-  transform: rotate(-3deg);
-}
-
-.right {
-  background-color: #9fecff; /* Right card background color */
-  transform: rotate(3deg);
-}
-
-.card-content {
-  padding: 20px;
-  box-sizing: border-box;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.card-image {
-  width: 100%; /* Set the image width to fill the card */
-  height: 100%; /* Set the image height to fill the card */
-  object-fit: cover; /* Maintain image aspect ratio while filling the container */
-}
-
-.card-iot {
-  width: 250px;
-  height: 400px;
-  background-color: #ffffff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, z-index 0.1s;
-}
