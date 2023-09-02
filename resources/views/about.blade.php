@@ -18,7 +18,7 @@
     @include('_about')
   </section>
   <!-- Vision and Mission -->
-  <section class="py-5 bg-blue-400 max-w-7xl mx-auto sm:px-6 lg:px-8" id="vision-mission">
+  <section class="py-5 bg-slate-100 max-w-7xl mx-auto sm:px-6 lg:px-8" id="vision-mission">
     <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
     <div class="grid grid-cols-2 gap-4">
       <div class="bg-white rounded-lg">

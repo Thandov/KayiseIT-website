@@ -1,13 +1,9 @@
-<div class="bg-grey-100">
-<div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto bg-grey-500">
-
+<div class="max-w-7xl mx-auto mb-4 sm:px-6 lg:px-8">
     <div class="text-center">
         <p class="smalltxt font-bold mb-3"><strong>Our Services</strong></p>
         <h2 class="bigtxt font-bold text-5xl mb-4">What We Offer</h2>
     </div>
-
-    <div class="flex justify-center">
-    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 w-10/12 flex justify-center">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 justify-center">
         @foreach($services as $service)
         @php $slug = str_replace(' ','-', strtolower($service->name)) @endphp
         <a href="{{ route('service.show', $slug) }}" class="flex justify-center">
@@ -25,6 +21,4 @@
         </a>
         @endforeach
     </div>
-    </div>
-</div>
 </div>

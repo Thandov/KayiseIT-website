@@ -139,17 +139,26 @@ body {
 body {
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
+}
+
+a {
+  text-decoration: none;
 }
 
 p {
   font-family: "Montserrat", sans-serif !important;
   font-size: 17px;
-  color: #000000;
+  line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Montserrat-Black", sans-serif !important;
+  line-height: 1.2;
 }
 
 /* Position the file input element off-screen */
@@ -1119,8 +1128,8 @@ footer .footer-content .link-boxes .box {
   color: #fff;
 }
 
-#client_logo_carousel {
-  height: 400px;
+#client_logo_carousel .client_logo_wrapper {
+  height: 100px;
 }
 
 .viewblog {
@@ -1132,10 +1141,6 @@ footer .footer-content .link-boxes .box {
   display: block;
   -webkit-box-orient: horizontal;
   -webkit-line-clamp: none;
-}
-
-.client_logo_wrapper {
-  height: 50px;
 }
 
 .dashcard {
