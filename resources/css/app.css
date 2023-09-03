@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;/*# sourceMappingURL=app.css.map */
+@tailwind utilities;
+/* Montserrat-Regular */
+@font-face {
+  font-family: "Montserrat";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
+}
+/*=================================================*/
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#hombreak {
+  position: relative;
+  width: 100%;
+  padding: 0px 10px;
+  background-image: url("../images/bg_dark.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#hombreak::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(34, 197, 94, 0.5);
+}
+#hombreak .wrs {
+  position: relative;
+  z-index: 99999;
+  height: 100%;
+  width: 100%;
+}
+
+.c2a .c2acrain {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 700px;
+  height: auto;
+}
+.c2a .c2aimgwrap {
+  height: 300px;
+  width: auto;
+}/*# sourceMappingURL=app.css.map */

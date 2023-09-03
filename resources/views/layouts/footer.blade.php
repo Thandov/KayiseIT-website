@@ -4,7 +4,7 @@ $option = 1;
 @endphp
 
 @if ($option === 1)
-<footer class="mt-4">
+<footer class="">
   <div class="footer-content">
     <div class="top">
       <div class="logo-details">
