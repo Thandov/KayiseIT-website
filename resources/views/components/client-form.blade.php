@@ -64,9 +64,9 @@
                 </div>
             </div>
             <!-- Footer of the form -->
-            <div class="formfoot mt-4 relative grid grid-cols-3">
+            <div class="formfoot mt-4 flex">
                 <div class="updatewrp text-right col-start-2">
-                <x-front-end-btn linking="update" color="submit" showme="" name="Update" />
+                    <x-front-end-btn linking="update" color="submit" showme="" name="Update" />
                 </div>
         </form>
         <div class="relative deletewrp col-start-3">

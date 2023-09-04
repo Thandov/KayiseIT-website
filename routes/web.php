@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/clients/viewclient/{id}', [ClientController::class, 'show'])->name('dashboard.clients.viewclient');
     Route::POST('/dashboard/clients/update/', [ClientController::class, 'update'])->name('dashboard.clients.update');
     Route::DELETE('/dashboard/clients/delete/{id}', [ClientController::class, 'destroy'])->name('admin.dashboard.clients.delete');
+    Route::delete('/dashboard/clients/deleteSelected', [ClientController::class, 'destroy'])->name('admin.dashboard.clients.deleteSelected');
 
     Route::GET('/dashboard/staff/', [AdminController::class, 'all_employees'])->name('admin.dashboard.staff');
     Route::GET('/dashboard/staff/newstaff', function () {
@@ -139,18 +140,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('dashboard.viewuser');
     Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendInvoice'])->name('quotations.send-invoice');
 
-    //Subservices
-    Route::GET('/dashboard/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('dashboard.subservices.viewsubservice');
-    Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
-    Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
-    Route::put('/updatesubservice', [SubServicesController::class, 'updateSubservice']);
-    Route::get('/dashboard/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('dashboard.services.addsubservices');
-    Route::post('/dashboard/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
-    Route::POST('/dashboard/subservices/deletesubservice', [SubServicesController::class, 'destroy'])->name('dashboard.subservices.deletesubservice');
-    Route::get('services/{slug}/{subslug}', [SubServicesController::class, 'display_subservice_name']);
-    Route::POST('dashboard/services/{slug}/addsubservices', [SubServicesController::class, 'store'])->name('dashboard.services.slug.addsubservices');
-    Route::get('viewsubservice/{id}', [SubServicesController::class, 'show'])->name('show');
-
+   
     //download quotation&invoice PDFs
     Route::get('/dashboard/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
     Route::get('/dashboard/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');
@@ -165,7 +155,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('delete/{id}', [ServicesController::class, 'delete']);
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
-    //Add services
+    //Services
     Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('dashboard.services');
     Route::GET('/dashboard/services/{slug}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
     Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
@@ -176,6 +166,18 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/newaddservice', [ServicesController::class, 'newaddservice'])->name('dashboard.newaddservice');
     Route::POST('/dashboard/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('dashboard.services.deleteservice');
     Route::get('dashboard/services/addoptions/{id}', [OptionsController::class, 'options'])->name('addoptions');
+
+    //Subservices
+    Route::GET('/dashboard/subservices/viewsubservice/{id}', [AdminController::class, 'viewsubservice'])->name('dashboard.subservices.viewsubservice');
+    Route::put('/subservices/{subservice_id}', [SubServicesController::class, 'updateSubservice']);
+    Route::put('/subservice/{subservice_id}', [SubServicesController::class, 'destroy']);
+    Route::put('/updatesubservice', [SubServicesController::class, 'updateSubservice']);
+    Route::get('/dashboard/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('dashboard.services.addsubservices');
+    Route::post('/dashboard/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
+    Route::POST('/dashboard/subservices/deletesubservice', [SubServicesController::class, 'destroy'])->name('dashboard.subservices.deletesubservice');
+    Route::get('services/{slug}/{subslug}', [SubServicesController::class, 'display_subservice_name']);
+    Route::POST('dashboard/services/{slug}/addsubservices', [SubServicesController::class, 'store'])->name('dashboard.services.slug.addsubservices');
+    Route::get('viewsubservice/{id}', [SubServicesController::class, 'show'])->name('show');
 
     //Forms
     Route::post('store-form', [ServicesController::class, 'store']);

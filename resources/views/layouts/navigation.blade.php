@@ -28,16 +28,7 @@
         </a>
     </div>
     <div class="d-flex items-center justify-end col-span-6">
-        <!-- Navigation Links -->
-        @if (!empty(Auth::user()->name))
-        @if(Auth::user()->hasRole('admin'))
-        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-nav-link>
-        </div>
-        @endif
-        @endif
+
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
@@ -81,16 +72,16 @@
                 {{ __('Career Mapping') }}
             </x-nav-link>
         </div>
-        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <!--         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('blogs')" :active="request()->routeIs('blogs')">
                 {{ __('Blogs') }}
             </x-nav-link>
-        </div>
+        </div> 
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('events')" :active="request()->routeIs('events')">
                 {{ __('Events') }}
             </x-nav-link>
-        </div>
+        </div>-->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                 {{ __('Contact Us') }}
@@ -114,6 +105,14 @@
                 </x-slot>
 
                 <x-slot name="content">
+                    <!-- Navigation Links -->
+                    @if (!empty(Auth::user()->name))
+                    @if(Auth::user()->hasRole('admin'))
+                    <x-dropdown-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-dropdown-link>
+                    @endif
+                    @endif
                     <x-dropdown-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-dropdown-link>

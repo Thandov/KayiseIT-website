@@ -21,10 +21,10 @@ class ClientController extends Controller
     public function index()
     {
         $clients = DB::table('clients')
-        ->join('users', 'users.id', '=', 'clients.user_id')
-        ->select('users.name AS first_name', 'users.email', 'clients.*')
-        ->get();
-        
+            ->join('users', 'users.id', '=', 'clients.user_id')
+            ->select('clients.name AS first_name', 'users.email', 'clients.*')
+            ->get();
+            
         return view('/admin/clients', compact('clients'));
     }
 
@@ -62,8 +62,8 @@ class ClientController extends Controller
             $client->name = $validatedData['first_name'];
             $client->surname = $validatedData['last_name'];
             $client->phone = $validatedData['phone'];
-            $client->email = $request->email;            
-            $client->user_id = Auth::user()->id;  
+            $client->email = $request->email;
+            $client->user_id = Auth::user()->id;
             $client->address = $validatedData['address'];
             $client->company = $validatedData['company'];
             $client->province = $validatedData['province'];
@@ -75,7 +75,7 @@ class ClientController extends Controller
                 return response()->json(['message' => 'Client created successfully.']);
             }
 
-            return redirect()->route('admin.dashboard.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
+            return redirect()->route('dashboard.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
@@ -94,7 +94,6 @@ class ClientController extends Controller
             ->where('clients.user_id', (int)$id)
             ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'clients.*')
             ->first();
-            dd($id);  
         return view('admin/dashboard/clients/viewclient', compact('client'));
     }
 
@@ -127,7 +126,7 @@ class ClientController extends Controller
             'province' => 'required|string|max:255',
             'company' => 'required|string|max:255',
         ]);
-        
+
         $client = Client::where('user_id', $request->user_id)->first();
         $user = User::find($request->user_id);
         $changedFields = [];
@@ -159,7 +158,7 @@ class ClientController extends Controller
             $client->company = $validatedData['company'];
             $changedFields[] = 'company';
         }
-        
+
         if ($client->address !== $validatedData['address']) {
             $client->address = $validatedData['address'];
             $changedFields[] = 'address';
@@ -184,31 +183,27 @@ class ClientController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        $ids = (!empty($request->input('selected_ids'))) ? $ids = $request->input('selected_ids') : $ids = [$id];
+        if (!empty($ids)) {
+            // Delete the selected clients
+            DB::table('clients')->whereIn('id', $ids)->delete();
 
-        $id = (int)$id;
-        $client = DB::table('clients')->where('id', $id)->first();
-        $user = DB::table('users')->where('id', $client->user_id)->first();
-
-        if ($client && $user) {
-            // Perform your desired operations with the $client and $user models
-
-            // Delete the client
-            DB::table('clients')->where('id', $id)->delete();
-
-            // Delete the associated user
-            DB::table('users')->where('id', $client->user_id)->delete();
+            // Delete the associated users
+            DB::table('users')->whereIn('id', function ($query) use ($ids) {
+                $query->select('user_id')->from('clients')->whereIn('id', $ids);
+            })->delete();
 
             if ($request->ajax()) {
-                return response()->json(['message' => 'client and associated user have been deleted.']);
+                return response()->json(['message' => 'Selected clients and associated users have been deleted.']);
             }
 
-            return redirect()->route('admin.dashboard.clients')->with('success', 'client and associated user have been deleted.');
+            return redirect()->route('dashboard.clients')->with('success', 'Selected clients and associated users have been deleted.');
         } else {
             if ($request->ajax()) {
-                return response()->json(['message' => 'client or associated user not found.'], 404);
+                return response()->json(['message' => 'No clients selected.'], 400);
             }
 
-            return redirect()->route('admin.dashboard.clients')->with('error', 'client or associated user not found.');
+            return redirect()->route('dashboard.clients')->with('error', 'No clients selected.');
         }
     }
     /**
