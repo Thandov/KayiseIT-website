@@ -49,7 +49,7 @@
          <x-front-end-btn linking="contact" color="blue" showme="" name="Contact" />
      </div>
      <div class="py-4">
-         <div>
+         <div class="position-relative">
              <img src="../images/server_bae.png" alt="Service 1" class="w-1/2 h-auto rounded-lg shadow-lg">
          </div>
          <h2 class="text-2xl font-semibold mb-4">Flexi Support</h2>
@@ -64,11 +64,13 @@
      </div>
  </div>
  <!-- CTA Section -->
- <div class="grid grid-cols-3 bg-slate-100 p-4 mt-8 c2a">
-     <div class="c2aimgwrap"><img src="../images/techician.png" alt="Service 1" class="c2acrain"></div>
-     <div class="col-span-2">
-         <p class="text-lg font-semibold mb-4">Ready to enhance your IT infrastructure?</p>
-         <p class="text-gray-700">Contact us now for expert IT support and solutions.</p>
-         <x-front-end-btn linking="contact" color="blue" showme="" name="Contact" />
+ <div class="grid grid-cols-3 bg-slate-100 mt-8 c2a">
+     <div class="c2aimgwrap position-relative"><img src="../images/techician.png" alt="Service 1" class="c2acrain"></div>
+     <div class="col-span-2 flex items-center justify-start">
+         <div class="des">
+             <x-titlestyle smheading="Ready to enhance your" bgheading="IT infrastructure" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
+             <p class="text-gray-700">Contact us now for expert IT support and solutions.</p>
+             <x-front-end-btn linking="contact" color="blue" showme="" name="Contact" />
+         </div>
      </div>
  </div>

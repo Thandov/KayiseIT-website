@@ -49,14 +49,15 @@ body {
   width: 100%;
 }
 
-.c2a .c2acrain {
+.c2a .c2aimgwrap {
+  height: 200px;
+  width: auto;
+}
+.c2a .c2aimgwrap .c2acrain {
   display: block;
   position: absolute;
   bottom: 0;
-  width: 700px;
+  right: 0;
+  width: 70%;
   height: auto;
-}
-.c2a .c2aimgwrap {
-  height: 300px;
-  width: auto;
 }/*# sourceMappingURL=app.css.map */
