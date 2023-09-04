@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('occup_id'); //PK
             $table->integer('u_id')->unsigned()->nullable(); //FK
             $table->string('occupation_name');
-            $table->string('image');
+            $table->text('image');
             $table->timestamps();
         });
         //link Foreign Key

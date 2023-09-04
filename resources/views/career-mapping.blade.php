@@ -9,19 +9,24 @@
 
             <!--Grid-->
             <div class="flex justify-center pt-6">
-            <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 w-10/12 justify-center">
-                <!--Cards-->
-                @foreach($occupations as $occupation)
-                <a href="{{ url('viewoccupations/'.$occupation->occup_id) }}">
-                    <div class="bg-white rounded-lg shadow-md flex items-center justify-center h-64">
-                        <div class="mx-4">
-                            <div  ><img class="h-28 rounded-md mx-auto" src="{{ asset('images/occupations_logo/'.$occupation->image) }}"></div>
-                            <h2 class="mt-4 text-xl font-bold smalltxt text-center">{{ $occupation->occupation_name }}</h2>
+                <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 w-10/12 justify-center">
+                    <!--Cards-->
+                    @foreach($occupations as $occupation)
+                    <a href="{{ url('viewoccupations/'.$occupation->occup_id) }}">
+                        <div class="bg-white rounded-lg shadow-md flex items-center justify-center h-64">
+                            <div class="mx-4">
+                                <div>
+                                    <svg class="h-24 w-24 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <image xlink:href="data:image/svg+xml;utf8,{{ rawurlencode($occupation->image) }}" width="100%" height="100%"   />
+                                    </svg>
+
+                                </div>
+                                <h2 class="mt-4 text-xl font-bold smalltxt text-center">{{ $occupation->occupation_name }}</h2>
+                            </div>
                         </div>
-                    </div>
-                </a>
-                @endforeach
-            </div>
+                    </a>
+                    @endforeach
+                </div>
             </div>
         </div>
     </section>
