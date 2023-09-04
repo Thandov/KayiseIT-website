@@ -197,6 +197,21 @@
             </x-nav-link>
         </div>
         <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('career-mapping')" :active="request()->routeIs('career-mapping')">
+                {{ __('Career Mapping') }}
+            </x-nav-link>
+        </div>
+        <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('blogs')" :active="request()->routeIs('blogs')">
+                {{ __('Blogs') }}
+            </x-nav-link>
+        </div>
+        <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('events')" :active="request()->routeIs('events')">
+                {{ __('Events') }}
+            </x-nav-link>
+        </div>
+        <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                 {{ __('Contact Us') }}
             </x-nav-link>
