@@ -16,7 +16,7 @@
                         <div class="bg-white rounded-lg shadow-md flex items-center justify-center h-64">
                             <div class="mx-4">
                                 <div>
-                                    <svg class="h-24 w-24 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <svg class="h-24 w-24 mx-auto rounded-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                         <image xlink:href="data:image/svg+xml;utf8,{{ rawurlencode($occupation->image) }}" width="100%" height="100%"   />
                                     </svg>
 

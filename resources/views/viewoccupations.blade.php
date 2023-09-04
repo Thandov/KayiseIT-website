@@ -2,7 +2,9 @@
     <section id="career-mapping">
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="flex justify-center my-4 rounded-md mx-auto">
-                <img class="h-40" src="{{ asset('images/occupations_logo/'.$occupations->image) }}">
+                <svg class="h-40 w-40 mx-auto rounded-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <image xlink:href="data:image/svg+xml;utf8,{{ rawurlencode($occupations->image) }}" width="100%" height="100%"   />
+                </svg>
             </div>
             <h2 class="bigtxt text-center font-bold text-5xl mb-4">{{$occupations->occupation_name}}</h2>
             <div class="flex justify-center">
@@ -44,13 +46,17 @@
         </div>
     </section>
 </x-app-layout>
-<style>/* Hide the default scroll bar */
-.nav-scrollable {
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Microsoft Edge */
-}
+<style>
+    /* Hide the default scroll bar */
+    .nav-scrollable {
+        scrollbar-width: none;
+        /* For Firefox */
+        -ms-overflow-style: none;
+        /* For Internet Explorer and Microsoft Edge */
+    }
 
-.nav-scrollable::-webkit-scrollbar {
-    width: 0; /* For Chrome, Safari, and Opera */
-}
+    .nav-scrollable::-webkit-scrollbar {
+        width: 0;
+        /* For Chrome, Safari, and Opera */
+    }
 </style>
