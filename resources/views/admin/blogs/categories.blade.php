@@ -95,8 +95,9 @@
             </form>
         </div>
     </div>
-    <script type="text/JavaScript">
-        // Get the trigger element that opens the modal (ID is "show")
+</x-app-layout>
+<script type="text/JavaScript">
+    // Get the trigger element that opens the modal (ID is "show")
     const showModalBtn = document.getElementById('show');
 
     // Get the modal container
@@ -144,4 +145,3 @@
         categoryInputs.appendChild(newInputContainer);
     });
 </script>
-</x-app-layout>

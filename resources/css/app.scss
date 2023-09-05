@@ -8,6 +8,14 @@
     font-style: normal;
     src: url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
 }
+/* Montserrat-Bold */
+@font-face {
+  font-family: "Montserrat-Bold";
+  font-weight: 700;
+  font-style: normal;
+  src: url("../fonts/montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
 $pcolor: #22c55e;
 /*=================================================*/
 * {

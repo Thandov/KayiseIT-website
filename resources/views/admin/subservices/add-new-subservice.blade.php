@@ -2,12 +2,8 @@
     @csrf
     <input type="hidden" name="service_id" value="{{$service->service_id}}">
     <div class="mb-4">
-        <label for="icon" class="block text-gray-700 font-bold mb-2">Icon:</label>
-        <input name="icon" class="form-input w-full" type="file" id="icon">
+        <x-img-upload image="" classing="bigTall" />
     </div>
-
-    <x-img-upload image="" classing="bigTall" />
-
     <div class="mb-4">
         <label for="name" class="block text-gray-700 font-bold mb-2">Subservice Name:</label>
         <input name="name" id="name" type="text" class="form-input w-full" />

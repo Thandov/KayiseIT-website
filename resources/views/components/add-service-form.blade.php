@@ -1,9 +1,9 @@
-<div>
-    <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
+<div class="bg-white shadow overflow-hidden sm:rounded-lg p-4 mb-4">
+     <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
     <form name="businessdash" id="businessdash" action="{{url('store-form')}}" method="post" enctype="multipart/form-data">
         @csrf
 
-        <div class="grid grid-cols-5">
+        <div class="grid grid-cols-5 gap-4">
             <div class="col-span-2 relative">
                 <label for="logo" class="block text-sm font-medium text-gray-700">Logo:</label>
                 <div class="imguploadwrap">

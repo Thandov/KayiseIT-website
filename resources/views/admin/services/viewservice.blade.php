@@ -20,7 +20,6 @@
                         <x-front-end-btn linking="{{ route('dashboard.services.addsubservices', ['id' => $service->id]) }}" color="blue" showme="add-subservice-btn" name="Add Subservice" />
                     </div>
                 </div>
-                {{$extras}}
                 @if ($extras)
                 <div class="grid md:grid-cols-8 gap-4">
                     

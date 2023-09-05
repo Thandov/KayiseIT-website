@@ -1,18 +1,4 @@
 @charset "UTF-8";
-/* Montserrat-Black */
-@font-face {
-  font-family: "Montserrat-Black";
-  font-weight: 900;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-Black.ttf") format("truetype");
-}
-/* Montserrat-BlackItalic */
-@font-face {
-  font-family: "Montserrat-BlackItalic";
-  font-weight: 900;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-BlackItalic.ttf") format("truetype");
-}
 /* Montserrat-Bold */
 @font-face {
   font-family: "Montserrat-Bold";
@@ -20,110 +6,12 @@
   font-style: normal;
   src: url("../fonts/montserrat/Montserrat-Bold.ttf") format("truetype");
 }
-/* Montserrat-BoldItalic */
-@font-face {
-  font-family: "Montserrat-BoldItalic";
-  font-weight: 700;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-BoldItalic.ttf") format("truetype");
-}
-/* Montserrat-ExtraBold */
-@font-face {
-  font-family: "Montserrat-ExtraBold";
-  font-weight: 800;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-ExtraBold.ttf") format("truetype");
-}
-/* Montserrat-ExtraBoldItalic */
-@font-face {
-  font-family: "Montserrat-ExtraBoldItalic";
-  font-weight: 800;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-ExtraBoldItalic.ttf") format("truetype");
-}
-/* Montserrat-ExtraLight */
-@font-face {
-  font-family: "Montserrat-ExtraLight";
-  font-weight: 200;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-ExtraLight.ttf") format("truetype");
-}
-/* Montserrat-ExtraLightItalic */
-@font-face {
-  font-family: "Montserrat-ExtraLightItalic";
-  font-weight: 200;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-ExtraLightItalic.ttf") format("truetype");
-}
-/* Montserrat-Italic */
-@font-face {
-  font-family: "Montserrat-Italic";
-  font-weight: normal;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-Italic.ttf") format("truetype");
-}
-/* Montserrat-Light */
-@font-face {
-  font-family: "Montserrat-Light";
-  font-weight: 300;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-Light.ttf") format("truetype");
-}
-/* Montserrat-LightItalic */
-@font-face {
-  font-family: "Montserrat-LightItalic";
-  font-weight: 300;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-LightItalic.ttf") format("truetype");
-}
-/* Montserrat-Medium */
-@font-face {
-  font-family: "Montserrat-Medium";
-  font-weight: 500;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-Medium.ttf") format("truetype");
-}
-/* Montserrat-MediumItalic */
-@font-face {
-  font-family: "Montserrat-MediumItalic";
-  font-weight: 500;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-MediumItalic.ttf") format("truetype");
-}
 /* Montserrat-Regular */
 @font-face {
   font-family: "Montserrat";
   font-weight: normal;
   font-style: normal;
   src: url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
-}
-/* Montserrat-SemiBold */
-@font-face {
-  font-family: "Montserrat-SemiBold";
-  font-weight: 600;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-SemiBold.ttf") format("truetype");
-}
-/* Montserrat-SemiBoldItalic */
-@font-face {
-  font-family: "Montserrat-SemiBoldItalic";
-  font-weight: 600;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-SemiBoldItalic.ttf") format("truetype");
-}
-/* Montserrat-Thin */
-@font-face {
-  font-family: "Montserrat-Thin";
-  font-weight: 100;
-  font-style: normal;
-  src: url("../fonts/montserrat/Montserrat-Thin.ttf") format("truetype");
-}
-/* Montserrat-ThinItalic */
-@font-face {
-  font-family: "Montserrat-ThinItalic";
-  font-weight: 100;
-  font-style: italic;
-  src: url("../fonts/montserrat/Montserrat-ThinItalic.ttf") format("truetype");
 }
 /* Font Sizes Variables */
 /*=================================================*/
@@ -735,7 +623,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #about-hero {
-    background: url("../images/landing-page/Keyboard.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/Kayise-IT-Logo-Dark-Green-Background.jpg"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;

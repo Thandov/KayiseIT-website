@@ -156,12 +156,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
     //Services
+    Route::GET('/dashboard/services/addservice', function () {return view('admin.services.addservice');})->name('dashboard.services.addservice');
     Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('dashboard.services');
     Route::GET('/dashboard/services/{slug}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
     Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
-    Route::GET('/dashboard/services/addservice', function () {
-        return view('admin.services.addservice');
-    })->name('dashboard.services.addservice');
     Route::POST('/dashboard/editservice', [ServicesController::class, 'updateService'])->name('dashboard.editservice');
     Route::GET('/dashboard/newaddservice', [ServicesController::class, 'newaddservice'])->name('dashboard.newaddservice');
     Route::POST('/dashboard/services/deleteservice/{id}', [ServicesController::class, 'delete'])->name('dashboard.services.deleteservice');

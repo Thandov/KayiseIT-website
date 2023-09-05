@@ -1,20 +1,20 @@
 <div id="service-info" class="md:col-span-3 p-4 sm:rounded-lg">
     <form action="{{ route('dashboard.editservice')}}" method="post">
         @csrf
-        <input type="hidden" name="id" value="{{$service->service_id}}">
+        <input type="hidden" name="id" value="{{$service->service_id ?? ''}}">
         <!-- Input for Service Name -->
         <div class="mb-4">
             <label for="service-name" class="block text-gray-600 mb-2">
                 <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Service Name</h3>
             </label>
-            <input type="text" id="service-name" name="name" class="cus-inp border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $service->name }}">
+            <input type="text" id="service-name" name="name" class="cus-inp border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $service->name ?? '' }}">
         </div>
         <!-- Input for Service Type -->
         <div class="mb-4">
             <label for="service-price" class="block text-gray-600 mb-2">
                 <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Service Type</h3>
             </label>
-            <input type="text" id="service-service_type" name="service_type" class="cus-inp border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $service->service_type }}">
+            <input type="text" id="service-service_type" name="service_type" class="cus-inp border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $service->service_type ?? '' }}">
         </div>
         <div class="mb-4">
             <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Service Price Type?</h3>
@@ -45,10 +45,20 @@
                 </li>
             </ul>
             <div class="optwrap">
-                <div id="dynacont" style="display: none;">
-                    <!-- Content for dynamic type -->
-                    Dynamic Content
+                <div class="bg-gray-100" id="dynacont" style="display: none;">
+                    <!-- Dynamic content -->
+                    <div id="dynamic-content">
+                        <!-- Initial row -->
+                        <div class="table-row">
+                            <input type="text" class="border rounded px-4 py-2 w-1/5" placeholder="Name">
+                            <input type="hidden" name="subservice_type" id="subservice_type" value="static" />
+                            <input type="text" class="border rounded px-4 py-2 w-1/5" placeholder="Price">
+                            <input type="hidden" name="description" id="subservice_desc" value="null">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onclick="addRow()">Add</button>
+                        </div>
+                    </div>
                 </div>
+
 
                 <div id="statcont" style="display: none;">
                     <!-- Content for static type -->
@@ -56,7 +66,7 @@
                         <label for="service-price" class="block text-gray-600 mb-2">
                             <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Service Price</h3>
                         </label>
-                        <input type="number" id="service-price" name="price" class="cus-inp border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $service->price }}">
+                        <input type="number" id="service-price" name="price" class="cus-inp border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500" value="{{ $service->price ?? '' }}">
                     </div>
                 </div>
             </div>
@@ -66,7 +76,7 @@
             <label for="service-description" class="block text-gray-600 mb-2">
                 <h3 class="mb-2 text-lg font-medium text-gray-900 dark:text-white">Service Description</h3>
             </label>
-            <textarea id="service-description" name="description" class="cus-inp border rounded-md p-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $service->description }}</textarea>
+            <textarea id="service-description" name="description" class="cus-inp border rounded-md p-2 w-full h-32 focus:outline-none focus:ring-2 focus:ring-blue-500">{{ $service->description ?? '' }}</textarea>
         </div>
 
         <!-- Save Button -->
@@ -75,7 +85,7 @@
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var serviceType = "{{$service->service_type}}"; // Assuming 'static' or 'dynamic'
+        var serviceType = "{{$service->service_type ?? ''}}"; // Assuming 'static' or 'dynamic'
         var dynamicButton = document.getElementById("dynamic_type");
         var staticButton = document.getElementById("static_type");
         var dynacont = document.getElementById("dynacont");
@@ -101,4 +111,25 @@
             statcont.style.display = "block";
         });
     });
+
+    // Function to add a new row to the table
+    function addRow() {
+        const dynamicContent = document.getElementById('dynamic-content');
+        const newRow = document.createElement('div');
+        newRow.classList.add('table-row');
+        newRow.innerHTML = `
+                <input type="text" class="border rounded px-4 py-2 w-1/5" placeholder="Name">
+                            <input type="hidden" name="subservice_type" id="subservice_type" value="static"/>
+                            <input type="text" class="border rounded px-4 py-2 w-1/5" placeholder="Price">
+                            <input type="hidden" name="description" id="subservice_desc" value="null">
+                <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" onclick="removeRow(this)">Remove</button>
+            `;
+        dynamicContent.appendChild(newRow);
+    }
+
+    // Function to remove a row from the table
+    function removeRow(button) {
+        const row = button.parentElement;
+        row.remove();
+    }
 </script>

@@ -107,6 +107,7 @@ class ServicesController extends Controller
 
     public function delete($id)
     {
+        dd("sdse");
         $id = (int)$id;
         $service = Service::find($id);
         $service->delete();
