@@ -89,12 +89,17 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = DB::table('clients')
-            ->join('users', 'users.id', '=', 'clients.user_id')
-            ->where('clients.user_id', (int)$id)
-            ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'clients.*')
-            ->first();
-        return view('admin/dashboard/clients/viewclient', compact('client'));
+        // $client = DB::table('clients')
+        //     ->join('users', 'users.id', '=', 'clients.user_id')
+        //     ->where('clients.user_id', (int)$id)
+        //     ->select('users.name AS first_name', 'users.surname AS last_name', 'users.phone', 'users.email', 'clients.*')
+        //     ->first();
+
+            $client = Client::find($id);
+        $user = User::where('id', $client->user_id)->get();
+
+            // dd($user);
+        return view('admin/dashboard/clients/viewclient', compact('client', 'user'));
     }
 
     /**
@@ -114,9 +119,11 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
+     */ 
+    public function update(Request $request)
     {
+
+        
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -127,18 +134,20 @@ class ClientController extends Controller
             'company' => 'required|string|max:255',
         ]);
 
+        
+
         $client = Client::where('user_id', $request->user_id)->first();
         $user = User::find($request->user_id);
         $changedFields = [];
-
+        
         if ($user->name !== $validatedData['first_name']) {
             $user->name = $validatedData['first_name'];
-            $changedFields[] = 'first_name';
+            $changedFields[] = 'name';
         }
 
         if ($user->surname !== $validatedData['last_name']) {
             $user->surname = $validatedData['last_name'];
-            $changedFields[] = 'last_name';
+            $changedFields[] = 'surname';
         }
 
         if ($user->email !== $validatedData['email']) {
@@ -157,6 +166,25 @@ class ClientController extends Controller
         if ($client->company !== $validatedData['company']) {
             $client->company = $validatedData['company'];
             $changedFields[] = 'company';
+        }
+
+        if ($client->name !== $validatedData['first_name']) {
+            $client->name = $validatedData['first_name'];
+            $changedFields[] = 'name';
+        }
+
+        if ($client->surname !== $validatedData['last_name']) {
+            $client->surname = $validatedData['last_name'];
+            $changedFields[] = 'surname';
+        }
+
+        if ($client->email !== $validatedData['email']) {
+            $client->email = $validatedData['email'];
+            $changedFields[] = 'email';
+        }
+        if ($client->phone !== $validatedData['phone']) {
+            $client->phone = $validatedData['phone'];
+            $changedFields[] = 'phone';
         }
 
         if ($client->address !== $validatedData['address']) {

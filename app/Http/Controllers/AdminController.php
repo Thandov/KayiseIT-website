@@ -362,6 +362,6 @@ class AdminController extends Controller
             $employee->save();
         }
 
-        return view('admin.staff.viewstaff')->with('success', 'Employee updated successfully.')->with('first_name', $employee->first_name);
+        return view('admin.staff.viewstaff', compact('employee'))->with('success', 'Employee updated successfully.')->with('first_name', $employee->first_name);
     }
 }
