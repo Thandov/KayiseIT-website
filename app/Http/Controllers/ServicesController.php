@@ -81,17 +81,51 @@ class ServicesController extends Controller
 
     public function display_service_name($slug)
     {
-        $name = str_replace('-', ' ', ucwords($slug, '-'));
-        $service = DB::table('services')->where('name', $name)->get()->first();
+        $name = str_replace('-', '_', $slug);
+        $service = DB::table('services')->where('slug', $name)->first();
+
+        if (!$service) {
+            // Handle the case where the service with the given slug doesn't exist
+            return 'Service not found';
+        }
+
         $subservices = Subservice::where('service_id', $service->service_id)->get();
-        $options = Options::where('subservice_id', $service->service_id)->get();
-        echo '<pre>';
-        print_r($options);
-        echo '</pre>';
-        exit();
-        // Return the blade file corresponding to the slug with the service and name data
-        return view('viewservice', compact('service', 'subservices'));
+
+        $result = [];
+
+        foreach ($subservices as $subservice) {
+            $options = Options::where('unq_id', $subservice->subserv_id)->get();
+
+            $optionsArray = [];
+
+            foreach ($options as $option) {
+                $optionArray = [
+                    'name' => $option->name,
+                    'quantified' => $option->quantified,
+                    'price' => $option->price,
+                ];
+
+                $optionsArray[] = $optionArray;
+            }
+
+            $subserviceArray = [
+                'subservice_name' => $subservice->name,
+                'price' => $subservice->price,
+                'icon' => $subservice->icon,
+                'options' => $optionsArray,
+            ];
+
+            $result[] = $subserviceArray;
+        }
+
+        $services = [
+            'service' => $service->name,
+            'subservices' => $result,
+        ];
+        // Return the 'viewservice' view with 'services' variable
+        return view('viewservice', compact('services'));
     }
+
 
     public function updateService(Request $request)
     {

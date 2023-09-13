@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->string('unq_id');
+            $table->string('subservice_id');
             $table->string('name');
             $table->boolean('quantified')->nullable();
             $table->decimal('price', 10, 2);

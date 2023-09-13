@@ -30,6 +30,7 @@ class OptionsController extends Controller
             $options = new Options();
             $options->unq_id = $subserv_id;
             $options->name = $request->name;
+            $options->subservice_id = $subservice->service_id;
             $options->price = $request->price;
             $options->quantified = $request->quantified;
             $options->save();

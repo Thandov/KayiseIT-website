@@ -95,6 +95,7 @@ Route::post('quote-form', [QuotationController::class, 'quote'])->middleware('au
 //paypal routes
 Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
 Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
+Route::post('/ozow/initiate', 'App\Http\Controllers\OzowPaymentController@initiatePayment')->name('ozow.initiate');
 
 
 //=================================================Admin ==================================================
@@ -317,11 +318,5 @@ Route::post('/store-selected-options', function (Illuminate\Http\Request $reques
     session(['selectedOptions' => $selectedOptions]);
     return response()->json(['message' => 'Selected options stored successfully']);
 })->name('store.selected.options');
-
-//paypal routes
-Route::post('viewsubservice/check/save_invoice', [QuotationController::class, 'save_invoice'])->name('save_invoice');
-Route::post('viewsubservice/createQuote', [QuotationController::class, 'createQuote'])->name('viewsubservice.createQuote');
-//ozow
-Route::post('/ozow/initiate', 'App\Http\Controllers\OzowPaymentController@initiatePayment')->name('ozow.initiate');
 
 require __DIR__ . '/auth.php';

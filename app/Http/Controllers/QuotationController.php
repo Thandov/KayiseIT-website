@@ -103,6 +103,7 @@ dd("34ff33".$request->input());
 
     public function createQuote(Request $request)
     {
+        dd($request->input());
         // Create an empty array to store the selected options
         $selectedOptions = [];
 
