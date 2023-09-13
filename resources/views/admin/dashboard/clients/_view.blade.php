@@ -32,12 +32,12 @@
                     </td>
                     <td>{{ $client->first_name }}</td>
                     <td>
-                        <x-front-end-btn linking="/dashboard/clients/{{ $client->id }}" color="blue" showme="" name="View" />
+                        <x-front-end-btn linking="/dashboard/clients/viewclient/{{ $client->id }}" color="blue" showme="" name="View" />
                         <button type="button" class="text-red-700 hover:text-red-900" onclick="deleteRow({{ $client->id }})">Delete</button>
                     </td>
                 </tr>
                 @endforeach
-            </tbody>
+            </tbody> 
         </table>
     </form>
 

@@ -1,7 +1,7 @@
    <div class="webmockup">
        <div class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] max-w-[301px] md:h-[250px] md:max-w-[412px]">
            <div class="rounded-lg overflow-hidden h-[156px] md:h-[230px] bg-white dark:bg-gray-800">
-
+<div class="content"></div>
            </div>
        </div>
        <div class="relative mx-auto bg-gray-900 dark:bg-gray-700 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[497px]">

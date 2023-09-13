@@ -1,5 +1,5 @@
-<div class="grid sm:grid-flow-row md:grid-cols-2">
-    <div class="px-4">
+<div class="grid sm:grid-flow-row md:grid-cols-2 pb-4">
+    <div class="px-4 mt-4">
         <x-titlestyle smheading="Transform Your" bgheading="Online Presence!" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
         <p class="text-left">Utilize Our Skilled IT Website Services to Transform Your Online Presence! In the digital sphere, we bring your brand to life with slick designs and flawless functioning.</p>
         <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 my-4">

@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-                    <input type="text" name="first_name" id="first_name" value="{{ $client->first_name ??'' }}" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('first_name') border-red-500 @enderror" value="{{ old('first_name') }}">
+                    <input type="text" name="first_name" id="first_name" value="{{ $client->name ??'' }}" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('first_name') border-red-500 @enderror" value="{{ old('first_name') }}">
                     @error('first_name')
                     <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
@@ -25,7 +25,7 @@
 
                 <div class="col-span-6 sm:col-span-3">
                     <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-                    <input type="text" name="last_name" id="last_name" value="{{ $client->last_name ??'' }}" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('last_name') border-red-500 @enderror" value="{{ old('last_name') }}">
+                    <input type="text" name="last_name" id="last_name" value="{{ $client->surname ??'' }}" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('last_name') border-red-500 @enderror" value="{{ old('last_name') }}">
                     @error('last_name')
                     <p class="text-red-500 text-sm">{{ $message }}</p>
                     @enderror
