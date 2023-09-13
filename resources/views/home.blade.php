@@ -20,9 +20,8 @@
     </section>
     <!--Featured Services-->
     <section class="bg-slate-100 py-5" id="featured-services">
-        @include('services._services', ['services' => $services->take(3)])
         <div class="data text-center px-4 md:px-8 max-w-screen-xl mx-auto">
-            <x-front-end-btn linking="services" color="blue" showme="zzzzzz" name="View All" />
+            @include('services._services', ['services' => $services->take(4)])
         </div>
     </section>
     <!--Services Call-To-Action-->

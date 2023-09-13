@@ -17,10 +17,10 @@ $option = 1;
         <a href="https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2">
+    <div class="grid grid-cols-1 md:grid-cols-4">
       <ul>
         <div class="mt-1 text-base">
-          <li id="footer-underline" class="link_name mb-3 mt-1 text-base fw-bold smalltxt">Company</li>
+          <li class="link_name mb-3 mt-1 text-base fw-bold smalltxt">Company</li>
         </div>
         <div class="mt-1 text-base">
           <li><a href="/" id="footertxt-white">Home</a></li>
@@ -40,7 +40,7 @@ $option = 1;
       </ul>
       <ul>
         <div>
-          <li id="footer-underline" class="link_name mb-3 mt-2 text-base fw-bold smalltxt">Services</li>
+          <li class="link_name mb-3 mt-2 text-base fw-bold smalltxt">Services</li>
         </div>
         <div class="mt-1 text-base">
           <li><a href="services" id="footertxt-white">Office Automation</a></li>
@@ -64,13 +64,13 @@ $option = 1;
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @if (Auth::check())
-                <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe To Our Newsletter</p>
+                <p class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe To Our Newsletter</p>
                 <div class="input-group">
                   <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>
                 </div>
             </div>
             @else
-            <p id="footer-underline" class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe</p>
+            <p class="mt-1 mb-3 text-base fw-bold smalltxt">Subscribe</p>
             <div class="input-group">
               <input type="text" name="email" class="form-control rounded-md border-0" placeholder="Enter your email">
               <button type="submit" id="btn-primary" class="inline-flex items-center px-4 py-2 bg-gray-800 border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Subscribe</button>

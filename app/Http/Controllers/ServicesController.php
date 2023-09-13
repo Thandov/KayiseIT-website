@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\Subservice;
+use App\Models\Options;
 use Illuminate\Http\Request;
 use App\Models\Testimonial;
 use Illuminate\Support\Str;
@@ -78,11 +79,16 @@ class ServicesController extends Controller
         return view('viewservice', compact('service', 'subservices', 'testimonials'));
     }
 
-    public function display_service_name(Request $request, $slug)
+    public function display_service_name($slug)
     {
         $name = str_replace('-', ' ', ucwords($slug, '-'));
         $service = DB::table('services')->where('name', $name)->get()->first();
         $subservices = Subservice::where('service_id', $service->service_id)->get();
+        $options = Options::where('subservice_id', $service->service_id)->get();
+        echo '<pre>';
+        print_r($options);
+        echo '</pre>';
+        exit();
         // Return the blade file corresponding to the slug with the service and name data
         return view('viewservice', compact('service', 'subservices'));
     }
