@@ -13,7 +13,7 @@
                     <h3 class="text-2xl leading-6 font-bold mb-4 text-gray-900">Occupations</h3>
                     <!-- modal with dialog tag  -->
                     <div>
-                        <dialog id="addOccupationsModal" class="bg-white shadow-md rounded-md w-1/2">
+                        <dialog id="addOccupationsModal" class="bg-white shadow-md rounded-md w-1/2 p-4">
                             <div class="flex justify-end">
                                 <button id="hide">&times</button>
                             </div>
@@ -25,11 +25,14 @@
                     <div class="mt-4">
                         <div class="bg-gray-200 rounded-lg">
                             <!--grid-->
-                            <div class="grid grid-cols-1 md:grid-cols-4 flex justify-items-center gap-4 p-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex justify-items-center gap-3 py-4 m-7">
                                 <!--Card-->
                                 @foreach($occupations as $occupation)
                                 <div class="bg-white shadow-md rounded w-60 p-4">
-                                    <img class="w-auto h-auto" src="{{ asset('images/occupations_logo/'.$occupation->image) }}">
+                                    <!-- image -->
+                                    <svg class="h-24 w-24 mx-auto rounded-lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <image xlink:href="data:image/svg+xml;utf8,{{ rawurlencode($occupation->image) }}" width="100%" height="100%"   />
+                                    </svg>
                                     <h3 class="py-2 text-center">{{ $occupation->occupation_name }}</h3>
                                     <div class=" flex justify-center">
                                         <a href="{{ route('dashboard.admin_viewoccupations', $occupation->occup_id) }}" class="inline-flex items-center w-24 px-4 py-2 bg-blue-800 border-transparent rounded-l-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">View</a>
