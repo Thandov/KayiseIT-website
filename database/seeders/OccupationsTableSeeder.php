@@ -20,6 +20,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 1,
                 'occupation_name' => 'Software Developer',
+                'occupation_banner' => 'softwareDeveloper.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -60,6 +61,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 2,
                 'occupation_name' => 'Computer Network and Systems Engineer',
+                'occupation_banner' => 'computerNetworkAndSystemsEngineer.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -114,6 +116,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 3,
                 'occupation_name' => 'ICT Systems Analyist',
+                'occupation_banner' => 'systemsAnalyst.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -155,6 +158,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 4,
                 'occupation_name' => 'Management Consultant (Business Analyst)',
+                'occupation_banner' => 'businessAnalyst.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -197,6 +201,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 5,
                 'occupation_name' => 'ICT Security Specialist',
+                'occupation_banner' => 'securitySpecialist.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -232,6 +237,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 6,
                 'occupation_name' => 'Multi-media Specialist',
+                'occupation_banner' => 'multiMediaSpecialist.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -280,6 +286,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 7,
                 'occupation_name' => 'Programmer Analyist',
+                'occupation_banner' => 'programmerAnalyst.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -310,6 +317,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 8,
                 'occupation_name' => 'Developer Programmer',
+                'occupation_banner' => 'developerProgrammer.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -344,6 +352,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 9,
                 'occupation_name' => 'ICT Project Manager',
+                'occupation_banner' => 'projectManager.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
@@ -392,6 +401,7 @@ class OccupationsTableSeeder extends Seeder
             [
                 'occup_id' => 10,
                 'occupation_name' => 'ICT Sales Representative',
+                'occupation_banner' => 'salesRepresentative.png',
                 'image' => '<?xml version="1.0" encoding="UTF-8"?>
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 595.28">
                   <defs>
