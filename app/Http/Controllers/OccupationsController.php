@@ -25,17 +25,23 @@ class OccupationsController extends Controller
     public function addoccupation(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'occupation_banner' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
             'occupation_name' => 'required|string|max:255',
         ]);
 
         $newImageName = $request->occupation_name . '.' . $request->image->extension();
+        $newBannerName = $request->occupation_name . '.' . $request->occupation_banner->extension();
+
 
         $request->image->move(public_path('images/occupations_logo'), $newImageName);
+        $request->occupation_banner->move(public_path('images/banner'), $newBannerName);
+
 
         // Code to safe to database
         $occupation = new Occupations();
         $occupation->image = $newImageName;
+        $occupation->occupation_banner = $newBannerName;
         $occupation->occupation_name = $request->occupation_name;
         $occupation->u_id = auth()->user()->id;
         //Save to database

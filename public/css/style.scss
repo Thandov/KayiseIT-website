@@ -594,7 +594,7 @@ div.sticky {
 }
 @supports (background-blend-mode: multiply) {
   #career-mapping-hero {
-    background: url("../images/Kayise-IT-Logo-Dark-Green-Background.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/CareerMapping.png"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -612,7 +612,7 @@ div.sticky {
 }
 @supports (background-blend-mode: multiply) {
   #contact-hero {
-    background: url("../images/landing-page/Meeting.jpg"), radial-gradient(#444, #aaa);
+    background: url("../images/banner/contact.png"), radial-gradient(#444, #aaa);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
