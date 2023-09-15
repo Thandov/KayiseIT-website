@@ -90,26 +90,24 @@ class ServicesController extends Controller
         }
 
         $subservices = Subservice::where('service_id', $service->service_id)->get();
-
         $result = [];
 
         foreach ($subservices as $subservice) {
-            $options = Options::where('unq_id', $subservice->subserv_id)->get();
-
+            $options = Options::where('subservice_id', $subservice->subserv_id)->get();
             $optionsArray = [];
 
             foreach ($options as $option) {
                 $optionArray = [
+                    'subservice_id' => $option->subservice_id,
                     'name' => $option->name,
                     'quantified' => $option->quantified,
                     'price' => $option->price,
                 ];
-
                 $optionsArray[] = $optionArray;
             }
-
             $subserviceArray = [
                 'subservice_name' => $subservice->name,
+                'subserv_id' => $subservice->subserv_id,
                 'price' => $subservice->price,
                 'icon' => $subservice->icon,
                 'options' => $optionsArray,

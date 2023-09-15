@@ -19,22 +19,26 @@ class OptionsController extends Controller
     {
         $subservice = SubService::find($id);
         $subserv_id = $subservice->subserv_id;
+        $unq_id = "SUB".mt_rand(1, 100);
 
         // Check if an option with the same name already exists
-        $existingOption = Options::where('unq_id', $subserv_id)
+        $existingOption = Options::where('subservice_id', $subserv_id)
             ->where('name', $request->name)
             ->first();
 
         if (!$existingOption) {
             // If the option doesn't exist, add it to the database
             $options = new Options();
-            $options->unq_id = $subserv_id;
+            $options->unq_id = $unq_id;
             $options->name = $request->name;
-            $options->subservice_id = $subservice->service_id;
+            $options->subservice_id = $subserv_id;
             $options->price = $request->price;
             $options->quantified = $request->quantified;
-            $options->save();
-
+            if($options->save()){
+                echo "yes sir";
+            } else{
+                echo "no";
+            }
             return redirect()->back()->with('status', 'Subservices added successfully.');
         }
 

@@ -143,10 +143,11 @@ class AdminController extends Controller
     public function viewsubservice($id)
     {
         $subservice = SubService::where('id', $id)->first();
-        $options = Options::where('unq_id', $subservice->subserv_id)->get();
+        $options = Options::where('subservice_id', $subservice->subserv_id)->get();
         $serviceName = $this->subServicesService->findService($subservice->service_id)->name;
         $serviceDesc = $this->subServicesService->findService($subservice->service_id)->description;
         $serviceID = $this->subServicesService->findService($subservice->service_id)->id;
+
         return view('admin/subservices/viewsubservice', compact('id', 'subservice', 'options', 'serviceName', 'serviceID', 'serviceDesc'));
     }
     public function view_employee($name)

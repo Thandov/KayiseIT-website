@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('subserv_id')->unique();
             $table->string('service_id');
-            $table->foreign('service_id')->references('service_id')->on('services')->onDelete('cascade');
             $table->string('name');
             $table->string('slug');
             $table->string('icon')->nullable();

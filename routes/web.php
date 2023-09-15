@@ -287,7 +287,7 @@ Route::get('viewspecialization/{spec_id}', [SpecializationsController::class, 's
 //Service Controller
 
 Route::get('/viewservice/{slug}', [ServicesController::class, 'show'])->name('show');
-Route::get('/services/{slug}', [ServicesController::class, 'display_service_name'])->name('service.show');
+Route::get('services/{slug}', [ServicesController::class, 'display_service_name'])->name('service.show');
 
 
 Route::post('viewsubservice/quote', [QuotationController::class, 'quote'])->name('viewsubservice.quote');

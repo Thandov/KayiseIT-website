@@ -16,6 +16,15 @@
   src: url("../fonts/montserrat/Montserrat-Bold.ttf") format("truetype");
 }
 /*=================================================*/
+html {
+  --s: 100px;
+  --c1: #E1F5C4;
+  --c2: #3B8183;
+  --_g: rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2666666667) 5%, var(--c2) 6% 14%, var(--c1) 16% 24%, var(--c2) 26% 34%, var(--c1) 36% 44%, var(--c2) 46% 54%, var(--c1) 56% 64%, var(--c2) 66% 74%, var(--c1) 76% 84%, var(--c2) 86% 94%, rgba(0, 0, 0, 0.2666666667) 95%, rgba(0, 0, 0, 0);
+  background: radial-gradient(100% 50% at 100% 0, var(--_g)), radial-gradient(100% 50% at 0 50%, var(--_g)), radial-gradient(100% 50% at 100% 100%, var(--_g));
+  background-size: var(--s) calc(2 * var(--s));
+}
+
 * {
   font-family: "Montserrat", sans-serif;
 }
@@ -118,4 +127,8 @@ body {
 }
 .sideshowwrp .show {
   display: block;
+}
+
+.subserv_card {
+  cursor: pointer;
 }/*# sourceMappingURL=app.css.map */

@@ -34,17 +34,26 @@
                 <form action="{{ route('viewsubservice.createQuote') }}" method="POST">
                     @csrf
                     <h3>{{$subservice['subservice_name']}}</h3>
+                    <input type="hidden" name="subserv_id" value="{{$subservice['subserv_id']}}">
+
                     <hr>
                     <span class=" fw-bold">Options</span>
                     @foreach ($subservice['options'] as $option)
-                    <div class="grid grid-cols-5 items-center space-x-2 mt-2">
-                        <input type="checkbox" value="{{$option['name']}}" id="{{$option['name']}}" class="form-checkbox h-5 w-5 text-indigo-600">
-                        <label for="{{$option['name']}}">{{$option['name']}}</label>
-                        @if ($option['quantified'] == 1)
-                        <input type="number" name="quantity_{{$option['name']}}" id="quantity_{{$option['name']}}" class="form-input h-8 w-16 border-gray-300 rounded-md">
+
+                    <div class="mb-4 flex items-center">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="options[]" value="{{ $option['name'] }}" class="mr-2">
+                            {{ $option['name'] }}
+                            <input type="hidden" name="subservice_id" value="{{ $option['subservice_id'] }}">
+                        </label>
+                        @if (isset($option['quantified']) && $option['quantified'] == 1)
+                        <input type="number" name="quantity[]" value="1">
+                        @else
+                        <input type="hidden" name="quantity[]" value="1">
                         @endif
                     </div>
                     @endforeach
+
                     <input type="submit" value="Submit">
                 </form>
             </div>
