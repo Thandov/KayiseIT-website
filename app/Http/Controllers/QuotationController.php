@@ -139,8 +139,15 @@ class QuotationController extends Controller
         }
 
         foreach ($selectedOptionsData as $key => $selectedOption) {
-            $subservice = Subservice::where('subserv_id', $optionsubservice_ids)->get();
-            dd($selectedOption);  
+            $subservice = Subservice::select('*')->where('subserv_id', $request->input('subservice_id'))->first();
+            $item = new Items;
+            $item->user_id = auth()->user()->id;
+            $item->name = $subservice->name;
+            $item->price = $subservice->price;
+            $item->qty = $selectedOption['quantity'];
+            $item->sub_total = $subservice->price * $selectedOption['quantity'];
+            $item->QI_id = $quotation->quotation_no;
+            $item->save();
            
         }
         $request->session()->put('selectedOptions', $selectedOptions);
