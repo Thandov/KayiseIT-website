@@ -24,6 +24,19 @@ use Illuminate\Support\Facades\Response;
 class QuotationController extends Controller
 {
 
+    public function showAllQuotations(){
+        $quotations = Quotation::all();
+        dd($quotations);  
+    }
+
+    public function showAllUserQuotations(){
+        $userid = Auth::user()->id;  
+        $quotations = Quotation::all();
+        dd($quotations); 
+    }
+    public function showQuotation($id){
+
+    }
     public function quote(Request $request)
     {
         // Create an empty array to store the selected options
@@ -152,8 +165,8 @@ class QuotationController extends Controller
         }
         $request->session()->put('selectedOptions', $selectedOptions);
 
-        //return back()->with('success', 'Quotation request submitted successfully!');
-        return redirect()->route('viewsubservice.check', ['subservice_id' => $request->subservice_id, 'quotation_no' => $quotation->quotation_no])->with('success', 'Quotation created');
+        return back()->with('success', 'Quotation request submitted successfully!');
+        //return redirect()->route('viewsubservice.check', ['subservice_id' => $request->subservice_id, 'quotation_no' => $quotation->quotation_no])->with('success', 'Quotation created');
     }
 
     public function save_invoice(Request $request)

@@ -6,6 +6,8 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Quotation;
+
 
 class ProfileController extends Controller
 {
@@ -17,6 +19,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request)
     {
+
+        $userid = Auth::user()->id;  
+        dd($userid);
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
