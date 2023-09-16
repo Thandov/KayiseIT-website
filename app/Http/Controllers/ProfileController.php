@@ -6,7 +6,8 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use App\Models\Quotation;
+use App\Services\QuotationService;
+
 
 
 class ProfileController extends Controller
@@ -17,14 +18,14 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request)
+    public function edit(QuotationService $quotationService)
     {
 
-        $userid = Auth::user()->id;  
-        dd($userid);
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $userid = Auth::user()->id;
+        $user = Auth::user();
+        $quotations = $quotationService->getUserQuotations($userid);
+
+        return view('profile.edit', compact('quotations', 'user'));
     }
 
     /**
@@ -44,6 +45,19 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+    /**
+     * Update the user's profile information.
+     *
+     * @param  \App\Http\Requests\ProfileUpdateRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getQuoation(QuotationService $quotationService, $quote)
+    {
+        $userid = Auth::user()->id;
+        $quotation = $quotationService->viewQuote($quote);
+        return view('profile/partials/viewquote', compact('quotation'));
+
     }
 
     /**

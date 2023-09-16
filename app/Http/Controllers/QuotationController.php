@@ -123,6 +123,8 @@ class QuotationController extends Controller
 
         $selectedOptionsData = [];
 
+        if (!empty($selectedOptions)) {
+            
         foreach ($selectedOptions as $index => $selectedOption) {
             $optionData = [
                 'name' => $selectedOption,
@@ -131,6 +133,7 @@ class QuotationController extends Controller
             ];
             $selectedOptionsData[] = $optionData;
         }
+    }
         // Create an empty array to store the selected options
         $selectedOptions = [];
 
