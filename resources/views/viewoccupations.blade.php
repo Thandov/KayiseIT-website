@@ -1,6 +1,6 @@
 <x-app-layout>
     <section id="hero-banner">
-        <div class="banner bg-gray-900 text-white py-40" style="background-image: url('C:/Users/User/Documents/Kayise IT/Projects/GitHub/KayiseIT-website/public/images/html-2188441__340.png'), radial-gradient(#444, #aaa);">
+        <div class="banner bg-gray-900 text-white py-40" style="background-image: url('{{ asset('../images/banner/' . $occupations->occupation_banner) }}')">
             <h1 class="text-3xl md:text-5xl font-bold text-center">{{$occupations->occupation_name}}</h1>
         </div>
     </section>
