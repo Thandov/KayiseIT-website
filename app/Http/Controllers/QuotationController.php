@@ -118,6 +118,7 @@ class QuotationController extends Controller
         $selectedOptions = $request->input('options');
         $optionQuantities = $request->input('quantity');
         $optionsubservice_ids = $request->input('subservice_id');
+        $total = 0;
 
         $selectedOptionsData = [];
 
@@ -146,10 +147,10 @@ class QuotationController extends Controller
             $item->item = $subservice->name;
             $item->unq_id = $optionsubservice_ids;
             $item->qty = 1;
-            $item->sub_total = $subservice->price;
+            $item->sub_total = $subservice->price * $item->qty;
             $item->QI_id = $quotation_no;
             $item->save();
-        }
+            $total = $total + $item->sub_total;
 
         foreach ($selectedOptionsData as $key => $selectedOption) {
             $subservice = Options::select('*')->where('unq_id', $selectedOption['unq_id'])->first();
@@ -161,7 +162,21 @@ class QuotationController extends Controller
             $item->sub_total = $subservice->price * $selectedOption['quantity'];
             $item->QI_id = $quotation_no;
             $item->save();
+            $total = $total + $item->sub_total;
         }
+            $vat = round($total * 15/100);
+            $total_vat = $total+($total * (15/100));
+            $rounded_total_vat = round($total_vat / 100) * 100;
+
+            //update the quotaion total value
+            $quote = Quotation::where('quotation_no', $quotation_no)->first();
+            $quote->total_price = $total;
+            $quote->vat = $vat;
+            $quote->total_vat = $rounded_total_vat;
+            $quote->save();
+
+    }
+
         $request->session()->put('selectedOptions', $selectedOptions);
 
         return back()->with('success', 'Quotation request submitted successfully!');
@@ -204,8 +219,15 @@ class QuotationController extends Controller
 
     public function quotationPDF($qid)
     {
+        $client = User::find(Auth::user()->id);
         $quotation = Quotation::where('quotation_no', $qid)->first();
+        
         $items = Items::where('QI_id', $quotation->quotation_no)
+        ->join('subservices', 'items.unq_id', '=', 'subservices.subserv_id')
+        ->select('items.*', 'subservices.price')
+        ->first();
+
+        $options = Items::where('QI_id', $quotation->quotation_no)
         ->join('options', 'items.unq_id', '=', 'options.unq_id')
         ->select('items.*', 'options.price')
         ->get();
@@ -215,7 +237,7 @@ class QuotationController extends Controller
         $data = file_get_contents($path);
         $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $html = view('pdf.quotation', compact('quotation', 'items', 'pic'))->render();
+        $html = view('pdf.quotation', compact('quotation', 'items', 'pic', 'options', 'client'))->render();
         
         $pdf = new Dompdf();
         $pdf->loadHtml($html);

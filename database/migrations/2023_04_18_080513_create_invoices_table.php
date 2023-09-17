@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('invoice_no');
             $table->decimal('total_price', 10, 2)->default(0);
+            $table->decimal('vat', 10, 2)->default(0);
+            $table->decimal('total_vat', 10, 2)->default(0);
             $table->timestamps();
         });
     }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('quotation_no')->default('Q'.Str::padLeft(Str::random(6), 6, '0'))->unique();
             $table->string('job_type')->nullable(); // Remove 'unsigned' from here
             $table->decimal('total_price', 10, 2)->default(0);
+            $table->decimal('vat', 10, 2)->default(0);
+            $table->decimal('total_vat', 10, 2)->default(0);
             $table->timestamps();
         });
         

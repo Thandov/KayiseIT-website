@@ -25,14 +25,22 @@
 
         * {
             font-family: "Montserrat", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
         }
 
         body {
+            background-color: blue;
             font-family: "Montserrat", sans-serif;
             margin: 0;
             padding: 0 20px;
             /* Added more padding to the sides */
-            background-color: #fff;
+            height: 50%;
         }
 
         .container {
@@ -42,6 +50,10 @@
             background-color: #fff;
         }
 
+        p {
+            padding: 0;
+            margin: 0;
+        }
 
         .company-info p {
             margin: 0;
@@ -61,6 +73,8 @@
         }
 
         table {
+            padding: 0;
+            margin: 0;
             width: 100%;
             border-collapse: collapse;
         }
@@ -94,37 +108,52 @@
             border-collapse: collapse;
             /* Optional: This removes spacing between table cells */
         }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: red;
+            text-align: center;
+            height: 100px;
+            /* Adjust the height as needed */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <table style="border: none; margin: 0;">
+        <table style="border-bottom: 5px solid #22c55e; margin: 0;">
             <tr style="border: none;">
                 <td valign="top" style="border: none; width: 50%">
-                    <div class="header" style="position: relative; background: red; height: 50px">
-                        <img src="@php echo $pic ?? '' @endphp" style="position: absolute; left: 0; height: 100%; width: auto">
+                    <div class="header" style="position: relative; height: 50px">
+                        <img src="@php echo $pic ?? '' @endphp" style="position: absolute; left: -25px; top: -40px; height: 200%; width: auto">
                     </div>
                 </td>
-                <td valign="top" align="right" style="border: none; width: 50%">
+                <td valign="top" style="border: none; width: 50%; text-align: right;">
                     <h1 style="padding: 0; margin: 0"># {{ $quotation->quotation_no }}</h1>
-
                 </td>
             </tr>
         </table>
         <table style="border: none;">
             <tr style="border: none;">
                 <td valign="top" style="border: none; width: 50%">
-                    <div>
-                        <h5 style="background: green; padding: 1px; color: #fff">Bill To</h5>
-                        <p><span style="font-weight: 700">Name:</span> {{ $quotation->created_at }}</p>
-                        <p><span style="font-weight: 700">Company Name:</span> {{ $quotation->quotation_no }}</p>
-                        <p><span style="font-weight: 700">City:</span> {{ $quotation->quotation_no }}</p>
-                        <p><span style="font-weight: 700">Phone:</span> {{ $quotation->quotation_no }}</p>
-                    </div>
-
+                    <p style="color: #22c55e; font-weight: bold; margin: 0; padding: 0">Bill To</p>
                 </td>
-                <td valign="top" align="right" style="border: none; width: 50%">
+                <td valign="top" style="border: none; width: 50%">
+                </td>
+            </tr>
+            <tr style="border: none;">
+                <td valign="top" style="border: none; width: 50%">
+                    <div>
+                        <p><span style="font-weight: 700">Name:</span> {{ $client->name }}</p>
+                        <p><span style="font-weight: 700">Company Name:</span> {{ $client->name }}</p>
+                        <p><span style="font-weight: 700">City:</span> {{ $client->name }}</p>
+                        <p><span style="font-weight: 700">Phone:</span> {{ $client->name }}</p>
+                    </div>
+                </td>
+                <td valign="top" style="border: none; width: 50%; text-align: right;">
                     <p><span style="font-weight: 700">Date:</span> {{ $quotation->created_at }}</p>
                     <p><span style="font-weight: 700">Quotation #:</span> {{ $quotation->quotation_no }}</p>
                     <p>39B Nelbro Building, Mbombela, 1200</p>
@@ -144,22 +173,40 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($items as $item)
                 <tr>
-                    <td>{{ $item->item }}</td>
-                    <td>{{ $item->price }}</td>
-                    <td>{{ $item->qty }}</td>
-                    <td>{{ $item->sub_total }}</td>
+                    <td>
+                        <p>{{ $items->item }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $items->price }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $items->qty }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $items->sub_total }}</p>
+                    </td>
+                </tr>
+                @foreach($options as $option)
+                <tr>
+                    <td>
+                        <p>{{ $option->item }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $option->price }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $option->qty }}</p>
+                    </td>
+                    <td>
+                        <p>{{ $option->sub_total }}</p>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3" class="text-right">Subtotal</td>
-                    <td class="total-row">{{ $quotation->subtotal }}</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="text-right">VAT (20%)</td>
+                    <td colspan="3" class="text-right">VAT (15%)</td>
                     <td class="vat-row">{{ $quotation->vat }}</td>
                 </tr>
                 <tr>
@@ -170,5 +217,8 @@
         </table>
     </div>
 </body>
+<footer id="footer">
+    sdffsdfsd
+</footer>
 
 </html>
