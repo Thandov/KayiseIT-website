@@ -1,101 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
     <style>
-        
         body {
-            font-family: sans-serif;
-            font-size: 12pt;
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 0 20px;
+            /* Added more padding to the sides */
+            background-color: #f4f4f4;
         }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .company-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            margin: 0;
+        }
+
+        .invoice-details {
+            text-align: right;
+        }
+
+        .invoice-details p {
+            margin: 0;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
-            padding: 5px;
-            border: 1px solid black;
+
+        th,
+        td {
+            padding: 10px;
+            /* Added more padding */
+            border: 1px solid #ddd;
             text-align: left;
         }
+
         th {
-            background-color: #eee;
+            background-color: #f2f2f2;
         }
+
         .text-right {
             text-align: right;
         }
-        h1 {
-            font-size: 24pt;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        .logo {
-  display: block;
-  margin: 0 auto;
-  text-align: center;
-}
 
-        .header {
-            overflow: hidden;
-            margin-bottom: 20px;
+        .total-row {
+            font-weight: bold;
         }
-        .address {
-            float: left;
-            width: 50%;
-        }
-        .invoice-details {
-            float: right;
-            text-align: right;
-            width: 50%;
+
+        .vat-row {
+            font-weight: bold;
         }
     </style>
 </head>
+
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
+    <div class="container">
+        <div class="header">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+            <h1>Kayise IT</h1>
         </div>
-    </div>
-    
-            <h2>Kayise IT</h2>
-            <p>39B Nelbro Building, Mbombela, 1200</p>
-            <p>0123456789</p>
-            <p>info@kayiseit.co.za</p>
-        
-    
-            <h1>Quotation</h1>
-            <p>Date: {{ $quotation->created_at }}</p>
-            <p>Quotation Number: {{ $quotation->quotation_no }}</p>
-        
-    <table>
-        <thead>
-            <tr>
-                <th>Description</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($items as $item)
+
+        <div class="company-info">
+            <div class="address">
+                <p>39B Nelbro Building, Mbombela, 1200</p>
+                <p>0123456789</p>
+                <p>info@kayiseit.co.za</p>
+            </div>
+            <div class="invoice-details">
+                <p>Date: {{ $quotation->created_at }}</p>
+                <p>Quotation Number: {{ $quotation->quotation_no }}</p>
+            </div>
+        </div>
+
+        <h2 class="title">Quotation</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th> <!-- Changed "Description" to "Item" -->
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($items as $item)
                 <tr>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->price }}</td>
                     <td>{{ $item->qty }}</td>
                     <td>{{ $item->sub_total }}</td>
                 </tr>
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3" class="text-right">Total</td>
-                <td>{{ $quotation->total_price }}</td>
-            </tr>
-            
-        </tfoot>
-    </table>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Subtotal</td>
+                    <td class="total-row">{{ $quotation->subtotal }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">VAT (20%)</td>
+                    <td class="vat-row">{{ $quotation->vat }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">Total</td>
+                    <td class="total-row">{{ $quotation->total_price }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </body>
+
 </html>

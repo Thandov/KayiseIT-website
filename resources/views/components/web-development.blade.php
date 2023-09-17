@@ -39,10 +39,9 @@
                     <hr>
                     <span class=" fw-bold">Options</span>
                     @foreach ($subservice['options'] as $option)
-
                     <div class="mb-4 flex items-center">
                         <label class="flex items-center">
-                            <input type="checkbox" name="options[]" value="{{ $option['name'] }}" class="mr-2">
+                            <input type="checkbox" name="options[]" value="{{ $option['unq_id'] }}" placeholder="{{ $option['name'] }}" class="mr-2">
                             {{ $option['name'] }}
                             <input type="hidden" name="subservice_id" value="{{ $option['subservice_id'] }}">
                         </label>

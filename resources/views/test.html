@@ -4,23 +4,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0 20px;
+            /* Added more padding to the sides */
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .company-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .company-info p {
+            margin: 0;
+        }
+
+        .invoice-details {
+            text-align: right;
+        }
+
+        .invoice-details p {
+            margin: 0;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            /* Added more padding */
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .vat-row {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-   <div class="webmockup">
-       <div class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] max-w-[301px] md:h-[250px] md:max-w-[412px]">
-           <div class="rounded-lg overflow-hidden h-[156px] md:h-[230px] bg-white dark:bg-gray-800">
+    <div class="container">
+        <div class="header">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+            <h1>Kayise IT</h1>
+        </div>
 
-           </div>
-       </div>
-       <div class="relative mx-auto bg-gray-900 dark:bg-gray-700 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[497px]">
-           <div class="absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-gray-800"></div>
-       </div>
-   </div>
+        <div class="company-info">
+            <div class="address">
+                <p>39B Nelbro Building, Mbombela, 1200</p>
+                <p>0123456789</p>
+                <p>info@kayiseit.co.za</p>
+            </div>
+            <div class="invoice-details">
+                <p>Date: {{ $quotation->created_at }}</p>
+                <p>Quotation Number: {{ $quotation->quotation_no }}</p>
+            </div>
+        </div>
+
+        <h2 class="title">Quotation</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th> <!-- Changed "Description" to "Item" -->
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($items as $item)
+                    <tr>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->price }}</td>
+                        <td>{{ $item->qty }}</td>
+                        <td>{{ $item->sub_total }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Subtotal</td>
+                    <td class="total-row">{{ $quotation->subtotal }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">VAT (20%)</td>
+                    <td class="vat-row">{{ $quotation->vat }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">Total</td>
+                    <td class="total-row">{{ $quotation->total_price }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </body>
 
 </html>

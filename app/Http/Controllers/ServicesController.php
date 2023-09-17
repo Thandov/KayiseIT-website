@@ -98,6 +98,7 @@ class ServicesController extends Controller
 
             foreach ($options as $option) {
                 $optionArray = [
+                    'unq_id' => $option->unq_id,
                     'subservice_id' => $option->subservice_id,
                     'name' => $option->name,
                     'quantified' => $option->quantified,

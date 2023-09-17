@@ -11,7 +11,7 @@ class QuotationService
     public function getUserQuotations($userId)
     {
         // Logic to fetch quotations for the given user
-        return Quotation::where('user_id', $userId)->get();
+        return Quotation::select('*')->where('user_id', $userId)->get();
     }
     public function viewQuote($qid)
     {

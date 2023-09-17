@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
-
+use PhpOption\Option;
 
 class QuotationController extends Controller
 {
@@ -115,8 +115,6 @@ class QuotationController extends Controller
 
     public function createQuote(Request $request)
     {
-        
-
         $selectedOptions = $request->input('options');
         $optionQuantities = $request->input('quantity');
         $optionsubservice_ids = $request->input('subservice_id');
@@ -124,10 +122,9 @@ class QuotationController extends Controller
         $selectedOptionsData = [];
 
         if (!empty($selectedOptions)) {
-            
         foreach ($selectedOptions as $index => $selectedOption) {
             $optionData = [
-                'name' => $selectedOption,
+                'unq_id' => $selectedOption,
                 'quantity' => $optionQuantities[$index] ?? 0, // If not set, default to 0
                 'subservice_id' => $optionsubservice_ids, // If not set, default to 0
             ];
@@ -136,35 +133,32 @@ class QuotationController extends Controller
     }
         // Create an empty array to store the selected options
         $selectedOptions = [];
-
+        $quotation_no = 'Q' . mt_rand(100000, 999999);
         $quotation = new Quotation;
         $quotation->user_id = auth()->user()->id;
-        $quotation->quotation_no = 'Q' . mt_rand(100000, 999999);
+        $quotation->quotation_no = $quotation_no;
         $quotation->save();
 
         if ($optionsubservice_ids) {
             $subservice = Subservice::select('*')->where('subserv_id', $request->input('subservice_id'))->first();
             $item = new Items;
             $item->user_id = auth()->user()->id;
-            $item->name = $subservice->name;
-            $item->price = $subservice->price;
+            $item->item = $subservice->name;
             $item->qty = 1;
             $item->sub_total = $subservice->price;
-            $item->QI_id = $quotation->quotation_no;
+            $item->QI_id = $quotation_no;
             $item->save();
         }
 
         foreach ($selectedOptionsData as $key => $selectedOption) {
-            $subservice = Subservice::select('*')->where('subserv_id', $request->input('subservice_id'))->first();
+            $subservice = Options::select('*')->where('unq_id', $selectedOption['unq_id'])->first();
             $item = new Items;
             $item->user_id = auth()->user()->id;
-            $item->name = $subservice->name;
-            $item->price = $subservice->price;
+            $item->item = $subservice->name;
             $item->qty = $selectedOption['quantity'];
             $item->sub_total = $subservice->price * $selectedOption['quantity'];
-            $item->QI_id = $quotation->quotation_no;
+            $item->QI_id = $quotation_no;
             $item->save();
-           
         }
         $request->session()->put('selectedOptions', $selectedOptions);
 
@@ -206,11 +200,11 @@ class QuotationController extends Controller
         return response()->json(['message' => 'Invalid action'], 400);
     }
 
-    public function quotationPDF($id)
+    public function quotationPDF($qid)
     {
-        $quotation = Quotation::find($id);
+        $quotation = Quotation::where('quotation_no', $qid)->first();
         $items = Items::where('QI_id', $quotation->quotation_no)->get();
-
+        dd($items);  
         $html = view('pdf.quotation', compact('quotation', 'items'))->render();
 
         $pdf = new Dompdf();
@@ -221,7 +215,7 @@ class QuotationController extends Controller
 
         $headers = [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="quotation_' . $quotation->quotation_no . '.pdf"',
+            'Content-Disposition' => 'inline; filename="quotation_' . $quotation->quotation_no . '.pdf"',
         ];
 
         return Response::make($pdfContent, 200, $headers);

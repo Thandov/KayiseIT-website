@@ -20,7 +20,6 @@ class ProfileController extends Controller
      */
     public function edit(QuotationService $quotationService)
     {
-
         $userid = Auth::user()->id;
         $user = Auth::user();
         $quotations = $quotationService->getUserQuotations($userid);
