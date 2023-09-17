@@ -144,6 +144,7 @@ class QuotationController extends Controller
             $item = new Items;
             $item->user_id = auth()->user()->id;
             $item->item = $subservice->name;
+            $item->unq_id = $optionsubservice_ids;
             $item->qty = 1;
             $item->sub_total = $subservice->price;
             $item->QI_id = $quotation_no;
@@ -154,6 +155,7 @@ class QuotationController extends Controller
             $subservice = Options::select('*')->where('unq_id', $selectedOption['unq_id'])->first();
             $item = new Items;
             $item->user_id = auth()->user()->id;
+            $item->unq_id = $selectedOption['unq_id'];
             $item->item = $subservice->name;
             $item->qty = $selectedOption['quantity'];
             $item->sub_total = $subservice->price * $selectedOption['quantity'];
@@ -203,24 +205,29 @@ class QuotationController extends Controller
     public function quotationPDF($qid)
     {
         $quotation = Quotation::where('quotation_no', $qid)->first();
-        $items = Items::where('QI_id', $quotation->quotation_no)->get();
-        dd($items);  
-        $html = view('pdf.quotation', compact('quotation', 'items'))->render();
+        $items = Items::where('QI_id', $quotation->quotation_no)
+        ->join('options', 'items.unq_id', '=', 'options.unq_id')
+        ->select('items.*', 'options.price')
+        ->get();
 
+        $path = base_path('/public/images/logo.png');
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+        $html = view('pdf.quotation', compact('quotation', 'items', 'pic'))->render();
+        
         $pdf = new Dompdf();
         $pdf->loadHtml($html);
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
         $pdfContent = $pdf->output();
-
         $headers = [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="quotation_' . $quotation->quotation_no . '.pdf"',
         ];
-
         return Response::make($pdfContent, 200, $headers);
     }
-
     public function invoicePDF($id)
     {
         $invoice = Invoice::find($id);

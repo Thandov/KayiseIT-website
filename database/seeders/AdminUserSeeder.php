@@ -19,7 +19,7 @@ class AdminUserSeeder extends Seeder
     {
         // Create a user with the specified attributes
         $user = User::create([
-            'name' => 'thando',
+            'name' => 'Thando',
             'email' => 'thando@kayiseit.co.za',
             'password' => Hash::make('thando@kayiseit.co.za'),
             'created_at' => now(),
@@ -27,5 +27,15 @@ class AdminUserSeeder extends Seeder
         ]);
         // Attach the role with ID 1 to the user using Laratrust's attachRole method
         $user->attachRole(1);
+        // Create a user with the specified attributes
+        $user = User::create([
+            'name' => 'Mandy',
+            'email' => 'mandy@kayiseit.co.za',
+            'password' => Hash::make('mandy@kayiseit.co.za'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        // Attach the role with ID 1 to the user using Laratrust's attachRole method
+        $user->attachRole(2);
     }
 }

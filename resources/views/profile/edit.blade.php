@@ -41,7 +41,7 @@
                     <td class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">{{ $quotation->total_price }}</td>
                     <td class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">{{ \Carbon\Carbon::parse($quotation->created_at)->format('d M Y')  }}</td>
                     <td align="right">
-                        <x-front-end-btn linking="/profile/viewQuotation/{{ $quotation->quotation_no }}" color="blue" showme="" name="View" />
+                        <a href="/profile/viewQuotation/{{ $quotation->quotation_no }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">View</a>
                     </td>
                 </tr>
                 @endforeach

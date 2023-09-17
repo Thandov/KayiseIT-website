@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->string('unq_id');
+            $table->string('unq_id', 20)->index();
             $table->string('subservice_id', 20)->index();
             $table->string('name');
             $table->boolean('quantified')->nullable();

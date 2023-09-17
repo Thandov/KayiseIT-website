@@ -6,36 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,800;1,300&display=swap');
+
+        @font-face {
+            font-family: "Montserrat";
+            font-weight: normal;
+            font-style: normal;
+            src: url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
+        }
+
+        /* Montserrat-Bold */
+        @font-face {
+            font-family: "Montserrat-Bold";
+            font-weight: 700;
+            font-style: normal;
+            src: url("../fonts/montserrat/Montserrat-Bold.ttf") format("truetype");
+        }
+
+        * {
+            font-family: "Montserrat", sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Montserrat", sans-serif;
             margin: 0;
             padding: 0 20px;
             /* Added more padding to the sides */
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
             background-color: #fff;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: #fff;
         }
 
-        .header img {
-            max-width: 100px;
-            height: auto;
-        }
-
-        .company-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
 
         .company-info p {
             margin: 0;
@@ -82,30 +88,52 @@
         .vat-row {
             font-weight: bold;
         }
+
+        .nobord {
+            border: none;
+            border-collapse: collapse;
+            /* Optional: This removes spacing between table cells */
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo">
-            <h1>Kayise IT</h1>
-        </div>
+        <table style="border: none; margin: 0;">
+            <tr style="border: none;">
+                <td valign="top" style="border: none; width: 50%">
+                    <div class="header" style="position: relative; background: red; height: 50px">
+                        <img src="@php echo $pic ?? '' @endphp" style="position: absolute; left: 0; height: 100%; width: auto">
+                    </div>
+                </td>
+                <td valign="top" align="right" style="border: none; width: 50%">
+                    <h1 style="padding: 0; margin: 0"># {{ $quotation->quotation_no }}</h1>
 
-        <div class="company-info">
-            <div class="address">
-                <p>39B Nelbro Building, Mbombela, 1200</p>
-                <p>0123456789</p>
-                <p>info@kayiseit.co.za</p>
-            </div>
-            <div class="invoice-details">
-                <p>Date: {{ $quotation->created_at }}</p>
-                <p>Quotation Number: {{ $quotation->quotation_no }}</p>
-            </div>
-        </div>
+                </td>
+            </tr>
+        </table>
+        <table style="border: none;">
+            <tr style="border: none;">
+                <td valign="top" style="border: none; width: 50%">
+                    <div>
+                        <h5 style="background: green; padding: 1px; color: #fff">Bill To</h5>
+                        <p><span style="font-weight: 700">Name:</span> {{ $quotation->created_at }}</p>
+                        <p><span style="font-weight: 700">Company Name:</span> {{ $quotation->quotation_no }}</p>
+                        <p><span style="font-weight: 700">City:</span> {{ $quotation->quotation_no }}</p>
+                        <p><span style="font-weight: 700">Phone:</span> {{ $quotation->quotation_no }}</p>
+                    </div>
 
-        <h2 class="title">Quotation</h2>
-
+                </td>
+                <td valign="top" align="right" style="border: none; width: 50%">
+                    <p><span style="font-weight: 700">Date:</span> {{ $quotation->created_at }}</p>
+                    <p><span style="font-weight: 700">Quotation #:</span> {{ $quotation->quotation_no }}</p>
+                    <p>39B Nelbro Building, Mbombela, 1200</p>
+                    <p>+27 87702 2625</p>
+                    <p>info@kayiseit.co.za</p>
+                </td>
+            </tr>
+        </table>
+        <br><br>
         <table>
             <thead>
                 <tr>
@@ -118,7 +146,7 @@
             <tbody>
                 @foreach($items as $item)
                 <tr>
-                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->item }}</td>
                     <td>{{ $item->price }}</td>
                     <td>{{ $item->qty }}</td>
                     <td>{{ $item->sub_total }}</td>

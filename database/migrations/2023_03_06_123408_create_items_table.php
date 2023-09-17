@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->string('QI_id');
+            $table->string('unq_id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('item');
             $table->integer('qty')->nullable();
             $table->decimal('sub_total')->nullable();
-            $table->string('QI_id');
             $table->timestamps();
         });
         Schema::table('items', function (Blueprint $table) {
