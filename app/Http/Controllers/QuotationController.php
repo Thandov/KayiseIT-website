@@ -17,6 +17,7 @@ use App\Models\Items;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
 use Dompdf\Dompdf;
+use Dompdf\Options as DompdfOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use PhpOption\Option;
@@ -227,7 +228,7 @@ class QuotationController extends Controller
         ->select('items.*', 'subservices.price')
         ->first();
 
-        $options = Items::where('QI_id', $quotation->quotation_no)
+        $extraoptions = Items::where('QI_id', $quotation->quotation_no)
         ->join('options', 'items.unq_id', '=', 'options.unq_id')
         ->select('items.*', 'options.price')
         ->get();
@@ -237,11 +238,24 @@ class QuotationController extends Controller
         $data = file_get_contents($path);
         $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $html = view('pdf.quotation', compact('quotation', 'items', 'pic', 'options', 'client'))->render();
+        $html = view('pdf.quotation', compact('quotation', 'items', 'pic', 'extraoptions', 'client'))->render();
+
+        // Create an instance of DompdfOptions and set your options
+        $options = new DompdfOptions();
+        $options->set('isPhpEnabled', true);
+
+        // Header content (PHP code is allowed)
+        $headerHtml = '<div style="text-align: center;">Your Header Content Goes Here</div>';
+        $options->set('header-html', $headerHtml);
+
+        // Footer content (PHP code is allowed)
+        $footerHtml = '<div style="text-align: center;">Page {PAGE_NUM}/{PAGE_COUNT}</div>';
+        $options->set('footer-html', $footerHtml);
         
-        $pdf = new Dompdf();
+        $pdf = new Dompdf($options);
         $pdf->loadHtml($html);
         $pdf->setPaper('A4', 'portrait');
+
         $pdf->render();
         $pdfContent = $pdf->output();
         $headers = [

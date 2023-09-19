@@ -55,22 +55,6 @@
             margin: 0;
         }
 
-        .company-info p {
-            margin: 0;
-        }
-
-        .invoice-details {
-            text-align: right;
-        }
-
-        .invoice-details p {
-            margin: 0;
-        }
-
-        .title {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
 
         table {
             padding: 0;
@@ -102,27 +86,13 @@
         .vat-row {
             font-weight: bold;
         }
-
-        .nobord {
-            border: none;
-            border-collapse: collapse;
-            /* Optional: This removes spacing between table cells */
-        }
-
-        #footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: red;
-            text-align: center;
-            height: 100px;
-            /* Adjust the height as needed */
-        }
     </style>
 </head>
 
 <body>
+    <div style="position: absolute; top: 0; left: 0; right: 0; text-align: center;">
+        Your Header Content Goes Here
+    </div>
     <div class="container">
         <table style="border-bottom: 5px solid #22c55e; margin: 0;">
             <tr style="border: none;">
@@ -187,19 +157,19 @@
                         <p>{{ $items->sub_total }}</p>
                     </td>
                 </tr>
-                @foreach($options as $option)
+                @foreach($extraoptions as $extraoption)
                 <tr>
                     <td>
-                        <p>{{ $option->item }}</p>
+                        <p>{{ $extraoption->item }}</p>
                     </td>
                     <td>
-                        <p>{{ $option->price }}</p>
+                        <p>{{ $extraoption->price }}</p>
                     </td>
                     <td>
-                        <p>{{ $option->qty }}</p>
+                        <p>{{ $extraoption->qty }}</p>
                     </td>
                     <td>
-                        <p>{{ $option->sub_total }}</p>
+                        <p>{{ $extraoption->sub_total }}</p>
                     </td>
                 </tr>
                 @endforeach
@@ -216,9 +186,9 @@
             </tfoot>
         </table>
     </div>
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; text-align: center;">
+        Page {PAGE_NUM} of {PAGE_COUNT}
+    </div>
 </body>
-<footer id="footer">
-    sdffsdfsd
-</footer>
 
 </html>
