@@ -222,7 +222,18 @@ class QuotationController extends Controller
     {
         $client = User::find(Auth::user()->id);
         $quotation = Quotation::where('quotation_no', $qid)->first();
-        
+
+        // Create an instance of DompdfOptions and set your options
+        $options = new DompdfOptions();
+        $options->set('isPhpEnabled', true);
+        // Header content (PHP code is allowed)
+        $headerHtml = '<div style="text-align: center;">Your Header Content Goes Here</div>';
+        $options->set('header-html', $headerHtml);
+
+        // Footer content (PHP code is allowed)
+        $html_footer = '<div style="text-align: center;">PageasdasdasdGay Bitch</div>';
+        $options->set('footer-html', $html_footer);
+
         $items = Items::where('QI_id', $quotation->quotation_no)
         ->join('subservices', 'items.unq_id', '=', 'subservices.subserv_id')
         ->select('items.*', 'subservices.price')
@@ -238,19 +249,7 @@ class QuotationController extends Controller
         $data = file_get_contents($path);
         $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $html = view('pdf.quotation', compact('quotation', 'items', 'pic', 'extraoptions', 'client'))->render();
-
-        // Create an instance of DompdfOptions and set your options
-        $options = new DompdfOptions();
-        $options->set('isPhpEnabled', true);
-
-        // Header content (PHP code is allowed)
-        $headerHtml = '<div style="text-align: center;">Your Header Content Goes Here</div>';
-        $options->set('header-html', $headerHtml);
-
-        // Footer content (PHP code is allowed)
-        $footerHtml = '<div style="text-align: center;">Page {PAGE_NUM}/{PAGE_COUNT}</div>';
-        $options->set('footer-html', $footerHtml);
+        $html = view('pdf.quotation', compact('quotation', 'items', 'pic', 'extraoptions', 'client', 'html_footer'))->render();
         
         $pdf = new Dompdf($options);
         $pdf->loadHtml($html);
