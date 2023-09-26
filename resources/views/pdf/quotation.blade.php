@@ -12,7 +12,7 @@
             font-family: "Montserrat";
             font-weight: normal;
             font-style: normal;
-            src: url("../fonts/montserrat/Montserrat-Regular.ttf") format("truetype");
+            src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
         }
 
         /* Montserrat-Bold */
@@ -20,7 +20,7 @@
             font-family: "Montserrat-Bold";
             font-weight: 700;
             font-style: normal;
-            src: url("../fonts/montserrat/Montserrat-Bold.ttf") format("truetype");
+            src: url("../fonts/Montserrat-Bold.ttf") format("truetype");
         }
 
         * {

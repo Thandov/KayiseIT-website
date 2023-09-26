@@ -16,53 +16,28 @@ session_start();
     <link rel="icon" type="image/png" sizes="684x365" href="../images/kayise_IT_logo_No_Background.png">
     <!-- Fonts -->
     <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" /> -->
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/owl.carousel.min.css') }}">
+    @vite('node_modules/bootstrap/dist/css/bootstrap.min.css')
+    @vite('node_modules/owl.carousel/dist/assets/owl.carousel.min.css')
     <link rel="stylesheet" href="{{ asset('/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <!--     <script src="https://www.paypal.com/sdk/js?client-id=Aaq9Jhzs7pMXZLUEmCSwHWDB34sZP5LKoMMv8YEGKFPSLcnYX_No11nJEy87QxP9t9pvVNtAVUpj9BAh"></script>-->
-    <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script> -->
+    <!-- <script src="https://www.paypal.com/sdk/js?client-id=Aaq9Jhzs7pMXZLUEmCSwHWDB34sZP5LKoMMv8YEGKFPSLcnYX_No11nJEy87QxP9t9pvVNtAVUpj9BAh"></script>-->
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script> -->
     <script src="{{ asset('/js/app.js') }}" defer></script>
-    <script src="{{ asset('/js/owl.carousel.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite('node_modules/jquery/dist/jquery.min.js')
+    @vite('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')
+    @vite('node_modules/owl.carousel/dist/owl.carousel.min.js')
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
     <!-- scripts for career mapping tabs  -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-    <script>
-        let i = 0;
-        $("#duplicate-form").click(function() {
-            i++;
-            var form = $("#subservice-form").clone();
-            form.attr("id", "subservice-form-" + (i + 1));
-            form.find("input[name=name]").attr("id", "name-" + (i + 1));
-            form.find("input[name=description]").attr("id", "description-" + (i + 1));
-            form.find("input[name=price]").attr("id", "price-" + (i + 1));
-            form.appendTo("body");
-            form.find("input[type=text], textarea").val("");
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('button.nav-link').on('show.bs.tab', function(e) {
-                console.log($(e.target).attr('data-bs-target').replace('#', ''));
-                localStorage.setItem('activeTab', $(e.target).attr('data-bs-target'));
-            });
-            var activeTab = localStorage.getItem('activeTab');
-            if (activeTab) {
-                $('#pills-tab button[data-bs-target="' + activeTab + '"]').tab('show');
-            }
-        });
-    </script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> -->
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
