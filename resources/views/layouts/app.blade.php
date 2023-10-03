@@ -34,6 +34,10 @@ session_start();
     @vite('node_modules/jquery/dist/jquery.min.js')
     @vite('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')
     @vite('node_modules/owl.carousel/dist/owl.carousel.min.js')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+
     <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
     <!-- scripts for career mapping tabs  -->

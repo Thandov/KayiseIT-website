@@ -10,20 +10,23 @@
                 $uniqueId = "subserv_card_" . $subslug; // Create a unique ID for each subserv_card
                 @endphp
                 <div class="subserv_card justify-center" id="{{ $uniqueId }}" data-target="slide_{{$subslug}}">
-                    <div class="bg-white overflow-hidden shadow-md rounded-lg p-4">
+                    <div class="overflow-hidden shadow-md rounded-lg p-4">
                         <div class="flex justify-center">
-                            <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center"><img class="w-12" src="{{ asset('images/subservices/'.$subservice['icon']) }}"></div>
+                            <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center">
+                                <img class="w-12" src="{{ asset('images/subservices/'.$subservice['icon']) }}">
+                            </div>
                         </div>
                         <div class="flex justify-center">
                             <h2 class="mt-4 text-xl text-center font-bold smalltxt">{{$subservice['subservice_name']}}</h2>
                         </div>
                     </div>
                 </div>
+
                 @endforeach
             </div>
         </div>
         <div class="sideshowwrp">
-            <div class="slide show"><x-webmockup></x-webmockup></div>
+            <div class="slide show flex items-center"><x-webmockup></x-webmockup></div>
             @foreach($subservices as $subservice)
             @php
             $slug = str_replace(' ','-', strtolower($service));
@@ -35,7 +38,6 @@
                     @csrf
                     <h3>{{$subservice['subservice_name']}}</h3>
                     <input type="hidden" name="subserv_id" value="{{$subservice['subserv_id']}}">
-
                     <hr>
                     <span class=" fw-bold">Options</span>
                     @foreach ($subservice['options'] as $option)
@@ -52,18 +54,14 @@
                         @endif
                     </div>
                     @endforeach
-
                     @if(Auth::check())
                     <input type="submit" value="Submit">
                     @else
                     <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Submit</a>
                     @endif
-
-
                 </form>
             </div>
             @endforeach
-
         </div>
     </div>
 

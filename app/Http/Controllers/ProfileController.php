@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Services\QuotationService;
+use App\Services\InvoiceService;
 
 
 
@@ -18,13 +19,14 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function edit(QuotationService $quotationService)
+    public function edit(InvoiceService $invoiceService, QuotationService $quotationService)
     {
         $userid = Auth::user()->id;
         $user = Auth::user();
+        $invoices = $invoiceService->getUserInvoices($userid);
         $quotations = $quotationService->getUserQuotations($userid);
 
-        return view('profile.edit', compact('quotations', 'user'));
+        return view('profile.edit', compact('invoices', 'quotations', 'user'));
     }
 
     /**
