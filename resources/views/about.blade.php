@@ -21,27 +21,14 @@
   <section class="py-5 bg-slate-100 max-w-7xl mx-auto sm:px-6 lg:px-8" id="vision-mission">
     <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
     <div class="grid grid-cols-2 gap-4">
-      <div class="bg-white rounded-lg">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12">
-              <h3 class="card-title text-2xl pt-3 font-bold text-center smalltxt">Vision</h3>
-            </div>
-          </div>
-          <p class="card-text text-center text-base">KAYISE IT: Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
-        </div>
+      <div class="mycard bg-white rounded-lg shadow py-4 px-2">
+        <h3 class="card-title text-2xl pt-3 font-bold text-center smalltxt">Vision</h3>
+        <p class="card-text text-center text-base">Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
       </div>
-      <div class="bg-white rounded-lg">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12">
-              <h3 class="card-title text-2xl pt-3 font-bold text-center smalltxt">Mission</h3>
-            </div>
-          </div>
-          <p class="card-text text-center text-base">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
-        </div>
+      <div class="bg-white rounded-lg shadow py-4 px-2">
+        <h3 class="card-title text-2xl pt-3 font-bold text-center smalltxt">Mission</h3>
+        <p class="card-text text-center text-base">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>
       </div>
-    </div>
   </section>
 
   <!-- Our Clients -->

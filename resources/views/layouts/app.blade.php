@@ -31,6 +31,7 @@ session_start();
     <!-- <script src="https://www.paypal.com/sdk/js?client-id=Aaq9Jhzs7pMXZLUEmCSwHWDB34sZP5LKoMMv8YEGKFPSLcnYX_No11nJEy87QxP9t9pvVNtAVUpj9BAh"></script>-->
     <!-- <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script> -->
     <script src="{{ asset('/js/app.js') }}" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     @vite('node_modules/jquery/dist/jquery.min.js')
     @vite('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')
     @vite('node_modules/owl.carousel/dist/owl.carousel.min.js')

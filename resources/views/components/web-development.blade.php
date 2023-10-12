@@ -41,21 +41,28 @@
                     <hr>
                     <span class=" fw-bold">Options</span>
                     @foreach ($subservice['options'] as $option)
-                    <div class="mb-4 flex items-center">
-                        <label class="flex items-center">
-                            <input type="checkbox" name="options[]" value="{{ $option['unq_id'] }}" placeholder="{{ $option['name'] }}" class="mr-2">
-                            {{ $option['name'] }}
-                            <input type="hidden" name="subservice_id" value="{{ $option['subservice_id'] }}">
-                        </label>
-                        @if (isset($option['quantified']) && $option['quantified'] == 1)
-                        <input type="number" name="quantity[]" value="1">
-                        @else
-                        <input type="hidden" name="quantity[]" value="1">
-                        @endif
+                    <div class="mb-4 md:w-7/12">
+                        <div class="grid grid-cols-6">
+                            <div class="mr-4 col-span-1">
+                                <input class="sqbox" type="checkbox" name="options[]" value="{{ $option['unq_id'] }}" placeholder="{{ $option['name'] }}" class="mr-2">
+                            </div>
+                            <div class="col-span-4">
+                                <p>{{ $option['name'] }}</p>
+                            </div>
+                            <div class="ml-4 col-span-1">
+                                <input class="col-span-3" type="hidden" name="subservice_id" value="{{ $option['subservice_id'] }}">
+                                @if (isset($option['quantified']) && $option['quantified'] == 1)
+                                <input class="sqbox ml-4 col-span-1" type="number" name="quantity[]" value="1">
+                                @else
+                                <input type="hidden" name="quantity[]" value="1">
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     @endforeach
                     @if(Auth::check())
-                    <input type="submit" value="Submit">
+
+                    <input class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit" value="Submit">
                     @else
                     <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Submit</a>
                     @endif

@@ -132,4 +132,14 @@ body {
   flex: 1;
   max-width: 100%;
   transition: max-width 0.3s ease-in-out;
+}
+
+.sqbox {
+  height: 25px;
+  width: 30px;
+}
+
+#client_logo_carousel .client_logo_wrapper {
+  height: 100px;
+  width: auto;
 }/*# sourceMappingURL=app.css.map */

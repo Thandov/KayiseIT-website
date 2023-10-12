@@ -12,9 +12,7 @@
         </div>
         <!-- content -->
         <div class="flex items-center md:w-1/2">
-            <x-body smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions."
-                paragraph="Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training. With a decade of experience in the industry, we are passionate about building ICT capacity in communities and young people."
-                btnlink="about" btntext="Discover More" />
+            <x-body smheading="About Us" bgheading="We Specialize In Custom Tailored I.T Solutions." paragraph="Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training. With a decade of experience in the industry, we are passionate about building ICT capacity in communities and young people." btnlink="about" btntext="Discover More" />
         </div>
     </div>
 </section>

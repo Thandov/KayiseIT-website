@@ -180,8 +180,8 @@ class QuotationController extends Controller
 
         $request->session()->put('selectedOptions', $selectedOptions);
 
-        return back()->with('success', 'Quotation request submitted successfully!');
-        //return redirect()->route('viewsubservice.check', ['subservice_id' => $request->subservice_id, 'quotation_no' => $quotation->quotation_no])->with('success', 'Quotation created');
+        //return back()->with('success', 'Quotation request submitted successfully!');
+        return redirect()->route('profile.viewQuotation.quote', ['quote' => $quotation->quotation_no])->with('success', 'Quotation created');
     }
 
     public function save_invoice(Request $request)
@@ -224,14 +224,14 @@ class QuotationController extends Controller
         $quotation = Quotation::where('quotation_no', $qid)->first();
 
         // Create an instance of DompdfOptions and set your options
-        $options = new DompdfOptions();
+        $options = new Options();
         $options->set('isPhpEnabled', true);
         // Header content (PHP code is allowed)
         $headerHtml = '<div style="text-align: center;">Your Header Content Goes Here</div>';
         $options->set('header-html', $headerHtml);
 
         // Footer content (PHP code is allowed)
-        $html_footer = '<div style="text-align: center;">PageasdasdasdGay Bitch</div>';
+        $html_footer = '<div style="text-align: center;">asdasdasdasd3e434</div>';
         $options->set('footer-html', $html_footer);
 
         $items = Items::where('QI_id', $quotation->quotation_no)

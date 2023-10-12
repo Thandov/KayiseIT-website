@@ -14,13 +14,16 @@
     </section>
     <!-- Contact Info -->
     <section id="contact-info" class="bg-white py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
+        <div>
+            <x-titlestyle smheading="Contact Us" bgheading="Get In Touch With Us" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
+            <br>
+            <div>
+                <p>Send us an email or give us a call and get top shelf advice on the best IT strategies to help grow your business online.</p>
+            </div>
+        </div>
         <div class="grid sm:grid-flow-row md:grid-cols-2">
             <div class="">
-                <x-titlestyle smheading="Contact Us" bgheading="Get In Touch With Us" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-                <br>
-                <div>
-                    <p>Send us an email or give us a call and get top shelf advice on the best IT strategies to help grow your business online.</p>
-                </div>
+
                 <br>
                 <div>
                     <i id="contact-socials" class="fa-solid fa-phone px-2"></i>+27 87 702 2625
