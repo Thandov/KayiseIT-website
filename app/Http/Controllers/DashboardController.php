@@ -18,15 +18,14 @@ class DashboardController extends Controller
     
     public function index()
     {
+        dd("£24324");  
         if(Auth::user()->hasRole('client')){
-            
             $services = Service::all();
             $testimonials = Testimonial::all();
             $blog = Blog::all();
             return redirect()->route('home', compact('services', 'testimonials', 'blog'));
         }
         else if(Auth::user()->hasRole('business')){
-
             $services = Service::all();
             $testimonials = Testimonial::all();
             $blog = Blog::all();
@@ -34,7 +33,6 @@ class DashboardController extends Controller
 
         }
         else if(Auth::user()->hasRole('admin')){
-
             $services = Service::all();
             $testimonials = Testimonial::all();
             $blog = Blog::all();
