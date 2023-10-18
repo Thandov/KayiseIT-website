@@ -43,16 +43,17 @@
                     @foreach ($subservice['options'] as $option)
                     <div class="mb-4 md:w-7/12">
                         <div class="grid grid-cols-6">
-                            <div class="mr-4 col-span-1">
-                                <input class="sqbox" type="checkbox" name="options[]" value="{{ $option['unq_id'] }}" placeholder="{{ $option['name'] }}" class="mr-2">
+                            <div class="mr-4 col-span-4">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" name="options[]" value="{{ $option['unq_id'] }}" placeholder="{{ $option['name'] }}">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $option['name'] }}</span>
+                                </label>
                             </div>
-                            <div class="col-span-4">
-                                <p>{{ $option['name'] }}</p>
-                            </div>
-                            <div class="ml-4 col-span-1">
-                                <input class="col-span-3" type="hidden" name="subservice_id" value="{{ $option['subservice_id'] }}">
+                            <div class="ml-4 col-span-2">
+                                <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="hidden" name="subservice_id" value="{{ $option['subservice_id'] }}">
                                 @if (isset($option['quantified']) && $option['quantified'] == 1)
-                                <input class="sqbox ml-4 col-span-1" type="number" name="quantity[]" value="1">
+                                <input class="sqbox ml-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="number" name="quantity[]" value="1">
                                 @else
                                 <input type="hidden" name="quantity[]" value="1">
                                 @endif
@@ -71,29 +72,3 @@
             @endforeach
         </div>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            // Initial state: Show the first slide and add 'show' class to the first subserv_card
-            $(".slide:first").addClass("show");
-            $(".subserv_card:first").addClass("show");
-
-            // Handle click event on subserv_card elements
-            $(".subserv_card").click(function() {
-                var target = $(this).data("target"); // Get the data-target value
-                // Hide all slides and remove 'show' class from all subserv_card elements
-                $(".slide").removeClass("show");
-                $(".subserv_card").removeClass("show");
-
-                // Remove the previously added classes 'border-5' and 'border-green-500' from all subserv_card elements
-                $(".subserv_card").removeClass("border-5 border-green-500");
-
-                // Show the selected slide and add 'show' class to the clicked subserv_card
-                $("#" + target).addClass("show");
-                $(this).addClass("show");
-
-                // Add the 'border-5' and 'border-green-500' classes to the clicked subserv_card
-                $(this).addClass("border-5 border-green-500");
-            });
-        });
-    </script>

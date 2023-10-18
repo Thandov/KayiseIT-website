@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Closure;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;

@@ -24,23 +24,38 @@
         }
 
         * {
-            font-family: "Montserrat", sans-serif;
+            font-family: "Montserrat", sans-serif !important;
             margin: 0;
             padding: 0;
         }
 
         html {
-            height: 100%;
-            width: 100%;
+            height: 100% !important;
+            width: 100% !important;
         }
 
         body {
             font-family: "Montserrat", sans-serif;
-            margin: 0;
-            padding: 0 20px;
-            /* Added more padding to the sides */
-            height: 50%;
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
         }
+
+        .header {
+            background-color: pink;
+            height: 15%;
+        }
+
+        .footer {
+            background-color: purple;
+            height: 7.2% !important;
+        }
+
+        .content {
+            background-color: yellow !important;
+            height: 75% !important;
+        }
+
 
         .container {
             max-width: 1000px;
@@ -77,6 +92,7 @@
         .text-right {
             text-align: right;
         }
+
         .bold {
             font-weight: bold;
         }
@@ -84,25 +100,16 @@
         .green {
             background-color: #22c55e;
         }
+
+        .page-break {
+            page-break-before: always;
+        }
     </style>
 </head>
 
-<body>
-    <div style="position: relative; padding-top: 50px; left: 0; right: 0; text-align: center; height: 18%">
-        <table style="border-bottom: 5px solid #22c55e; margin: 0;">
-            <tr style="border: none;">
-                <td valign="top" style="border: none; width: 50%">
-                    <div class="header" style="position: relative; height: 50px">
-                        <img src="@php echo $pic ?? '' @endphp" style="position: absolute; left: -25px; top: -40px; height: 200%; width: auto">
-                    </div>
-                </td>
-                <td valign="top" style="border: none; width: 50%; text-align: right;">
-                    <h1 style="padding: 0; margin: 0"># {{ $quotation->quotation_no }}</h1>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="container">
+<body onload="addPageBreakBeforeFooter()" style="background: red">
+    <div class="header">{!! $headerHtml !!}</div>
+    <div class="container content">
         <table style="border: none;">
             <tr style="border: none;">
                 <td valign="top" style="border: none; width: 50%">
@@ -129,165 +136,6 @@
                 </td>
             </tr>
         </table>
-        <br><br>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th> <!-- Changed "Description" to "Item" -->
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <p>{{ $items->item }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $items->price }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $items->qty }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $items->sub_total }}</p>
-                    </td>
-                </tr>
-                @foreach($extraoptions as $extraoption)
-                <tr>
-                    <td>
-                        <p>{{ $extraoption->item }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->price }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->qty }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->sub_total }}</p>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" class="text-right">VAT (15%)</td>
-                    <td class="bold">{{ $quotation->vat }}</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="text-right">Total</td>
-                    <td class="bold">{{ $quotation->total_price }}</td>
-                </tr>
-            </tfoot>
-        </table>
-        <table style="border: none;">
-            <tr style="border: none;">
-                <td valign="top" style="border: none; width: 50%">
-                    <p style="color: #22c55e; font-weight: bold; margin: 0; padding: 0">Bill To</p>
-                </td>
-                <td valign="top" style="border: none; width: 50%">
-                </td>
-            </tr>
-            <tr style="border: none;">
-                <td valign="top" style="border: none; width: 50%">
-                    <div>
-                        <p><span style="font-weight: 700">Name:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">Company Name:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">City:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">Phone:</span> {{ $client->name }}</p>
-                    </div>
-                </td>
-                <td valign="top" style="border: none; width: 50%; text-align: right;">
-                    <p><span style="font-weight: 700">Date:</span> {{ $quotation->created_at }}</p>
-                    <p><span style="font-weight: 700">Quotation #:</span> {{ $quotation->quotation_no }}</p>
-                    <p>39B Nelbro Building, Mbombela, 1200</p>
-                    <p>+27 87702 2625</p>
-                    <p>info@kayiseit.co.za</p>
-                </td>
-            </tr>
-        </table>
-        <br><br>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item</th> <!-- Changed "Description" to "Item" -->
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <p>{{ $items->item }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $items->price }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $items->qty }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $items->sub_total }}</p>
-                    </td>
-                </tr>
-                @foreach($extraoptions as $extraoption)
-                <tr>
-                    <td>
-                        <p>{{ $extraoption->item }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->price }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->qty }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->sub_total }}</p>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" class="text-right">VAT (15%)</td>
-                    <td class="bold">{{ $quotation->vat }}</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="text-right">Total</td>
-                    <td class="bold">{{ $quotation->total_price }}</td>
-                </tr>
-            </tfoot>
-        </table>
-        <table style="border: none;">
-            <tr style="border: none;">
-                <td valign="top" style="border: none; width: 50%">
-                    <p style="color: #22c55e; font-weight: bold; margin: 0; padding: 0">Bill To</p>
-                </td>
-                <td valign="top" style="border: none; width: 50%">
-                </td>
-            </tr>
-            <tr style="border: none;">
-                <td valign="top" style="border: none; width: 50%">
-                    <div>
-                        <p><span style="font-weight: 700">Name:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">Company Name:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">City:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">Phone:</span> {{ $client->name }}</p>
-                    </div>
-                </td>
-                <td valign="top" style="border: none; width: 50%; text-align: right;">
-                    <p><span style="font-weight: 700">Date:</span> {{ $quotation->created_at }}</p>
-                    <p><span style="font-weight: 700">Quotation #:</span> {{ $quotation->quotation_no }}</p>
-                    <p>39B Nelbro Building, Mbombela, 1200</p>
-                    <p>+27 87702 2625</p>
-                    <p>info@kayiseit.co.za</p>
-                </td>
-            </tr>
-        </table>
-        <br><br>
         <table>
             <thead>
                 <tr>
@@ -341,9 +189,44 @@
             </tfoot>
         </table>
     </div>
-    <div class="green" style="position: absolute; bottom: 0; left: 0; right: 0; text-align: center; padding: 20px">
-        <p><span class="bold">sss: </span>Office 2, 2nd Floor, Nelbro building, 39B Brown Street, Mbombela, 1201</p>
-    </div>
+    <div class="footer">{!! $html_footer !!}</div>
 </body>
+<!-- JavaScript to dynamically add page breaks when sections exceed a certain height -->
+<script>
+    window.addEventListener('beforeprint', function() {
+        addPageBreaksForSections();
+    });
+
+    function addPageBreaksForSections() {
+        var content = document.querySelector('.content');
+        var footer = document.querySelector('.footer');
+
+        if (!content || !footer) {
+            return;
+        }
+
+        var pageHeight = window.innerHeight;
+        var sections = content.querySelectorAll('.section');
+        var currentPageHeight = 0;
+
+        sections.forEach(function(section) {
+            var sectionHeight = section.clientHeight;
+
+            // Check if adding this section would exceed the page height
+            if (currentPageHeight + sectionHeight > pageHeight) {
+                // Add a page break before this section
+                section.insertAdjacentHTML('beforebegin', '<div class="page-break"></div>');
+                currentPageHeight = 0; // Reset the current page height
+            }
+
+            currentPageHeight += sectionHeight;
+
+            // Add a <p> tag to display the section height
+            var pTag = document.createElement('p');
+            pTag.innerText = 'Section Height: ' + sectionHeight + 'px';
+            section.appendChild(pTag);
+        });
+    }
+</script>
 
 </html>

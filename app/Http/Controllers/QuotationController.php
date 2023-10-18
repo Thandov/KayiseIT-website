@@ -16,7 +16,7 @@ use App\Models\Options;
 use App\Models\Items;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
-use Dompdf\Dompdf;
+use Dompdf\Dompdf as PDF;
 use Dompdf\Options as DompdfOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -223,46 +223,36 @@ class QuotationController extends Controller
         $client = User::find(Auth::user()->id);
         $quotation = Quotation::where('quotation_no', $qid)->first();
 
-        // Create an instance of DompdfOptions and set your options
-        $options = new Options();
-        $options->set('isPhpEnabled', true);
-        // Header content (PHP code is allowed)
-        $headerHtml = '<div style="text-align: center;">Your Header Content Goes Here</div>';
-        $options->set('header-html', $headerHtml);
-
-        // Footer content (PHP code is allowed)
-        $html_footer = '<div style="text-align: center;">asdasdasdasd3e434</div>';
-        $options->set('footer-html', $html_footer);
-
         $items = Items::where('QI_id', $quotation->quotation_no)
-        ->join('subservices', 'items.unq_id', '=', 'subservices.subserv_id')
-        ->select('items.*', 'subservices.price')
-        ->first();
+            ->join('subservices', 'items.unq_id', '=', 'subservices.subserv_id')
+            ->select('items.*', 'subservices.price')
+            ->get();
 
         $extraoptions = Items::where('QI_id', $quotation->quotation_no)
-        ->join('options', 'items.unq_id', '=', 'options.unq_id')
-        ->select('items.*', 'options.price')
-        ->get();
+            ->join('options', 'items.unq_id', '=', 'options.unq_id')
+            ->select('items.*', 'options.price')
+            ->get();
 
-        $path = base_path('/public/images/logo.png');
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        // Combine the data from $items and $extraoptions
+        $combinedData = $items->concat($extraoptions);
 
-        $html = view('pdf.quotation', compact('quotation', 'items', 'pic', 'extraoptions', 'client', 'html_footer'))->render();
-        
-        $pdf = new Dompdf($options);
-        $pdf->loadHtml($html);
-        $pdf->setPaper('A4', 'portrait');
+        // Group the data into arrays with a maximum of 5 rows each
+        $chunkedData = $combinedData->chunk(5)->toArray();
 
-        $pdf->render();
-        $pdfContent = $pdf->output();
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="quotation_' . $quotation->quotation_no . '.pdf"',
-        ];
-        return Response::make($pdfContent, 200, $headers);
+        // Initialize the result array with a name
+        $dataResults = ['parentArrayName' => $chunkedData];
+
+        // Loop through each chunk of data
+        foreach ($dataResults['parentArrayName'] as $index => $chunk) {
+            // Create a PDF for each chunk
+            $pdf = PDF::loadView('pdf.quotation', ['data' => $chunk]);
+
+            // Display the PDF in the browser
+            return $pdf->stream('quotation_' . $index . '.pdf');
+        }
     }
+
+
     public function invoicePDF($id)
     {
         $invoice = Invoice::find($id);
