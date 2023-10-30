@@ -165,7 +165,7 @@
                     <td>
                         <p>{{ $extraoption->item }}</p>
                     </td>
-                    <td>
+                    <td> 
                         <p>{{ $extraoption->price }}</p>
                     </td>
                     <td>
