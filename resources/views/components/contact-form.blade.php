@@ -1,7 +1,6 @@
 <div class="bg-white rounded-md shadow-md p-4 md:p-8">
-    <form action="{{ route('contact.contact') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('contactsubmit') }}" method="post" id="contactForm" enctype="multipart/form-data">
         @csrf
-        <div class="g-recaptcha" data-sitekey="{{ config('nocaptcha.sitekey') }}"></div>
         <fieldset>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="w-full">
@@ -36,8 +35,24 @@
                 <textarea id="message" name="message" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 sm:rounded-md" rows="5" style="height: 150px" placeholder="Your Message" required></textarea>
             </div>
         </div>
+        <div>
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+        <x-input-error :messages="$errors->get('g-recaptcha-response')" class="mt-2" />
+    </div>
         <div class="mt-8">
-            <button class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="submit">Send Message</button>
+            <button class="inline-flex items-center px-4 py-2 bg-kayise-blue border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:brightness-150 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150" type="button" onclick="onClick(event)">Send Message</button>
         </div>
     </form>
+    <script>
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {action: 'contactsubmit'}).then(function(token) {
+                    document.getElementById("g-recaptcha-response").value = token;
+                    document.getElementById("contactForm").submit();
+
+                });
+            });
+        }
+    </script>
 </div>
