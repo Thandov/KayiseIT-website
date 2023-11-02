@@ -108,7 +108,6 @@
 </head>
 
 <body onload="addPageBreakBeforeFooter()" style="background: red">
-    <div class="header">{!! $headerHtml !!}</div>
     <div class="container content">
         <table style="border: none;">
             <tr style="border: none;">
@@ -146,26 +145,28 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($items as $item)
                 <tr>
                     <td>
-                        <p>{{ $items->item }}</p>
+                        <p>{{ $item->item }}</p>
                     </td>
                     <td>
-                        <p>{{ $items->price }}</p>
+                        <p>{{ $item->price }}</p>
                     </td>
                     <td>
-                        <p>{{ $items->qty }}</p>
+                        <p>{{ $item->qty }}</p>
                     </td>
                     <td>
-                        <p>{{ $items->sub_total }}</p>
+                        <p>{{ $item->sub_total }}</p>
                     </td>
                 </tr>
+                @endforeach
                 @foreach($extraoptions as $extraoption)
                 <tr>
                     <td>
                         <p>{{ $extraoption->item }}</p>
                     </td>
-                    <td> 
+                    <td>
                         <p>{{ $extraoption->price }}</p>
                     </td>
                     <td>
@@ -184,12 +185,11 @@
                 </tr>
                 <tr>
                     <td colspan="3" class="text-right">Total</td>
-                    <td class="bold">{{ $quotation->total_price }}</td>
+                    <td class="bold">{{ $quotation->total_vat }}</td>
                 </tr>
             </tfoot>
         </table>
     </div>
-    <div class="footer">{!! $html_footer !!}</div>
 </body>
 <!-- JavaScript to dynamically add page breaks when sections exceed a certain height -->
 <script>
