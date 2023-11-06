@@ -52,7 +52,6 @@ class RegisteredUserController extends Controller
                         'response' => $value,
                         'remoteip' => \request()->ip()
                     ]);
-                    //dd($g_response->json('success'));
                     if (!$g_response->json('success')) {
                         $fail("The {$attribute} is invalid.");
                     }

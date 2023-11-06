@@ -27,6 +27,7 @@
     @vite('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')
     @vite('node_modules/owl.carousel/dist/owl.carousel.min.js') 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
 </head>
 
 <body class="font-sans antialiased">

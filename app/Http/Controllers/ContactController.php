@@ -9,33 +9,46 @@ use App\Mail\SubscribeMail;
 use App\Models\Subscription;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
+use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
+use Illuminate\Support\Facades\Http;
 
 class ContactController extends Controller
 {
 
     public function contact(Request $request)
     {
-        // Validate the form data
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'subject' => 'required',
-            'message' => 'required',
-            'g-recaptcha-response' => 'required|captcha',            
-        ]);
+        
+            $validatedData = $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'subject' => 'required',
+                'message' => 'required',
+                'g-recaptcha-response' => [
+                    'required',
+                    function (string $attribute, mixed $value, $fail) {
+                        $g_response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                            'secret' => config('services.recaptcha.secret_key'),
+                            'response' => $value,
+                            'remoteip' => \request()->ip()
+                        ]);
+                        if (!$g_response->json('success')) {
+                            $fail("The {$attribute} is invalid.");
+                        }
+                    },
+                ],
+            ]);
 
-        $message = new Message;
-        $message->name = $request->name;
-        $message->email = $request->email;
-        $message->subject = $request->subject;
-        $message->message = $request->message;
-        $message->save();
+            $message = new Message;
+            $message->name = $request->name;
+            $message->email = $request->email;
+            $message->subject = $request->subject;
+            $message->message = $request->message;
+            $message->save();
+    
+            // Send the email
+            Mail::to('info@kayiseit.com')->send(new ContactFormMail($validatedData));
 
-        // Send the email
-        Mail::to('info@kayiseit.com')->send(new ContactFormMail($validatedData));
-
-        // Show SweetAlert on success
-        return redirect()->back()->with('success', 'Your message has been sent.');
+            return redirect()->back()->with('success', 'Your message has been sent.');
     }
 
     public function subscribe(Request $request)

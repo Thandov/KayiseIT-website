@@ -16,7 +16,7 @@ use App\Models\Options;
 use App\Models\Items;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
-use Dompdf\Dompdf as PDF;
+use PDF;
 use Dompdf\Options as DompdfOptions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
@@ -25,18 +25,20 @@ use PhpOption\Option;
 class QuotationController extends Controller
 {
 
-    public function showAllQuotations(){
+    public function showAllQuotations()
+    {
         $quotations = Quotation::all();
-        dd($quotations);  
+        dd($quotations);
     }
 
-    public function showAllUserQuotations(){
-        $userid = Auth::user()->id;  
+    public function showAllUserQuotations()
+    {
+        $userid = Auth::user()->id;
         $quotations = Quotation::all();
-        dd($quotations); 
+        dd($quotations);
     }
-    public function showQuotation($id){
-
+    public function showQuotation($id)
+    {
     }
     public function quote(Request $request)
     {
@@ -124,15 +126,15 @@ class QuotationController extends Controller
         $selectedOptionsData = [];
 
         if (!empty($selectedOptions)) {
-        foreach ($selectedOptions as $index => $selectedOption) {
-            $optionData = [
-                'unq_id' => $selectedOption,
-                'quantity' => $optionQuantities[$index] ?? 0, // If not set, default to 0
-                'subservice_id' => $optionsubservice_ids, // If not set, default to 0
-            ];
-            $selectedOptionsData[] = $optionData;
+            foreach ($selectedOptions as $index => $selectedOption) {
+                $optionData = [
+                    'unq_id' => $selectedOption,
+                    'quantity' => $optionQuantities[$index] ?? 0, // If not set, default to 0
+                    'subservice_id' => $optionsubservice_ids, // If not set, default to 0
+                ];
+                $selectedOptionsData[] = $optionData;
+            }
         }
-    }
         // Create an empty array to store the selected options
         $selectedOptions = [];
         $quotation_no = 'Q' . mt_rand(100000, 999999);
@@ -153,20 +155,20 @@ class QuotationController extends Controller
             $item->save();
             $total = $total + $item->sub_total;
 
-        foreach ($selectedOptionsData as $key => $selectedOption) {
-            $subservice = Options::select('*')->where('unq_id', $selectedOption['unq_id'])->first();
-            $item = new Items;
-            $item->user_id = auth()->user()->id;
-            $item->unq_id = $selectedOption['unq_id'];
-            $item->item = $subservice->name;
-            $item->qty = $selectedOption['quantity'];
-            $item->sub_total = $subservice->price * $selectedOption['quantity'];
-            $item->QI_id = $quotation_no;
-            $item->save();
-            $total = $total + $item->sub_total;
-        }
-            $vat = round($total * 15/100);
-            $total_vat = $total+($total * (15/100));
+            foreach ($selectedOptionsData as $key => $selectedOption) {
+                $subservice = Options::select('*')->where('unq_id', $selectedOption['unq_id'])->first();
+                $item = new Items;
+                $item->user_id = auth()->user()->id;
+                $item->unq_id = $selectedOption['unq_id'];
+                $item->item = $subservice->name;
+                $item->qty = $selectedOption['quantity'];
+                $item->sub_total = $subservice->price * $selectedOption['quantity'];
+                $item->QI_id = $quotation_no;
+                $item->save();
+                $total = $total + $item->sub_total;
+            }
+            $vat = round($total * 15 / 100);
+            $total_vat = $total + ($total * (15 / 100));
             $rounded_total_vat = round($total_vat / 100) * 100;
 
             //update the quotaion total value
@@ -175,8 +177,7 @@ class QuotationController extends Controller
             $quote->vat = $vat;
             $quote->total_vat = $rounded_total_vat;
             $quote->save();
-
-    }
+        }
 
         $request->session()->put('selectedOptions', $selectedOptions);
 
@@ -232,24 +233,12 @@ class QuotationController extends Controller
             ->join('options', 'items.unq_id', '=', 'options.unq_id')
             ->select('items.*', 'options.price')
             ->get();
-
-        // Combine the data from $items and $extraoptions
-        $combinedData = $items->concat($extraoptions);
-
-        // Group the data into arrays with a maximum of 5 rows each
-        $chunkedData = $combinedData->chunk(5)->toArray();
-
-        // Initialize the result array with a name
-        $dataResults = ['parentArrayName' => $chunkedData];
-
-        // Loop through each chunk of data
-        foreach ($dataResults['parentArrayName'] as $index => $chunk) {
-            // Create a PDF for each chunk
-            $pdf = PDF::loadView('pdf.quotation', ['data' => $chunk]);
-
-            // Display the PDF in the browser
-            return $pdf->stream('quotation_' . $index . '.pdf');
-        }
+           
+        $pdf = PDF::loadView('pdf.quotation', compact('client', 'quotation', 'items', 'extraoptions'));
+        
+        // Display the PDF in the browser
+        return $pdf->stream('quotation_' . $quotation->quotation_no . '.pdf');
+        // return $pdf->download('quotation_' . $quotation->quotation_no . '.pdf');
     }
 
 
