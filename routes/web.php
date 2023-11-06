@@ -17,6 +17,7 @@ use App\Http\Controllers\OccupationsController;
 use App\Http\Controllers\SpecializationsController;
 use App\Http\Controllers\CareerStepsController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -142,7 +143,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('dashboard.viewuser');
     Route::get('/quotations/{id}/send-invoice', [QuotationController::class, 'sendInvoice'])->name('quotations.send-invoice');
 
-   
+    //Gallery
+    Route::GET('/dashboard/gallery', [GalleryController::class, 'index'])->name('dashboard.gallery');
+    Route::POST('/dashboard/gallery/upload', [GalleryController::class, 'store'])->name('dashboard.gallery.upload');
+    
     //download quotation&invoice PDFs
     Route::get('/dashboard/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
     Route::get('/dashboard/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');

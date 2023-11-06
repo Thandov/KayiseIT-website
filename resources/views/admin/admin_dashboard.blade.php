@@ -23,6 +23,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 justify-items-center mx-auto py-4 gap-4">
                         <x-dash-card name="Clients" href="dashboard/clients"></x-dash-card>
                         <x-dash-card name="Staff" href="dashboard/staff"></x-dash-card>
+                        <x-dash-card name="Gallery" href="dashboard/gallery"></x-dash-card>
                         <x-dash-card name="Career Mapping" href="dashboard/careermapping"></x-dash-card>
                         <x-dash-card name="Carousel" href="/dashboard/carousel"></x-dash-card>
                         <x-dash-card name="Blogs" href="dashboard/blogs/"></x-dash-card>
