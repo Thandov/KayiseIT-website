@@ -18,7 +18,7 @@
     </fieldset>
     <fieldset class="border p-4 rounded-lg mt-8">
         <div class="grid grid-cols-6">
-            <div class="col-start-1 col-span-3">
+            <div class="col-start-1 col-span-3"> 
                 <legend class="text-lg font-semibold">Upload image(s)</legend>
             </div>
             <div class="col-start-4 col-span-1">

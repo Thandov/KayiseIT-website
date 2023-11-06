@@ -12,7 +12,6 @@ class OccupationsController extends Controller
 
     public function occupations()
     {
-        //
         $occupations = Occupations::all();
         return view('/admin/dashboard/careermapping_dashboard', compact('occupations'));
     }

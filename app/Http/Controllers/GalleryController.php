@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class GalleryController extends Controller
-{
+{ 
     /**
      * Display a listing of the resource.
      *

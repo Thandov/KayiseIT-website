@@ -13,3 +13,4 @@ class GroupPhotos extends Model
 
     protected $fillable = ['group_id', 'photo_id'];
 }
+
