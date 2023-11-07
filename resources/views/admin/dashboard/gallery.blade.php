@@ -19,14 +19,42 @@
                             </dd>
                         </dl>
                     </div>
-                    <div class="ml-auto">
-                        <x-front-end-btn linking="{{ route('dashboard.gallery') }}" color="blue" showme="add-service-btn" name="Upload" />
+                </div>
+                <div x-data="{ openTab: 'all' }">
+                    <!-- Tabs -->
+                    <ul class="flex border-b border-gray-200">
+                        <li class="mr-2">
+                            <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300 hover:bg-gray-100" :class="{ 'border-blue-500 text-blue-600': openTab === 'all' }" @click="openTab = 'all'" type="button">All</button>
+                        </li>
+                        @foreach ($galleries as $gallery)
+                        <li class="mr-2">
+                            <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300 hover:bg-gray-100" :class="{ 'border-blue-500 text-blue-600': openTab === '{{ $gallery['name'] }}' }" @click="openTab = '{{ $gallery['name'] }}'" type="button">{{ $gallery['name'] }}</button>
+                        </li>
+                        @endforeach
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- All Galleries Tab Pane -->
+                        <div class="p-4 bg-gray-50 rounded-lg" x-show="openTab === 'all'">
+                            @foreach ($galleries as $gallery)
+                            @foreach ($gallery['photos'] as $photo)
+                            <img class="inline-block w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-1" src="{{ asset($photo['path']) }}" alt="Photo">
+                            @endforeach
+                            @endforeach
+                        </div>
+
+                        <!-- Individual Galleries Tab Panes -->
+                        @foreach ($galleries as $gallery)
+                        <div class="p-4 bg-gray-50 rounded-lg" x-show="openTab === '{{ $gallery['name'] }}'">
+                            @foreach ($gallery['photos'] as $photo)
+                            <img class="inline-block w-full sm:w-1/2 md:w-1/4 lg:w-1/5 p-1" src="{{ asset($photo['path']) }}" alt="Photo">
+                            @endforeach
+                        </div>
+                        @endforeach
                     </div>
                 </div>
-                <div class="md:grid md:grid-cols-4 gap-4">
-                    kjkj
-                    {{$groups}}
-                </div>
+
             </div>
             <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-2 border-b border-gray-200">
                 @include('admin.dashboard.gallery._upload')

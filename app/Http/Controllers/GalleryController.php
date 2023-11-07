@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class GalleryController extends Controller
-{ 
+{
     /**
      * Display a listing of the resource.
      *
@@ -22,22 +22,34 @@ class GalleryController extends Controller
         $groups = Gallery::all();
 
         $galleries = [];
-        $pictures = [];
 
-        foreach ($groups as $key => $group) {
-            $photos = GroupPhotos::where('group_id', $group->id)->get();
-            array_push($galleries, ['gallery_id' => $photos[$key]->group_id]);
-            foreach ($photos as $key => $photo) {
-                array_push($pictures, ['photo_id' => $photo->photo_id]);
-            }   
+        foreach ($groups as $group) {
+            $group_photo_ids = GroupPhotos::where('group_id', $group->id)->get();
+
+            // Prepare an array to hold photo data for the current group
+            $photoData = [];
+
+            foreach ($group_photo_ids as $group_photo_id) {
+                // For each group photo, fetch the actual photo
+                $pic = Photos::where('id', $group_photo_id->photo_id)->first(); // Use first() if you expect a single photo
+                if ($pic) {
+                    // If a photo is found, add it to the photo data array
+                    $photoData[] = $pic; // You might want to use just the path or a specific attribute
+                }
+            }
+
+            if (!empty($photoData)) {
+                // If photo data is not empty, add it to the galleries array with its corresponding group ID
+                $galleries[] = [
+                    'gallery_id' => $group->id,
+                    'name' => $group->name,
+                    'photos' => $photoData
+                ];
+            }
         }
-        array_push($galleries, ['photos' => $pictures]); 
-        echo '<pre>';
-        print_r($galleries);
-        echo '</pre>';
-        echo "++++++++++";
-        exit();
-        return view('admin.dashboard.gallery', compact('groups')) ;
+
+        return view('admin.dashboard.gallery', compact('galleries'));
+
     }
 
     /**
@@ -73,7 +85,7 @@ class GalleryController extends Controller
             $galleryGroupId = $galleryGroup->id;
             $galleryFolderName = Str::slug($galleryGroup->name); // Create a slug for the folder name
         } else {
-            $galleryGroupId = $request->input('category');  
+            $galleryGroupId = $request->input('category');
             $galleryGroup = Gallery::where('name', $galleryGroupId)->first(); // Fetch the gallery group to get its name
             if (empty($galleryGroup)) {
                 $galleryGroup = Gallery::create([
