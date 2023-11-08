@@ -18,7 +18,7 @@
                                 </div>
                             </dd>
                         </dl>
-                    </div>
+                    </div> 
                 </div>
                 <div x-data="{ openTab: 'all' }">
                     <!-- Tabs -->
