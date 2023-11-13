@@ -30,7 +30,26 @@ function removeSliderClass(event) {
     jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass('animate__animated animate__fadeInUp');
     jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass('animate__animated animate__fadeInLeft');
 }
+function deleteSelected() {
+    const selectedIds = document.querySelectorAll('input[name="selected_ids[]"]:checked');
+    const selectedIdsArray = Array.from(selectedIds).map(input => input.value);
+    document.getElementById('selected-ids-input').value = JSON.stringify(selectedIdsArray);
+    document.getElementById('delete-selected-form').submit();
+}
 
+function deleteRow(service_id) {
+    if (confirm('Are you sure you want to delete this service?')) {
+        // Create a form element and submit it to delete the individual row
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "/dashboard/services/deleteservice/" + service_id; // Use string concatenation
+        form.innerHTML = `
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="_method" value="DELETE">`;
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
 $(function ($) {
     "use strict";
 
@@ -95,5 +114,31 @@ $(function ($) {
         // Add the 'border-5' and 'border-green-500' classes to the clicked subserv_card
         $(this).addClass("border-5 border-green-500");
     });
+    $('#checkbox-all').click(function () {
+        // Check or uncheck all checkboxes based on the state of the checkbox-all.
+        $('.checkbox').prop('checked', this.checked);
+    });
+
+    // Event listener for pagination links
+    $(document).on('click', '.pagination-links a', function (event) {
+        event.preventDefault();
+        let page = $(this).attr('href').split('page=')[1];
+        fetchCarousels(page);
+    });
+
+    function fetchCarousels(page) {
+        $.ajax({
+            url: '/dashboard?page=' + page,
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                $('.carousel-container').html(data.html); // Update the carousel container
+                $('.pagination-links').html(data.pagination); // Update the pagination links
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + "\nError: " + error);
+            }
+        });
+    }
 });
 

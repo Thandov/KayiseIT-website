@@ -1,6 +1,3 @@
-<x-app-layout title="Staff Dashboard">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        @include('breadcrumb')
         <div class="mb-4 grid md:grid-cols-5 md:gap-4">
             <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-3 border-b border-gray-200">
                 <div class="flex items-center mb-4">
@@ -20,39 +17,25 @@
                         </dl>
                     </div>
                 </div>
-                <div x-data="{
-        openTab: 'all',
-        lightbox: false,
-        selectedImageIndex: null,
-        images: [],
-        openLightbox(index, images) {
-            this.lightbox = true;
-            this.selectedImageIndex = index;
-            this.images = images.map(image => ({...image, path: '../' + image.path }));
-        },
-        nextImage() {
-            this.selectedImageIndex = (this.selectedImageIndex + 1) % this.images.length;
-        },
-        prevImage() {
-            this.selectedImageIndex = (this.selectedImageIndex - 1 + this.images.length) % this.images.length;
-        }
-    }">
+                <div x-data="{openTab: 'all', lightbox: false, selectedImageIndex: null, images: [], openLightbox(index, images) { this.lightbox = true; this.selectedImageIndex = index; this.images = images.map(image => ({...image, path: '../' + image.path })); }, nextImage() { this.selectedImageIndex = (this.selectedImageIndex + 1) % this.images.length; }, prevImage() { this.selectedImageIndex = (this.selectedImageIndex - 1 + this.images.length) % this.images.length; } }">
                     <!-- Tabs -->
                     <ul class="flex border-b border-gray-200">
                         <li class="mr-2">
                             <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300 hover:bg-gray-100" :class="{ 'border-blue-500 text-blue-600': openTab === 'all' }" @click="openTab = 'all'" type="button">All</button>
                         </li>
+                        @if (!empty($galleries))
                         @foreach ($galleries as $gallery)
                         <li class="mr-2">
                             <button class="inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:border-gray-300 hover:bg-gray-100" :class="{ 'border-blue-500 text-blue-600': openTab === '{{ $gallery['name'] }}' }" @click="openTab = '{{ $gallery['name'] }}'" type="button">{{ $gallery['name'] }}</button>
                         </li>
                         @endforeach
+                        @endif
                     </ul>
-
                     <!-- Tab Content -->
                     <div class="tab-content">
                         <!-- All Galleries Tab Pane -->
                         <div class="p-4 bg-gray-50 rounded-lg grid grid-cols-4 gap-4" x-show="openTab === 'all'">
+                            @if (!empty($galleries))
                             @foreach ($galleries as $gallery)
                             @foreach ($gallery['photos'] as $index => $photo)
                             <div @click="openLightbox({{ $index }}, {{ json_encode($gallery['photos']) }})">
@@ -61,8 +44,10 @@
                             </div>
                             @endforeach
                             @endforeach
+                            @endif
                         </div>
                         <!-- Individual Galleries Tab Panes -->
+                        @if (!empty($galleries))
                         @foreach ($galleries as $gallery)
                         <div class="p-4 bg-gray-50 rounded-lg grid grid-cols-4 gap-4" x-show="openTab === '{{ $gallery['name'] }}'">
                             @foreach ($gallery['photos'] as $index => $photo)
@@ -73,6 +58,7 @@
                             @endforeach
                         </div>
                         @endforeach
+                        @endif
                     </div>
                     <!-- Lightbox Overlay -->
                     <div x-show="lightbox" class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50" x-on:click.self="lightbox = false">
@@ -87,13 +73,9 @@
                             <div class="absolute top-0 left-0 w-full h-full" @click="lightbox = false"></div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-2 border-b border-gray-200">
                 @include('admin.dashboard.gallery._upload')
             </div>
         </div>
-    </div>
-</x-app-layout>

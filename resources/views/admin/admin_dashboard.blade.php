@@ -1,63 +1,69 @@
-<!-- resources/views/components/dashboard.blade.php -->
 <x-app-layout>
-    
-    <div x-data="{ activeTab: 'clients' }" class="flex h-screen bg-gray-200">
+    <div x-data="{ activeTab: 'carousel' }" class="flex h-screen bg-gray-200">
         <!-- Sidebar -->
         <div class="w-64 h-full px-4 py-8 bg-white border-r">
             <h2 class="text-3xl font-semibold text-center">Dashboard</h2>
             <div class="mt-6">
-                <nav>
-                    <x-dash-card name="Clients" :active="activeTab === 'clients'" @click.prevent="activeTab = 'clients'" href="#"></x-dash-card>
-                    <x-dash-card name="Staff" :active="activeTab === 'staff'" @click.prevent="activeTab = 'staff'" href="#"></x-dash-card>
-                    <x-dash-card name="Gallery" :active="activeTab === 'gallery'" @click.prevent="activeTab = 'gallery'" href="#"></x-dash-card>
-                    <x-dash-card name="Career Mapping" :active="activeTab === 'careerMapping'" @click.prevent="activeTab = 'careerMapping'" href="#"></x-dash-card>
-                    <x-dash-card name="Carousel" :active="activeTab === 'carousel'" @click.prevent="activeTab = 'carousel'" href="#"></x-dash-card>
-                    <x-dash-card name="Blogs" :active="activeTab === 'blogs'" @click.prevent="activeTab = 'blogs'" href="#"></x-dash-card>
-                    <x-dash-card name="Services" :active="activeTab === 'services'" @click.prevent="activeTab = 'services'" href="#"></x-dash-card>
-                    <x-dash-card name="Invoices" :active="activeTab === 'invoices'" @click.prevent="activeTab = 'invoices'" href="#"></x-dash-card>
-                    <x-dash-card name="Quotations" :active="activeTab === 'quotations'" @click.prevent="activeTab = 'quotations'" href="#"></x-dash-card>
+                <!-- Side navbar -->
+                <nav class="grid grid-flow-row">
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'dashboard'" @click.prevent="activeTab = 'dashboard'" href="#">Dashboard</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'clients'" @click.prevent="activeTab = 'clients'" href="#">Clients</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'staff'" @click.prevent="activeTab = 'staff'" href="#">Staff</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'gallery'" @click.prevent="activeTab = 'gallery'" href="#">Gallery</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'careermapping'" @click.prevent="activeTab = 'careerMapping'" href="#">Career Mapping</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'carousel'" @click.prevent="activeTab = 'carousel'" href="#">Carousel</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'blogs'" @click.prevent="activeTab = 'blogs'" href="#">Blogs</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'services'" @click.prevent="activeTab = 'services'" href="#">Services</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'invoices'" @click.prevent="activeTab = 'invoices'" href="#">Invoices</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'quotations'" @click.prevent="activeTab = 'quotations'" href="#">Quotations</a>
                 </nav>
             </div>
         </div>
         <!-- Content -->
         <div class="flex-1 p-4">
+            <div x-show="activeTab === 'dashboard'">
+                <h3 class="text-lg font-semibold">Dashboard Panel</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="col-span-2">
+                        @include('admin.dashboard.sales._salestats')
+                    </div>
+                    <div class="col-span-1">
+                        <!-- Leads and Clients -->
+                        @include('admin.dashboard.clients._clientspanel')
+                    </div>
+                </div>
+                <!-- Content for Dashboard -->
+            </div>
             <div x-show="activeTab === 'clients'">
-                <h3 class="text-lg font-semibold">Clients Panel</h3>
                 <!-- Content for Clients -->
+                @include('admin.clients')
             </div>
             <div x-show="activeTab === 'staff'">
-                <h3 class="text-lg font-semibold">Staff Panel</h3>
-                <!-- Content for Staff -->
+                @include('admin.staff')
             </div>
             <div x-show="activeTab === 'gallery'">
-                <h3 class="text-lg font-semibold">gallery Panel</h3>
-                <!-- Content for gallery -->
+                <!-- Content for Gallery -->
+                @include('admin.dashboard.gallery')
             </div>
-            <div x-show="activeTab === 'careerMapping'">
-                <h3 class="text-lg font-semibold">careerMapping Panel</h3>
-                <!-- Content for careerMapping -->
+            <div x-show="activeTab === 'careermapping'">
+                @include('admin.dashboard.careermapping_dashboard')
             </div>
             <div x-show="activeTab === 'carousel'">
-                <h3 class="text-lg font-semibold">carousel Panel</h3>
-                <!-- Content for carousel -->
+                @include('admin.dashboard.carousel.carousel')
             </div>
             <div x-show="activeTab === 'blogs'">
-                <h3 class="text-lg font-semibold">blogs Panel</h3>
-                <!-- Content for blogs -->
+                @include('admin.blogs')
             </div>
             <div x-show="activeTab === 'services'">
-                <h3 class="text-lg font-semibold">services Panel</h3>
-                <!-- Content for services -->
+                @include('admin.services')
             </div>
             <div x-show="activeTab === 'invoices'">
-                <h3 class="text-lg font-semibold">invoices Panel</h3>
-                <!-- Content for invoices -->
+                @include('admin.invoices')
             </div>
             <div x-show="activeTab === 'quotations'">
-                <h3 class="text-lg font-semibold">quotations Panel</h3>
-                <!-- Content for quotations -->
+                @include('admin.quotations')
             </div>
+            <!-- Add other content panels here -->
         </div>
     </div>
-
 </x-app-layout>

@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use App\Services\SubServicesService;
 use App\Helpers\getNewClientsHelper;
+use App\Models\Gallery;
+use App\Models\Photos;
+use App\Models\GroupPhotos;
+use App\Models\Occupations;
+use App\Models\Specializations;
+use App\Models\CareerSteps;
+use App\Models\Carousel;
+use App\Models\Blog;
 
 
 
@@ -29,6 +37,10 @@ class AdminController extends Controller
     }
     public function index()
     {
+        $clients = DB::table('clients')
+        ->join('users', 'users.id', '=', 'clients.user_id')
+        ->select('clients.name AS first_name', 'users.email', 'clients.*')
+        ->get();
         $services = Service::paginate(5); // Paginate with 10 items per page
         $quotations = Quotation::all();
         $invoices = Invoice::all();
@@ -36,7 +48,48 @@ class AdminController extends Controller
         $urlSegments = explode('/', request()->path());
         $newClients = getNewClients();
 
-        return view('admin.admin_dashboard', compact('users', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
+        /* Blogs */
+        $blogs = Blog::all();
+        /* Carousel */
+        //$carousels = Carousel::all();
+        $carousels = Carousel::paginate(4);
+
+        // Check if the request is AJAX
+        if (request()->ajax()) {
+            return response()->json([
+                'html' => view('admin.dashboard.carousel._partial', compact('carousels'))->render(),
+                'pagination' => (string) $carousels->links()
+            ]);
+        }
+        
+        /* Occupations */
+        $occupations = Occupations::all();
+        /* Gallery */
+        $groups = Gallery::all();
+        $galleries = [];
+        foreach ($groups as $group) {
+            $group_photo_ids = GroupPhotos::where('group_id', $group->id)->get();
+            // Prepare an array to hold photo data for the current group
+            $photoData = [];
+            foreach ($group_photo_ids as $group_photo_id) {
+                // For each group photo, fetch the actual photo
+                $pic = Photos::where('id', $group_photo_id->photo_id)->first(); // Use first() if you expect a single photo
+                if ($pic) {
+                    // If a photo is found, add it to the photo data array
+                    $photoData[] = $pic; // You might want to use just the path or a specific attribute
+                }
+            }
+            if (!empty($photoData)) {
+                // If photo data is not empty, add it to the galleries array with its corresponding group ID
+                $galleries[] = [
+                    'gallery_id' => $group->id,
+                    'name' => $group->name,
+                    'photos' => $photoData
+                ];
+            }
+        }
+
+        return view('admin.admin_dashboard', compact('users', 'blogs', 'carousels', 'occupations', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
     }
 
     public function remove($id)

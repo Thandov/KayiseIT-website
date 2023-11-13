@@ -22,6 +22,7 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
+                @if (!empty($clients))
                 @foreach ($clients as $client)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td class="w-4 p-4">
@@ -37,7 +38,8 @@
                     </td>
                 </tr>
                 @endforeach
-            </tbody> 
+                @endif
+            </tbody>
         </table>
     </form>
 
@@ -47,7 +49,7 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(function($) {
         $('#checkbox-all').click(function() {
             // Check or uncheck all checkboxes based on the state of the checkbox-all.
             $('.checkbox').prop('checked', this.checked);
