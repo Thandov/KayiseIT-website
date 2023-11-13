@@ -96,3 +96,4 @@ $(function ($) {
         $(this).addClass("border-5 border-green-500");
     });
 });
+

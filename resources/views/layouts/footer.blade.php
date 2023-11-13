@@ -1,3 +1,4 @@
+@if(!Route::is('dashboard'))
 <!--Footer-->
 @php
 $option = 1;
@@ -182,4 +183,5 @@ $option = 1;
   </div>
 </footer>
 
+@endif
 @endif

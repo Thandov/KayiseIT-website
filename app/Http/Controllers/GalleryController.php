@@ -20,15 +20,11 @@ class GalleryController extends Controller
     public function index()
     {
         $groups = Gallery::all();
-
         $galleries = [];
-
         foreach ($groups as $group) {
             $group_photo_ids = GroupPhotos::where('group_id', $group->id)->get();
-
             // Prepare an array to hold photo data for the current group
             $photoData = [];
-
             foreach ($group_photo_ids as $group_photo_id) {
                 // For each group photo, fetch the actual photo
                 $pic = Photos::where('id', $group_photo_id->photo_id)->first(); // Use first() if you expect a single photo
@@ -37,7 +33,6 @@ class GalleryController extends Controller
                     $photoData[] = $pic; // You might want to use just the path or a specific attribute
                 }
             }
-
             if (!empty($photoData)) {
                 // If photo data is not empty, add it to the galleries array with its corresponding group ID
                 $galleries[] = [
@@ -47,9 +42,7 @@ class GalleryController extends Controller
                 ];
             }
         }
-
         return view('admin.dashboard.gallery', compact('galleries'));
-
     }
 
     /**

@@ -1,3 +1,4 @@
+@if(!Route::is('dashboard'))
 @if (empty(Auth::user()->name))
 <nav class="grid grid-cols-2 bg-white border-b border-gray-100 px-5 py-3">
     <div class="col-start-2 md:grid md:grid-cols-4">
@@ -251,3 +252,4 @@
         </div>
     </div>
 </nav>
+@endif

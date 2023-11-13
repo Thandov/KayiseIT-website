@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <!-- SEO META TAGS -->
     <title>{{ $metaTitle ?? config('app.name', 'Kayise IT') }}</title>
     <meta name="description" content="{{ $metaDescription ?? 'Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training.' }}">
@@ -23,9 +23,11 @@
     <link rel="stylesheet" href="{{ asset('/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 
+    @vite('node_modules/jquery/dist/jquery.js')
+    @vite('node_modules/alpinejs/src/alpine.js ')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js')
-    @vite('node_modules/owl.carousel/dist/owl.carousel.min.js') 
+    @vite('node_modules/owl.carousel/dist/owl.carousel.min.js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
 </head>

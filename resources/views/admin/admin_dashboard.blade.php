@@ -1,38 +1,63 @@
+<!-- resources/views/components/dashboard.blade.php -->
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ADMIN DASHBOARD') }}
-        </h2>
-    </x-slot>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="grid grid-cols-3 gap-4">
-            <div class="col-span-2">
-                @include('admin.dashboard.sales._salestats')
-            </div>
-            <div class="col-span-1">
-                <!-- Leads and Clients -->
-                @include('admin.dashboard.clients._clientspanel')
+    
+    <div x-data="{ activeTab: 'clients' }" class="flex h-screen bg-gray-200">
+        <!-- Sidebar -->
+        <div class="w-64 h-full px-4 py-8 bg-white border-r">
+            <h2 class="text-3xl font-semibold text-center">Dashboard</h2>
+            <div class="mt-6">
+                <nav>
+                    <x-dash-card name="Clients" :active="activeTab === 'clients'" @click.prevent="activeTab = 'clients'" href="#"></x-dash-card>
+                    <x-dash-card name="Staff" :active="activeTab === 'staff'" @click.prevent="activeTab = 'staff'" href="#"></x-dash-card>
+                    <x-dash-card name="Gallery" :active="activeTab === 'gallery'" @click.prevent="activeTab = 'gallery'" href="#"></x-dash-card>
+                    <x-dash-card name="Career Mapping" :active="activeTab === 'careerMapping'" @click.prevent="activeTab = 'careerMapping'" href="#"></x-dash-card>
+                    <x-dash-card name="Carousel" :active="activeTab === 'carousel'" @click.prevent="activeTab = 'carousel'" href="#"></x-dash-card>
+                    <x-dash-card name="Blogs" :active="activeTab === 'blogs'" @click.prevent="activeTab = 'blogs'" href="#"></x-dash-card>
+                    <x-dash-card name="Services" :active="activeTab === 'services'" @click.prevent="activeTab = 'services'" href="#"></x-dash-card>
+                    <x-dash-card name="Invoices" :active="activeTab === 'invoices'" @click.prevent="activeTab = 'invoices'" href="#"></x-dash-card>
+                    <x-dash-card name="Quotations" :active="activeTab === 'quotations'" @click.prevent="activeTab = 'quotations'" href="#"></x-dash-card>
+                </nav>
             </div>
         </div>
-
-        <!-- Invoices and Quotations -->
-        <div class="grid grid-cols-1 md:grid-cols-1 gap-4 my-4">
-            <div class="bg-white overflow-hidden shadow rounded-lg">
-                <div class="px-4 pt-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">Action Page</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-5 justify-items-center mx-auto py-4 gap-4">
-                        <x-dash-card name="Clients" href="dashboard/clients"></x-dash-card>
-                        <x-dash-card name="Staff" href="dashboard/staff"></x-dash-card>
-                        <x-dash-card name="Gallery" href="dashboard/gallery"></x-dash-card>
-                        <x-dash-card name="Career Mapping" href="dashboard/careermapping"></x-dash-card>
-                        <x-dash-card name="Carousel" href="/dashboard/carousel"></x-dash-card>
-                        <x-dash-card name="Blogs" href="dashboard/blogs/"></x-dash-card>
-                        <x-dash-card name="Services" href="dashboard/services/"></x-dash-card>
-                        <x-dash-card name="Invoices" href="dashboard/invoices/"></x-dash-card>
-                        <x-dash-card name="Quotations" href="dashboard/quotations/"></x-dash-card>
-                    </div>
-                </div>
+        <!-- Content -->
+        <div class="flex-1 p-4">
+            <div x-show="activeTab === 'clients'">
+                <h3 class="text-lg font-semibold">Clients Panel</h3>
+                <!-- Content for Clients -->
+            </div>
+            <div x-show="activeTab === 'staff'">
+                <h3 class="text-lg font-semibold">Staff Panel</h3>
+                <!-- Content for Staff -->
+            </div>
+            <div x-show="activeTab === 'gallery'">
+                <h3 class="text-lg font-semibold">gallery Panel</h3>
+                <!-- Content for gallery -->
+            </div>
+            <div x-show="activeTab === 'careerMapping'">
+                <h3 class="text-lg font-semibold">careerMapping Panel</h3>
+                <!-- Content for careerMapping -->
+            </div>
+            <div x-show="activeTab === 'carousel'">
+                <h3 class="text-lg font-semibold">carousel Panel</h3>
+                <!-- Content for carousel -->
+            </div>
+            <div x-show="activeTab === 'blogs'">
+                <h3 class="text-lg font-semibold">blogs Panel</h3>
+                <!-- Content for blogs -->
+            </div>
+            <div x-show="activeTab === 'services'">
+                <h3 class="text-lg font-semibold">services Panel</h3>
+                <!-- Content for services -->
+            </div>
+            <div x-show="activeTab === 'invoices'">
+                <h3 class="text-lg font-semibold">invoices Panel</h3>
+                <!-- Content for invoices -->
+            </div>
+            <div x-show="activeTab === 'quotations'">
+                <h3 class="text-lg font-semibold">quotations Panel</h3>
+                <!-- Content for quotations -->
             </div>
         </div>
     </div>
+
 </x-app-layout>
