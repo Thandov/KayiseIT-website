@@ -63,6 +63,7 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         //dd($request->file(), $request->input());
         $tt = $request->input('newCategory');
         //gallery_groups
