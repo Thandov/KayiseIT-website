@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div x-data="{ activeTab: 'clients' }" class="flex h-screen bg-gray-200">
+    <div x-data="{ activeTab: 'staff' }" class="flex h-screen bg-gray-200">
         <!-- Sidebar -->
         <div class="w-64 h-full px-4 py-8 bg-white border-r overflow-x-hidden overflow-y-scroll">
             <h2 class="text-3xl font-semibold text-center">Dashboard</h2>
@@ -19,6 +19,8 @@
                 </nav>
             </div>
         </div>
+
+        {{session('id') ?? ''}}
         <!-- Content -->
         <div class="flex-1 p-4 overflow-x-hidden overflow-y-scroll">
             <div class="h-100" x-show="activeTab === 'dashboard'">

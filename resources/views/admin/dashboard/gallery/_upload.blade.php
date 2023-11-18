@@ -3,7 +3,7 @@
     <fieldset class="border p-4 rounded-lg">
         <legend class="text-lg font-semibold">Category</legend>
         <div class="mt-4">
-            <label for "category" class="block text-sm font-medium text-gray-700">Select a category</label>
+            <label for="category" class="block text-sm font-medium text-gray-700">Select a category</label>
             <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                 <option value="" disabled selected>Select a category</option>
                 <option value="option1">Option 1</option>

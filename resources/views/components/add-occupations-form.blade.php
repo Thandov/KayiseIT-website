@@ -3,7 +3,7 @@
     @csrf
     <!-- image drag and drop -->
     <div class="mb-4 relative">
-        <label for="image" class="block text-sm font-medium text-gray-700">Image:</label>
+        <label for="logo" class="block text-sm font-medium text-gray-700">Image:</label>
         <div class="image-upload-box border-dashed border-gray-300 bg-white rounded-md shadow-sm overflow-hidden">
             <input name="image" class="image-upload-input absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-10" type="file" id="logo" accept="image/*" onchange="previewImage(event, 'preview')"> <!-- edit later -->
             <div class="placeholder-text absolute inset-0 flex flex-col items-center justify-center text-gray-400">
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <label for="name" class="block text-sm font-medium text-gray-700">Occupation Name:</label>
+    <label for="occupation_name" class="block text-sm font-medium text-gray-700">Occupation Name:</label>
     <input type="text" name="occupation_name" id="occupation_name" class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
     <br><br>
 

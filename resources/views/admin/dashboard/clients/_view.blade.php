@@ -49,32 +49,31 @@
 </div>
 
 <script>
-    $(function($) {
-        $('#checkbox-all').click(function() {
-            // Check or uncheck all checkboxes based on the state of the checkbox-all.
-            $('.checkbox').prop('checked', this.checked);
+    document.addEventListener('DOMContentLoaded', function() {
+        $(function($) {
+            $('#checkbox-all').click(function() {
+                // Check or uncheck all checkboxes based on the state of the checkbox-all.
+                $('.checkbox').prop('checked', this.checked);
+            });
         });
-    });
 
-    function deleteSelected() {
-        const selectedIds = document.querySelectorAll('input[name="selected_ids[]"]:checked');
-        const selectedIdsArray = Array.from(selectedIds).map(input => input.value);
-        document.getElementById('selected-ids-input').value = JSON.stringify(selectedIdsArray);
-        document.getElementById('delete-selected-form').submit();
-    }
-
-    function deleteRow(clientId) {
-        if (confirm('Are you sure you want to delete this service?')) {
-            // Create a form element and submit it to delete the individual row
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = "{{ route('admin.dashboard.clients.delete', ':id') }}".replace(':id', clientId);
-            form.innerHTML = `
-            @csrf
-            @method('DELETE')
-        `;
-            document.body.appendChild(form);
-            form.submit();
+        function deleteSelected() {
+            const selectedIds = document.querySelectorAll('input[name="selected_ids[]"]:checked');
+            const selectedIdsArray = Array.from(selectedIds).map(input => input.value);
+            document.getElementById('selected-ids-input').value = JSON.stringify(selectedIdsArray);
+            document.getElementById('delete-selected-form').submit();
         }
-    }
+
+        function deleteRow(clientId) {
+            if (confirm('Are you sure you want to delete this service?')) {
+                // Create a form element and submit it to delete the individual row
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = "{{ route('admin.dashboard.clients.delete', ':id') }}".replace(':id', clientId);
+                form.innerHTML = `@csrf @method('DELETE')`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    });
 </script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,43 +14,19 @@
     <link rel="icon" type="image/png" sizes="684x365" href="../images/kayise_IT_logo_No_Background.png">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite('node_modules/bootstrap/dist/css/bootstrap.min.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" />
     <link rel="stylesheet" href="{{ asset('/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @vite('node_modules/owl.carousel/dist/owl.carousel.min.js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
 </head>
 
-<body class="font-sans antialiased">
+<body class="antialiased">
     <div class="min-h-screen bg-white-100">
-
-        @if (session('error'))
-        <script>
-            // Display SweetAlert for error message
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: "{{ session('error') }}",
-            });
-        </script>
-        @endif
-
-        @if (session('success'))
-        <script>
-            // Display SweetAlert for success message
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: "{{ session('success') }}",
-            });
-        </script>
-        @endif
-
         @php
         $services = App\Models\Service::all(); // Replace "YourModel" with the actual model you want to retrieve data from.
         @endphp

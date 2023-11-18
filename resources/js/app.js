@@ -1,5 +1,5 @@
 import $ from 'jquery';
-window.jQuery = window.$ = $;
+window.$ = window.jQuery = $;
 
 import './bootstrap';
 import 'sweetalert2/dist/sweetalert2.css';
@@ -51,6 +51,7 @@ function deleteRow(service_id) {
         form.submit();
     }
 }
+
 $(function ($) {
     "use strict";
 

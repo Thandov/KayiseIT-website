@@ -70,12 +70,14 @@ class ClientController extends Controller
             // Set values for additional fields
 
             $client->save();
-            $clientId = $client->user_id;
+            $clientId = $client->id;
             if ($request->ajax()) {
                 return response()->json(['message' => 'Client created successfully.']);
             }
-
-            return redirect()->route('dashboard.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
+            return redirect()->back()
+                ->with('success', 'Client updated successfully.')
+                ->with('id', $clientId);
+            //return redirect()->route('dashboard.clients.viewclient', ['id' => $clientId])->with('success', 'Client created successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
