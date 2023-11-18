@@ -173,4 +173,28 @@ body {
   -o-object-position: center;
      object-position: center;
   /* Center the image within the container */
+}
+
+.custom-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+
+#boxA {
+  background-color: lightblue;
+  transform: translateX(0);
+}
+
+#boxB {
+  background-color: lightcoral;
+  transform: translateX(100%);
 }/*# sourceMappingURL=app.css.map */

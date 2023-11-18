@@ -12,6 +12,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+
 function callback(event) {
     removeSliderClass(event);
 }
@@ -140,5 +141,28 @@ $(function ($) {
             }
         });
     }
+    document.getElementById("add-client-btn").addEventListener("click", function (event) {
+        event.preventDefault();
+        slideBoxes('right');
+    });
+
+    document.getElementById("return-btn").addEventListener("click", function (event) {
+        event.preventDefault();
+        slideBoxes('left');
+    });
+
+    function slideBoxes(direction) {
+        var boxA = document.getElementById("boxA");
+        var boxB = document.getElementById("boxB");
+
+        if (direction === 'right') {
+            boxA.style.transform = "translateX(-100%)";
+            boxB.style.transform = "translateX(0)";
+        } else {
+            boxA.style.transform = "translateX(0)";
+            boxB.style.transform = "translateX(100%)";
+        }
+    }
+
 });
 

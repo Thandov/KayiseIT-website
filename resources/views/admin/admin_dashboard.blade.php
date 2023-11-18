@@ -1,7 +1,7 @@
 <x-app-layout>
-    <div x-data="{ activeTab: 'carousel' }" class="flex h-screen bg-gray-200">
+    <div x-data="{ activeTab: 'clients' }" class="flex h-screen bg-gray-200">
         <!-- Sidebar -->
-        <div class="w-64 h-full px-4 py-8 bg-white border-r">
+        <div class="w-64 h-full px-4 py-8 bg-white border-r overflow-x-hidden overflow-y-scroll">
             <h2 class="text-3xl font-semibold text-center">Dashboard</h2>
             <div class="mt-6">
                 <!-- Side navbar -->
@@ -10,7 +10,7 @@
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'clients'" @click.prevent="activeTab = 'clients'" href="#">Clients</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'staff'" @click.prevent="activeTab = 'staff'" href="#">Staff</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'gallery'" @click.prevent="activeTab = 'gallery'" href="#">Gallery</a>
-                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'careermapping'" @click.prevent="activeTab = 'careerMapping'" href="#">Career Mapping</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'careermapping'" @click.prevent="activeTab = 'careermapping'" href="#">Career Mapping</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'carousel'" @click.prevent="activeTab = 'carousel'" href="#">Carousel</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'blogs'" @click.prevent="activeTab = 'blogs'" href="#">Blogs</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'services'" @click.prevent="activeTab = 'services'" href="#">Services</a>
@@ -20,8 +20,8 @@
             </div>
         </div>
         <!-- Content -->
-        <div class="flex-1 p-4">
-            <div x-show="activeTab === 'dashboard'">
+        <div class="flex-1 p-4 overflow-x-hidden overflow-y-scroll">
+            <div class="h-100" x-show="activeTab === 'dashboard'">
                 <h3 class="text-lg font-semibold">Dashboard Panel</h3>
                 <div class="grid grid-cols-3 gap-4">
                     <div class="col-span-2">
@@ -34,33 +34,33 @@
                 </div>
                 <!-- Content for Dashboard -->
             </div>
-            <div x-show="activeTab === 'clients'">
+            <div class="h-100" x-show="activeTab === 'clients'">
                 <!-- Content for Clients -->
                 @include('admin.clients')
             </div>
-            <div x-show="activeTab === 'staff'">
+            <div class="h-100" x-show="activeTab === 'staff'">
                 @include('admin.staff')
             </div>
-            <div x-show="activeTab === 'gallery'">
+            <div class="h-100" x-show="activeTab === 'gallery'">
                 <!-- Content for Gallery -->
                 @include('admin.dashboard.gallery')
             </div>
-            <div x-show="activeTab === 'careermapping'">
+            <div class="h-100" x-show="activeTab === 'careermapping'">
                 @include('admin.dashboard.careermapping_dashboard')
             </div>
-            <div x-show="activeTab === 'carousel'">
+            <div class="h-100" x-show="activeTab === 'carousel'">
                 @include('admin.dashboard.carousel.carousel')
             </div>
-            <div x-show="activeTab === 'blogs'">
+            <div class="h-100" x-show="activeTab === 'blogs'">
                 @include('admin.blogs')
             </div>
-            <div x-show="activeTab === 'services'">
+            <div class="h-100" x-show="activeTab === 'services'">
                 @include('admin.services')
             </div>
-            <div x-show="activeTab === 'invoices'">
+            <div class="h-100" x-show="activeTab === 'invoices'">
                 @include('admin.invoices')
             </div>
-            <div x-show="activeTab === 'quotations'">
+            <div class="h-100" x-show="activeTab === 'quotations'">
                 @include('admin.quotations')
             </div>
             <!-- Add other content panels here -->
