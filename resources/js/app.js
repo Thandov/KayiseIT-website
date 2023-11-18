@@ -95,6 +95,7 @@ $(function ($) {
         jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
             'animate__animated animate__fadeInLeft');
     });
+});
     // Initial state: Show the first slide and add 'show' class to the first subserv_card
     $(".slide:first").addClass("show");
     $(".subserv_card:first").addClass("show");
@@ -142,28 +143,56 @@ $(function ($) {
             }
         });
     }
-    document.getElementById("add-client-btn").addEventListener("click", function (event) {
+
+document.addEventListener("click", function (event) {
+    if (event.target.classList.contains('add-client-btn')) {
         event.preventDefault();
         slideBoxes('right');
-    });
-
-    document.getElementById("return-btn").addEventListener("click", function (event) {
+    } else if (event.target.classList.contains('return-btn')) {
         event.preventDefault();
         slideBoxes('left');
-    });
+    }
+});
 
-    function slideBoxes(direction) {
-        var boxA = document.getElementById("boxA");
-        var boxB = document.getElementById("boxB");
-
-        if (direction === 'right') {
-            boxA.style.transform = "translateX(-100%)";
-            boxB.style.transform = "translateX(0)";
-        } else {
-            boxA.style.transform = "translateX(0)";
-            boxB.style.transform = "translateX(100%)";
-        }
+document.addEventListener("click", function (event) {
+    let target = event.target;
+    while (target != document && !target.classList.contains('add-client-btn') && !target.classList.contains('return-btn')) {
+        target = target.parentNode;
     }
 
+    if (target.classList.contains('add-client-btn')) {
+        event.preventDefault();
+        slideBoxes('right');
+    } else if (target.classList.contains('return-btn')) {
+        event.preventDefault();
+        slideBoxes('left');
+    }
 });
+
+function slideBoxes(direction) {
+    var boxes = document.querySelectorAll(".custom-container .box");
+    var currentIndex = 0; // Index of the current visible box
+
+    // Find the current visible box
+    boxes.forEach(function (box, index) {
+        var computedStyle = window.getComputedStyle(box);
+        if (computedStyle.transform === 'none' || computedStyle.transform.includes('matrix(1, 0, 0, 1, 0, 0)')) {
+            currentIndex = index;
+        }
+    });
+
+    // Calculate the next index based on direction
+    var nextIndex = direction === 'right' ? currentIndex + 1 : currentIndex - 1;
+
+    // Boundary checks
+    if (nextIndex >= boxes.length) nextIndex = 0;
+    if (nextIndex < 0) nextIndex = boxes.length - 1;
+
+    // Slide out the current box and slide in the next box
+    boxes[currentIndex].style.transform = direction === 'right' ? "translateX(-100%)" : "translateX(100%)";
+    boxes[nextIndex].style.transform = "translateX(0)";
+}
+
+
+
 

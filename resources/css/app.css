@@ -181,20 +181,15 @@ body {
   height: 100%;
   overflow: hidden;
 }
-
-.box {
+.custom-container .box {
   position: absolute;
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease;
 }
-
-#boxA {
-  background-color: lightblue;
+.custom-container .box.boxA {
   transform: translateX(0);
 }
-
-#boxB {
-  background-color: lightcoral;
+.custom-container .box.boxB {
   transform: translateX(100%);
 }/*# sourceMappingURL=app.css.map */

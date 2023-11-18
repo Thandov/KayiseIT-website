@@ -1,5 +1,5 @@
     <div class="custom-container">
-        <div id="boxA" class="box">
+        <div class="box boxA">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg thando">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex items-center mb-4">
@@ -19,15 +19,15 @@
                             </dl>
                         </div>
                         <div class="ml-auto">
-                            <a href="#" id="add-client-btn" class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Client</a>
+                            <a href="#"  class="add-client-btn inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Client</a>
                         </div>
                     </div>
                     @include('admin.dashboard.clients._view')
                 </div>
             </div>
         </div>
-        <div id="boxB" class="box">
-            <a href="#" id="return-btn" class="btn btn-secondary">Return to Box A</a>
+        <div class="box boxB">
+            <a href="#"  class="return-btn btn btn-secondary">Return to Box A</a>
             @include('admin/dashboard/clients/newclient')
         </div>
     </div>
