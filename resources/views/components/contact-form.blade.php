@@ -24,12 +24,6 @@
             </div>
         </div>
         <div class="mt-8">
-            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
-            <div class="relative rounded-md shadow-sm">
-                <input type="text" id="subject" name="subject" class="form-input block w-full sm:text-sm sm:leading-5 transition duration-150 ease-in-out sm:rounded-md" placeholder="Subject" required>
-            </div>
-        </div>
-        <div class="mt-8">
             <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
             <div class="relative rounded-md shadow-sm">
                 <textarea id="message" name="message" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 sm:rounded-md" rows="5" style="height: 150px" placeholder="Your Message" required></textarea>

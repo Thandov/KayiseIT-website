@@ -43,9 +43,12 @@
             </div>
         </div>
     </section>
-    <!--Projects-->
-    <!-- @include('_projects') -->
-    <!--Testimonials-->
+    <section class="bg-slate-100 py-5" id="">
+        <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
+            <x-titlestyle smheading="Our Memories" bgheading="Gallery" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
+            @include('admin.dashboard.gallery._gallery')
+        </div>
+    </section>
     <section id="testimonials">
         @include('_testimonials')
     </section>
