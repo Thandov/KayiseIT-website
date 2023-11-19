@@ -21,13 +21,18 @@
                      <x-front-end-btn linking="{{ route('admin.dashboard.carousel.newcarousel') }}" color="blue" showme="add-service-btn" name="Add Carousel" />
                  </div>
              </div>
-             <div class="md:grid md:grid-cols-2 gap-4">
-                 <div class="carousel-container">
+             <div class="">
+                 <div class="carousel-container md:grid md:grid-cols-4 gap-4">
                      @include('admin.dashboard.carousel._partial', ['carousels' => $carousels])
                  </div>
                  <!-- Pagination links in your main view -->
-                 <div class="pagination-links">
-                     {{ $carousels->links() }}
+                 <div class="pagination-carousel">
+                     {{ $carousels->appends([
+    'carouselPage' => request()->input('carouselPage'), 
+    'servicePage' => request()->input('servicePage'), 
+    'quotationPage' => request()->input('quotationPage'), 
+    'invoicePage' => request()->input('invoicePage')
+])->links() }}
                  </div>
              </div>
          </div>

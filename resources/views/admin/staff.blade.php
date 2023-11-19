@@ -23,6 +23,18 @@
                     </div>
                 </div>
             </div>
+            <div class="carousel-container md:grid md:grid-cols-4 gap-4">
+                @include('admin.staff._partial', ['employees' => $employees])
+            </div>
+            <!-- Pagination links in your main view -->
+            <div class="pagination-employees pagination-links">
+                {{ $employees->appends([
+                    'employeePage' => request()->input('employeePage'),
+                    'quotationPage' => request()->input('quotationPage'),
+                    'servicePage' => request()->input('servicePage'),
+                    'carouselPage' => request()->input('carouselPage'),
+                    'invoicePage' => request()->input('invoicePage')])->links() }}
+            </div>
         </div>
     </div>
     <div class="box boxB">

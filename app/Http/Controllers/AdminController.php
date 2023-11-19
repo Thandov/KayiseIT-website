@@ -41,26 +41,28 @@ class AdminController extends Controller
         ->join('users', 'users.id', '=', 'clients.user_id')
         ->select('clients.name AS first_name', 'users.email', 'clients.*')
         ->get();
-        $services = Service::paginate(5); // Paginate with 10 items per page
-        $quotations = Quotation::all();
-        $invoices = Invoice::all();
-        $users = User::all();
+        $services = Service::paginate(5)->setPageName('servicePage');
+        $quotations = Quotation::paginate(5)->setPageName('quotationPage');
+        $invoices = Invoice::paginate(5)->setPageName('invoicePage');
+        $users = User::paginate(5);
         $urlSegments = explode('/', request()->path());
         $newClients = getNewClients();
 
+        /* Employees */
+        $employees = Employee::paginate(5)->setPageName('carouselPage');
         /* Blogs */
-        $blogs = Blog::all();
+        $blogs = Blog::paginate(5);
         /* Carousel */
-        //$carousels = Carousel::all();
-        $carousels = Carousel::paginate(4);
+        //$carousels = Carousel::paginate(5);
+        $carousels = Carousel::paginate(2)->setPageName('carouselPage');
 
         // Check if the request is AJAX
-        if (request()->ajax()) {
+/*         if (request()->ajax()) {
             return response()->json([
                 'html' => view('admin.dashboard.carousel._partial', compact('carousels'))->render(),
                 'pagination' => (string) $carousels->links()
             ]);
-        }
+        } */
         
         /* Occupations */
         $occupations = Occupations::all();
@@ -89,7 +91,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.admin_dashboard', compact('users', 'blogs', 'carousels', 'occupations', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
+        return view('admin.admin_dashboard', compact('users','employees', 'blogs', 'carousels', 'occupations', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
     }
 
     public function remove($id)

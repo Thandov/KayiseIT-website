@@ -56,5 +56,13 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="pagination-quotations">
+
+            {{ $quotations->appends([
+                'quotationPage' => request()->input('quotationPage'),
+                'servicePage' => request()->input('servicePage'),
+                'carouselPage' => request()->input('carouselPage'),
+                'invoicePage' => request()->input('invoicePage')
+                ])->links() }}
+        </div>
     </div>
-</div>
