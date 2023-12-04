@@ -76,6 +76,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        if ($request->role_id == 1) {
+            return view('drone_application/drone_reg');
+        }
+        else{
+            return redirect(RouteServiceProvider::HOME);
+        }
+        
     }
 }

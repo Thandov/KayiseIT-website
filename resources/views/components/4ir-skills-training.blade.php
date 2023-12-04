@@ -22,4 +22,5 @@
             <img src="/images/icons/IOT.jpeg" alt="Image 4" class="w-full h-full object-cover">
         </div>
     </div> -->
+    <a href="{{ url('drone_application/drone_reg') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Register</a>
 </div>

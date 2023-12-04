@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SubServicesController;
@@ -66,14 +67,19 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
-
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
 //terms and conditions
-
 Route::get('terms', function () {
     return view('terms');
 })->name('terms');
+
+//Drone registration
+Route::get('drone_application/drone_reg', function () {
+    return view('drone_application/drone_reg');
+});
+
+Route::post('drone_application/drone_reg', [ApplicationsController::class, 'drone_registration'])->name('drone_application');
 
 
 Route::group(['middleware' => ['auth']], function () {
