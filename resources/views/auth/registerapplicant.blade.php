@@ -1,7 +1,10 @@
 <x-guest-layout>
-    <h1 class="font-bold text-center ">Create account</h1>
+    <h1 class="font-bold text-center ">Online Application</h1>
+    <p class="font-bold text-center ">Lets Get Started</p>
     <form method="POST" action="{{ route('registerapplicant') }}" id="registerForm">
         @csrf
+        <input type="hidden" name="role_id" value="client">
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -26,18 +29,10 @@
             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-        <!-- User Type -->
-        <div class="mt-4">
-            <x-input-label for="role_id" :value="__('Account Type')" />
-            <select id="role_id" name="role_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full">
-                <option value="client">Client</option>
-                <option value="business">Business</option>
-            </select>
-        </div>
         <div><input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response"></div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('loginapplicant') }}">
+            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-4" href="{{ route('loginapplicant') }}">
                 {{ __('Already registered?') }}
             </a>
 
@@ -50,9 +45,9 @@
         function onClick(e) {
             e.preventDefault();
             grecaptcha.ready(function() {
-                grecaptcha.execute('{{ config('services.recaptcha.site_key ') }}', {
-                        action: 'register'
-                    }).then(function(token) {
+                grecaptcha.execute('{{ config("services.recaptcha.site_key") }}', {
+                    action: 'registerapplicant'
+                }).then(function(token) {
                     document.getElementById("g-recaptcha-response").value = token;
                     document.getElementById("registerForm").submit();
 
@@ -60,9 +55,4 @@
             });
         }
     </script>
-    <!-- <script>
-        function onSubmit(token) {
-            document.getElementById("registerForm").submit();
-        }
-    </script> -->
 </x-guest-layout>

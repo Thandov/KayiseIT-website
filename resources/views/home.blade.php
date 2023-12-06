@@ -23,7 +23,7 @@
         <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
             @include('services._services', ['services' => $services->take(4)])
             <div class="flex justify-center">
-            <x-front-end-btn linking="services" color="blue" showme="zzzzzz" name="View All" />
+                <x-front-end-btn linking="services" color="blue" showme="zzzzzz" name="View All" />
             </div>
         </div>
     </section>
@@ -47,14 +47,14 @@
         </div>
     </section>
 
-    
+
     <section id="testimonials">
         @include('_testimonials')
     </section>
 
     <section id="our-clients">
-    <x-partners></x-partners>
-  </section>
+        <x-partners></x-partners>
+    </section>
 
     <!-- Contact-Info -->
     <section id="contact-info">
@@ -62,5 +62,48 @@
     </section>
 </x-app-layout>
 <script>
+    $(function($) {
+        "use strict";
 
+        jQuery('#headercara').owlCarousel({
+            animateOut: 'animate__animated animate__fadeOut',
+            animateIn: 'animate__animated animate__fadeIn',
+            loop: true,
+            responsiveClass: true,
+            dots: true,
+            nav: true,
+            navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+            ],
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                }
+            },
+            autoplay: true,
+            autoplayTimeout: 6000,
+            autoplayHoverPause: true,
+        });
+
+        var owl = jQuery('#headercara');
+
+        owl.on('changed.owl.carousel', function(event) {
+            var item = event.item.index - 2; // Position of the current item
+            console.log(item);
+            jQuery('p').removeClass('animate__animated animate__fadeInDown');
+            jQuery('h1').removeClass('animate__animated animate__fadeInUp');
+            jQuery('img').removeClass('animate__animated animate__fadeInDown');
+            jQuery('.hero__btn').removeClass('animate__animated animate__fadeInLeft');
+
+            jQuery('.owl-item').not('.cloned').eq(item).find('p').addClass(
+                'animate__animated animate__fadeInDown');
+            jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass(
+                'animate__animated animate__fadeInUp');
+            jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass(
+                'animate__animated animate__fadeInUp');
+            jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
+                'animate__animated animate__fadeInLeft');
+        });
+    });
 </script>
