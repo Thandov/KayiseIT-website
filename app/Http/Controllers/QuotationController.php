@@ -168,14 +168,14 @@ class QuotationController extends Controller
                 $total = $total + $item->sub_total;
             }
             $vat = round($total * 15 / 100);
-            $total_vat = $total + ($total * (15 / 100));
-            $rounded_total_vat = round($total_vat / 100) * 100;
+            $total_vat = $total + $vat;
+            //$rounded_total_vat = round($total_vat / 100) * 100;
 
             //update the quotaion total value
             $quote = Quotation::where('quotation_no', $quotation_no)->first();
             $quote->total_price = $total;
             $quote->vat = $vat;
-            $quote->total_vat = $rounded_total_vat;
+            $quote->total_vat = $total_vat;
             $quote->save();
         }
 
@@ -219,26 +219,43 @@ class QuotationController extends Controller
         return response()->json(['message' => 'Invalid action'], 400);
     }
 
+    public function quotationPDFview($qid)
+    {
+        $client = User::find(Auth::user()->id);
+        $quotation = Quotation::where('quotation_no', $qid)->first();
+
+        $items = Items::where('QI_id', $quotation->quotation_no)->get();
+        
+        $extraoptions = Items::where('QI_id', $quotation->quotation_no)
+            ->join('options', 'items.unq_id', '=', 'options.unq_id')
+            ->select('items.*', 'options.price')
+            ->get();
+
+        $pdf = PDF::loadView('pdf.quotation', compact('client', 'quotation', 'items', 'extraoptions'));
+
+        // Display the PDF in the browser
+        return $pdf->stream('quotation_' . $quotation->quotation_no . '.pdf');
+        // return $pdf->download('quotation_' . $quotation->quotation_no . '.pdf');
+    }
+
     public function quotationPDF($qid)
     {
         $client = User::find(Auth::user()->id);
         $quotation = Quotation::where('quotation_no', $qid)->first();
 
-        $items = Items::where('QI_id', $quotation->quotation_no)
-            ->join('subservices', 'items.unq_id', '=', 'subservices.subserv_id')
-            ->select('items.*', 'subservices.price')
-            ->get();
+
+        $items = Items::where('QI_id', $quotation->quotation_no)->get();
 
         $extraoptions = Items::where('QI_id', $quotation->quotation_no)
             ->join('options', 'items.unq_id', '=', 'options.unq_id')
             ->select('items.*', 'options.price')
             ->get();
-           
+
         $pdf = PDF::loadView('pdf.quotation', compact('client', 'quotation', 'items', 'extraoptions'));
-        
+
         // Display the PDF in the browser
-        return $pdf->stream('quotation_' . $quotation->quotation_no . '.pdf');
-        // return $pdf->download('quotation_' . $quotation->quotation_no . '.pdf');
+        //return $pdf->stream('quotation_' . $quotation->quotation_no . '.pdf');
+        return $pdf->download('quotation_' . $quotation->quotation_no . '.pdf');
     }
 
 

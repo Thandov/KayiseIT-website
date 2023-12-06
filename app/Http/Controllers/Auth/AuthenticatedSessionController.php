@@ -19,6 +19,10 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
+    public function createapplicant()
+    {
+        return view('auth.loginapplicant');
+    }
 
     /**
      * Handle an incoming authentication request.
@@ -33,6 +37,15 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return redirect(request()->input('intended', '/'));
+    }
+    
+    public function storeapplicant(LoginRequest $request)
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return view('drone_application/drone_reg');
     }
 
     /**

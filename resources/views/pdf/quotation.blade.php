@@ -41,21 +41,14 @@
             height: 100% !important;
         }
 
-        .header {
-            background-color: pink;
-            height: 15%;
-        }
-
         .footer {
-            background-color: purple;
-            height: 7.2% !important;
+            bottom: 0;
+            left: 0;
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+            margin-top: 30px;
         }
-
-        .content {
-            background-color: yellow !important;
-            height: 75% !important;
-        }
-
 
         .container {
             max-width: 1000px;
@@ -104,11 +97,26 @@
         .page-break {
             page-break-before: always;
         }
+
+        .header {
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .bank {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
-<body onload="addPageBreakBeforeFooter()" style="background: red">
+<body>
     <div class="container content">
+        <div class="header">
+            <div class="logo" style="float: center; width: 100px;">
+                <!-- <img src="{{ asset('images/logo.png') }}"> -->
+            </div>
+        </div>
         <table style="border: none;">
             <tr style="border: none;">
                 <td valign="top" style="border: none; width: 50%">
@@ -121,9 +129,9 @@
                 <td valign="top" style="border: none; width: 50%">
                     <div>
                         <p><span style="font-weight: 700">Name:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">Company Name:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">City:</span> {{ $client->name }}</p>
-                        <p><span style="font-weight: 700">Phone:</span> {{ $client->name }}</p>
+                        <p><span style="font-weight: 700">Email:</span> {{ $client->email }}</p>
+                        <!-- <p><span style="font-weight: 700">City:</span> {{ $client->name }}</p>
+                        <p><span style="font-weight: 700">Phone:</span> {{ $client->name }}</p> -->
                     </div>
                 </td>
                 <td valign="top" style="border: none; width: 50%; text-align: right;">
@@ -135,10 +143,10 @@
                 </td>
             </tr>
         </table>
-        <table>
+        <table style="padding-top: 20px;">
             <thead>
                 <tr>
-                    <th>Item</th> <!-- Changed "Description" to "Item" -->
+                    <th>Item</th>
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
@@ -189,9 +197,24 @@
                 </tr>
             </tfoot>
         </table>
+
+        <div class="bank">
+            <h2>Banking Details</h2>
+            <p><span style="font-weight: 700">Bank Name :</span>First National Bank (FNB)</p>
+            <p><span style="font-weight: 700">Acc Number :</span>62764618959</p>
+            <p><span style="font-weight: 700">Acc Holder :</span>KAYISE IT (PTY)LTD</p>
+            <p><span style="font-weight: 700">Branch :</span>250655</p>
+            <p><span style="font-weight: 700">Reference :</span>Name & Surname/Company Name</p>
+        </div>
+
+        <div class="footer">
+            <p>Thank you for your Business!</p>
+            <p>KAYISE IT 39B Brown street, Mbombela, 1201, Phone: +27877022625</p>
+            <p>Generated Using KIT Accounting Solution.</p>
+        </div>
     </div>
 </body>
-<!-- JavaScript to dynamically add page breaks when sections exceed a certain height -->
+<!-- JavaScript to dynamically add page breaks when sections exceed a certain height
 <script>
     window.addEventListener('beforeprint', function() {
         addPageBreaksForSections();
@@ -227,6 +250,6 @@
             section.appendChild(pTag);
         });
     }
-</script>
+</script> -->
 
 </html>
