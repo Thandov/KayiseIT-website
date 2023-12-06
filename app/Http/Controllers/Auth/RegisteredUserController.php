@@ -28,6 +28,14 @@ class RegisteredUserController extends Controller
 
         return view('auth.register')->withCookie($cookie);
     }
+    public function createapplicant()
+    {
+        // Create a cookie with the SameSite attribute
+        $cookie = Cookie::make('my_cookie', 'cookie_value', 60)
+            ->withSameSite('None'); // Specify SameSite attribute here
+
+        return view('auth.registerapplicant')->withCookie($cookie);
+    }
 
     /**
      * Handle an incoming registration request.
@@ -76,12 +84,48 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        if ($request->role_id == 1) {
-            return view('drone_application/drone_reg');
-        }
-        else{
-            return redirect(RouteServiceProvider::HOME);
-        }
-        
+        return redirect(RouteServiceProvider::HOME);
+    }
+
+    public function storeapplicant(Request $request)
+    {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', 'min:8'],
+            'g-recaptcha-response' => [
+                'required',
+                function (string $attribute, mixed $value, $fail) {
+                    $g_response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+                        'secret' => config('services.recaptcha.secret_key'),
+                        'response' => $value,
+                        'remoteip' => \request()->ip()
+                    ]);
+                    if (!$g_response->json('success')) {
+                        $fail("The {$attribute} is invalid.");
+                    }
+                },
+            ],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'email_verified_at' => null, // Set email_verified_at to null initially
+        ]);
+        $user->attachRole($request->role_id);
+
+        //event(new Registered($user));
+
+        // Send verification email
+        //$user->sendEmailVerificationNotification();
+
+        Auth::login($user);
+
+        return view('drone_application/drone_reg');
     }
 }

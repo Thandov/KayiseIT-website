@@ -668,6 +668,14 @@ div.sticky {
   font-weight: bold;
 }
 
+.registration-section {
+  display: none;
+}
+
+.current-section {
+  display: block;
+}
+
 @supports (background-blend-mode: multiply) {
   #service-hero {
     background: url("../images/landing-page/Hardware.jpg"), radial-gradient(#aaa, #fff);

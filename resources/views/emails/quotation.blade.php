@@ -89,7 +89,6 @@
 </head>
 
 <body>
-
     <div class="top">
         <h1 style="font-size: 18pt; font-weight: bold;">Thank you for your Quotation Request,
             {{ auth()->user()->name }}.
@@ -97,7 +96,6 @@
         <p>Please find below Your Quotation</p>
         <p>For more services: <a href="https://kayiseit.com/services">visit our website</a></p>
     </div>
-
 
     <div class="header">
         <div class="logo" style="float: left;">
@@ -107,7 +105,6 @@
             <h2>Quotation Number: {{ $quotation->quotation_no }}</h2>
         </div>
     </div>
-
 
     <div class="header">
         <div class="address">
@@ -159,8 +156,6 @@
         </tbody>
     </table>
 
-
-
     <div class="header">
         <div class="deposit">
             <p><span class="span">A 50% deposit is required in order to begin the project. Remaining 50% can be paid up
@@ -168,7 +163,6 @@
                     generated.</span></p>
         </div>
     </div>
-
 
     <div class="header">
         <div class="bank">

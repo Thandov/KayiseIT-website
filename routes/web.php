@@ -81,6 +81,8 @@ Route::get('drone_application/drone_reg', function () {
 
 Route::post('drone_application/drone_reg', [ApplicationsController::class, 'drone_registration'])->name('drone_application');
 
+Route::post('drone_application/banking_details', [ApplicationsController::class, 'banking_details']);
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
