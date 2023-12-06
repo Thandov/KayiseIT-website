@@ -61,13 +61,13 @@ class ApplicationsController extends Controller
                 $item->unq_id = mt_rand(100, 9999);
                 $item->item = 'Drone Workshop 1';
                 $item->qty = '1';
-                $item->sub_total = 550;
+                $item->sub_total = 520;
                 $item->QI_id = $quotation_no;
                 $item->save();
                 $total = $total + $item->sub_total;
             
-            $vat = round($total * 15 / 100);
-            $total_vat = $total + ($total * (15 / 100));
+            $vat = $total * 15 / 100;
+            $total_vat = $total + $vat;
             $rounded_total_vat = round($total_vat / 100) * 100;
 
             //update the quotaion total value
@@ -87,10 +87,10 @@ class ApplicationsController extends Controller
                 'total_vat' => $rounded_total_vat,
             ];
         
-            return view('drone_application/banking_details', compact('quotationData'));
+            return view('drone_application/summary', compact('quotationData'));
         }
 
     public function banking_details(){
-        return view('drone_application/banking_details');
+        return view('drone_application/summary');
     }
 }

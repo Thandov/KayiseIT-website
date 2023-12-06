@@ -763,6 +763,16 @@ div.sticky {
   }
 }
 
+  #drone-hero {
+    background: url("../images/icons/drones.png"), radial-gradient(#aaa, #fff);
+    background-blend-mode: multiply;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    --clr-accent: #faa700;
+  } 
+
 #team_background {
   width: 100%;
   background: url("../images/bg_dark.jpg"), radial-gradient(#444, #111);

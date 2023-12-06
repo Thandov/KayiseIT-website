@@ -75,14 +75,14 @@ Route::get('terms', function () {
 })->name('terms');
 
 //Drone registration
+Route::get('drones', function () {
+    return view('drone_application/drones');
+})->name('drones');
 Route::get('drone_application/drone_reg', function () {
     return view('drone_application/drone_reg');
 });
-
 Route::post('drone_application/drone_reg', [ApplicationsController::class, 'drone_registration'])->name('drone_application');
-
-Route::post('drone_application/banking_details', [ApplicationsController::class, 'banking_details']);
-
+Route::post('drone_application/summary', [ApplicationsController::class, 'summary']);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::GET('profile/viewQuotation/{quote}', [QuotationController::class, 'quotationPDF'])->name('profile.viewQuotation.quote');
+    Route::GET('profile/viewQuotation/{quote}', [QuotationController::class, 'quotationPDFview'])->name('profile.viewQuotation.quote');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

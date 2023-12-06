@@ -17,9 +17,9 @@
     @include('services._services')
   </section>
   <!-- CTA Section -->
-  <div class="grid grid-cols-3 bg-slate-100 mt-8 c2a">
+  <div class="grid md:grid-cols-3 grid-cols-1 bg-slate-100 mt-8 c2a">
     <div class="c2aimgwrap position-relative"><img src="../images/techician.png" alt="Service 1" class="c2acrain"></div>
-    <div class="col-span-2 flex items-center justify-start">
+    <div class="md:col-span-2 col-span-1 px-5 flex items-center justify-start">
       <div class="des">
         <x-titlestyle smheading="Ready to enhance your" bgheading="IT infrastructure" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
         <p class="text-gray-700">Contact us now for expert IT support and solutions.</p>

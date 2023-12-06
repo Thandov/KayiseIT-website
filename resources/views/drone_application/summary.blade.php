@@ -31,7 +31,7 @@
     <div class="flex justify-content-center  bg-slate-100">
         <div class="w-full sm:max-w-md my-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <h1 class="my-4">Thank You For Applying</h1>
-            <p>You application will be finalized as soon as the deposit has been paid. A copy of the quotation and our banking details have also been sent to you via email</p>
+            <p>You application will be finalized as soon as the deposit has been paid.</p>
             <h2>Summary:</h2>
             <p>Quotation Number: {{ $quotationData['quotation_no'] }}</p>
             <table>
@@ -61,6 +61,7 @@
                 </tbody>
             </table>
 
+
             <h2 class="my-4">Banking Details:</h2>
             <p><span class="span">Bank Name :</span>First National Bank (FNB)</p>
             <p><span class="span">Acc Number :</span>62764618959</p>
@@ -68,7 +69,8 @@
             <p><span class="span">Branch :</span>250655</p>
             <p><span class="span">Reference :</span>{{ auth()->user()->name }}</p>
 
-            <a href="{{ url('/profile') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">FINISH</a>
+            <a href="{{ url('/profile') }}" class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">FINISH</a>
+            <a href="/dashboard/download_quotation/{{ $quotationData['quotation_no'] }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-slate-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 my-3">Download</a>
         </div>
     </div>
 

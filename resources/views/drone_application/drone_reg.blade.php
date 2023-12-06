@@ -28,7 +28,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="age" class="block text-sm font-medium text-gray-600">age</label>
-                        <input id="age" name="age" class="mt-1 p-2 w-full border rounded-md">
+                        <input type="number" id="age" name="age" class="mt-1 p-2 w-full border rounded-md">
                     </div>
                     <div class="mb-4" style="display: inline;">
                         <x-input-label for="level" :value="__('Highest Education Level')" />
@@ -67,7 +67,7 @@
                     </div>
                     <div class="mb-4" style="display: inline;">
                         <label for="guardian_number" class="block text-sm font-medium text-gray-600">Phone Number</label>
-                        <input id="guardian_number" name="guardian_number" class="mt-1 p-2 w-full border rounded-md">
+                        <input id="guardian_number" type="number" name="guardian_number" class="mt-1 p-2 w-full border rounded-md">
                     </div>
                     <div class="mb-4" style="display: inline;">
                         <label for="guardian_email" class="block text-sm font-medium text-gray-600">Email</label>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="mb-4" style="display: inline;">
                         <label for="kin_number_2" class="block text-sm font-medium text-gray-600">Phone Number</label>
-                        <input id="kin_number_2" name="kin_number" class="mt-1 p-2 w-full border rounded-md">
+                        <input id="kin_number_2" type="number" name="kin_number" class="mt-1 p-2 w-full border rounded-md">
                     </div>
                     <div class="mt-6">
                         <button type="button" class="bg-green-500 text-white p-2 rounded-md hover:bg-green-600" onclick="prevSection('section2')">Previous</button>

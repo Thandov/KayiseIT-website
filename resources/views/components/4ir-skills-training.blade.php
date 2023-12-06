@@ -22,10 +22,17 @@
             <img src="/images/icons/IOT.jpeg" alt="Image 4" class="w-full h-full object-cover">
         </div>
     </div> -->
-    
-    @if(Auth::check())
-    <a href="{{ url('drone_application/drone_reg') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPLY</a>
-    @else
-    <a href="{{ route('registerapplicant') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPLY</a>
-    @endif
+    <a href="{{ route('drones') }}">
+        <div class="bg-white overflow-hidden border border-blue-400 shadow-md rounded-lg w-80 h-30 p-4">
+            <div class="flex justify-center">
+                <div class="h-24  rounded-md bg-green-500 flex items-center justify-center"><img src="/images/icons/drones.png" alt="Image 3" class="w-full h-full object-cover"></div>
+            </div>
+            <div class="flex justify-center">
+                <div class="">
+                    <h2 class="mt-4 text-xl font-bold smalltxt">Drone Workshop 1</h2>
+                </div>
+            </div>
+        </div>
+    </a>
+
 </div>

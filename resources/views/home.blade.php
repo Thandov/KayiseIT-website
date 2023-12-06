@@ -22,6 +22,9 @@
     <section class="bg-slate-100 py-5" id="featured-services">
         <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
             @include('services._services', ['services' => $services->take(4)])
+            <div class="flex justify-center">
+            <x-front-end-btn linking="services" color="blue" showme="zzzzzz" name="View All" />
+            </div>
         </div>
     </section>
     <!--Services Call-To-Action-->
@@ -43,15 +46,15 @@
             </div>
         </div>
     </section>
-    <section class="bg-slate-100 py-5" >
-        <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
-            <x-titlestyle smheading="Our Memories" bgheading="Gallery" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-            @include('admin.dashboard.gallery._gallery')
-        </div>
-    </section>
+
+    
     <section id="testimonials">
         @include('_testimonials')
     </section>
+
+    <section id="our-clients">
+    <x-partners></x-partners>
+  </section>
 
     <!-- Contact-Info -->
     <section id="contact-info">
