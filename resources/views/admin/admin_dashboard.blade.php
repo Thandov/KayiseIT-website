@@ -14,6 +14,7 @@
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'carousel'" @click.prevent="activeTab = 'carousel'" href="#">Carousel</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'blogs'" @click.prevent="activeTab = 'blogs'" href="#">Blogs</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'services'" @click.prevent="activeTab = 'services'" href="#">Services</a>
+                    <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'services'" @click.prevent="activeTab = 'applications'" href="#">Applications</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'invoices'" @click.prevent="activeTab = 'invoices'" href="#">Invoices</a>
                     <a class="bg-blue-100 py-2 px-3" :active="activeTab === 'quotations'" @click.prevent="activeTab = 'quotations'" href="#">Quotations</a>
                 </nav>
@@ -58,6 +59,9 @@
             </div>
             <div class="h-100" x-show="activeTab === 'services'">
                 @include('admin.services')
+            </div>
+            <div class="h-100" x-show="activeTab === 'applications'">
+                @include('admin.applications')
             </div>
             <div class="h-100" x-show="activeTab === 'invoices'">
                 @include('admin.invoices')

@@ -31,7 +31,6 @@ class SubServicesController extends Controller
     public function storing(Request $request, $serviceSlug)
     {
         $service = Service::where('slug',$serviceSlug)->first();
-        dd($service->id);
         
         $service_id = $service->id;
         $names = $request->name;

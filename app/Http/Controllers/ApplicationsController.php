@@ -12,6 +12,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationNotification;
 
 class ApplicationsController extends Controller
 {
@@ -55,42 +57,46 @@ class ApplicationsController extends Controller
         $quotation->quotation_no = $quotation_no;
         $quotation->save();
 
-        
-                $item = new Items;
-                $item->user_id = auth()->user()->id;
-                $item->unq_id = mt_rand(100, 9999);
-                $item->item = 'Drone Workshop 1';
-                $item->qty = '1';
-                $item->sub_total = 520;
-                $item->QI_id = $quotation_no;
-                $item->save();
-                $total = $total + $item->sub_total;
-            
-            $vat = $total * 15 / 100;
-            $total_vat = $total + $vat;
-            $rounded_total_vat = round($total_vat / 100) * 100;
 
-            //update the quotaion total value
-            $quote = Quotation::where('quotation_no', $quotation_no)->first();
-            $quote->total_price = $total;
-            $quote->job_type = '4IR Training';
-            $quote->vat = $vat;
-            $quote->total_vat = $rounded_total_vat;
-            $quote->save();
-        
+        $item = new Items;
+        $item->user_id = auth()->user()->id;
+        $item->unq_id = mt_rand(100, 9999);
+        $item->item = 'Drone Workshop 1';
+        $item->qty = '1';
+        $item->sub_total = 520;
+        $item->QI_id = $quotation_no;
+        $item->save();
+        $total = $total + $item->sub_total;
 
-            $quotationData = [
-                'quotation_no' => $quotation_no,
-                'course' => $request->course,
-                'total' => $total,
-                'vat' => $vat,
-                'total_vat' => $rounded_total_vat,
-            ];
-        
-            return view('drone_application/summary', compact('quotationData'));
-        }
+        $vat = $total * 15 / 100;
+        $total_vat = $total + $vat;
+        $rounded_total_vat = round($total_vat / 100) * 100;
 
-    public function banking_details(){
+        //update the quotaion total value
+        $quote = Quotation::where('quotation_no', $quotation_no)->first();
+        $quote->total_price = $total;
+        $quote->job_type = '4IR Training';
+        $quote->vat = $vat;
+        $quote->total_vat = $rounded_total_vat;
+        $quote->save();
+
+
+        $quotationData = [
+            'quotation_no' => $quotation_no,
+            'course' => $request->course,
+            'total' => $total,
+            'vat' => $vat,
+            'total_vat' => $rounded_total_vat,
+        ];
+
+        $adminEmail = 'info@kayiseit.com';
+        Mail::to($adminEmail)->send(new ApplicationNotification($request, $quotationData));
+
+        return view('drone_application/summary', compact('quotationData'));
+    }
+
+    public function banking_details()
+    {
         return view('drone_application/summary');
     }
 }

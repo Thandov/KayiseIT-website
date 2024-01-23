@@ -28,14 +28,12 @@ class QuotationController extends Controller
     public function showAllQuotations()
     {
         $quotations = Quotation::all();
-        dd($quotations);
     }
 
     public function showAllUserQuotations()
     {
         $userid = Auth::user()->id;
         $quotations = Quotation::all();
-        dd($quotations);
     }
     public function showQuotation($id)
     {
@@ -150,11 +148,12 @@ class QuotationController extends Controller
             $item->item = $subservice->name;
             $item->unq_id = $optionsubservice_ids;
             $item->qty = 1;
+            $item->price = $subservice->price;
             $item->sub_total = $subservice->price * $item->qty;
             $item->QI_id = $quotation_no;
             $item->save();
             $total = $total + $item->sub_total;
-
+            
             foreach ($selectedOptionsData as $key => $selectedOption) {
                 $subservice = Options::select('*')->where('unq_id', $selectedOption['unq_id'])->first();
                 $item = new Items;
@@ -162,10 +161,12 @@ class QuotationController extends Controller
                 $item->unq_id = $selectedOption['unq_id'];
                 $item->item = $subservice->name;
                 $item->qty = $selectedOption['quantity'];
+                $item->price = $subservice->price;
                 $item->sub_total = $subservice->price * $selectedOption['quantity'];
                 $item->QI_id = $quotation_no;
                 $item->save();
                 $total = $total + $item->sub_total;
+                
             }
             $vat = round($total * 15 / 100);
             $total_vat = $total + $vat;

@@ -1,5 +1,5 @@
 <div id="service-info" class="md:col-span-3 p-4 sm:rounded-lg">
-    <form action="{{ route('dashboard.editservice')}}" method="post">
+    <form action="{{ route('storeservice')}}" method="post">
         @csrf
         <input type="hidden" name="id" value="{{$service->service_id ?? ''}}">
         <!-- Input for Service Name -->
@@ -80,7 +80,7 @@
         </div>
 
         <!-- Save Button -->
-        <x-front-end-btn linking="{{ route('dashboard.editservice')}}" color="submit" showme="" name="Save" />
+        <x-front-end-btn linking="{{ route('storeservice')}}" color="submit" showme="" name="Save" />
     </form>
 </div>
 <script>

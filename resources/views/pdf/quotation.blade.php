@@ -169,24 +169,16 @@
                     </td>
                 </tr>
                 @endforeach
-                @foreach($extraoptions as $extraoption)
-                <tr>
-                    <td>
-                        <p>{{ $extraoption->item }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->price }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->qty }}</p>
-                    </td>
-                    <td>
-                        <p>{{ $extraoption->sub_total }}</p>
-                    </td>
-                </tr>
-                @endforeach
             </tbody>
             <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right"> </td>
+                    <td class="bold"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right">SubTotal</td>
+                    <td class="bold">{{ $quotation->total_price }}</td>
+                </tr>
                 <tr>
                     <td colspan="3" class="text-right">VAT (15%)</td>
                     <td class="bold">{{ $quotation->vat }}</td>

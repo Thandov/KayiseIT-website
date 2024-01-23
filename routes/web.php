@@ -142,6 +142,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
     Route::POST('/dashboard/staff/{staffName}/update/', [AdminController::class, 'update_employee'])->name('dashboard.staff.viewstaff.update');
     Route::get('/dashboard/staff/{staffName}', [AdminController::class, 'view_employee'])->name('dashboard.staff.viewstaff');
+    Route::GET('/dashboard/viewapplications/{id}', [AdminController::class, 'viewapplications'])->name('dashboard.viewapplications');
 
     Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('dashboard.quotations');
     Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('dashboard.invoices');
@@ -192,7 +193,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('viewsubservice/{id}', [SubServicesController::class, 'show'])->name('show');
 
     //Forms
-    Route::post('store-form', [ServicesController::class, 'store']);
+    Route::post('store-form', [ServicesController::class, 'store'])->name('storeservice');
     Route::post('dashboard/services/addoptions/{id}', [OptionsController::class, 'add'])->name('addoptions.add');
     Route::post('/dashboard/dashboard/careermapping_dashboard', [OccupationsController::class, 'store'])->name('careermapping_dashboard.store');
 

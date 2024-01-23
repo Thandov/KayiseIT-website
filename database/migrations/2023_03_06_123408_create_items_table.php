@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('item');
             $table->integer('qty')->nullable();
+            $table->decimal('price')->nullable();
             $table->decimal('sub_total')->nullable();
             $table->timestamps();
         });

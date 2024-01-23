@@ -23,6 +23,7 @@ use App\Models\Specializations;
 use App\Models\CareerSteps;
 use App\Models\Carousel;
 use App\Models\Blog;
+use App\Models\Application;
 
 
 
@@ -66,6 +67,7 @@ class AdminController extends Controller
         
         /* Occupations */
         $occupations = Occupations::all();
+        $applications = Application::all();
         /* Gallery */
         $groups = Gallery::all();
         $galleries = [];
@@ -91,7 +93,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.admin_dashboard', compact('users','employees', 'blogs', 'carousels', 'occupations', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
+        return view('admin.admin_dashboard', compact('users','employees', 'blogs', 'carousels', 'occupations', 'applications', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
     }
 
     public function remove($id)
@@ -158,6 +160,11 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'User has been deleted!');
     }
 
+    public function viewapplications($id)
+    {
+        $applications = DB::table('applications')->find($id);
+        return view('admin/applications/viewapplications', compact('applications'),);
+    }
 
     public function viewquotations($id)
     {

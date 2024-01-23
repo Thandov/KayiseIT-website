@@ -37,7 +37,7 @@ class SpecializationsController extends Controller
 
         $occup_id = $specializations->occup_id;
 
-        return view('/admin/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'arrlength', 'occup_id'));
+        return view('/admin/dashboard/career_mapping/viewspecialization', compact('specializations', 'careerSteps', 'arrlength', 'occup_id'));
     }
 
     public function addspecialization(Request $request, $occup_id)

@@ -108,7 +108,7 @@
                     <div class="mb-4" style="display: inline;">
                         <x-input-label for="course" :value="__('Course Name')" />
                         <select name="course" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full">
-                            <option value="client">Drone Workshop 1</option>
+                            <option value="Drone Workshop 1">Drone Workshop 1</option>
                         </select>
                     </div>
                     <div class="mt-6">

@@ -8,7 +8,7 @@
     <div class="container mx-auto mt-5">
         <div class="max-w-md mx-auto">
             <div class="bg-white rounded-lg overflow-hidden shadow-md">
-                <form action="{{ route('addsubservices.storing', $service->id) }}" method="post" enctype="multipart/form-data" class="px-6 py-4">
+                <form action="{{ route('subservice.store', $service->id) }}" method="post" enctype="multipart/form-data" class="px-6 py-4">
                     @csrf
                     <div class="mb-4">
                         <label for="icon" class="block text-gray-700 font-bold mb-2">Icon:</label>
