@@ -4,7 +4,7 @@
     <!-- Page Body -->
 
     <div id="viewservice">
-        <x-hero-banner hero="about-hero" title="{{ $services['service'] }}"></x-hero-banner>
+        <x-hero-banner hero="service-hero" title="{{ $services['service'] }}"></x-hero-banner>
         <div class="col-span-1 md:col-span-5">
             <!-- Content for left column -->
             @component('components.' . Str::slug($services['service']))

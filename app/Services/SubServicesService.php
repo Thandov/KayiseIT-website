@@ -11,7 +11,7 @@ use App\Helpers\UploadHelper;
 
 class SubServicesService
 {
-    public function storeSubservice($requestData, $serviceId)
+    public function storeSubservice($requestData, $serviceSlug)
     {
         $name = $requestData->name;
         if ($requestData->hasFile('profile_picture') && !empty($requestData->hasFile('profile_picture'))) {
@@ -31,7 +31,7 @@ class SubServicesService
             $profilePicturePath = "null";
         }
         $subService = new Subservice();
-        $subService->service_id = $serviceId;
+        $subService->service_id = $serviceSlug;
         $subService->name = $requestData->name;
         $subService->slug = strtolower(str_replace(" ", "_", $requestData->name));
         $subService->icon = $profilePicturePath;

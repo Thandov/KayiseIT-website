@@ -18,7 +18,7 @@ $option = 1;
         <a href="https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4">
+    <!-- <div class="grid grid-cols-1 md:grid-cols-4">
       <ul>
         <div class="mt-1 text-base">
           <li class="link_name mb-3 mt-1 text-base fw-bold smalltxt">Company</li>
@@ -56,12 +56,8 @@ $option = 1;
           <li><a href="services" id="footertxt-white">ICT Skills training</a></li>
         </div>
       </ul>
-      <!-- <div class="">
-        @if (session('error'))
-        <div class="alert alert-danger">
-          {{ session('error') }}
-        </div>
-        @endif
+       <div class="">
+       
         <form action="{{ route('footer.subscribe') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @if (Auth::check())
@@ -79,26 +75,26 @@ $option = 1;
           </div>
           @endif
         </form>
-      </div> -->
-    </div>
+    </div> -->
   </div>
-  <div class="bg-[#22C55E]">
-    <div class="container px-4 md:px-8 max-w-screen-xl mx-auto">
+  <div class="bottom">
+    <div class="container px-4 md:px-8">
       <div class="row align-items-center justify-content-center py-2">
         <div class="flex justify-content-center">
-          @include('_pop')
+          <!-- @include('_pop') -->
         </div>
       </div>
-      <div class="row justify-content-center py-2">
+      <div class="row justify-content-center py-3">
         <div class="col-6 d-flex align-items-center justify-content-center">
           <span class="text-white text-center">Copyright © <a href="#">KAYISE IT.</a>All rights reserved</span>
         </div>
       </div>
     </div>
+  </div>
 </footer>
 @else
-
-<footer class="bg-white dark:bg-gray-900">
+footer content
+<!-- <footer class="bg-white dark:bg-gray-900">
   <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
     <div class="md:flex md:justify-between">
       <div class="mb-6 md:mb-0">
@@ -181,7 +177,7 @@ $option = 1;
       </div>
     </div>
   </div>
-</footer>
+</footer> -->
 
 @endif
 @endif

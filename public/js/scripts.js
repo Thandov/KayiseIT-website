@@ -75,9 +75,7 @@ $(window).on("load", function () {
             0: {
                 items: 1
             },
-
         }
-
     })
 
 });

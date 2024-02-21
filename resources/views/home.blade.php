@@ -27,6 +27,11 @@
             </div>
         </div>
     </section>
+    <!-- partners -->
+    <section id="our-clients">
+        <x-partners></x-partners>
+    </section>
+
     <!--Services Call-To-Action-->
     <section id="our-services">
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
@@ -47,13 +52,17 @@
         </div>
     </section>
 
-
     <section id="testimonials">
         @include('_testimonials')
     </section>
 
-    <section id="our-clients">
+    <!-- <section id="our-clients">
         <x-partners></x-partners>
+    </section> -->
+
+    <!-- Our Clients -->
+    <section id="our-clients">
+        <x-clients></x-clients>
     </section>
 
     <!-- Contact-Info -->
@@ -61,6 +70,7 @@
         @include('_contactinfo')
     </section>
 </x-app-layout>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(function($) {
         "use strict";
@@ -105,5 +115,21 @@
             jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
                 'animate__animated animate__fadeInLeft');
         });
+
+    });
+    $(document).ready(function() {
+        $('#testimonial-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 6000,
+            smartSpeed: 2000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+            }
+        })
     });
 </script>

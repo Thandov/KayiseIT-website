@@ -69,6 +69,8 @@ Route::get('career-mapping', function () {
 
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
+Route::GET('gallery', [GalleryController::class, 'gallery'])->name('gallery');
+
 //terms and conditions
 Route::get('terms', function () {
     return view('terms');

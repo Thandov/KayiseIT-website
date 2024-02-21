@@ -678,7 +678,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #service-hero {
-    background: url("../images/landing-page/Hardware.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/softwareDeveloper.png"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -753,7 +753,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #about-hero {
-    background: url("../images/Kayise-IT-Logo-Dark-Green-Background.jpg"), radial-gradient(#aaa, #fff);
+    background: url("../images/subservices/christine-davenport.png"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -783,6 +783,14 @@ div.sticky {
 }
 
 #our-services {
+  width: 100%;
+  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#CTA {
   width: 100%;
   background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
   background-attachment: fixed;
@@ -938,7 +946,7 @@ footer::before {
   position: absolute;
   left: 0;
   top: 100px;
-  height: 1.5px;
+  // height: 1.5px;
   width: 100%;
   background: #00c050;
 }
@@ -946,14 +954,18 @@ footer::before {
 footer .footer-content {
   max-width: 1250px;
   margin: auto;
-  padding: 30px 40px 40px 40px;
+  padding: 15px 40px 15px 40px;
 }
 
 footer .footer-content .top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
+}
+
+footer .bottom {
+  background-color: #22C55E;
 }
 
 .footer-content .top .logo-details {

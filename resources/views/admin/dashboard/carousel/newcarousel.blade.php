@@ -31,5 +31,5 @@
             </div>
         </div>
     </div>
-    @include('../admin/carousel/_carousel_form', ['route' => 'admin.dashboard.carousel.create'])
+    @include('../admin/dashboard/carousel/_carousel_form', ['route' => 'admin.dashboard.carousel.create'])
 </x-app-layout>

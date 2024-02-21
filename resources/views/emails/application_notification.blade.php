@@ -2,7 +2,7 @@
     $applicant = $request->all();
 @endphp
 
-<h1>New Application</h1>
+<h1>New Drone Application</h1>
 
 <p><strong>Name:</strong> {{ $applicant['name'] }}</p>
 <p><strong>Surname:</strong> {{ $applicant['surname'] }}</p>

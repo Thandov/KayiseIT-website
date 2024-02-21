@@ -51,7 +51,7 @@ class SubServicesController extends Controller
     public function store(Request $request, $serviceSlug)
     {
         $service = Service::where('slug', $serviceSlug)->first();
-        $subService = $this->subServicesService->storeSubservice($request, $service->service_id);
+        $subService = $this->subServicesService->storeSubservice($request, $serviceSlug);
         return redirect()->back()->with(['status' => 'Subservice Added', 'subserv_id' => $subService->id]);
     }
     public function updateSubservice(Request $request, $id)
