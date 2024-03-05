@@ -177,31 +177,10 @@ class AdminController extends Controller
 
     public function downloadinternshipDocs($id, $type)
     {
-        $intership = InternshipApplication::findOrFail($id);
-        switch ($type) {
-            case 'cv':
-                $filePath = $intership->cv_path;
-                $fileName = "{$intership->name}_CV.pdf";
-                break;
-            case 'id_copy':
-                $filePath = $intership->id_copy_path;
-                $fileName = "{$intership->name}_IDCopy.pdf";
-                break;
-            case 'qualification_copy':
-                $filePath = $intership->qualification_copy_path;
-                $fileName = "{$intership->name}_Qualification.pdf";
-                break;
-            default:
-                abort(404);
-        }
+        $application = InternshipApplication::findOrFail($id);
+        $filePath = $type === 'cv' ? $application->cv_path : ($type === 'id_copy' ? $application->id_copy_path : $application->qualification_copy_path);
 
-        // Check if the file exists
-        if (!Storage::exists($filePath)) {
-            abort(404);
-        }
-
-        // Download the file with the customized name
-        return response()->download(Storage::path($filePath), $fileName);
+        return response()->download(public_path("{$filePath}"));
     }
 
     public function viewquotations($id)

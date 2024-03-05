@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('internship_applications', function (Blueprint $table) {
             $table->id();
+            $table->string('app_id');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_no');

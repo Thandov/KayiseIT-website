@@ -28,13 +28,28 @@ class ApplicationsController extends Controller
             'qualification_copy' => 'required|file|mimes:pdf|max:2048',
         ]);
 
+        // Generate a folder name (user's name + 5 random digits)
+        $folderName = $request->name . '_' . mt_rand(10000, 99999);
+
+        // Create a directory in the public/Internships folder
+        $folderPath = public_path('Internships/' . $folderName);
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0755, true);
+        }
+
         // Handle file uploads
-        $cvPath = $request->file('cv')->store('cv');
-        $idCopyPath = $request->file('id_copy')->store('id_copy');
-        $qualificationCopyPath = $request->file('qualification_copy')->store('qualification_copy');
+        $cvFileName = 'cv_' . $folderName . '.' . $request->file('cv')->getClientOriginalExtension();
+        $cvPath = $request->file('cv')->storeAs('Internships/' . $folderName, $cvFileName, 'public');
+
+        $idCopyFileName = 'id_copy_' . $folderName . '.' . $request->file('id_copy')->getClientOriginalExtension();
+        $idCopyPath = $request->file('id_copy')->storeAs('Internships/' . $folderName, $idCopyFileName, 'public');
+
+        $qualificationCopyFileName = 'qualification_copy_' . $folderName . '.' . $request->file('qualification_copy')->getClientOriginalExtension();
+        $qualificationCopyPath = $request->file('qualification_copy')->storeAs('Internships/' . $folderName, $qualificationCopyFileName, 'public');
 
         // Create internship application
         $internship = new InternshipApplication();
+        $internship->app_id = $folderName;
         $internship->name = $request->name;
         $internship->email = $request->email;
         $internship->address = $request->address;
@@ -49,11 +64,9 @@ class ApplicationsController extends Controller
         $internship->qualification_copy_path = $qualificationCopyPath;
         $internship->save();
 
-
         // Redirect user after successful submission
         return redirect()->back()->with('success', 'Application submitted successfully!');
     }
-
 
     public function drone_registration(Request $request)
     {
