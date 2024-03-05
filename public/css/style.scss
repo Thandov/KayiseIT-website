@@ -267,8 +267,7 @@ input[type="number"] {
         height: 100%;
         width: 100vw;
 
-        .black-overlay::before {
-          content: "";
+        .black-overlay {
           position: absolute;
           display: block;
           background: rgba(0, 0, 0, 0.5);

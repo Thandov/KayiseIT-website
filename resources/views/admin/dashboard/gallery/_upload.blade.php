@@ -18,7 +18,7 @@
     </fieldset>
     <fieldset class="border p-4 rounded-lg mt-8">
         <div class="grid grid-cols-6">
-            <div class="col-start-1 col-span-3"> 
+            <div class="col-start-1 col-span-3">
                 <legend class="text-lg font-semibold">Upload image(s)</legend>
             </div>
             <div class="col-start-4 col-span-1">
@@ -59,7 +59,8 @@
             }
         });
 
-        form.addEventListener('submit', function(event) {
+        // Add an event listener to the submit button
+        document.querySelector('button[type="submit"]').addEventListener('click', function(event) {
             event.preventDefault();
 
             let formData = new FormData(form);
@@ -75,13 +76,14 @@
                 formData.append('images[]', file);
             });
 
-            // manually submit the form
+            // Manually submit the form using fetch
             fetch(form.action, {
-                method: 'POST',
-                body: formData
-            }).then(response => response.text()).then(console.log);
-            form.submit();
-
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(console.log)
+                .catch(error => console.error('Error submitting the form:', error));
         });
 
         let selectedFiles = [];
@@ -117,13 +119,13 @@
                     imgDiv.classList.add('w-1/2', 'p-2');
 
                     imgDiv.innerHTML = `
-                        <div class="imgWrapper relative rounded overflow-hidden shadow-lg">
-                            <img src="${e.target.result}" alt="Uploaded Image" class="w-full">
-                            <div class="absolute top-0 right-0 mt-2 mr-2 bg-red-500 rounded-full cursor-pointer p-1 removeBtn">
-                                &times;
-                            </div>
+                    <div class="imgWrapper relative rounded overflow-hidden shadow-lg">
+                        <img src="${e.target.result}" alt="Uploaded Image" class="w-full">
+                        <div class="absolute top-0 right-0 mt-2 mr-2 bg-red-500 rounded-full cursor-pointer p-1 removeBtn">
+                            &times;
                         </div>
-                    `;
+                    </div>
+                `;
 
                     imagePreviews.appendChild(imgDiv);
 

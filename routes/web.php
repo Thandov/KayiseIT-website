@@ -67,6 +67,10 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
+Route::get('careers', function () {
+    return view('careers');
+})->name('careers');
+
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
 Route::GET('gallery', [GalleryController::class, 'gallery'])->name('gallery');
@@ -83,8 +87,21 @@ Route::get('drones', function () {
 Route::get('drone_application/drone_reg', function () {
     return view('drone_application/drone_reg');
 });
+
 Route::post('drone_application/drone_reg', [ApplicationsController::class, 'drone_registration'])->name('drone_application');
 Route::post('drone_application/summary', [ApplicationsController::class, 'summary']);
+
+//Internship application
+Route::get('internship', function () {
+    return view('internships/internship');
+})->name('internship');
+
+Route::get('internship/internship_application', function () {
+    return view('internships/internship_application');
+})->name('internship_application');
+
+Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.store');
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
@@ -145,6 +162,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::POST('/dashboard/staff/{staffName}/update/', [AdminController::class, 'update_employee'])->name('dashboard.staff.viewstaff.update');
     Route::get('/dashboard/staff/{staffName}', [AdminController::class, 'view_employee'])->name('dashboard.staff.viewstaff');
     Route::GET('/dashboard/viewapplications/{id}', [AdminController::class, 'viewapplications'])->name('dashboard.viewapplications');
+    Route::GET('/dashboard/viewinternship/{id}', [AdminController::class, 'viewinternship'])->name('dashboard.viewinternship');
+    Route::GET('/dashboard/viewinternship/{id}/download/{type}', [AdminController::class, 'downloadinternshipDocs'])->name('internship.download');
 
     Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('dashboard.quotations');
     Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('dashboard.invoices');

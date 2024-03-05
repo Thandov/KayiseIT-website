@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Application;
 use App\Models\Quotation;
 use App\Models\Items;
+use App\Models\InternshipApplication;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,43 @@ use App\Mail\ApplicationNotification;
 
 class ApplicationsController extends Controller
 {
+    public function store(Request $request)
+    {
+        // Validate form inputs
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'cv' => 'required|file|mimes:pdf|max:2048',
+            'id_copy' => 'required|file|mimes:pdf|max:2048',
+            'qualification_copy' => 'required|file|mimes:pdf|max:2048',
+        ]);
+
+        // Handle file uploads
+        $cvPath = $request->file('cv')->store('cv');
+        $idCopyPath = $request->file('id_copy')->store('id_copy');
+        $qualificationCopyPath = $request->file('qualification_copy')->store('qualification_copy');
+
+        // Create internship application
+        $internship = new InternshipApplication();
+        $internship->name = $request->name;
+        $internship->email = $request->email;
+        $internship->address = $request->address;
+        $internship->phone_no = $request->phone;
+        $internship->id_no = $request->id_number;
+        $internship->age = $request->age;
+        $internship->qualification = $request->qualification;
+        $internship->year_obtained = $request->year_obtained;
+        $internship->institution = $request->institution;
+        $internship->cv_path = $cvPath;
+        $internship->id_copy_path = $idCopyPath;
+        $internship->qualification_copy_path = $qualificationCopyPath;
+        $internship->save();
+
+
+        // Redirect user after successful submission
+        return redirect()->back()->with('success', 'Application submitted successfully!');
+    }
+
+
     public function drone_registration(Request $request)
     {
         $application = new Application();

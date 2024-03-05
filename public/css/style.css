@@ -229,8 +229,7 @@ input[type=number] {
   height: 100%;
   width: 100vw;
 }
-.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .black-overlay::before {
-  content: "";
+.owl-carousel#headercara div.owl-stage-outer div.owl-stage div.owl-item .black-overlay {
   position: absolute;
   display: block;
   background: rgba(0, 0, 0, 0.5);

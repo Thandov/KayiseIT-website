@@ -13,6 +13,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Storage;
 use App\Services\SubServicesService;
 use App\Helpers\getNewClientsHelper;
 use App\Models\Gallery;
@@ -24,6 +25,7 @@ use App\Models\CareerSteps;
 use App\Models\Carousel;
 use App\Models\Blog;
 use App\Models\Application;
+use App\Models\InternshipApplication;
 
 
 
@@ -39,9 +41,9 @@ class AdminController extends Controller
     public function index()
     {
         $clients = DB::table('clients')
-        ->join('users', 'users.id', '=', 'clients.user_id')
-        ->select('clients.name AS first_name', 'users.email', 'clients.*')
-        ->get();
+            ->join('users', 'users.id', '=', 'clients.user_id')
+            ->select('clients.name AS first_name', 'users.email', 'clients.*')
+            ->get();
         $services = Service::paginate(5)->setPageName('servicePage');
         $quotations = Quotation::paginate(5)->setPageName('quotationPage');
         $invoices = Invoice::paginate(5)->setPageName('invoicePage');
@@ -58,16 +60,17 @@ class AdminController extends Controller
         $carousels = Carousel::paginate(2)->setPageName('carouselPage');
 
         // Check if the request is AJAX
-/*         if (request()->ajax()) {
+        /*         if (request()->ajax()) {
             return response()->json([
                 'html' => view('admin.dashboard.carousel._partial', compact('carousels'))->render(),
                 'pagination' => (string) $carousels->links()
             ]);
         } */
-        
+
         /* Occupations */
         $occupations = Occupations::all();
         $applications = Application::all();
+        $internships = InternshipApplication::all();
         /* Gallery */
         $groups = Gallery::all();
         $galleries = [];
@@ -93,7 +96,7 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.admin_dashboard', compact('users','employees', 'blogs', 'carousels', 'occupations', 'applications', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
+        return view('admin.admin_dashboard', compact('users', 'employees', 'blogs', 'carousels', 'occupations', 'applications', 'internships', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
     }
 
     public function remove($id)
@@ -166,6 +169,41 @@ class AdminController extends Controller
         return view('admin/applications/viewapplications', compact('applications'),);
     }
 
+    public function viewinternship($id)
+    {
+        $internships = DB::table('internship_applications')->find($id);
+        return view('admin/internships/viewinternship', compact('internships'),);
+    }
+
+    public function downloadinternshipDocs($id, $type)
+    {
+        $intership = InternshipApplication::findOrFail($id);
+        switch ($type) {
+            case 'cv':
+                $filePath = $intership->cv_path;
+                $fileName = "{$intership->name}_CV.pdf";
+                break;
+            case 'id_copy':
+                $filePath = $intership->id_copy_path;
+                $fileName = "{$intership->name}_IDCopy.pdf";
+                break;
+            case 'qualification_copy':
+                $filePath = $intership->qualification_copy_path;
+                $fileName = "{$intership->name}_Qualification.pdf";
+                break;
+            default:
+                abort(404);
+        }
+
+        // Check if the file exists
+        if (!Storage::exists($filePath)) {
+            abort(404);
+        }
+
+        // Download the file with the customized name
+        return response()->download(Storage::path($filePath), $fileName);
+    }
+
     public function viewquotations($id)
     {
         $quotation = DB::table('quotations')->find($id);
@@ -195,10 +233,10 @@ class AdminController extends Controller
     public function viewservice($slug)
     {
         echo "admin/services/viewservice";
-        $service = Service::where('slug',$slug)->first();
+        $service = Service::where('slug', $slug)->first();
         $subservices = SubService::where('service_id', $service->service_id)->get();
 
-        $extras = (count($subservices) === 0) ? $extras = false : $extras = true ;
+        $extras = (count($subservices) === 0) ? $extras = false : $extras = true;
         return view('admin/services/viewservice', compact('service', 'subservices', 'extras'));
     }
 
@@ -336,7 +374,7 @@ class AdminController extends Controller
     }
     public function update_employee(Request $request)
     {
-    
+
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -411,7 +449,7 @@ class AdminController extends Controller
                 ]);
             }
         }
-        
+
         $employee->id_verifi_doc = $validatedData['id_verifi_doc'] ?? false;
         $employee->proof_address_verifi_doc = $validatedData['proof_address_verifi_doc'] ?? false;
         $employee->bank_confi_verifi = $validatedData['bank_confi_verifi'] ?? false;
