@@ -21,7 +21,7 @@
     </div>
 </nav>
 @endif
-<nav x-data="{ open: false }" class="bg-white px-5 grid grid-cols-7">
+<nav x-data="{ open: false }" class="bg-white px-5 grid grid-cols-2 md:grid-cols-7">
     <!-- Logo -->
     <div class="">
         <a href="{{ route('home') }}" class="col-start-2">
@@ -69,8 +69,8 @@
         </div>
 
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('careers')" :active="request()->routeIs('careers')">
-                {{ __('Careers') }}
+            <x-nav-link :href="route('vacancies')" :active="request()->routeIs('vacancies')">
+                {{ __('Vacancies') }}
             </x-nav-link>
         </div>
 
@@ -177,7 +177,7 @@
             </x-nav-link>
         </div>
 
-        <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <div class="flex items-center">
             <x-nav-link :href="route('services')" :active="request()->routeIs('services')">
                 {{ __('Services') }}
             </x-nav-link>
@@ -206,6 +206,18 @@
         <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                 {{ __('About') }}
+            </x-nav-link>
+        </div>
+
+        <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('vacancies')" :active="request()->routeIs('vacancies')">
+                {{ __('Vacancies') }}
+            </x-nav-link>
+        </div>
+
+        <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
+                {{ __('Gallery') }}
             </x-nav-link>
         </div>
         <!-- <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
