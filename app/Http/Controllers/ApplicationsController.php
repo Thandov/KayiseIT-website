@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationNotification;
+use App\Mail\ApplicationSummary;
 
 class ApplicationsController extends Controller
 {
@@ -65,7 +66,7 @@ class ApplicationsController extends Controller
         $internship->save();
 
         // Redirect user after successful submission
-        return redirect()->back()->with('success', 'Application submitted successfully!');
+        return redirect('/')->with('success', 'Application submitted successfully!');
     }
 
     public function drone_registration(Request $request)
@@ -114,7 +115,7 @@ class ApplicationsController extends Controller
         $item->unq_id = mt_rand(100, 9999);
         $item->item = 'Drone Workshop 1';
         $item->qty = '1';
-        $item->sub_total = 520;
+        $item->sub_total = 521.74;
         $item->QI_id = $quotation_no;
         $item->save();
         $total = $total + $item->sub_total;
@@ -142,6 +143,9 @@ class ApplicationsController extends Controller
 
         $adminEmail = 'info@kayiseit.com';
         Mail::to($adminEmail)->send(new ApplicationNotification($request, $quotationData));
+
+        $userEmail = auth()->user()->email;
+        Mail::to($userEmail)->send(new ApplicationSummary($quotationData));
 
         return view('drone_application/summary', compact('quotationData'));
     }
