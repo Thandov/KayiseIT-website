@@ -14,8 +14,7 @@
     <link rel="icon" type="image/png" sizes="684x365" href="../images/kayise_IT_logo_No_Background.png">
 
     <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @vite('node_modules/bootstrap/dist/css/bootstrap.min.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'node_modules/bootstrap/dist/css/bootstrap.min.css'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" />
     <link rel="stylesheet" href="{{ asset('/css/all.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">

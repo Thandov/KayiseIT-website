@@ -24,33 +24,7 @@
                 const monthlyQuotationCounts = {};
                 const monthlyInvoiceCounts = {};
 
-                // Loop through the quotation data and count quotations for each month
-                quotations.forEach(item => {
-                    const date = new Date(item.created_at);
-                    const month = date.toLocaleString('default', {
-                        month: 'long'
-                    }); // Get month name
 
-                    if (!monthlyQuotationCounts[month]) {
-                        monthlyQuotationCounts[month] = 1;
-                    } else {
-                        monthlyQuotationCounts[month]++;
-                    }
-                });
-
-                // Loop through the invoice data and count invoices for each month
-                invoices.forEach(item => {
-                    const date = new Date(item.created_at);
-                    const month = date.toLocaleString('default', {
-                        month: 'long'
-                    }); // Get month name
-
-                    if (!monthlyInvoiceCounts[month]) {
-                        monthlyInvoiceCounts[month] = 1;
-                    } else {
-                        monthlyInvoiceCounts[month]++;
-                    }
-                });
 
                 // Create arrays for months and counts, ensuring all months are included
                 const months = allMonths; // Include all months
