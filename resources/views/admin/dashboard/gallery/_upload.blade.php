@@ -7,7 +7,7 @@
                 <label for="category" class="block text-sm font-medium text-gray-700">Select a category</label>
                 <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                     <option value="" disabled selected>Select a category</option>
-                    <option value="option1">Option 1</option>
+                    <option value="option1">The function us not yet created</option>
                     <option value="option2">Option 2</option>
                     <option value="add_cat">Add new category</option>
                 </select>
