@@ -1,46 +1,48 @@
-<form id="mainForm" action="{{ route('dashboard.gallery.upload') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <fieldset class="border p-4 rounded-lg">
-        <legend class="text-lg font-semibold">Category</legend>
-        <div class="mt-4">
-            <label for="category" class="block text-sm font-medium text-gray-700">Select a category</label>
-            <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                <option value="" disabled selected>Select a category</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="add_cat">Add new category</option>
-            </select>
-        </div>
-        <div class="mt-4" id="newCategoryContainer" style="display: none;">
-            <label for="newCategory" class="block text-sm font-medium text-gray-700">Add new category</label>
-            <input type="text" id="newCategory" name="newCategory" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-        </div>
-    </fieldset>
-    <fieldset class="border p-4 rounded-lg mt-8">
-        <div class="grid grid-cols-6">
-            <div class="col-start-1 col-span-3">
-                <legend class="text-lg font-semibold">Upload image(s)</legend>
+<div class="p-2 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-2 border-b border-gray-200">
+    <form id="mainForm" action="{{ route('dashboard.gallery.upload') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <fieldset class="p-2 rounded-lg">
+            <legend class="text-lg font-semibold">Category</legend>
+            <div class="mt-4">
+                <label for="category" class="block text-sm font-medium text-gray-700">Select a category</label>
+                <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="add_cat">Add new category</option>
+                </select>
             </div>
-            <div class="col-start-4 col-span-1">
-                <input type="file" name="images[]" id="images" class="hidden" multiple>
-                <div id="uploadTrigger" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="17 8 12 3 7 8" />
-                        <line x1="12" y1="3" x2="12" y2="15" />
-                    </svg>
+            <div class="mt-4" id="newCategoryContainer" style="display: none;">
+                <label for="newCategory" class="block text-sm font-medium text-gray-700">Add new category</label>
+                <input type="text" id="newCategory" name="newCategory" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+            </div>
+        </fieldset>
+        <fieldset class="p-2 rounded-lg">
+            <div class="grid grid-cols-3">
+                <div class="col-span-2">
+                    <legend class="text-lg font-semibold">Upload</legend>
+                </div>
+                <div class="">
+                    <input type="file" name="images[]" id="images" class="hidden" multiple>
+                    <div id="uploadTrigger" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="bg-slate-100 p-4 rounded-lg">
-            <div class="flex flex-wrap" id="imagePreviews"></div>
-        </div>
-    </fieldset>
+            <div class="bg-slate-100 p-4 rounded-lg">
+                <div class="flex flex-wrap" id="imagePreviews"></div>
+            </div>
+        </fieldset>
 
-    <div class="mt-4">
-        <button type="submit" class="px-4 py-2 bg-indigo-500 text-white rounded-md hover-bg-indigo-600">Submit</button>
-    </div>
-</form>
+        <div class="mt-4">
+            <button type="submit" class="px-4 py-2 bg-indigo-500 text-white rounded-md hover-bg-indigo-600">Submit</button>
+        </div>
+    </form>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -116,7 +118,7 @@
 
                 reader.onload = function(e) {
                     const imgDiv = document.createElement('div');
-                    imgDiv.classList.add('w-1/2', 'p-2');
+                    //imgDiv.classList.add('w-1/2', 'p-2');
 
                     imgDiv.innerHTML = `
                     <div class="imgWrapper relative rounded overflow-hidden shadow-lg">

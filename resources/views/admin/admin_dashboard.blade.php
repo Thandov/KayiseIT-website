@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div x-data="{ activeTab: 'staff' }" class="flex h-screen bg-gray-200">
+    <div x-data="{ activeTab: 'gallery' }" class="flex h-screen bg-gray-200">
         <!-- Sidebar -->
         <div class="w-45 h-full px-4 py-8 bg-white border-r overflow-x-hidden overflow-y-scroll">
             <h2 class="text-3xl font-semibold text-center">Dashboard</h2>

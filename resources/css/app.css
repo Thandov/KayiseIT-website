@@ -149,7 +149,17 @@ body {
 .image-container img {
   width: 250px;
   /* Set the width of the image */
-  height: 250px;
+  height: 100px;
+  /* Set the height of the image */
+  -o-object-fit: cover;
+     object-fit: cover;
+  /* Cover the container, may crop the image */
+  -o-object-position: center;
+     object-position: center;
+  /* Center the image within the container */
+}
+
+.c2aimg img {
   /* Set the height of the image */
   -o-object-fit: cover;
      object-fit: cover;

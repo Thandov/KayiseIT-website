@@ -152,15 +152,26 @@ body {
         width: auto;
     }
 }
-.image-container img {
-    width: 250px;
-    /* Set the width of the image */
-    height: 250px;
-    /* Set the height of the image */
-    object-fit: cover;
-    /* Cover the container, may crop the image */
-    object-position: center;
-    /* Center the image within the container */
+.image-container {
+    img {
+        width: 250px;
+        /* Set the width of the image */
+        height: 100px;
+        /* Set the height of the image */
+        object-fit: cover;
+        /* Cover the container, may crop the image */
+        object-position: center;
+        /* Center the image within the container */
+    }
+}
+.c2aimg {
+    img {
+        /* Set the height of the image */
+        object-fit: cover;
+        /* Cover the container, may crop the image */
+        object-position: center;
+        /* Center the image within the container */
+    }
 }
 
 /* If the container needs a specific height */

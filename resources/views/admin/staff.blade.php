@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="carousel-container md:grid md:grid-cols-4 gap-4">
+            <div class="carousel-container md:grid sm:grid-cols-3 md:grid-cols-3 gap-4 p-6">
                 @include('admin.staff._partial', ['employees' => $employees])
             </div>
             <!-- Pagination links in your main view -->

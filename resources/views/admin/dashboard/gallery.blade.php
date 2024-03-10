@@ -1,5 +1,5 @@
-<div class="mb-4 grid md:grid-cols-5 md:gap-4">
-    <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-3 border-b border-gray-200">
+<div class="mb-4 grid md:grid-cols-6 md:gap-4">
+    <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-4 border-b border-gray-200">
         <div class="flex items-center mb-4">
             <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
                 <i class="fas fa-cogs text-white"></i>
@@ -19,7 +19,7 @@
         </div>
         @include('admin.dashboard.gallery._gallery')
     </div>
-    <div class="p-6 bg-white overflow-hidden shadow-sm sm:rounded-lg md:col-span-2 border-b border-gray-200">
+    <div class="md:col-span-2">
         @include('admin.dashboard.gallery._upload')
     </div>
 </div>

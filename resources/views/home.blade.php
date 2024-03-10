@@ -36,7 +36,7 @@
     <section id="our-services">
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="row">
-                <div class="col-md-6 col-sm-12 d-flex justify-content-center">
+                <div class="col-md-6 col-sm-12 d-flex justify-content-center c2aimg">
                     <img src="../images/server_bae.png" class="pic-2 shadow-lg rounded-3" alt="Kayise IT:Woman Working">
                 </div>
                 <div class="col-md-6 col-sm-12 text-2 d-flex align-items-center">

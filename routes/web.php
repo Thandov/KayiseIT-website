@@ -176,7 +176,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     //Gallery
     Route::GET('/dashboard/gallery', [GalleryController::class, 'index'])->name('dashboard.gallery');
     Route::POST('/dashboard/gallery/upload', [GalleryController::class, 'store'])->name('dashboard.gallery.upload');
-    
+    Route::DELETE('/dashboard/gallery/delete/{id}', [GalleryController::class, 'destroy'])->name('dashboard.gallery.delete');
     //download quotation&invoice PDFs
     Route::get('/dashboard/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
     Route::get('/dashboard/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');

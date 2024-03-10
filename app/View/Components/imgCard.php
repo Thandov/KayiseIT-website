@@ -7,16 +7,18 @@ use Illuminate\View\Component;
 class imgCard extends Component
 {
     public $pic;
+    public $picid;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($pic)
+    public function __construct($pic, $picid)
     {
         //
         $this->pic = $pic;
+        $this->picid = $picid;
     }
 
     /**

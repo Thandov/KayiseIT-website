@@ -521,9 +521,24 @@ div.sticky {
   top: 0;
 }
 
+.carousel-container {
+  overflow-y: scroll;
+}
+
+#imagePreviews {
+  min-height: 200px;
+}
+
+#uploadTrigger {
+  display: block;
+}
+
 @media only screen and (min-width: 600px) {
   #thapelo {
     margin: 10px;
+  }
+  .teamcard {
+    width: 100%;
   }
   .housecard.house {
     width: 100%;
@@ -841,7 +856,7 @@ footer .footer-content .top {
 }
 
 footer .bottom {
-  background-color: #22C55E;
+  background-color: #22c55e;
 }
 
 .footer-content .top .logo-details {

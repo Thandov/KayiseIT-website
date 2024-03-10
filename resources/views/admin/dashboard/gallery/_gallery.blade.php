@@ -13,15 +13,21 @@
         @endif
     </ul>
     <!-- Tab Content -->
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
     <div class="tab-content">
         <!-- All Galleries Tab Pane -->
-        <div class="p-4 bg-gray-50 rounded-lg grid grid-cols-1 md:grid-cols-4 gap-4" x-show="openTab === 'all'">
+        <div class="p-4 bg-gray-50 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4" x-show="openTab === 'all'">
             @if (!empty($galleries))
             @foreach ($galleries as $gallery)
             @foreach ($gallery['photos'] as $index => $photo)
             <div class="flex justify-center" @click="openLightbox({{ $index }}, {{ json_encode($gallery['photos']) }})">
                 <!-- The image component with the correct path -->
-                <x-img-card pic="../{{ $photo['path'] }}" />
+                <x-img-card pic="../{{ $photo['path'] }}" picid="{{$photo->id}}" />
             </div>
             @endforeach
             @endforeach
@@ -30,11 +36,11 @@
         <!-- Individual Galleries Tab Panes -->
         @if (!empty($galleries))
         @foreach ($galleries as $gallery)
-        <div class="p-4 bg-gray-50 rounded-lg grid grid-cols-1 md:grid-cols-4 gap-4" x-show="openTab === '{{ $gallery['name'] }}'">
+        <div class="p-4 bg-gray-50 rounded-lg grid grid-cols-1 md:grid-cols-2 gap-4" x-show="openTab === '{{ $gallery['name'] }}'">
             @foreach ($gallery['photos'] as $index => $photo)
             <div class="flex justify-center" @click="openLightbox({{ $index }}, {{ json_encode($gallery['photos']) }})">
                 <!-- The image component with the correct path -->
-                <x-img-card pic="../{{ $photo['path'] }}" />
+                <x-img-card pic="../{{ $photo['path'] }}" picid="{{$photo->id}}" />
             </div>
             @endforeach
         </div>

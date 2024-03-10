@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File; // Import the File facade
+
 
 class GalleryController extends Controller
 {
@@ -118,6 +120,54 @@ class GalleryController extends Controller
                 ]);
             }
         }
-        return redirect()->route('dashboard.gallery')->with('success', 'Operation successful'); // Redirect back with a success message
+        
+        return back()->with('success', 'Operation successful'); // Redirect back with a success message
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Gallery  $photo
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+
+        // Validate input
+        if (!is_numeric($id) || $id <= 0) {
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Invalid photo ID.'], 400);
+            }
+            return redirect()->route('dashboard')->with('error', 'Invalid photo ID.');
+        }
+
+        // Use Eloquent for more readability and potential performance benefits
+        $photoGroup = GroupPhotos::where('photo_id', $id)->first();
+        $photo = Photos::where('id', $id)->first();
+        if ($photoGroup) {
+            // Get the file path
+            $filePath = public_path($photoGroup->path);
+
+            // Check if the file exists before attempting to delete
+            if (File::exists($filePath)) {
+                // Delete the file
+                File::delete($filePath);
+            }
+
+            // Perform your desired operations with the $photoGroup model
+            $photoGroup->delete();
+            $photo->delete();
+
+  
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Photo and associated file have been deleted.']);
+            }
+
+            return redirect()->route('dashboard')->with('success', 'Photo and associated file have been deleted.');
+        } else {
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Photo not found.'], 404);
+            }
+            return redirect()->route('dashboard')->with('error', 'Photo not found.');
+        }
     }
 }
