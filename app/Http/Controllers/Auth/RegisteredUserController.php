@@ -36,6 +36,14 @@ class RegisteredUserController extends Controller
 
         return view('auth.registerapplicant')->withCookie($cookie);
     }
+    public function createintern()
+    {
+        // Create a cookie with the SameSite attribute
+        $cookie = Cookie::make('my_cookie', 'cookie_value', 60)
+            ->withSameSite('None'); // Specify SameSite attribute here
+
+        return view('auth.registerintern')->withCookie($cookie);
+    }
 
     /**
      * Handle an incoming registration request.
@@ -127,5 +135,34 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return view('drone_application/drone_reg');
+    }
+
+    public function storeintern(Request $request)
+    {
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', 'min:8'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'email_verified_at' => null, // Set email_verified_at to null initially
+        ]);
+        $user->attachRole($request->role_id);
+
+        //event(new Registered($user));
+
+        // Send verification email
+        //$user->sendEmailVerificationNotification();
+
+        Auth::login($user);
+
+        return view('internships/internship_application');
     }
 }

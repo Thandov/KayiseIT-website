@@ -30,12 +30,12 @@
                         <br>
                         Closing Date:
                     </p>
+
+                    @if(Auth::check())
                     <a href="{{ route('internship_application') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPLY</a>
-                    <!-- @if(Auth::check())
-                    <a href="{{ url('drone_application/drone_reg') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPLY</a>
                     @else
-                    <a href="{{ route('registerapplicant') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPLY</a>
-                    @endif -->
+                    <a href="{{ route('registerintern') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPLY</a>
+                    @endif
                 </div>
             </div>
         </div>

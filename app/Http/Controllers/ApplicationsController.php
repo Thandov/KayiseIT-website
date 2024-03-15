@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationNotification;
 use App\Mail\ApplicationSummary;
+use App\Mail\InternshipConfirmation;
+use App\Mail\NewIntenshipNotification;
 
 class ApplicationsController extends Controller
 {
@@ -65,7 +67,11 @@ class ApplicationsController extends Controller
         $internship->qualification_copy_path = $qualificationCopyPath;
         $internship->save();
 
-        // Redirect user after successful submission
+        Mail::to($request->email)->send(new InternshipConfirmation());
+
+        $adminEmails = ['info@kayiseit.com', 'thapelo@kayiseit.com', 'thando@kayiseit.com'];
+        Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $request->name));
+
         return redirect('/')->with('success', 'Application submitted successfully!');
     }
 
