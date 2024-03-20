@@ -20,8 +20,11 @@ class ApplicationNotification extends Mailable
     }
 
     public function build()
-    {
-        return $this->view('emails.application_notification');
-    }
+{
+    $subject = 'Drone Application - ' . $this->request->name . ' ' . $this->request->surname;
+    return $this->view('emails.application_notification')
+        ->subject($subject)
+        ->from(auth()->user()->email, 'Drone Application - ' . $this->request->name . ' ' . $this->request->surname);
+    
 }
-
+}

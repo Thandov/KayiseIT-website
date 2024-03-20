@@ -14,7 +14,7 @@
         <li>Email: {{ $internship->email }}</li>
         <li>Phone: {{ $internship->phone_no }}</li>
         <li>Address: {{ $internship->address }}</li>
-        <li>ID: {{ $internship->id_number }}</li>
+        <li>ID: {{ $internship->id_no }}</li>
         <li>Age: {{ $internship->age }}</li>
         <li>Qualification: {{ $internship->qualification }}</li>
         <li>Year: {{ $internship->year_obtained }}</li>

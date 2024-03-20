@@ -39,7 +39,7 @@
     <div class="flex justify-content-center  bg-slate-100">
         <div class="w-full sm:max-w-md my-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <h1 class="my-4">Thank You For Applying For The Drone Workshop 1</h1>
-            <p>You application will be finalized as soon as the deposit has been paid.</p>
+            <p>Your application will be finalized as soon as the deposit has been paid.</p>
             <h2>Summary:</h2>
             <p>Quotation Number: {{ $quotationData['quotation_no'] }}</p>
             <table>
