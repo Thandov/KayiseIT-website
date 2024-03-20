@@ -22,7 +22,10 @@ return [
             'profile' => 'r,u'
         ],
         'client' => [
-            'profile' => 'r,u',
+            'profile' => 'r,u,d,c',
+        ],
+        'applicant' => [
+            'profile' => 'r,u,d,c',
         ],
     ],
 

@@ -5,20 +5,14 @@
                 @if(session('success'))
                 <div class="bg-green-200 text-green-800 rounded-lg p-4 mb-4">{{ session('success') }}</div>
                 @endif
-                <h1 class="my-5 text-bold">Complete Profile</h1>
+                <h1 class="my-5 text-bold">Complete Application</h1>
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                 <form action="{{ route('apply.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-4">
-                        <label for="name" class="block mb-2">Name:</label>
-                        <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-                    </div>
-
-                    <!-- Email Address -->
-                    <div class="mb-4">
-                        <label for="email" class="block mb-2">Email Address:</label>
-                        <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
-                    </div>
-
                     <!-- Phone Number -->
                     <div class="mb-4">
                         <label for="phone" class="block mb-2">Phone Number:</label>

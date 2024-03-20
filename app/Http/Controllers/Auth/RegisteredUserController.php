@@ -125,7 +125,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
-        $user->attachRole($request->role_id);
+        $user->attachRole('3');
 
         //event(new Registered($user));
 
@@ -154,7 +154,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
-        $user->attachRole($request->role_id);
+        $user->attachRole('4');
 
         //event(new Registered($user));
 

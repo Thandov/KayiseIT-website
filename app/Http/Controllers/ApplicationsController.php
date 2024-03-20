@@ -23,16 +23,20 @@ class ApplicationsController extends Controller
 {
     public function store(Request $request)
     {
-        // Validate form inputs
+
+        $existingApplication = InternshipApplication::where('id_no', $request->id_number)->first();
+        if ($existingApplication) {
+            return redirect()->back()->with('error', 'Application already exists. Check your profile for application status!');
+        }
+
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
             'cv' => 'required|file|mimes:pdf|max:2048',
             'id_copy' => 'required|file|mimes:pdf|max:2048',
             'qualification_copy' => 'required|file|mimes:pdf|max:2048',
         ]);
+        $name = Auth::user()->name;
 
-        // Generate a folder name (user's name + 5 random digits)
-        $folderName = $request->name . '_' . mt_rand(10000, 99999);
+        $folderName = $name . '_' . mt_rand(10000, 99999);
 
         // Create a directory in the public/Internships folder
         $folderPath = public_path('Internships/' . $folderName);
@@ -53,10 +57,9 @@ class ApplicationsController extends Controller
         // Create internship application
         $internship = new InternshipApplication();
         $internship->app_id = $folderName;
-        $internship->name = $request->name;
-        $internship->email = $request->email;
-        $internship->address = $request->address;
+        $internship->user_id = Auth::user()->id;
         $internship->phone_no = $request->phone;
+        $internship->address = $request->address;
         $internship->id_no = $request->id_number;
         $internship->age = $request->age;
         $internship->qualification = $request->qualification;
@@ -67,12 +70,12 @@ class ApplicationsController extends Controller
         $internship->qualification_copy_path = $qualificationCopyPath;
         $internship->save();
 
-        Mail::to($request->email)->send(new InternshipConfirmation());
+        Mail::to(Auth::user()->email)->send(new InternshipConfirmation());
 
         $adminEmails = ['info@kayiseit.com', 'thapelo@kayiseit.com', 'thando@kayiseit.com'];
-        Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $request->name, $cvPath, $idCopyPath, $qualificationCopyPath));
+        Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $name, $cvPath, $idCopyPath, $qualificationCopyPath));
 
-        return redirect('/')->with('success', 'Application submitted successfully!');
+        return redirect('/profile')->with('success', 'Application submitted successfully!');
     }
 
     public function drone_registration(Request $request)

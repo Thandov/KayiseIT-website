@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('internship_applications', function (Blueprint $table) {
             $table->id();
             $table->string('app_id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('phone_no');
             $table->string('address');
             $table->string('id_no');
@@ -29,6 +28,9 @@ return new class extends Migration
             $table->string('id_copy_path');
             $table->string('qualification_copy_path');
             $table->timestamps();
+        });
+        Schema::table('internship_applications', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
