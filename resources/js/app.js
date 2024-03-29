@@ -2,16 +2,12 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 import './bootstrap';
-import 'sweetalert2/dist/sweetalert2.css';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-window.Swal = Swal;
 
 import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
 Alpine.start();
-
 
 function callback(event) {
     removeSliderClass(event);

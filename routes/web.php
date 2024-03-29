@@ -50,7 +50,6 @@ Route::get('welcome', function () {
 
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 
-
 Route::get('about', function () {
     return view('about');
 })->name('about');
@@ -98,7 +97,7 @@ Route::get('internship', function () {
 
 Route::get('internship/internship_application', function () {
     return view('internships/internship_application');
-})->name('internship_application');
+})->middleware('auth')->name('internship_application');
 
 Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.store');
 

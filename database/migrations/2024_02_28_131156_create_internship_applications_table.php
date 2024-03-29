@@ -17,10 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('app_id');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->string('phone_no');
-            $table->string('address');
+            /* Persinonal details */
             $table->string('id_no');
             $table->string('age');
+            $table->string('address');
+            
+            /* Education Data */
+            $table->string('high_school');
+            $table->string('year_of_completion');
             $table->string('qualification');
             $table->string('year_obtained');
             $table->string('institution');
