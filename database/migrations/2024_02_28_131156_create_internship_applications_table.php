@@ -23,11 +23,16 @@ return new class extends Migration
             $table->string('address');
             
             /* Education Data */
+            /* High School */
             $table->string('high_school');
             $table->string('year_of_completion');
+
+            /* Tertiary education */
             $table->string('qualification');
             $table->string('year_obtained');
             $table->string('institution');
+
+            /* Verification Docs */
             $table->string('cv_path');
             $table->string('id_copy_path');
             $table->string('qualification_copy_path');

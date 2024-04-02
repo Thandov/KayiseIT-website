@@ -22,8 +22,7 @@ use App\Mail\NewIntenshipNotification;
 class ApplicationsController extends Controller
 {
     public function store(Request $request)
-    {
-
+    {                
         $existingApplication = InternshipApplication::where('id_no', $request->id_number)->first();
         if ($existingApplication) {
             return redirect()->back()->with('error', 'Application already exists. Check your profile for application status!');
@@ -34,6 +33,7 @@ class ApplicationsController extends Controller
             'id_copy' => 'required|file|mimes:pdf|max:2048',
             'qualification_copy' => 'required|file|mimes:pdf|max:2048',
         ]);
+
         $name = Auth::user()->name;
 
         $folderName = $name . '_' . mt_rand(10000, 99999);
@@ -53,28 +53,43 @@ class ApplicationsController extends Controller
 
         $qualificationCopyFileName = 'qualification_copy_' . $folderName . '.' . $request->file('qualification_copy')->getClientOriginalExtension();
         $qualificationCopyPath = $request->file('qualification_copy')->storeAs('Internships/' . $folderName, $qualificationCopyFileName, 'public');
+        
+        /* Update the user phone number in user table */
+        $user = User::find(Auth::user()->id);
+        $user->phone = $request->phone;
+        $user->save();
 
         // Create internship application
         $internship = new InternshipApplication();
         $internship->app_id = $folderName;
         $internship->user_id = Auth::user()->id;
-        $internship->phone_no = $request->phone;
-        $internship->address = $request->address;
         $internship->id_no = $request->id_number;
         $internship->age = $request->age;
+
+        /* High School */
+        $internship->address = $request->address;
+        $internship->high_school = $request->high_school;
+        $internship->year_of_completion = $request->year_of_completion;
+
+        /* Tertiary */
         $internship->qualification = $request->qualification;
         $internship->year_obtained = $request->year_obtained;
         $internship->institution = $request->institution;
+
+        /* Doc Verification */
         $internship->cv_path = $cvPath;
         $internship->id_copy_path = $idCopyPath;
         $internship->qualification_copy_path = $qualificationCopyPath;
+        
         $internship->save();
 
-        Mail::to(Auth::user()->email)->send(new InternshipConfirmation());
+       /*  
+       Mail::to(Auth::user()->email)->send(new InternshipConfirmation());
 
         $adminEmails = ['info@kayiseit.com', 'thapelo@kayiseit.com', 'thando@kayiseit.com'];
         Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $name, $cvPath, $idCopyPath, $qualificationCopyPath));
 
+         */
         return redirect('/profile')->with('success', 'Application submitted successfully!');
     }
 

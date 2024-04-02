@@ -12,9 +12,9 @@
                 <div class="mt-10 flex items-center justify-center gap-x-6">
                     <div class="px-4">
                         @if(Auth::check())
-                            <x-front-end-btn linking="{{ route('internship_application') }}" color="blue" showme="" name="Thando" />
+                            <x-front-end-btn linking="{{ route('internship_application') }}" color="blue" showme="" name="Apply" />
                         @else
-                            <a href="{{ route('registerintern') }}" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 text-center">APPssLY</a>
+                            <x-front-end-btn linking="{{ route('registerintern') }}" color="blue" showme="" name="Apply" />
                         @endif
                     </div>
                 </div>

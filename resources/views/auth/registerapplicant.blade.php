@@ -1,6 +1,6 @@
 <x-guest-layout>
     <h1 class="font-bold text-center ">Online Application</h1>
-    <p class="font-bold text-center ">Lets Get Started</p>
+    <p class="font-sm text-center ">Lets Get Started</p>
     <form method="POST" action="{{ route('registerapplicant') }}" id="registerForm">
         @csrf
         <input type="hidden" name="role_id" value="client">

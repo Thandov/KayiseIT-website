@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Carousel;
 use App\Models\Blog;
+use App\Models\InternshipApplication;
 use App\Models\PostCategories;
 use App\Http\Controllers\SubscriptionController;
 
@@ -96,7 +97,10 @@ Route::get('internship', function () {
 })->name('internship');
 
 Route::get('internship/internship_application', function () {
-    return view('internships/internship_application');
+// Check if there is an existing application for the authenticated user
+$existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
+// Pass the $existingApplication variable to the view
+return view('internships/internship_application', compact('existingApplication'));
 })->middleware('auth')->name('internship_application');
 
 Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.store');

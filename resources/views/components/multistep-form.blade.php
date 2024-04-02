@@ -14,19 +14,21 @@
             </div>
         </div>
 
-        <form action="{{$linking}}" method="POST" class="flex flex-col" id="multi-step-form">
+        <form action="{{$linking}}" method="POST" class="flex flex-col" id="multi-step-form" enctype="multipart/form-data">
             @csrf
             @foreach($slides as $index => $slideRoute)
-            <?php $slideContent = view($slideRoute)->render(); ?>
-            <div class="step @if($index === 0) block @else hidden @endif" data-step="{{ $index + 1 }}">
+            <?php $slideContent = view($slideRoute)->render(); 
+            $indi = ($index === 0) ? 'block' : 'hidden' ;
+            ?>
+            <div class="step {{ $indi }}" data-step="{{ $index + 1 }}">
                 {!! $slideContent !!}
             </div>
             @endforeach
 
             <div class="flex justify-between mt-4">
-                <button type="button" onclick="prevStep()" class="prev-button px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600" @if(count($slides)===0) style="display: none;" @endif>Previous</button>
-                <button type="button" onclick="nextStep()" class="next-button ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" @if(count($slides)===0) style="display: none;" @endif>Next</button>
-                <button type="submit" class="submit-button ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600" @if(count($slides) !==0) style="display: none;" @endif>Submit</button>
+                <button type="button" onclick="prevStep()" class="prev-button rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600" @if(count($slides)===0) style="display: none;" @endif>Previous</button>
+                <button type="button" onclick="nextStep()" class="next-button ml-2 rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" @if(count($slides)===0) style="display: none;" @endif>Next</button>
+                <button type="submit" class="submit-button ml-2 rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" @if(count($slides) !==0) style="display: none;" @endif>Submit</button>
             </div>
         </form>
     </div>

@@ -19,7 +19,7 @@
                             </dl>
                         </div>
                         <div class="ml-auto">
-                            <a href="#"  class="add-client-btn inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Client</a>
+                            <a href="#" class="add-client-btn inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">Add Client</a>
                         </div>
                     </div>
                     @include('admin.dashboard.clients._view')
@@ -27,7 +27,25 @@
             </div>
         </div>
         <div class="box boxB">
-            <a href="#"  class="return-btn btn btn-secondary">Return to Box A</a>
+            <a href="#" class="return-btn btn btn-secondary">Return to Box A</a>
             @include('admin/dashboard/clients/newclient')
         </div>
     </div>
+    <script>
+        jQuery(document).ready(function () {
+            document.addEventListener("click", function (event) {
+                let target = event.target;
+                while (target != document && !target.classList.contains('add-client-btn') && !target.classList.contains('return-btn')) {
+                    target = target.parentNode;
+                }
+
+                if (target.classList.contains('add-client-btn')) {
+                    event.preventDefault();
+                    slideBoxes('right');
+                } else if (target.classList.contains('return-btn')) {
+                    event.preventDefault();
+                    slideBoxes('left');
+                }
+            });
+        });
+    </script>
