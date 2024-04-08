@@ -368,8 +368,7 @@ input[type="number"] {
 //Custom click image
 #hitparent {
   .phonepicwrap {
-    #picphn {
-    }
+    #picphn {}
 
     .hitwrapper {
       div {
@@ -492,17 +491,17 @@ $apbheight: 100px;
     transform-origin: 50% 50%;
   }
 
-  :checked + label {
+  :checked+label {
     border-color: $pcolor;
   }
 
-  :checked + label:before {
+  :checked+label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
 
-  :checked + label img {
+  :checked+label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
@@ -549,17 +548,17 @@ $apbheight: 100px;
     transform-origin: 50% 50%;
   }
 
-  :checked + label {
+  :checked+label {
     border-color: $pcolor;
   }
 
-  :checked + label:before {
+  :checked+label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
 
-  :checked + label img {
+  :checked+label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
@@ -606,17 +605,17 @@ $apbheight: 100px;
     transform-origin: 50% 50%;
   }
 
-  :checked + label {
+  :checked+label {
     border-color: $pcolor;
   }
 
-  :checked + label:before {
+  :checked+label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
 
-  :checked + label img {
+  :checked+label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
@@ -628,22 +627,28 @@ div.sticky {
   position: sticky;
   top: 0;
 }
-.carousel-container{
+
+.carousel-container {
   overflow-y: scroll;
 }
-#imagePreviews{
+
+#imagePreviews {
   min-height: 200px;
 }
-#uploadTrigger{
+
+#uploadTrigger {
   display: block;
 }
+
 @media only screen and (min-width: 600px) {
   #thapelo {
     margin: 10px;
   }
+
   .teamcard {
     width: 100%;
   }
+
   .housecard.house {
     width: 100%;
     height: 190px;
@@ -731,6 +736,20 @@ div.sticky {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+  }
+}
+
+.vacancies {
+  background: url("../images/KayiseIT-Team.jpg");
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  .black-overlay {
+    background: rgba(0, 0, 0, 0.8);
+    height: 100%;
   }
 }
 
@@ -893,6 +912,7 @@ div.sticky {
 }
 
 @media screen and (max-width: 767px) {
+
   /* hide the image when screen size is less than or equal to 767px */
   #company img {
     display: none;
@@ -911,6 +931,7 @@ div.sticky {
 }
 
 #viewsubservice {
+
   /* Style for the table body */
   tbody td {
     font-size: 16px;

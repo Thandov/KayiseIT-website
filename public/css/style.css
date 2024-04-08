@@ -620,6 +620,19 @@ div.sticky {
     background-size: cover;
   }
 }
+.vacancies {
+  background: url("../images/KayiseIT-Team.jpg");
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.vacancies .black-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  height: 100%;
+}
+
 @supports (background-blend-mode: multiply) {
   #gallery-hero {
     background: url("../images/banner/asdasd.png"), radial-gradient(#444, #aaa);
