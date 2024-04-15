@@ -83,13 +83,12 @@ class ApplicationsController extends Controller
         
         $internship->save();
 
-       /*  
        Mail::to(Auth::user()->email)->send(new InternshipConfirmation());
 
         $adminEmails = ['info@kayiseit.com', 'thapelo@kayiseit.com', 'thando@kayiseit.com'];
         Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $name, $cvPath, $idCopyPath, $qualificationCopyPath));
 
-         */
+         
         return redirect('/profile')->with('success', 'Application submitted successfully!');
     }
 

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rules;
+use App\Models\InternshipApplication;
 
 class RegisteredUserController extends Controller
 {
@@ -55,7 +56,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-dd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -163,6 +163,8 @@ dd($request);
 
         Auth::login($user);
 
-        return view('internships/internship_application');
+        $existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
+
+        return view('internships/internship_application', compact('existingApplication'));
     }
 }

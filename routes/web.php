@@ -97,9 +97,7 @@ Route::get('internship', function () {
 })->name('internship');
 
 Route::get('internship/internship_application', function () {
-// Check if there is an existing application for the authenticated user
 $existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
-// Pass the $existingApplication variable to the view
 return view('internships/internship_application', compact('existingApplication'));
 })->middleware('auth')->name('internship_application');
 
