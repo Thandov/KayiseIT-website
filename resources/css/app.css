@@ -19,7 +19,7 @@ body {
   position: relative;
   width: 100%;
   padding: 0px 10px;
-  background-image: url("../images/bg_dark.jpg");
+ /* background-image: url("../images/bg_dark.jpg"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
