@@ -1,41 +1,39 @@
 @if(!Route::is('dashboard'))
 @if (empty(Auth::user()->name))
 <nav class="grid grid-cols-2 bg-white border-b border-gray-100 px-5 py-3">
-    <div class="col-start-2 md:grid md:grid-cols-4">
+    <div class="col-start-2 md:grid md:grid-cols-10">
         @if (Route::has('login'))
-        @auth @else @if (Route::has('login'))
-        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-3">
-            <x-nav-link :href="route('login')" :active="request()->routeIs('login')" class="justify-end col-start-2">
-                {{ __('Login') }}
-            </x-nav-link>
-        </div>
-        @endif @if (Route::has('register'))
-        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-4">
-
-            <x-nav-link :href="route('register')" :active="request()->routeIs('register')" class="justify-end">
-                {{ __('Register') }}
-            </x-nav-link>
-        </div>
-        @endif @endauth
+            @auth @else @if (Route::has('login'))
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-3 justify-end">
+                <x-nav-link :href="route('login')" :active="request()->routeIs('login')" class="justify-end col-start-2">
+                    {{ __('Login') }}
+                </x-nav-link>
+            </div>
+            @endif @if (Route::has('register'))
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-4">
+                <x-nav-link :href="route('register')" :active="request()->routeIs('register')" class="justify-end">
+                    {{ __('Register') }}
+                </x-nav-link>
+            </div>
+            @endif
+            @endauth
         @endif
     </div>
 </nav>
 @endif
-<nav x-data="{ open: false }" class="bg-white px-5 grid grid-cols-2 md:grid-cols-7">
+<nav x-data="{ open: false }" class="bg-white px-5 grid grid-cols-2 md:grid-cols-12">
     <!-- Logo -->
-    <div class="">
+    <div class="col-span-2">
         <a href="{{ route('home') }}" class="col-start-2">
             <x-application-logo class="block h-5 w-auto fill-current text-gray-600" />
         </a>
     </div>
-    <div class="d-flex items-center justify-end col-span-6">
-
+    <div class="d-flex items-center justify-end col-span-10">
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-nav-link>
         </div>
-
         <div class="hidden sm:flex sm:items-center sm:ml-6">
             <x-nav-link :href="route('services')" :active="request()->routeIs('services')">
                 {{ __('Services') }}
@@ -61,19 +59,16 @@
                 </x-slot>
             </x-dropdown>
         </div>
-
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
                 {{ __('About') }}
             </x-nav-link>
         </div>
-
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('vacancies')" :active="request()->routeIs('vacancies')">
                 {{ __('Vacancies') }}
             </x-nav-link>
         </div>
-
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
                 {{ __('Gallery') }}
@@ -84,7 +79,7 @@
                 {{ __('Career Mapping') }}
             </x-nav-link>
         </div> -->
-        <!--         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+        <!-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('blogs')" :active="request()->routeIs('blogs')">
                 {{ __('Blogs') }}
             </x-nav-link>
@@ -99,7 +94,6 @@
                 {{ __('Contact Us') }}
             </x-nav-link>
         </div>
-
         <!-- dropdown profile and logout -->
         <div class="hidden sm:flex sm:items-center sm:ml-6">
             <x-dropdown align="right" width="48">
