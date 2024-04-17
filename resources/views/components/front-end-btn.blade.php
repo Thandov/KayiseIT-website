@@ -12,7 +12,7 @@ if ($color === "red") :
 <input type="submit" value="{{ $name }}" class="capitalize {{ $color }}">
 <?php elseif ($color === "blue") :
     $color = "green"; ?>
-<a href="{{ $linking }}" class="rounded-md bg-{{ $color }}-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-{{ $color }}-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $color }}-600" id="{{ $showme }}">{{ $name }}</a>
+<a href="{{ $linking }}" style="text-decoration: none;" class="rounded-md bg-{{ $color }}-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-{{ $color }}-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $color }}-600" id="{{ $showme }}">{{ $name }}</a>
 <?php
 endif;
 ?>

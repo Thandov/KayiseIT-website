@@ -3,7 +3,7 @@
         <div class="grid md:grid-cols-3 sm:grid-cols-1 gap-5 mb-4 mt-2 justify-center">
             @foreach($services as $service)
             @php $slug = str_replace(' ','-', strtolower($service->name)) @endphp
-            <a href="{{ route('service.show', $slug) }}" class="bg-white  h-72 p-5 flex items-center justify-center overflow-hidden border border-blue-400 shadow-md rounded-lg">
+            <a href="{{ route('service.show', $slug) }}" style="text-decoration: none;" class="bg-white  h-72 p-5 flex items-center justify-center overflow-hidden border border-blue-400 shadow-md rounded-lg">
                 <div>
                     <div class="flex justify-center">
                         <div class="rounded-md flex items-center justify-center"><img class="w-20" src="{{ asset('images/service_logo/'.$service->icon) }}"></div>

@@ -30,12 +30,12 @@
     </div>
     <div class="d-flex items-center justify-end col-span-10">
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+            <x-nav-link :href="route('home')" style="text-decoration: none;" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-nav-link>
         </div>
         <div class="hidden sm:flex sm:items-center sm:ml-6">
-            <x-nav-link :href="route('services')" :active="request()->routeIs('services')">
+            <x-nav-link :href="route('services')" style="text-decoration: none;" :active="request()->routeIs('services')">
                 {{ __('Services') }}
             </x-nav-link>
             <x-dropdown align="center" width="48">
@@ -60,17 +60,17 @@
             </x-dropdown>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('about')" :active="request()->routeIs('about')">
+            <x-nav-link :href="route('about')" style="text-decoration: none;" :active="request()->routeIs('about')">
                 {{ __('About') }}
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('vacancies')" :active="request()->routeIs('vacancies')">
+            <x-nav-link :href="route('vacancies')" style="text-decoration: none;" :active="request()->routeIs('vacancies')">
                 {{ __('Vacancies') }}
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
+            <x-nav-link :href="route('gallery')" style="text-decoration: none;" :active="request()->routeIs('gallery')">
                 {{ __('Gallery') }}
             </x-nav-link>
         </div>
@@ -90,7 +90,7 @@
             </x-nav-link>
         </div>-->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+            <x-nav-link :href="route('contact')" style="text-decoration: none;" :active="request()->routeIs('contact')">
                 {{ __('Contact Us') }}
             </x-nav-link>
         </div>
@@ -114,12 +114,12 @@
                     <!-- Navigation Links -->
                     @if (!empty(Auth::user()->name))
                     @if(Auth::user()->hasRole('admin'))
-                    <x-dropdown-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-dropdown-link :href="route('dashboard')" style="text-decoration: none;" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-dropdown-link>
                     @endif
                     @endif
-                    <x-dropdown-link :href="route('profile.edit')">
+                    <x-dropdown-link :href="route('profile.edit')" style="text-decoration: none;">
                         {{ __('Profile') }}
                     </x-dropdown-link>
 
@@ -158,7 +158,7 @@
         @if (!empty(Auth::user()->name))
         @if(Auth::user()->hasRole('admin'))
         <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-nav-link :href="route('dashboard')" style="text-decoration: none;" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-nav-link>
         </div>
