@@ -14,8 +14,25 @@ module.exports = {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                'kayise-blue':'#183ea4',
-              },
+                kb: {
+                    100: '#183ea4',
+                    200: '#0086c9',
+                    300: '#0070b6',
+                    400: '#0064ad',
+                    500: '#1d53a0',
+                    600: '#274698',
+                    700: '#263a57',
+                },
+                kg: {
+                    100: '#c7e0c2',
+                    200: '#a2cfa8',
+                    300: '#7cbd81',
+                    400: '#3fab5f',
+                    500: '#368e4f',
+                    600: '#28663d',
+                    700: '#22C55E',
+                }
+            },
         },
     },
     plugins: [require('@tailwindcss/forms')],

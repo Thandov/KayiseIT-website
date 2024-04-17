@@ -7,5 +7,4 @@
         <x-front-end-btn linking="about" color="blue" showme="zzzzzzzz" name="Learn More" />
     </div>
     @endif
-
 </div>

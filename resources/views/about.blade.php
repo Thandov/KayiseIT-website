@@ -21,13 +21,13 @@
   <section class="py-5 bg-slate-100 sm:px-6 lg:px-8" id="vision-mission">
     <x-titlestyle smheading="Our Culture" bgheading="Our Fundamental Business" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 mx-5">
-      <div class="flex items-center bg-white rounded-lg shadow p-4 h-64">
+      <div class="flex items-center bg-white rounded-lg p-4 h-64">
         <div>
           <h3 class="card-title text-2xl font-bold text-center smalltxt mb-3">Vision</h3>
           <p class="card-text text-center text-base">Empowering South African organizations and communities with an integrated digital ecosystem through reliable IT services, automation, network support, and digital upskilling.</p>
         </div>
       </div>
-      <div class="flex items-center bg-white rounded-lg shadow p-4 h-64">
+      <div class="flex items-center bg-white rounded-lg p-4 h-64">
         <div>
           <h3 class="card-title text-2xl font-bold text-center smalltxt mb-3">Mission</h3>
           <p class="card-text text-center text-base">Empowering South African youth with ICT skills, while delivering innovative digital solutions that accelerate business growth.</p>

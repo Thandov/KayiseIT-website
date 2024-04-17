@@ -187,12 +187,6 @@ input::-webkit-inner-spin-button {
   width: 100%;
   bottom: 20px;
 }
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
 .newhousecard {
   width: 100%;
   height: 190px;
@@ -365,31 +359,6 @@ input[type="number"] {
   }
 }
 
-//Custom click image
-#hitparent {
-  .phonepicwrap {
-    #picphn {}
-
-    .hitwrapper {
-      div {
-        margin-bottom: 10px;
-
-        .instring {
-          height: 25px;
-          border: 3px solid black;
-          border-radius: $ht;
-          height: $ht;
-          width: $ht;
-          line-height: 20px;
-          display: inline-block;
-          text-align: center;
-          font-weight: bold;
-        }
-      }
-    }
-  }
-}
-
 .instring {
   height: 25px;
   border: 3px solid black;
@@ -408,30 +377,6 @@ ul {
 
 li {
   display: inline-block;
-}
-
-/* Styling input radio button */
-#radioParent {
-  .radionBtns {
-    position: absolute;
-    bottom: 0;
-    //top: 50%;
-  }
-}
-
-#regularwrap,
-#weekDiv {
-  display: none;
-}
-
-#regularwrap {
-  #frequencywrap {
-    //background: yellow;
-  }
-
-  #weekDiv {
-    //background: pink;
-  }
 }
 
 #profile,
@@ -842,6 +787,10 @@ div.sticky {
   width: 612px;
 }
 
+.icongreen{
+  background-color: #0F5D37!important;
+  color: #fff!important
+}
 @media screen and (max-width: 700px) {
   .pic-2 {
     flex-basis: 100%;
@@ -974,7 +923,6 @@ div.sticky {
 //================================================== footer css ======================================//
 footer {
   position: relative;
-  background: #3bde77;
   width: 100%;
   bottom: 0;
   left: 0;

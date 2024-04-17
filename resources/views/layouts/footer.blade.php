@@ -5,17 +5,17 @@ $option = 1;
 @endphp
 
 @if ($option === 1)
-<footer class="">
+<footer class="bg-kg-500">
   <div class="footer-content">
     <div class="top">
       <div class="logo-details">
         <img src="{{ asset('images/Logo_White_No_Background.png') }}" alt="footer_logo" width="116.8px" height="53px">
       </div>
       <div class="media-icons">
-        <a href="https://www.facebook.com/KAYISEIT?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://instagram.com/kayiseit?igshid=ZDdkNTZiNTM="><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/company/kayise-it/"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw"><i class="fab fa-youtube"></i></a>
+        <a class="icongreen" href="https://www.facebook.com/KAYISEIT?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+        <a class="icongreen" href="https://instagram.com/kayiseit?igshid=ZDdkNTZiNTM="><i class="fab fa-instagram"></i></a>
+        <a class="icongreen" href="https://www.linkedin.com/company/kayise-it/"><i class="fab fa-linkedin-in"></i></a>
+        <a class="icongreen" href="https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
     <!-- <div class="grid grid-cols-1 md:grid-cols-4">
