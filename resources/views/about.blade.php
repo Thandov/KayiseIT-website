@@ -76,5 +76,4 @@
 
     });
   });
-  AOS.init();
 </script>
