@@ -1,19 +1,29 @@
 <!-- High School -->
 <div class="">
-    <h5 class="font-bold text-gray-900 text-xl mb-2">High School Details</h5>
-    <p class="text-base text-gray-600 mb-4">Share your High school</p>
+    <h5 class="font-bold text-gray-900 text-xl mb-2">What Are You Applying For</h5>
+    <p class="text-base text-gray-600 mb-4"></p>
     <hr class="border-gray-300 mb-4">
 </div>
 
-<div class="grid grid-cols-4 gap-4">
- <!-- Institution -->
- <div class="mb-4 col-span-3">
-     <label for="high_school" class="block text-sm font-medium text-black mb-2">Name of High School:</label>
-     <input type="text" id="high_school" name="high_school" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
- </div>
- <!-- Year Obtained -->
- <div class="mb-4">
-     <label for="year_of_completion" class="block text-sm font-medium text-black mb-2">Year of completion:</label>
-     <input type="text" id="year_of_completion" name="year_of_completion" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500">
- </div>
+<div class="mb-4">
+    <label for="app_type" class="block text-sm font-bold text-black font-bold mb-2">Application Type:</label>
+    <select name="app_type" id="app_type" class="block w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+        <option value="Internship">Internship</option>
+        <option value="Junior Position">Junior Position</option>
+        <option value="Senior Position">Senior Position</option>
+        <option value="Contract">Contract</option>
+        <option value="Freelance">Freelance</option>
+    </select>
+</div>
+<div class="mb-4">
+    <label for="field" class="block text-sm font-bold text-black font-bold mb-2">Field of Study :</label>
+    <select name="field" id="field" class="block w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
+        <option value="Software and Web Development">Software & Web Development</option>
+        <option value="Robotics">Robotics</option>
+        <option value="Business Analysis">Business Analysis</option>
+        <option value="Desktop Technicial">Desktop Technician</option>
+        <option value="Graphic Designs">Graphic designs</option>
+        <option value="Marketing">Markerting</option>
+        <option value="Administration">Administration</option>
+    </select>
 </div>

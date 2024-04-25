@@ -25,7 +25,7 @@ class ApplicationsController extends Controller
     {                
         $existingApplication = InternshipApplication::where('id_no', $request->id_number)->first();
         if ($existingApplication) {
-            return redirect()->back()->with('error', 'Application already exists. Check your profile for application status!');
+            return redirect('/profile')->with('error', 'Application already exists. Find Your Application Details Here!');
         }
 
         $validatedData = $request->validate([
@@ -65,6 +65,9 @@ class ApplicationsController extends Controller
         $internship->user_id = Auth::user()->id;
         $internship->id_no = $request->id_number;
         $internship->age = $request->age;
+        
+        $internship->app_type = $request->app_type;
+        $internship->field = $request->field;
 
         /* High School */
         $internship->address = $request->address;
