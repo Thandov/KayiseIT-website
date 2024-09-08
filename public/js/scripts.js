@@ -76,8 +76,29 @@ $(window).on("load", function () {
                 items: 1
             },
         }
-    })
+    });
 
+    var owlgal = jQuery('.gallCal');
+    owlgal.owlCarousel({
+        animateOut: 'animate__animated animate__fadeOut',
+        animateIn: 'animate__animated animate__fadeIn',
+        loop: true,
+        responsiveClass: true,
+        dots: true, // Enable dots
+        dotsData: true, // Use custom dots with thumbnails
+        nav: true,
+        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+        responsive: {
+            0: {
+                items: 1,
+            }
+        },
+        autoplay: true,
+        autoplayTimeout: 12000,
+        autoplayHoverPause: false,
+    });
+
+    
 });
 
 // Initialize Bootstrap tabs

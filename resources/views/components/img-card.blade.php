@@ -1,4 +1,4 @@
-<div class="rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 image-container">
+<div class="rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 image-container relative">
 
     <form action="{{ url('dashboard/gallery/delete', $picid) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this client?')">
         @csrf

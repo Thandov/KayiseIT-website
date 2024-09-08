@@ -7,18 +7,18 @@
     $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
     @endphp
     @endsection
-    <!-- Page Body -->
+    <!-- 
 
-    <!--Carousel-->
+    
     <section id="carousel">
         @include('_carousel')
     </section>
 
-    <!--About Us-->
+    
     <section id="about-us">
         @include('_about')
     </section>
-    <!--Featured Services-->
+    
     <section class="bg-slate-100 py-5" id="featured-services">
         <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
             @include('services._services', ['services' => $services->take(3)])
@@ -27,12 +27,19 @@
             </div>
         </div>
     </section>
-    <!-- partners -->
+     -->
+    <section id="gallery">
+        <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
+            @include('_gallery')
+        </div>
+
+    </section>
+
     <section id="our-clients">
         <x-partners></x-partners>
     </section>
 
-    <!--Services Call-To-Action-->
+
     <section id="our-services">
         <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
             <div class="row">
@@ -52,20 +59,20 @@
         </div>
     </section>
 
+    <section id="previuswork">
+        @include('_prevwork')
+    </section>
+
     <section id="testimonials">
         @include('_testimonials')
     </section>
 
-    <!-- <section id="our-clients">
-        <x-partners></x-partners>
-    </section> -->
 
-    <!-- Our Clients -->
     <section id="our-clients">
         <x-clients></x-clients>
     </section>
 
-    <!-- Contact-Info -->
+
     <section id="contact-info">
         @include('_contactinfo')
     </section>

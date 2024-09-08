@@ -436,17 +436,17 @@ $apbheight: 100px;
     transform-origin: 50% 50%;
   }
 
-  :checked+label {
+  :checked + label {
     border-color: $pcolor;
   }
 
-  :checked+label:before {
+  :checked + label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
 
-  :checked+label img {
+  :checked + label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
@@ -493,17 +493,17 @@ $apbheight: 100px;
     transform-origin: 50% 50%;
   }
 
-  :checked+label {
+  :checked + label {
     border-color: $pcolor;
   }
 
-  :checked+label:before {
+  :checked + label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
 
-  :checked+label img {
+  :checked + label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
@@ -550,17 +550,17 @@ $apbheight: 100px;
     transform-origin: 50% 50%;
   }
 
-  :checked+label {
+  :checked + label {
     border-color: $pcolor;
   }
 
-  :checked+label:before {
+  :checked + label:before {
     content: "✓";
     background-color: $pcolor;
     transform: scale(1);
   }
 
-  :checked+label img {
+  :checked + label img {
     transform: scale(0.9);
     // box-shadow: 0 0 5px #333;
     z-index: -1;
@@ -787,9 +787,9 @@ div.sticky {
   width: 612px;
 }
 
-.icongreen{
-  background-color: #0F5D37!important;
-  color: #fff!important
+.icongreen {
+  background-color: #0f5d37 !important;
+  color: #fff !important;
 }
 @media screen and (max-width: 700px) {
   .pic-2 {
@@ -861,7 +861,6 @@ div.sticky {
 }
 
 @media screen and (max-width: 767px) {
-
   /* hide the image when screen size is less than or equal to 767px */
   #company img {
     display: none;
@@ -880,7 +879,6 @@ div.sticky {
 }
 
 #viewsubservice {
-
   /* Style for the table body */
   tbody td {
     font-size: 16px;
@@ -1218,4 +1216,11 @@ footer .footer-content .link-boxes .box {
   /* Blurred effect */
   z-index: 40;
   /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
+}
+
+.owl-dots {
+  display: flex;
+  .thumbnail-dot {
+    width: 15px;
+  }
 }

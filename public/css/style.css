@@ -689,7 +689,7 @@ div.sticky {
 }
 
 .icongreen {
-  background-color: #0F5D37 !important;
+  background-color: #0f5d37 !important;
   color: #fff !important;
 }
 
@@ -1102,4 +1102,11 @@ footer .footer-content .link-boxes .box {
   /* Blurred effect */
   z-index: 40;
   /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
+}
+
+.owl-dots {
+  display: flex;
+}
+.owl-dots .thumbnail-dot {
+  width: 15px;
 }/*# sourceMappingURL=style.css.map */

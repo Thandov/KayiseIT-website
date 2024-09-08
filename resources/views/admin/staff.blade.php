@@ -44,21 +44,23 @@
 </div>
 
 <script>
-    jQuery(document).ready(function () {
-        document.addEventListener("click", function (event) {
-            let target = event.target;
-            while (target != document && !target.classList.contains('add-client-btn') && !target.classList.contains('return-btn')) {
-                target = target.parentNode;
-            }
+jQuery(document).ready(function () {
+    document.addEventListener("click", function (event) {
+        let target = event.target;
+        // Ensure the loop stops if target becomes null
+        while (target && target != document && !target.classList.contains('add-client-btn') && !target.classList.contains('return-btn')) {
+            target = target.parentNode;
+        }
 
-            if (target.classList.contains('add-client-btn')) {
-                event.preventDefault();
-                slideBoxes('right');
-            } else if (target.classList.contains('return-btn')) {
-                event.preventDefault();
-                slideBoxes('left');
-            }
-        });
+        if (target && target.classList.contains('add-client-btn')) {
+            event.preventDefault();
+            slideBoxes('right');
+        } else if (target && target.classList.contains('return-btn')) {
+            event.preventDefault();
+            slideBoxes('left');
+        }
     });
+});
+
 
 </script>
