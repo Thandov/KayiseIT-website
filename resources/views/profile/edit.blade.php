@@ -5,13 +5,13 @@
         </h2>
     </x-slot>
     @if(session('success'))
-    <div class="alert alert-success">
+    <div class="alert alert-success mx-4">
         {{ session('success') }}
     </div>
     @endif
 
     @if(session('error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mx-4">
         {{ session('error') }}
     </div>
     @endif

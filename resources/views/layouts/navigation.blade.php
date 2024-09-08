@@ -1,7 +1,7 @@
 @if(!Route::is('dashboard'))
 @if (empty(Auth::user()->name))
 <nav class="grid grid-cols-2 bg-white border-b border-gray-100 px-5 py-3">
-    <div class="col-start-2 md:grid md:grid-cols-10">
+    <div class="col-start-2 md:grid md:grid-cols-4">
         @if (Route::has('login'))
             @auth @else @if (Route::has('login'))
             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex col-start-3 justify-end">
@@ -65,8 +65,8 @@
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('vacancies')" style="text-decoration: none;" :active="request()->routeIs('vacancies')">
-                {{ __('Vacancies') }}
+            <x-nav-link :href="route('opportunities')" style="text-decoration: none;" :active="request()->routeIs('opportunities')">
+                {{ __('Opportunities') }}
             </x-nav-link>
         </div>
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -204,8 +204,8 @@
         </div>
 
         <div class="space-x-8 sm:-my-px sm:ml-10 sm:flex">
-            <x-nav-link :href="route('vacancies')" :active="request()->routeIs('vacancies')">
-                {{ __('Vacancies') }}
+            <x-nav-link :href="route('opportunities')" :active="request()->routeIs('opportunities')">
+                {{ __('Opportunities') }}
             </x-nav-link>
         </div>
 
