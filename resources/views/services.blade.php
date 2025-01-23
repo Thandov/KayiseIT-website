@@ -13,12 +13,22 @@
   </section>
 
   <!--Featured Services-->
-  <section id="featured-services">
-    @include('services._services')
+  <section class="bg-slate-100 py-5" id="featured-services">
+    <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
+      @include('services._services')
+      <div class="flex justify-center">
+        @if (request()->is('/') || request()->is('home'))
+        <x-front-end-btn linking="services" color="blue" showme="zzzzzz" name="View All" />
+        @elseif (request()->is('services'))
+        <x-front-end-btn linking="contact" color="blue" showme="zzzzzz" name="Book a Consultation" />
+        @endif
+
+      </div>
+    </div>
   </section>
   <!-- CTA Section -->
   <section id="CTA">
-    <div class="grid md:grid-cols-3 grid-cols-1 mt-8 c2a">
+    <div class="grid md:grid-cols-3 grid-cols-1 c2a">
       <div class="c2aimgwrap position-relative"><img src="../images/techician.png" alt="Service 1" class="c2acrain"></div>
       <div class="md:col-span-2 col-span-1 px-5 flex items-center justify-start">
         <div class="des">
@@ -34,26 +44,3 @@
     <x-clients></x-clients>
   </section>
 </x-app-layout>
-<script>
-  $(document).ready(function() {
-    $(".owl-carousel").owlCarousel({
-      autoplay: true,
-      loop: true,
-      dots: false,
-      autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
-      smartSpeed: 2000, // Set slide speed to 1 second
-      responsive: {
-        0: {
-          items: 2
-        },
-        768: {
-          items: 3
-        },
-        900: {
-          items: 4
-        },
-      }
-
-    });
-  });
-</script>

@@ -1,11 +1,8 @@
-
-
-
-<div class="grid sm:grid-flow-row md:grid-cols-2 pb-4">
+<div class="container grid sm:grid-flow-row md:grid-cols-1 pb-4">
     <div class="px-4 mt-4">
         <x-titlestyle smheading="Transform Your" bgheading="Online Presence!" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
         <p class="text-left">Utilize Our Skilled IT Website Services to Transform Your Online Presence! In the digital sphere, we bring your brand to life with slick designs and flawless functioning.</p>
-        <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 my-4">
+        <div class="grid sm:grid-cols-1 md:grid-cols-4 gap-4 my-4">
             @foreach($subservices as $subservice)
             @php
             $slug = str_replace(' ','-', strtolower($service));
@@ -24,12 +21,15 @@
                     </div>
                 </div>
             </div>
-
             @endforeach
         </div>
     </div>
-    <div class="sideshowwrp">
-        <div class="slide show flex items-center"><x-webmockup></x-webmockup></div>
+
+
+
+    <!-- 
+            <div class="sideshowwrp">
+                <div class="slide show flex items-center"><x-webmockup></x-webmockup></div>
         @foreach($subservices as $subservice)
         @php
         $slug = str_replace(' ','-', strtolower($service));
@@ -74,8 +74,9 @@
                 @endif
             </form>
         </div>
-        @endforeach
-    </div>
+        </div>
+        @endforeach -->
+
 </div>
 
 <script>

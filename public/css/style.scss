@@ -23,6 +23,23 @@ $ht: 50px;
 /* Font Sizes Variables */
 $headingsize: 24px;
 $readingsize: 12px;
+
+$palette: (
+  lighter: (
+    "10%": lighten($pcolor, 10%),
+    "20%": lighten($pcolor, 20%),
+    "30%": lighten($pcolor, 30%),
+    "40%": lighten($pcolor, 40%),
+    "50%": lighten($pcolor, 50%)
+  ),
+  darker: (
+    "10%": darken($pcolor, 10%),
+    "20%": darken($pcolor, 20%),
+    "30%": darken($pcolor, 30%),
+    "40%": darken($pcolor, 40%),
+    "50%": darken($pcolor, 50%)
+  )
+);
 /*=================================================*/
 
 body {
@@ -116,6 +133,9 @@ input::-webkit-inner-spin-button {
   }
 }
 
+#mobileNavbar{
+  background-color: #fff;
+}
 #thapelo {
   margin: 10px 0px;
 }
@@ -737,7 +757,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #about-hero {
-    background: url("../images/subservices/christine-davenport.png"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/networking.png"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -759,7 +779,7 @@ div.sticky {
 
 #team_background {
   width: 100%;
-  background: url("../images/bg_dark.jpg"), radial-gradient(#444, #111);
+  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
@@ -1218,9 +1238,35 @@ footer .footer-content .link-boxes .box {
   /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
 }
 
-.owl-dots {
-  display: flex;
-  .thumbnail-dot {
-    width: 15px;
-  }
+
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.service-icon svg {
+    width: 80px;
+    height: 80px;
+    fill: $pcolor; // SCSS primary color variable
+}
+
+.partner-image {
+    height: 100px;
+    width: auto;
+    object-fit: contain;  // Keeps the image's aspect ratio and fits within the container
+    object-position: center;  // Centers the image within the container
+    display: block;  // Ensures the image is treated as a block-level element
+    margin: 0 auto;  // Centers the image horizontally
 }

@@ -1,5 +1,4 @@
 <?php
-
 // app/Services/SubServicesService.php
 
 namespace App\Services;
@@ -8,46 +7,72 @@ use App\Models\Subservice;
 use App\Models\Service;
 use App\Helpers\UploadHelper;
 
-
 class SubServicesService
 {
+    /**
+     * Store a new subservice
+     *
+     * @param  \Illuminate\Http\Request $requestData
+     * @param  string $serviceSlug
+     * @return \App\Models\Subservice
+     */
     public function storeSubservice($requestData, $serviceSlug)
     {
         $name = $requestData->name;
-        if ($requestData->hasFile('profile_picture') && !empty($requestData->hasFile('profile_picture'))) {
+
+        // Handle profile picture upload
+        if ($requestData->hasFile('profile_picture')) {
             $profilePicture = $requestData->file('profile_picture');
-            $path = 'images/subservices/'; // Set the desired path dynamically here
+            $path = 'images/subservices/'; // Desired upload path
 
             try {
                 $profilePicturePath = UploadHelper::uploadProfilePicture($profilePicture, $path, $name);
             } catch (\Exception $e) {
-                // Handle the exception here
-                dd("error");
                 return redirect()->back()->withErrors(['profile_picture' => $e->getMessage()]);
             }
-
-            // Do something with the $profilePicturePath, like saving it to the database, etc.
         } else {
-            $profilePicturePath = "null";
+            $profilePicturePath = null; // Default to null if no file uploaded
         }
+
+        // Create the Subservice record
         $subService = new Subservice();
         $subService->service_id = $serviceSlug;
-        $subService->name = $requestData->name;
-        $subService->slug = strtolower(str_replace(" ", "_", $requestData->name));
+        $subService->name = $name;
+        $subService->slug = strtolower(str_replace(" ", "_", $name));
         $subService->icon = $profilePicturePath;
         $subService->subservice_type = $requestData->subservice_type;
         $subService->price = $requestData->price;
-        // Generate a random 8-digit number and prepend it with "subserv_id"
+
+        // Generate unique subservice ID
         do {
             $subservIdNumber = mt_rand(0, 999);
             $subService->subserv_id = 'subserv' . $subservIdNumber;
         } while (Subservice::where('subserv_id', $subService->subserv_id)->exists());
 
         $subService->save();
+
         return $subService;
     }
+
+    /**
+     * Find a service by its ID
+     *
+     * @param  int $serviceId
+     * @return \App\Models\Service|null
+     */
     public function findService($serviceId)
     {
         return Service::where('service_id', $serviceId)->first();
+    }
+
+    /**
+     * Find a subservice by service ID
+     *
+     * @param  int $serviceId
+     * @return \App\Models\Subservice|null
+     */
+    public function findSubService($serviceId)
+    {
+        return Subservice::where('service_id', $serviceId)->first();
     }
 }

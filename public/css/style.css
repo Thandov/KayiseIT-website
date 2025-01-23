@@ -97,6 +97,10 @@ input::-webkit-inner-spin-button {
   justify-content: space-evenly !important;
 }
 
+#mobileNavbar {
+  background-color: #fff;
+}
+
 #thapelo {
   margin: 10px 0px;
 }
@@ -639,7 +643,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #about-hero {
-    background: url("../images/subservices/christine-davenport.png"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/networking.png"), radial-gradient(#aaa, #fff);
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -660,7 +664,7 @@ div.sticky {
 
 #team_background {
   width: 100%;
-  background: url("../images/bg_dark.jpg"), radial-gradient(#444, #111);
+  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
@@ -1104,9 +1108,34 @@ footer .footer-content .link-boxes .box {
   /* Set z-index higher than modal (z-index of modal is 50 by default in Tailwind) */
 }
 
-.owl-dots {
-  display: flex;
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
-.owl-dots .thumbnail-dot {
-  width: 15px;
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.service-icon svg {
+  width: 80px;
+  height: 80px;
+  fill: #22c55e;
+}
+
+.partner-image {
+  height: 100px;
+  width: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center;
+     object-position: center;
+  display: block;
+  margin: 0 auto;
 }/*# sourceMappingURL=style.css.map */

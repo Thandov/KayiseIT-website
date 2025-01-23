@@ -9,7 +9,7 @@ class Subservice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'service_id', 'description', 'price_type', 'price', 'options'];
+    protected $fillable = ['subserv_id', 'service_id', 'name', 'slug', 'icon', 'subservice_type', 'price'];
 
 
     protected $table = 'subservices';

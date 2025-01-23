@@ -7,8 +7,6 @@
     $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
     @endphp
     @endsection
-    <!-- 
-
     
     <section id="carousel">
         @include('_carousel')
@@ -21,20 +19,13 @@
     
     <section class="bg-slate-100 py-5" id="featured-services">
         <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
-            @include('services._services', ['services' => $services->take(3)])
+            @include('services._services', ['services' => $services->take(4)])
             <div class="flex justify-center">
                 <x-front-end-btn linking="services" color="blue" showme="zzzzzz" name="View All" />
             </div>
         </div>
     </section>
-     -->
-    <section id="gallery">
-        <div class="text-center px-4 md:px-8 max-w-screen-xl mx-auto">
-            @include('_gallery')
-        </div>
-
-    </section>
-
+     
     <section id="our-clients">
         <x-partners></x-partners>
     </section>
@@ -59,9 +50,6 @@
         </div>
     </section>
 
-    <section id="previuswork">
-        @include('_prevwork')
-    </section>
 
     <section id="testimonials">
         @include('_testimonials')

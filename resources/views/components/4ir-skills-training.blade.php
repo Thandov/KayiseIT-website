@@ -29,17 +29,25 @@
             <img src="/images/icons/IOT.jpeg" alt="Image 4" class="w-full h-full object-cover">
         </div>
     </div> -->
-    <a href="{{ route('drones') }}">
-        <div class="bg-white overflow-hidden border border-blue-400 shadow-md rounded-lg w-80 h-30 p-4">
+    <div>
+
+        <div class="bg-white relative overflow-hidden border border-blue-400 shadow-md rounded-lg w-80 h-30 p-4">
             <div class="flex justify-center">
-                <div class="h-24  rounded-md bg-green-500 flex items-center justify-center"><img src="/images/icons/drones.png" alt="Image 3" class="w-full h-full object-cover"></div>
+                <div class="h-24  rounded-md bg-green-500 flex items-center justify-center animate-float">
+                    <img src="/images/icons/drones.png" alt="Image 3" class="w-full h-full object-cover">
+                </div>
             </div>
             <div class="flex justify-center">
                 <div class="">
                     <h2 class="mt-4 text-xl font-bold smalltxt">Drone Workshop 1</h2>
                 </div>
             </div>
+            <div class="bg-red-500 p-1 text-center absolute" style="top: 50%; left: 0; right: 0px; width: 100%;">
+                <p class="text-white m-0">
+                    Coming Soon
+                </p>
+            </div>
         </div>
-    </a>
+    </div>
 
 </div>

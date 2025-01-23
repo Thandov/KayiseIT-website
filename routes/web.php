@@ -327,6 +327,7 @@ Route::get('services/{slug}', [ServicesController::class, 'display_service_name'
 
 
 Route::post('viewsubservice/quote', [QuotationController::class, 'quote'])->name('viewsubservice.quote');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::post('contact/contact', [ContactController::class, 'contact'])->name('contactsubmit');
 Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('footer.subscribe');

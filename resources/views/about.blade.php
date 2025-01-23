@@ -35,18 +35,8 @@
       </div>
   </section>
 
-  <section class="py-5 bg-white sm:px-6 lg:px-8" id="partners">
-    <x-titlestyle smheading="Meet Our" bgheading="Partners" alignment="text-center" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-    <div class="justify-center flex-wrap my-4" id="client_logo_carousel">
-      <div class="m-5">
-        <img class="mx-auto" src="../images/partners/partner1.jpg" style="height: 150px;">
-        <p class="text-center my-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      <div class="m-5">
-        <img class="mx-auto" src="../images/partners/ehlanzeni.png" style="height: 150px;">
-        <p class="text-center my-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-    </div>
+  <section id="our-clients">
+    <x-partners></x-partners>
   </section>
 
   <!-- Our Clients -->
@@ -54,26 +44,3 @@
     <x-clients></x-clients>
   </section> -->
 </x-app-layout>
-<script>
-  $(document).ready(function() {
-    $(".owl-carousel").owlCarousel({
-      autoplay: true,
-      loop: true,
-      dots: false,
-      autoplayTimeout: 2000, // Set autoplay delay to 5 seconds
-      smartSpeed: 2000, // Set slide speed to 1 second
-      responsive: {
-        0: {
-          items: 2
-        },
-        768: {
-          items: 3
-        },
-        900: {
-          items: 4
-        },
-      }
-
-    });
-  });
-</script>

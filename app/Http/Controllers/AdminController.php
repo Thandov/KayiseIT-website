@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Quotation;
 use App\Models\Service;
-use App\Models\SubService;
+use App\Models\Subservice;
 use App\Models\Options;
 use App\Models\Items;
 use App\Models\Invoice;
@@ -209,14 +209,24 @@ class AdminController extends Controller
         return view('admin/services', compact('services'));
     }
 
+    /**
+     * View a specific service and its subservices
+     *
+     * @param  string $slug
+     * @return \Illuminate\View\View
+     */
     public function viewservice($slug)
     {
-        echo "admin/services/viewservice";
         $service = Service::where('slug', $slug)->first();
-        $subservices = SubService::where('service_id', $service->service_id)->get();
 
-        $extras = (count($subservices) === 0) ? $extras = false : $extras = true;
-        return view('admin/services/viewservice', compact('service', 'subservices', 'extras'));
+        if (!$service) {
+            return redirect()->back()->withErrors(['error' => 'Service not found.']);
+        }
+        $subservices = Subservice::where('service_id', $service->service_id)->get();
+        $extras = $subservices->isNotEmpty();
+
+
+        return view('admin.services.viewservice', compact('service', 'subservices', 'extras'));
     }
 
     public function viewsubservice($id)

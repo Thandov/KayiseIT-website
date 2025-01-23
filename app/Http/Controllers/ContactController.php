@@ -11,9 +11,38 @@ use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
 use Illuminate\Support\Facades\Http;
+use App\Models\Service;
+use App\Services\ServicesService;
 
 class ContactController extends Controller
 {
+
+    protected $servicesService;
+
+    public function __construct(ServicesService $servicesService)
+    {
+        $this->servicesService = $servicesService;
+    }
+
+    public function index()
+    {
+        // Retrieve all services using the service layer
+        $services = $this->servicesService->getAllServices();
+
+        // Return services as JSON response for the contact page
+        return view('contact', compact('services'));
+    }
+
+    // If you're using an API route to fetch services
+    public function getServices()
+    {
+        // Fetch all services from the database
+        $services = Service::all();
+
+        // Return the services as JSON
+        return response()->json($services);
+    }
+    
 
     public function contact(Request $request)
     {

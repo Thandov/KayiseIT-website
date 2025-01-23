@@ -1,13 +1,9 @@
 var csrfToken = $('meta[name="csrf-token"]').attr('content');
-//carousel
-function callback(event) {
-    removeSliderClass(event);
-}
 
-function removeSliderClass(event) {
-    console.log("removing classes");
-    var item = event.item.index - 2; // Position of the current item
-    console.log(item);
+// Helper function to handle animation classes
+function updateAnimationClasses(event) {
+    console.log("Updating animation classes");
+    var item = event.relatedTarget.relative(event.item.index); // Correct relative index
     jQuery('p').removeClass('animate__animated animate__fadeInDown');
     jQuery('h1').removeClass('animate__animated animate__fadeInUp');
     jQuery('img').removeClass('animate__animated animate__fadeInDown');
@@ -15,28 +11,21 @@ function removeSliderClass(event) {
     jQuery('.owl-item').not('.cloned').eq(item).find('p').addClass('animate__animated animate__fadeInDown');
     jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass('animate__animated animate__fadeInUp');
     jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass('animate__animated animate__fadeInUp');
-    jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
-        'animate__animated animate__fadeInLeft');
+    jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass('animate__animated animate__fadeInLeft');
 }
 
-function save_to_db(data) {
-    var details = JSON.stringify(data);
-    document.getElementById("paypal_response").value = details;
-    $('#paypal_form').submit();
-
-}
-
-$(window).on("load", function () {
-    "use strict";
-    var owl = jQuery('#headercara');
-    owl.owlCarousel({
+// Carousel Initialization
+function initializeCarousel() {
+    var headerCarousel = jQuery('#headercara');
+    headerCarousel.owlCarousel({
         animateOut: 'animate__animated animate__fadeOut',
         animateIn: 'animate__animated animate__fadeIn',
         loop: true,
         responsiveClass: true,
         dots: true,
         nav: true,
-        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>',
+        navText: [
+            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
             '<i class="fa fa-angle-right" aria-hidden="true"></i>'
         ],
         responsive: {
@@ -46,116 +35,16 @@ $(window).on("load", function () {
             }
         },
         autoplay: true,
-        autoplayTimeout: 12000,
-        autoplayHoverPause: false,
-    });
-    owl.on('changed.owl.carousel', function (event) {
-        var item = event.item.index - 2; // Position of the current item
-        jQuery('p').removeClass('animate__animated animate__fadeInDown');
-        jQuery('h1').removeClass('animate__animated animate__fadeInUp');
-        jQuery('img').removeClass('animate__animated animate__fadeInDown');
-        jQuery('.hero__btn').removeClass('animate__animated animate__fadeInLeft');
-        jQuery('.owl-item').not('.cloned').eq(item).find('p').addClass(
-            'animate__animated animate__fadeInDown');
-        jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass(
-            'animate__animated animate__fadeInUp');
-        jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass(
-            'animate__animated animate__fadeInUp');
-        jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
-            'animate__animated animate__fadeInLeft');
-    });
-
-    $('#testimonial-carousel').owlCarousel({
-        loop: true,
-        margin: 10,
-        autoplay: true,
-        autoplayTimeout: 3000,
-        autoplayHoverPause: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-        }
-    });
-
-    var owlgal = jQuery('.gallCal');
-    owlgal.owlCarousel({
-        animateOut: 'animate__animated animate__fadeOut',
-        animateIn: 'animate__animated animate__fadeIn',
-        loop: true,
-        responsiveClass: true,
-        dots: true, // Enable dots
-        dotsData: true, // Use custom dots with thumbnails
-        nav: true,
-        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-        responsive: {
-            0: {
-                items: 1,
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 12000,
-        autoplayHoverPause: false,
-    });
-
-    
-});
-
-// Initialize Bootstrap tabs
-$(document).ready(function () {
-    $('#myTabs a[data-toggle="tab"]').on('shown.bs.tab', function () {
-        // Adjust scroll position after tab switch
-        $('.nav-scrollable').scrollTop(0);
-    });
-});
-
-$(function ($) {
-    "use strict";
-
-    jQuery('#headercara').owlCarousel({
-        animateOut: 'animate__animated animate__fadeOut',
-        animateIn: 'animate__animated animate__fadeIn',
-        loop: true,
-        responsiveClass: true,
-        dots: true,
-        nav: true,
-        navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>',
-            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-        ],
-        responsive: {
-            0: {
-                items: 1,
-                nav: false
-            }
-        },
-        autoplay: true,
-        autoplayTimeout: 6000,
+        autoplayTimeout: 600000,
         autoplayHoverPause: true,
     });
 
-    var owl = jQuery('#headercara');
-
-    owl.on('changed.owl.carousel', function (event) {
-        var item = event.item.index - 2; // Position of the current item
-        console.log(item);
-        jQuery('p').removeClass('animate__animated animate__fadeInDown');
-        jQuery('h1').removeClass('animate__animated animate__fadeInUp');
-        jQuery('img').removeClass('animate__animated animate__fadeInDown');
-        jQuery('.hero__btn').removeClass('animate__animated animate__fadeInLeft');
-
-        jQuery('.owl-item').not('.cloned').eq(item).find('p').addClass(
-            'animate__animated animate__fadeInDown');
-        jQuery('.owl-item').not('.cloned').eq(item).find('h1').addClass(
-            'animate__animated animate__fadeInUp');
-        jQuery('.owl-item').not('.cloned').eq(item).find('img').addClass(
-            'animate__animated animate__fadeInUp');
-        jQuery('.owl-item').not('.cloned').eq(item).find('.hero__btn').addClass(
-            'animate__animated animate__fadeInLeft');
+    headerCarousel.on('changed.owl.carousel', function (event) {
+        updateAnimationClasses(event);
     });
 
-});
-$(document).ready(function () {
-    $('#testimonial-carousel').owlCarousel({
+    var testimonialCarousel = jQuery('#testimonial-carousel');
+    testimonialCarousel.owlCarousel({
         loop: true,
         margin: 10,
         autoplay: true,
@@ -165,7 +54,49 @@ $(document).ready(function () {
         responsive: {
             0: {
                 items: 1
-            },
+            }
         }
-    })
+    });
+
+    var galleryCarousel = jQuery('.gallCal');
+    galleryCarousel.owlCarousel({
+        animateOut: 'animate__animated animate__fadeOut',
+        animateIn: 'animate__animated animate__fadeIn',
+        loop: true,
+        responsiveClass: true,
+        dots: true,
+        dotsData: true,
+        nav: true,
+        navText: [
+            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+        ],
+        responsive: {
+            0: {
+                items: 1
+            }
+        },
+        autoplay: true,
+        autoplayTimeout: 120000,
+        autoplayHoverPause: false,
+    });
+}
+
+$(document).ready(function () {
+    "use strict";
+
+    // Initialize Carousels
+    initializeCarousel();
+
+    // Initialize Bootstrap Tabs
+    $('#myTabs a[data-toggle="tab"]').on('shown.bs.tab', function () {
+        $('.nav-scrollable').scrollTop(0); // Reset scroll position
+    });
 });
+
+// Save to DB function
+function save_to_db(data) {
+    var details = JSON.stringify(data);
+    document.getElementById("paypal_response").value = details;
+    $('#paypal_form').submit();
+}
