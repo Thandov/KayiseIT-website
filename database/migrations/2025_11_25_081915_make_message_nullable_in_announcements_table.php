@@ -14,7 +14,9 @@ return new class extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE announcements MODIFY COLUMN message TEXT NULL');
+        if (Schema::hasColumn('announcements', 'message')) {
+            DB::statement('ALTER TABLE announcements MODIFY COLUMN message TEXT NULL');
+        }
     }
 
     /**
@@ -24,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::statement('ALTER TABLE announcements MODIFY COLUMN message TEXT NOT NULL');
+        if (Schema::hasColumn('announcements', 'message')) {
+            DB::statement('ALTER TABLE announcements MODIFY COLUMN message TEXT NOT NULL');
+        }
     }
 };
