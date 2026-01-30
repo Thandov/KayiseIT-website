@@ -1,0 +1,26 @@
+{
+  "public/images/bg_dark.jpg": {
+    "file": "assets/bg_dark-55a11b4a.jpg",
+    "src": "public/images/bg_dark.jpg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-2cbf0d43.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/dashboard.css": {
+    "file": "assets/dashboard-67c3c80b.css",
+    "isEntry": true,
+    "src": "resources/css/dashboard.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-ca409aca.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-4b5be224.js",
+    "isEntry": true,
+    "src": "resources/js/dashboard.js"
+  }
+}

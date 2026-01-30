@@ -1,0 +1,654 @@
+/* ==================================== Import ==================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/* ==================================== Global Styling ==================================== */
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Montserrat', sans-serif;
+} 
+
+span{
+	color: #183ea4;
+}
+
+.content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  width: 100%;
+  padding: 0 30px;
+  color: #1b1b1b;
+}
+.content div{
+  font-size: 40px;
+  font-weight: 700;
+}
+/* ==================================== Hero Styling ==================================== */
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+  min-height: 50vh;
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+section {
+  padding: 7em 0;
+}
+
+.container {
+  width: 85%;
+  max-width: 65em;
+  margin: 0 auto;
+}
+
+.split {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1em;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.split > * {
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
+  min-width: 15em;
+}
+
+.spacing > * + * {
+  margin-top: var(--spacer, 2rem);
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--clr-text, #fff);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  padding: .5em 1.25em;
+  background: #64bc5c;
+  border-radius: .25em;
+  -webkit-transition: opacity 250ms linear, -webkit-transform 250ms ease-in-out;
+  transition: opacity 250ms linear, -webkit-transform 250ms ease-in-out;
+  transition: transform 250ms ease-in-out, opacity 250ms linear;
+  transition: transform 250ms ease-in-out, opacity 250ms linear, -webkit-transform 250ms ease-in-out;
+}
+
+.btn:hover,
+.btn:focus {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  opacity: .9;
+}
+
+.hero {
+  --clr-accent: #faa700;
+}
+
+/* ==================================== About Us Styling ==================================== */
+#about-us{
+  height: auto;
+  width: 100%;
+  background: #ffffff;
+}
+.pic{
+  height: auto;
+  width:  312px;
+}
+.about{
+  width: 1130px;
+  max-width: 85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.text{
+  width: 540px;
+}
+.text h2{
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 10px;
+
+}
+.text h5{
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.text p{
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+.data{
+  margin-top: 30px;
+}
+.hire{
+  font-size: 18px;
+  background: #64bc5c;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.hire:hover{
+  background: #000;
+  border: 1px solid #183ea4;
+}
+
+/* ==================================== Our Services Styling ==================================== */
+.our-services{
+  
+  width: 100%;
+  padding: 90px 0;
+  background: url('../images/Big Zee.jpg'), radial-gradient(#444, #111);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+}
+.pic-2{
+  height: auto;
+  width:  512px;
+}
+.services{
+  width: 1130px;
+  max-width: 85%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.text-2{
+  width: 540px;
+}
+.text-2 h2{
+	color: #ffffff;
+	font-size: 45px;
+	font-weight: 600;
+	margin-bottom: 10px;
+
+}
+.text-2 h5{
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.text-2 p{
+	color: #ffffff;
+	font-size: 18px;
+	line-height: 25px;
+	letter-spacing: 1px;
+}
+.data{
+  margin-top: 30px;
+}
+.hire{
+  font-size: 18px;
+  background: #64bc5c;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.hire:hover{
+  background: #4070f4;
+  border: 1px solid #64bc5c;
+}
+.hiree{
+  font-size: 18px;
+  background: #4070f4;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.hiree:hover{
+  background: #000;
+  border: 1px solid #4070f4;
+}
+/* ==================================== Contact Us Styling ==================================== */
+.contact-us{
+  width: 100%;
+  padding: 90px 0;
+  background: #64bc5c;
+}
+.pic-3{
+  height: auto;
+  width:  612px;
+}
+.contact{
+  width: 1130px;
+  max-width: 85%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.text-3{
+	color: #ffffff;
+  width: 540px;
+}
+.text-3 h2{
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 10px;
+
+}
+.text-3 h5{
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.text-3 p{
+  font-size: 18px;
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+.data{
+  margin-top: 30px;
+}
+.hire-1{
+  font-size: 18px;
+  background: #ffffff;
+  color: #64bc5c;
+  text-decoration: none;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 6px;
+  transition: 0.5s;
+}
+.hire-1:hover{
+  background: #000;
+  border: 1px solid #4070f4;
+}
+
+
+
+/*=============================== Responsive Styling===============================*/
+#about-us, .our-services, .contact-us {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+#about-us .contarowiner, .our-services .services, .contact-us .contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#about-us .row .text, .our-services .services .text-2, .contact-us .contact .text-3 {
+  flex-basis: 50%;
+  padding-right: 50px;
+}
+
+#about-us .row .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
+  flex-basis: 50%;
+  max-width: 50%;
+  height: auto;  /* add this line to set the maximum height of the image*/ 
+	
+}
+
+#about-us h2, .our-services h2, .contact-us h2 {
+  font-size: 36px;
+  line-height: 44px;
+}
+
+#about-us p, .our-services p, .contact-us p {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* Media queries */
+@media screen and (max-width: 952px) {
+
+  #about-us, .our-services, .contact-us {
+	  
+    padding: 30px;
+  }
+  
+  
+  
+  #about-us .row .text, .our-services .services .text-2, .contact-us .contact .text-3 {
+    flex-basis: 100%;
+    padding-right: 0;
+  }
+  
+  #about-us .row .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
+    flex-basis: 100%;
+    margin-top: 20px;
+  }
+}
+
+/*========================Remove Zig Zag====================*/
+
+@media screen and (max-width: 700px) {
+  #about-us h2, .our-services h2, .contact-us h2 {
+    font-size: 80px;
+    line-height: 36px;
+  }
+  
+  #about-us p, .our-services p, .contact-us p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  #about-us .about .pic, .our-services .services .pic-2, .contact-us .contact .pic-3 {
+    flex-basis: 100%;
+    max-width: 100%;
+    height: auto;  /* add this line to set the maximum height of the image*/ 
+    
+  }
+}
+
+
+
+@media screen and (max-width: 540px) {
+  #about-us h2, .our-services h2, .contact-us h2 {
+    font-size: 28px;
+    line-height: 26px;
+  }
+  
+  #about-us p, .our-services p, .contact-us p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  
+  
+}
+/*==============================Make image corners round================*/
+.contact img {
+  border-radius: 1.5%;
+}
+
+.services img {
+  border-radius: 1.5%;
+}
+
+.pic {
+  border-radius: 1.5%;
+}
+/*=============================Hero Animations============================================*/
+/* CSS code for the h3 tag */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Apply the animation to the h3 tag */
+.hero h3 {
+  animation: slideIn 1.5s ease-in-out;
+}
+
+.hero .primary-title {
+  animation: slideInLeft 1.5s ease;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.hero p {
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  /* Set the width of the sections to match the carousel */
+  .section {
+    width: 100%;
+  }
+}
+
+
+/* ==================================== skills Styling ==================================== */
+
+
+
+@keyframes progress {
+    0%{
+        width: 0;
+        opacity: 1;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.overviews {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.overview {
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.overview span {
+  font-size: 65px;
+  font-weight: bold;
+  font-weight: 800;
+  color: #183ea4;
+}
+
+.overview p {
+  font-size: 17px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.img_overview {
+  width: 30px;
+  margin: 0% auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .overviews {
+    flex-direction: column;
+  }
+}
+
+
+
+
+
+.carousel-inner {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.carousel-item img {
+  object-position: center -20%;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  z-index: 1;
+}
+
+/* Set the carousel height to 300px for screens smaller than 768px */
+@media (max-width: 767px) {
+  .carousel-inner {
+  }
+}
+
+/* Set the carousel height to 400px for screens larger than or equal to 768px */
+@media (min-width: 768px) {
+  .carousel-inner {
+    height: 400px;
+  }
+}
+
+        
+.animate {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+.slide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.slide-container {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+  transition: transform 0.1s ease;
+}
+
+.slide-container img {
+  width: 23%;
+  margin: 0 20px 0 0;
+  box-sizing: border-box;
+  display: none;
+}
+
+.slide-container img:last-child {
+  margin-right: 0;
+}
+
+.slide-container img.show {
+  display: block;
+}
+
+.services .card {
+    height: 250px; /* Set a fixed height for each card */
+    width: 300px;
+  }
+ .services .card-img {
+    height: 100%; /* Make the image fill the entire height of the card */
+    object-fit: cover; /* Scale the image while maintaining its aspect ratio */
+  }
+
+
+  #team_background {
+    width: 100%;
+    padding: 90px 0;
+      background: url('../images/Kayise Full Zebra Background.jpg'), radial-gradient(#444, #111);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center center;
+  }
+
+  #culture .card {
+    height: 250px; /* Set a fixed height for each card */
+  }
+  
+  #culture .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    #culture .card-container {
+      justify-content: flex-start;
+    }
+  
+    #culture .card {
+      width: 100%;
+      max-width: 350px;
+    }
+  }
+
+  @media (max-width: 767px) {
+   #company .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+  /* hide the image when screen size is less than or equal to 767px */
+ #company .position-relative {
+    display: none;
+  }
+}
+
+

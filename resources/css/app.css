@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/*=================================================*/
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#hombreak {
+  position: relative;
+  width: 100%;
+  padding: 0px 10px;
+  background-image: url("../../public/images/bg_dark.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#hombreak::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(34, 197, 94, 0.5);
+}
+#hombreak .wrs {
+  position: relative;
+  z-index: 99999;
+  height: 100%;
+  width: 100%;
+}
+
+.c2a .c2aimgwrap {
+  height: 200px;
+  width: auto;
+}
+.c2a .c2aimgwrap .c2acrain {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 70%;
+  height: auto;
+}
+
+/* SCSS */
+.service-link {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease; /* Animation transition */
+  /* Your existing styles here */
+  /* Initially, make the border transparent */
+  /* When hovering, reveal the border */
+}
+.service-link::before, .service-link::after {
+  content: "";
+  position: absolute;
+  border: 2px solid transparent;
+  transition: all 0.3s ease; /* Animation transition */
+}
+.service-link::before {
+  top: 0;
+  left: 0;
+  right: 100%;
+  bottom: 100%;
+  border-right-color: #00ff00; /* Green color */
+}
+.service-link::after {
+  top: 100%;
+  left: 100%;
+  right: 0;
+  bottom: 0;
+  border-left-color: #00ff00; /* Green color */
+}
+.service-link:hover::before {
+  right: 0;
+}
+.service-link:hover::after {
+  left: 0;
+}
+
+.sideshowwrp {
+  height: 450px;
+  width: 100%;
+  padding: 5px;
+  position: relative;
+}
+.sideshowwrp .slide {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.sideshowwrp .slide .webmockup {
+  position: absolute;
+  top: 25%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.sideshowwrp .show {
+  display: block;
+}
+
+.subserv_card {
+  border: 3px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+  /* Change the border color and width on hover */
+}
+.subserv_card .subserv_card:hover {
+  border-color: green;
+}
+
+.dash-card-shrinked {
+  flex: 1;
+  max-width: 20%;
+  transition: max-width 0.3s ease-in-out;
+}
+
+.dash-card-expanded {
+  flex: 1;
+  max-width: 100%;
+  transition: max-width 0.3s ease-in-out;
+}
+
+.sqbox {
+  height: 25px;
+  width: 30px;
+}
+
+#client_logo_carousel .client_logo_wrapper {
+  height: 100px;
+  width: auto;
+}
+
+.image-container img {
+  width: 250px;
+  /* Set the width of the image */
+  height: 100px;
+  /* Set the height of the image */
+  -o-object-fit: cover;
+     object-fit: cover;
+  /* Cover the container, may crop the image */
+  -o-object-position: center;
+     object-position: center;
+  /* Center the image within the container */
+}
+
+.c2aimg img {
+  /* Set the height of the image */
+  -o-object-fit: cover;
+     object-fit: cover;
+  /* Cover the container, may crop the image */
+  -o-object-position: center;
+     object-position: center;
+  /* Center the image within the container */
+}
+
+/* If the container needs a specific height */
+.image-container {
+  max-width: 250px;
+  /* Set the width of the image */
+  /* Adjust the width as needed */
+  /* Example for 16:9 aspect ratio */
+  overflow: hidden;
+  /* Hide parts of the image that overflow the container */
+  /* Set the height of the image */
+  -o-object-fit: cover;
+     object-fit: cover;
+  /* Cover the container, may crop the image */
+  -o-object-position: center;
+     object-position: center;
+  /* Center the image within the container */
+}
+
+.custom-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.custom-container .box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+.custom-container .box.boxA {
+  transform: translateX(0);
+}
+.custom-container .box.boxB {
+  transform: translateX(100%);
+}/*# sourceMappingURL=app.css.map */

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kayiseit.com/sitemap.xml
+
+# Disallow admin and dashboard areas
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /checkout/
+
+# Allow important public pages
+Allow: /
+Allow: /about
+Allow: /contact
+Allow: /services
+Allow: /gallery
+Allow: /blogs
+Allow: /career-mapping
+Allow: /opportunities
+Allow: /announcements
