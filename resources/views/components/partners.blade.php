@@ -8,12 +8,19 @@
 <div class="flex flex-wrap items-center justify-center gap-10 md:gap-12" id="client_logo_carousel">
     @forelse($partners as $partner)
         @if($partner->logo_path)
+            @php
+                // DB may store "partners/file.png" (storage) or "images/partners/file.png" (public)
+                $logoUrl = $partner->logo_path;
+                if (str_starts_with($logoUrl, 'partners/')) {
+                    $logoUrl = 'images/partners/' . basename($logoUrl);
+                }
+            @endphp
             <a href="{{ $partner->website_url ?? '#' }}" 
                @if($partner->website_url) target="_blank" rel="noopener noreferrer" @endif
                class="block">
                 <img
                     class="h-12 sm:h-14 md:h-16 lg:h-20 object-contain filter grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition"
-                    src="{{ asset($partner->logo_path) }}"
+                    src="{{ asset($logoUrl) }}"
                     alt="{{ $partner->name ?? 'Partner logo' }}"
                     loading="lazy"
                 >
