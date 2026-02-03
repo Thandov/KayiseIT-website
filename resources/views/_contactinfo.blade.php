@@ -4,7 +4,7 @@
             
             <a href="mailto:info@kayiseit.com" style="text-decoration: none; color: black" class=" border-none rounded-md bg-slate-100">
                 <div class="flex justify-center p-2">
-                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="../images/icons/em.png"></div>
+                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="{{ asset('images/icons/em.png') }}"></div>
                 </div>
                 <div class="">
                     <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Email Address</h2>
@@ -14,7 +14,7 @@
 
             <a href="tel:+27877022625" style="text-decoration: none; color: black" class=" border-none rounded-md bg-slate-100">
                 <div class="flex justify-center p-2">
-                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="../images/icons/ph.png"></div>
+                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="{{ asset('images/icons/ph.png') }}"></div>
                 </div>
                 <div class="">
                     <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Phone</h2>
@@ -24,7 +24,7 @@
 
             <a href="https://maps.app.goo.gl/PANTYMHfVkWBoKSp7" style="text-decoration: none; color: black" class="border-none rounded-md bg-slate-100">
                 <div class="flex justify-center p-2">
-                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="../images/icons/ad.png"></div>
+                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="{{ asset('images/icons/ad.png') }}"></div>
                 </div>
                 <div class="">
                     <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Address</h2>
