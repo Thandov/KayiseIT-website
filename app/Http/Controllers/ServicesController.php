@@ -12,6 +12,7 @@ use App\Helpers\RespondingHelper;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 
 class ServicesController extends Controller
@@ -46,6 +47,8 @@ class ServicesController extends Controller
             
             $service->save();
 
+            $this->ensureServiceBladeExists($service->name);
+
             return redirect()->route('dashboard.services.viewservice', ['id' => $service->id])
                 ->with('success', 'Service created successfully!');
         } catch (\Exception $e) {
@@ -67,12 +70,18 @@ class ServicesController extends Controller
 
     public function display_service_name($slug)
     {
-        $name = str_replace('-', '_', $slug);
-        $service = DB::table('services')->where('slug', $name)->first();
+        $slug = urldecode($slug);
+        // Try lookup: DB stores slug with underscores (e.g. cloud_hosting_services)
+        $nameWithUnderscores = str_replace('-', '_', $slug);
+        $service = DB::table('services')->where('slug', $nameWithUnderscores)->first();
 
         if (!$service) {
-            // Handle the case where the service with the given slug doesn't exist
-            return 'Service not found';
+            // Also try hyphenated (in case slug was stored with hyphens)
+            $service = DB::table('services')->where('slug', $slug)->first();
+        }
+
+        if (!$service) {
+            abort(404, 'Service not found');
         }
 
         $subservices = Subservice::where('service_id', $service->service_id)->get();
@@ -142,6 +151,8 @@ class ServicesController extends Controller
             
             $service->save();
 
+            $this->ensureServiceBladeExists($service->name);
+
             return redirect()->route('dashboard.services.viewservice', ['id' => $service->id])
                 ->with('success', 'Service updated successfully!');
         } catch (\Exception $e) {
@@ -177,5 +188,68 @@ class ServicesController extends Controller
     {
         $services = Service::all();
         View::share('services', $services);
+    }
+
+    /**
+     * Ensure a blade component exists for the service so the frontend service page works.
+     * Creates a generic component if one does not exist.
+     */
+    protected function ensureServiceBladeExists(string $serviceName): void
+    {
+        $componentName = Str::slug($serviceName);
+        $viewName = 'components.' . $componentName;
+
+        if (view()->exists($viewName)) {
+            return;
+        }
+
+        $componentsPath = resource_path('views/components');
+        $bladePath = $componentsPath . DIRECTORY_SEPARATOR . $componentName . '.blade.php';
+
+        $title = Str::title($serviceName);
+        $content = <<<BLADE
+<div class="container grid sm:grid-flow-row md:grid-cols-1 pb-4">
+    <div class="px-4 mt-4">
+        <x-titlestyle smheading="Transform Your" bgheading="{$title}!" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
+        <p class="text-left">{{ \$service }} - We provide comprehensive solutions tailored to your business needs.</p>
+        <div class="grid sm:grid-cols-1 md:grid-cols-4 gap-4 my-4">
+            @foreach(\$subservices ?? [] as \$subservice)
+            @php
+            \$slug = str_replace(' ','-', strtolower(\$service));
+            \$subslug = str_replace(' ','-', strtolower(\$subservice['subservice_name'] ?? ''));
+            \$uniqueId = "subserv_card_" . \$subslug;
+            @endphp
+            <div class="subserv_card justify-center" id="{{ \$uniqueId }}" data-target="slide_{{\$subslug}}">
+                <div class="overflow-hidden shadow-md rounded-lg p-4">
+                    <div class="flex justify-center">
+                        <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center">
+                            @if(isset(\$subservice['icon']))
+                            <img class="w-12" src="{{ asset('images/subservices/'.\$subservice['icon']) }}">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <h2 class="mt-4 text-xl text-center font-bold smalltxt">{{ \$subservice['subservice_name'] ?? 'Subservice' }}</h2>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+
+<script>
+    function highlightRow(checkbox) {
+        const row = checkbox.closest('.grid');
+        if (checkbox.checked) {
+            row.classList.add('highlighted-row');
+        } else {
+            row.classList.remove('highlighted-row');
+        }
+    }
+</script>
+BLADE;
+
+        File::put($bladePath, $content);
     }
 }

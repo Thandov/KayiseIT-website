@@ -42,20 +42,20 @@
             @if($hasSlides)
                 @foreach($carouselSlides as $index => $slide)
                     @php
-                        $bgImage = $slide->image ?? '/images/KayiseIT-Team.jpg';
+                        $bgImage = $slide->image ? (str_starts_with($slide->image, 'http') ? $slide->image : asset($slide->image)) : asset('images/KayiseIT-Team.jpg');
                     @endphp
                     <div class="photo slide-bg {{ $index === 0 ? 'active' : '' }}" 
                          data-bg-image="{{ $bgImage }}"
                          @if($index !== 0) style="display: none;" @endif></div>
                 @endforeach
             @else
-                <div class="photo" style="background-image: url('/images/KayiseIT-Team.jpg');"></div>
+                <div class="photo" style="background-image: url('{{ asset('images/KayiseIT-Team.jpg') }}');"></div>
             @endif
             <div class="zoom"></div>
             <canvas id="starfield" aria-hidden="true"></canvas>
             <div class="glow" aria-hidden="true"></div>
             <main class="center">
-                <img src="/images/Logo_White_No_Background.png" alt="KAYISE IT" class="logo">
+                <img src="{{ asset('images/Logo_White_No_Background.png') }}" alt="KAYISE IT" class="logo">
                 <div id="text-carousel" class="relative">
                     @if($hasSlides)
                         @foreach($carouselSlides as $index => $slide)
@@ -1309,7 +1309,7 @@
                     </div>
                 </div>
                 <div class="relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/10">
-                    <img src="/images/KayiseIT-Team.jpg" alt="Kayise IT team" class="absolute inset-0 w-full h-full object-cover" style="filter: brightness(1.06) contrast(1.08);" loading="lazy">
+                    <img src="{{ asset('images/KayiseIT-Team.jpg') }}" alt="Kayise IT team" class="absolute inset-0 w-full h-full object-cover" style="filter: brightness(1.06) contrast(1.08);" loading="lazy">
                     <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(2,6,23,.40) 0%, rgba(2,6,23,.55) 100%);"></div>
                     <canvas id="why-hypno" class="w-full" style="display:block; height: 28rem;"></canvas>
                 </div>
@@ -1363,8 +1363,11 @@
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">A snapshot of our recent TVET placements and internship cohorts across South Africa</p>
             </div>
             @if(!empty($featuredGalleryPhotos) && count($featuredGalleryPhotos) > 0)
+            @php
+                $galleryWithUrls = array_map(fn($p) => array_merge($p, ['url' => asset($p['path'] ?? '')]), $featuredGalleryPhotos);
+            @endphp
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6" x-data="{ 
-                images: @js($featuredGalleryPhotos),
+                images: @js($galleryWithUrls),
                 lightbox: false,
                 selectedIndex: 0,
                 openLightbox(index) {
@@ -1443,7 +1446,7 @@
                         </button>
                         
                         <img 
-                            x-bind:src="images[selectedIndex] ? '{{ asset('') }}' + images[selectedIndex].path : ''"
+                            x-bind:src="images[selectedIndex] ? images[selectedIndex].url : ''"
                             alt="Gallery Image"
                             class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
                             x-transition:enter="transition-all duration-300"

@@ -27,6 +27,9 @@ return [
         'applicant' => [
             'profile' => 'r,u,d,c',
         ],
+        'student' => [
+            'profile' => 'r,u',
+        ],
     ],
 
     'permissions_map' => [

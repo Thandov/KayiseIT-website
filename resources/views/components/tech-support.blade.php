@@ -4,7 +4,7 @@
         <!-- Left Column: Service List -->
         <div class="p-4">
             <div>
-                <img src="../images/server_bae.png" alt="Service 1" class="md:w-1/2 h-auto rounded-lg shadow-lg mb-3">
+                <img src="{{ asset('images/server_bae.png') }}" alt="Service 1" class="md:w-1/2 h-auto rounded-lg shadow-lg mb-3">
             </div>
             <h2 class="text-2xl font-semibold mb-4">Our IT Services</h2>
             <ul class="space-y-4 text-left text-gray-500 dark:text-gray-400">
@@ -50,7 +50,7 @@
         </div>
         <div class="p-4">
             <div class="position-relative">
-                <img src="../images/banner/contact.png" alt="Service 1" class="md:w-1/2 h-auto rounded-lg shadow-lg mb-3">
+                <img src="{{ asset('images/banner/contact.png') }}" alt="Service 1" class="md:w-1/2 h-auto rounded-lg shadow-lg mb-3">
             </div>
             <h2 class="text-2xl font-semibold mb-4">Flexi Support</h2>
             <p>Purchase Support Hours with Exclusive Discounts Customize Your Support Package</p>
@@ -66,7 +66,7 @@
     </div>
     <!-- CTA Section -->
     <div class="grid md:grid-cols-3 p-4 bg-slate-100 mt-8 c2a">
-        <div class="c2aimgwrap position-relative"><img src="../images/techician.png" alt="Service 1" class="c2acrain"></div>
+        <div class="c2aimgwrap position-relative"><img src="{{ asset('images/techician.png') }}" alt="Service 1" class="c2acrain"></div>
         <div class="col-span-2 flex items-center justify-start">
             <div class="des">
                 <x-titlestyle smheading="Ready to enhance your" bgheading="IT infrastructure" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>

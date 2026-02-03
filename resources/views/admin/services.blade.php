@@ -76,12 +76,12 @@
                                    title="View">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <button onclick="editService({{ $service->id }})" 
+                                <button type="button" onclick="editService({{ $service->id }})" 
                                         class="text-indigo-600 hover:text-indigo-900 transition-colors duration-200" 
                                         title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button onclick="deleteService({{ $service->id }})" 
+                                <button type="button" onclick="deleteService({{ $service->id }})" 
                                         class="text-red-600 hover:text-red-900 transition-colors duration-200" 
                                         title="Delete">
                                     <i class="fas fa-trash"></i>
@@ -155,14 +155,10 @@ function deleteService(id) {
             csrfInput.name = '_token';
             csrfInput.value = csrfToken.getAttribute('content');
             form.appendChild(csrfInput);
+        } else {
+            alert('CSRF token not found. Please refresh the page and try again.');
+            return;
         }
-        
-        // Add method spoofing for DELETE
-        const methodInput = document.createElement('input');
-        methodInput.type = 'hidden';
-        methodInput.name = '_method';
-        methodInput.value = 'DELETE';
-        form.appendChild(methodInput);
         
         document.body.appendChild(form);
         form.submit();

@@ -30,6 +30,9 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
+        if($user && $user->hasRole('student')){
+            return redirect()->route('student.portal');
+        }
         if($user && $user->hasRole('client')){
             $services = Service::all();
             $testimonials = Testimonial::all();

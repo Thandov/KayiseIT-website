@@ -44,6 +44,11 @@ class AdminController extends Controller
     }
     public function index()
     {
+        $user = auth()->user();
+        if ($user && $user->hasRole('student')) {
+            return redirect()->route('student.portal');
+        }
+
         $clients = DB::table('clients')
             ->join('users', 'users.id', '=', 'clients.user_id')
             ->select('clients.name AS first_name', 'users.email', 'clients.*')

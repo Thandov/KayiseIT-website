@@ -11,6 +11,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SubServicesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StudentPortalController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CheckoutController;
@@ -118,6 +119,11 @@ Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.sto
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
+});
+
+// Student Portal - students get redirected here on login
+Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+    Route::get('/portal', [StudentPortalController::class, 'index'])->name('portal');
 });
 
 Route::middleware('auth')->group(function () {

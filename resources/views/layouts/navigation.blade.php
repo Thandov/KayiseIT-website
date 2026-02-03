@@ -10,7 +10,7 @@
             <!-- Logo -->
             <div class="flex items-center">
                 <a href="{{ route('home') }}#starfield">
-                    <img id="navbar-logo" src="/images/Logo_White_No_Background.png" alt="KAYISE IT" class="h-8 w-auto transition-opacity duration-300">
+                    <img id="navbar-logo" src="{{ asset('images/Logo_White_No_Background.png') }}" alt="KAYISE IT" class="h-8 w-auto transition-opacity duration-300">
                 </a>
             </div>
             
@@ -85,6 +85,11 @@
                         @if(Auth::user()->hasRole('admin'))
                         <a href="{{ route('dashboard') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150 first:rounded-t-lg">
                             {{ __('Dashboard') }}
+                        </a>
+                        @endif
+                        @if(Auth::user()->hasRole('student'))
+                        <a href="{{ route('student.portal') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150 first:rounded-t-lg">
+                            {{ __('Student Portal') }}
                         </a>
                         @endif
                         <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150">
@@ -164,6 +169,11 @@
                     @if(Auth::user()->hasRole('admin'))
                     <a href="{{ route('dashboard') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('dashboard') ? 'text-gray-900' : '' }}">
                         {{ __('Dashboard') }}
+                    </a>
+                    @endif
+                    @if(Auth::user()->hasRole('student'))
+                    <a href="{{ route('student.portal') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('student.portal') ? 'text-gray-900' : '' }}">
+                        {{ __('Student Portal') }}
                     </a>
                     @endif
                     <a href="{{ route('profile.edit') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
@@ -260,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update logo
             const logo = document.getElementById('navbar-logo');
             if (logo) {
-                logo.src = '/images/Logo_White_No_Background.png';
+                logo.src = '{{ asset('images/Logo_White_No_Background.png') }}';
             }
             
             // Update all navbar links (preserve active state)

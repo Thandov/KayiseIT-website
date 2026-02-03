@@ -96,6 +96,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        // Redirect students to student portal
+        if ($user->hasRole('student')) {
+            return redirect()->route('student.portal');
+        }
+
         return redirect(RouteServiceProvider::HOME);
     }
 

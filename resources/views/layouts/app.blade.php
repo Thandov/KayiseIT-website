@@ -21,7 +21,7 @@
     <title>{{ $metaTitle ?? config('app.name', 'Kayise IT') }}</title>
     <meta name="description" content="{{ $metaDescription ?? 'Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training.' }}">
     <meta name="keywords" content="{{ $metaKeywords ?? 'ICT, Technology, Computers and Information Technology, Software, IT Support, IT Company' }}">
-    <link rel="icon" type="image/png" sizes="684x365" href="../images/kayise_IT_logo_No_Background.png">
+    <link rel="icon" type="image/png" sizes="684x365" href="{{ asset('images/kayise_IT_logo_No_Background.png') }}">
     
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="{{ url('/sitemap.xml') }}">

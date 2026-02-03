@@ -40,6 +40,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        // Redirect students to student portal dashboard
+        if ($user->hasRole('student')) {
+            return redirect()->route('student.portal');
+        }
+
         return redirect(request()->input('intended', '/'));
     }
     
