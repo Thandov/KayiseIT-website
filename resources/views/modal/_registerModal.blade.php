@@ -38,17 +38,6 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <!-- User Type -->
-        <div class="mt-4">
-                <label for="user_type" :value="__('Register As')" >
-                <select id="role_id" name="role_id"
-                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full">
-                    <option value="client">Client</option>
-                    <option value="business">Business</option>
-                    <option value="student">Student</option>
-                </select>
-            </div>
-
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}

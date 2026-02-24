@@ -26,15 +26,6 @@
             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-        <!-- User Type -->
-        <div class="mt-4">
-            <x-input-label for="role_id" :value="__('Account Type')" />
-            <select id="role_id" name="role_id" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 block mt-1 w-full">
-                <option value="client">Client</option>
-                <option value="business">Business</option>
-                <option value="student">Student</option>
-            </select>
-        </div>
         <div><input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response"></div>
 
         <div class="flex items-center justify-end mt-4">

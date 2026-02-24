@@ -34,6 +34,9 @@ class AppLayout extends Component
             $isAdmin = false;
         }
         
-        return view('layouts.app', compact('isAdmin'));
+        return view('layouts.app', [
+            'isAdmin' => $isAdmin,
+            'metaTitle' => $this->title,
+        ]);
     }
 }

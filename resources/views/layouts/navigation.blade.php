@@ -1,5 +1,9 @@
 <nav 
-    x-data="{ open: false }" 
+    x-data="{ open: false, scrolled: false }" 
+    x-init="
+        scrolled = window.scrollY > 100;
+        window.addEventListener('scroll', () => { scrolled = window.scrollY > 100 });
+    "
     id="main-navbar"
     class="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md transition-all duration-300 navbar-transparent"
     :style="open ? 'background-color: rgba(255, 255, 255, 0.95) !important;' : ''"
@@ -48,6 +52,11 @@
                 <a href="{{ route('opportunities') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('opportunities') ? 'navbar-active' : '' }}">
                     {{ __('Opportunities') }}
                 </a>
+                @if(Route::has('certification.form'))
+                <a href="{{ route('certification.form') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('certification.*') ? 'navbar-active' : '' }}">
+                    {{ __('Certificate') }}
+                </a>
+                @endif
                 <a href="{{ route('gallery') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('gallery') ? 'navbar-active' : '' }}">
                     {{ __('Gallery') }}
                 </a>
@@ -144,6 +153,11 @@
                 <a href="{{ route('opportunities') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('opportunities') ? 'text-gray-900' : '' }}">
                     {{ __('Opportunities') }}
                 </a>
+                @if(Route::has('certification.form'))
+                <a href="{{ route('certification.form') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('certification.*') ? 'text-gray-900' : '' }}">
+                    {{ __('Certificate') }}
+                </a>
+                @endif
                 <a href="{{ route('gallery') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('gallery') ? 'text-gray-900' : '' }}">
                     {{ __('Gallery') }}
                 </a>
@@ -176,7 +190,7 @@
                         {{ __('Student Portal') }}
                     </a>
                     @endif
-                    <a href="{{ route('profile.edit') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
+                    <a href="{{ route('profile.edit') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('profile.edit') ? 'text-gray-900' : '' }}">
                         {{ __('Profile') }}
                     </a>
                     <form method="POST" action="{{ route('logout') }}">

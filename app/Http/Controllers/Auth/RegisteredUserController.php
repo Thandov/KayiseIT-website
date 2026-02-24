@@ -84,7 +84,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
-        $user->attachRole($request->role_id);
+
+        // Attach role only if one was provided; allow role to be null
+        if ($request->filled('role_id')) {
+            $user->attachRole($request->role_id);
+        }
 
         // Create user folder based on role/opportunity type
         UserFolderHelper::createUserFolder($user, 'general');

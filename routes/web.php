@@ -30,6 +30,7 @@ use App\Models\InternshipApplication;
 use App\Models\PostCategories;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\CaseStudyController;
+use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\SitemapController;
 use App\Models\Service;
 
@@ -120,6 +121,12 @@ Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.sto
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
 });
+
+// LMS Certification (public) — request certificate by ID; eligibility from learner CSVs
+Route::get('lms/certification', [CertificationController::class, 'showForm'])->name('certification.form');
+Route::post('lms/certification', [CertificationController::class, 'submit'])->name('certification.submit');
+Route::get('lms/certification/success', [CertificationController::class, 'success'])->name('certification.success');
+Route::get('lms/certification/download', [CertificationController::class, 'download'])->name('certification.download')->middleware('throttle:10,1');
 
 // Student Portal - students get redirected here on login
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
