@@ -8,7 +8,10 @@
         <div class="col-span-1 md:col-span-5">
             <!-- Content for left column -->
             @php
-                $componentName = 'components.' . Str::slug($services['service']);
+                $slug = Str::slug($services['service']);
+                $componentNameSubfolder = 'components.services.' . $slug;
+                $componentNameFlat = 'components.' . $slug;
+                $componentName = view()->exists($componentNameSubfolder) ? $componentNameSubfolder : $componentNameFlat;
                 $componentExists = view()->exists($componentName);
             @endphp
             @if($componentExists)

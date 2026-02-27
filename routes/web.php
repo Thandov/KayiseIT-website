@@ -400,7 +400,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
     //Services
-    Route::GET('/dashboard/services/addservice', function () {return view('admin.services.addservice');})->name('dashboard.services.addservice');
+    Route::GET('/dashboard/services/addservice', function () {
+        $service = new \App\Models\Service();
+        return view('admin.services.addservice', compact('service'));
+    })->name('dashboard.services.addservice');
     Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('dashboard.services');
     Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
     Route::POST('/dashboard/editservice', [ServicesController::class, 'updateService'])->name('dashboard.editservice');

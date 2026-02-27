@@ -35,17 +35,17 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ $invoice->total_price }}</td>
                             <td class="py-3 px-6 text-center row">
                                 <div class="py-3 px-6 col-4">
-                                    <a href="{{ url('admin/viewinvoice/'.$invoice->id) }}" title="View">
+                                    <a href="{{ route('dashboard.viewinvoice', $invoice->id) }}" title="View">
                                         <i class="far fa-eye"></i>
                                     </a>
                                 </div>
                                 <div class="py-3 px-6 col-4">
-                                    <a href="{{ url('admin/download_invoice/'.$invoice->id) }}?format=pdf" title="download">
+                                    <a href="{{ route('invoice.pdf', $invoice->id) }}" title="Download PDF">
                                         <i class="fa fa-download"></i>
                                     </a>
                                 </div>
                                 <div class="py-3 px-6 col-4">
-                                    <a href="{{ url('invoices/delete/'.$invoice->id) }}" title="delete">
+                                    <a href="{{ route('dashboard.removeinvoice', $invoice->id) }}" title="Delete">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>

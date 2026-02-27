@@ -192,19 +192,23 @@ class ServicesController extends Controller
 
     /**
      * Ensure a blade component exists for the service so the frontend service page works.
-     * Creates a generic component if one does not exist.
+     * Creates a generic component in resources/views/components/services/ if one does not exist.
      */
     protected function ensureServiceBladeExists(string $serviceName): void
     {
         $componentName = Str::slug($serviceName);
-        $viewName = 'components.' . $componentName;
+        $viewNameFlat = 'components.' . $componentName;
+        $viewNameSubfolder = 'components.services.' . $componentName;
 
-        if (view()->exists($viewName)) {
+        if (view()->exists($viewNameSubfolder) || view()->exists($viewNameFlat)) {
             return;
         }
 
-        $componentsPath = resource_path('views/components');
-        $bladePath = $componentsPath . DIRECTORY_SEPARATOR . $componentName . '.blade.php';
+        $servicesComponentsPath = resource_path('views/components/services');
+        if (!File::isDirectory($servicesComponentsPath)) {
+            File::makeDirectory($servicesComponentsPath, 0755, true);
+        }
+        $bladePath = $servicesComponentsPath . DIRECTORY_SEPARATOR . $componentName . '.blade.php';
 
         $title = Str::title($serviceName);
         $content = <<<BLADE

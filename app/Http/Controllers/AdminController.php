@@ -30,6 +30,7 @@ use App\Models\InternshipProgram;
 use App\Models\InternsLearner;
 use App\Models\MictBeneficiary;
 use App\Models\Partner;
+use App\Models\Message;
 
 
 
@@ -105,7 +106,48 @@ class AdminController extends Controller
             }
         }
 
-        return view('admin.dashboard.overview', compact('users', 'employees', 'blogs', 'carousels', 'occupations', 'applications', 'internships', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments'));
+        // Sales per month (last 12 months) with trend for good/bad coloring
+        $salesPerMonth = Invoice::query()
+            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(COALESCE(total_price, 0)) as total')
+            ->where('created_at', '>=', now()->subMonths(12)->startOfMonth())
+            ->groupBy('year', 'month')
+            ->orderBy('year')
+            ->orderBy('month')
+            ->get()
+            ->keyBy(fn ($r) => sprintf('%04d-%02d', $r->year, $r->month));
+
+        $monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $salesByMonth = [];
+        $prevTotal = null;
+        for ($i = 11; $i >= 0; $i--) {
+            $date = now()->subMonths($i);
+            $key = $date->format('Y-m');
+            $row = $salesPerMonth->get($key);
+            $total = (float) ($row->total ?? 0);
+            $trend = null; // 'up' = good (green), 'down' = bad (red)
+            if ($prevTotal !== null) {
+                $trend = $total >= $prevTotal ? 'up' : 'down';
+            }
+            $prevTotal = $total;
+            $salesByMonth[] = [
+                'label' => $monthNames[(int) $date->format('n')] . ' ' . $date->format('Y'),
+                'total' => $total,
+                'trend' => $trend,
+            ];
+        }
+
+        // Leads (contact form messages)
+        $leads = Message::latest('created_at')->take(15)->get();
+
+        // Staff stats
+        $staffTotal = Employee::count();
+        $staffNewThisMonth = Employee::whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+
+        $pageTitle = 'Dashboard';
+
+        return view('admin.dashboard.overview', compact('users', 'employees', 'blogs', 'carousels', 'occupations', 'applications', 'internships', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments', 'salesByMonth', 'leads', 'staffTotal', 'staffNewThisMonth', 'pageTitle'));
     }
 
     public function remove($id)

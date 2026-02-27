@@ -1,53 +1,35 @@
-<div id="service-info" class="md:col-span-3">
-    <form action="{{ isset($service) && $service->id ? route('dashboard.editservice') : route('storeservice') }}" method="post" class="space-y-6">
+<div id="service-info">
+    <form action="{{ isset($service) && optional($service)->id ? route('dashboard.editservice') : route('storeservice') }}" method="post" class="space-y-6">
         @csrf
-        @if(isset($service) && $service->id)
+        @if(isset($service) && optional($service)->id)
             @method('POST')
         @endif
-        <input type="hidden" name="id" value="{{ $service->service_id ?? '' }}">
+        <input type="hidden" name="id" value="{{ optional($service)->service_id ?? '' }}">
 
-        <!-- Service details -->
-        <div class="bg-white border border-gray-200 rounded-2xl p-5 space-y-4">
-            <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Service details</h2>
-
-            <div class="grid gap-4 md:grid-cols-2">
-                <div class="space-y-1">
-                    <label for="service-name" class="text-sm font-medium text-gray-700">Service Name</label>
-                    <input type="text"
-                           id="service-name"
-                           name="name"
-                           required
-                           class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
-                           value="{{ $service->name ?? '' }}">
-                </div>
-
-                <div class="space-y-1">
-                    <label for="service-service_type" class="text-sm font-medium text-gray-700">Service Type</label>
-                    <input type="text"
-                           id="service-service_type"
-                           name="service_type_label"
-                           class="block w-full rounded-lg border-gray-200 bg-gray-50 text-gray-600 text-sm"
-                           value="{{ $service->service_type ?? '' }}"
-                           readonly>
-                </div>
-            </div>
-
-            <div class="space-y-1">
-                <label for="service-description" class="text-sm font-medium text-gray-700">Service Description</label>
-                <textarea id="service-description"
+        <div class="space-y-2">
+            <label for="service-name" class="block text-xs font-medium text-gray-500">Name</label>
+            <input type="text" id="service-name" name="name" required
+                   class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-kb-500 focus:ring-1 focus:ring-kb-500"
+                   value="{{ optional($service)->name ?? '' }}">
+        </div>
+        <div class="space-y-2">
+            <label for="service-service_type" class="block text-xs font-medium text-gray-500">Type</label>
+            <input type="text" id="service-service_type" name="service_type_label" readonly
+                   class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-600"
+                   value="{{ optional($service)->service_type ?? '' }}">
+        </div>
+        <div class="space-y-2">
+            <label for="service-description" class="block text-xs font-medium text-gray-500">Description</label>
+            <textarea id="service-description"
                           name="description"
-                          rows="4"
-                          class="block w-full rounded-lg border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500"
-                          placeholder="Describe what this networking service includes, who it’s for, and key benefits.">{{ $service->description ?? '' }}</textarea>
-            </div>
+                          rows="3"
+                          class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-kb-500 focus:ring-1 focus:ring-kb-500"
+                          placeholder="Describe what this networking service includes, who it’s for, and key benefits.">{{ optional($service)->description ?? '' }}</textarea>
         </div>
 
-        <!-- Service price type -->
-        <div class="bg-white border border-gray-200 rounded-2xl p-5 space-y-4">
-            <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Service price type</h3>
-            <p class="text-xs text-gray-500">Choose whether this service has a single fixed price or multiple add‑ons.</p>
-
-            <ul class="grid w-full gap-4 md:grid-cols-2">
+        <div class="pt-3 border-t border-gray-100">
+            <p class="text-xs font-medium text-gray-500 mb-2">Pricing</p>
+            <ul class="grid w-full gap-2 sm:grid-cols-2">
                 <li>
                     <input type="radio" id="static_type" name="service_type" value="static" class="hidden peer">
                     <label for="static_type" class="flex items-start justify-between w-full p-3 text-gray-700 bg-white border border-gray-200 rounded-xl cursor-pointer peer-checked:border-green-500 peer-checked:ring-1 peer-checked:ring-green-200 hover:bg-gray-50">
@@ -111,23 +93,22 @@
                            name="price"
                            step="0.01"
                            class="block w-full rounded-lg border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-                           value="{{ $service->price ?? '' }}"
+                           value="{{ optional($service)->price ?? '' }}"
                            placeholder="Enter fixed price">
                 </div>
             </div>
         </div>
 
-        <!-- Save Button -->
-        <div class="flex justify-end">
-            <button type="submit" class="inline-flex items-center px-6 py-2.5 bg-green-600 border border-transparent rounded-full font-semibold text-sm text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition">
-                {{ isset($service) && $service->id ? 'Update service' : 'Save service' }}
+        <div class="pt-2">
+            <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-kb-600 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-kb-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kb-600">
+                {{ isset($service) && optional($service)->id ? 'Update service' : 'Save service' }}
             </button>
         </div>
     </form>
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var serviceType = "{{$service->service_type ?? ''}}"; // Assuming 'static' or 'dynamic'
+        var serviceType = "{{ optional($service)->service_type ?? '' }}"; // Assuming 'static' or 'dynamic'
         var dynamicButton = document.getElementById("dynamic_type");
         var staticButton = document.getElementById("static_type");
         var dynacont = document.getElementById("dynacont");

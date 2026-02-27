@@ -53,7 +53,9 @@ class CheckoutController extends Controller
 
         $invoice = new Invoice;
         $invoice->user_id = auth()->user()->id;
-        $invoice->invoice_no = 'I' . mt_rand(100000, 999999);
+        do {
+            $invoice->invoice_no = 'I' . now()->format('Ymd') . strtoupper(\Illuminate\Support\Str::random(4));
+        } while (Invoice::where('invoice_no', $invoice->invoice_no)->exists());
         $invoice->save();
 
         $subservice = Subservice::find($request->input('subservice_id'));

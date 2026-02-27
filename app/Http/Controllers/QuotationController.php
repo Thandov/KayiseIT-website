@@ -260,6 +260,46 @@ class QuotationController extends Controller
     }
 
 
+    /**
+     * Generate an invoice from a quotation (team action: "Send Invoice" on a quotation).
+     */
+    public function sendInvoice($id)
+    {
+        $quotation = Quotation::findOrFail($id);
+        $quotationItems = Items::where('QI_id', $quotation->quotation_no)->get();
+
+        $invoice_no = 'I' . now()->format('Ymd') . strtoupper(Str::random(4));
+        while (Invoice::where('invoice_no', $invoice_no)->exists()) {
+            $invoice_no = 'I' . now()->format('Ymd') . strtoupper(Str::random(4));
+        }
+
+        $invoice = new Invoice();
+        $invoice->user_id = $quotation->user_id;
+        $invoice->invoice_no = $invoice_no;
+        $invoice->total_price = $quotation->total_price;
+        if (isset($quotation->vat)) {
+            $invoice->vat = $quotation->vat;
+            $invoice->total_vat = $quotation->total_vat ?? 0;
+        }
+        $invoice->save();
+
+        foreach ($quotationItems as $row) {
+            $item = new Items();
+            $item->user_id = $row->user_id;
+            $item->QI_id = $invoice->invoice_no;
+            $item->unq_id = $row->unq_id ?? 'inv-' . uniqid();
+            $item->item = $row->item ?? $row->name ?? '';
+            $item->qty = $row->qty;
+            $item->price = $row->price;
+            $item->sub_total = $row->sub_total;
+            $item->save();
+        }
+
+        return redirect()
+            ->route('dashboard.viewinvoice', $invoice->id)
+            ->with('success', 'Invoice ' . $invoice->invoice_no . ' created from quotation.');
+    }
+
     public function invoicePDF($id)
     {
         $invoice = Invoice::find($id);
