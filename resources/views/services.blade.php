@@ -2,17 +2,17 @@
   <!-- Meta tags -->
   @section('meta')
   @php
-  $metaTitle = "Professional IT Services - Software Development & Technology Consulting";
-  $metaDescription = "Specialized software development, web applications, and IT consulting services for enterprise clients. Custom solutions delivered with proven methodologies and professional expertise.";
-  $metaKeywords = "Professional IT Services, Software Development, Enterprise Solutions, Technology Consulting, Business Automation, Digital Transformation, IT Infrastructure, South Africa";
+  $metaTitle = "Drone Building, ICT & 4IR Skills Training in South Africa | KAYISE IT Services";
+  $metaDescription = "KAYISE IT offers drone building training, ICT skills training, 4IR technology training, cyber security training, Microsoft Office productivity training, website development, and IT consulting for schools, TVET colleges, and businesses.";
+  $metaKeywords = "drone building course South Africa, 4IR skills training, ICT training for TVET colleges, cyber security training South Africa, Microsoft Office training, website development services, IT consulting South Africa";
   @endphp
   @endsection
   
   <!-- Hero Section -->
   <x-page-hero 
-      title="Professional IT Services" 
-      subtitle="Comprehensive Technology Solutions"
-      description="Specialized software development, technology consulting, and digital transformation services designed to accelerate business growth and operational efficiency."
+      title="Training and Technology Services" 
+      subtitle="Practical Skills, Real Digital Impact"
+      description="From drone building course programs in South Africa to ICT training for TVET colleges, KAYISE IT delivers practical training and digital services that help institutions and businesses grow."
       hero-id="services-hero"
       background-image="images/banner/businessAnalyst.png"
       height="h-screen">
@@ -62,79 +62,159 @@
       <!-- Section Header -->
       <div class="text-center mb-16">
         <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4" style="color:#22C55E;border:1px solid #22C55E;background-color: rgba(34, 197, 94, 0.10);">Our Services</span>
-        <h2 class="text-4xl font-bold text-gray-900 mb-4">Specialized IT Solutions</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Enterprise-grade technology services designed to accelerate your digital transformation</p>
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Skills Training and Digital Services</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">We provide industry-relevant training and technology support for schools, TVET colleges, government programs, and private organizations across South Africa.</p>
       </div>
 
       <!-- Service Categories Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        <!-- Software Development Card -->
+        <!-- Drone Building Training Card -->
         <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
           <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
             <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
-              <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+              <path d="M3 10l7-7 7 7-7 7-7-7z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Software Development</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Drone Building Training</h3>
           <p class="text-gray-600 mb-6 leading-relaxed">
-            Enterprise-grade custom software solutions built on modern frameworks for scalability, security, and performance.
+            Our drone building course South Africa programs teach learners how to assemble, test, and understand drones using practical STEM methods.
           </p>
           <ul class="text-sm text-gray-500 space-y-2 mb-6">
-            <li>• Custom Business Applications</li>
-            <li>• API Development & Integration</li>
-            <li>• Database Design & Optimization</li>
-            <li>• Legacy System Modernization</li>
+            <li>• STEM-focused practical sessions</li>
+            <li>• Electronics and component basics</li>
+            <li>• School and TVET-ready delivery</li>
+            <li>• Instructor-led training support</li>
           </ul>
-          <a href="{{ url('services/software-development') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+          <a href="{{ route('services.seo.drone-building') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
         </div>
 
-        <!-- Web Development Card -->
+        <!-- ICT Skills Training Card -->
         <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
           <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
             <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.265.633l-4-12a1 1 0 011.265-.633L8 10l4.316-10.949z" clip-rule="evenodd"/>
+              <path d="M4 4h12v12H4z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Web Development</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">ICT Skills Training</h3>
           <p class="text-gray-600 mb-6 leading-relaxed">
-            Professional web applications and platforms that enhance user experience and drive business engagement.
+            We provide ICT skills training for TVET colleges and schools, helping students and staff build digital confidence and job-ready competencies.
           </p>
           <ul class="text-sm text-gray-500 space-y-2 mb-6">
-            <li>• Responsive Web Applications</li>
-            <li>• E-Commerce Platforms</li>
-            <li>• Content Management Systems</li>
-            <li>• Progressive Web Apps (PWAs)</li>
+            <li>• Computer literacy and digital tools</li>
+            <li>• Practical classroom and lab sessions</li>
+            <li>• Curriculum support for institutions</li>
+            <li>• Assessment and progress reporting</li>
           </ul>
-          <a href="{{ url('services/web-development') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+          <a href="{{ route('services.seo.ict-training') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+        </div>
+
+        <!-- 4IR Technology Training Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
+            <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
+              <path d="M10 2l2.5 5L18 8l-4 3.8L15 18l-5-3-5 3 1-6.2L2 8l5.5-1z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">4IR Technology Training</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Our 4IR skills training equips learners and teams with practical understanding of emerging technologies and digital transformation practices.
+          </p>
+          <ul class="text-sm text-gray-500 space-y-2 mb-6">
+            <li>• Industry 4.0 fundamentals</li>
+            <li>• Innovation and digital readiness</li>
+            <li>• Workforce upskilling programs</li>
+            <li>• Public and private sector training</li>
+          </ul>
+          <a href="{{ route('services.seo.4ir-training') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+        </div>
+
+        <!-- Cyber Security Training Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
+            <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
+              <path d="M10 2l6 3v5c0 4.5-2.7 6.8-6 8-3.3-1.2-6-3.5-6-8V5l6-3z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Cyber Security Training</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            We train teams to identify cyber risks, protect data, and apply safe digital practices in schools, offices, and training institutions.
+          </p>
+          <ul class="text-sm text-gray-500 space-y-2 mb-6">
+            <li>• Cyber safety awareness</li>
+            <li>• Password and data protection</li>
+            <li>• Phishing and threat prevention</li>
+            <li>• Practical security protocols</li>
+          </ul>
+          <a href="{{ route('services.seo.cyber-security-training') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+        </div>
+
+        <!-- Microsoft Office Productivity Training Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
+            <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
+              <path d="M4 3h12v14H4zM8 7h4M8 10h4M8 13h4"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Microsoft Office Productivity Training</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Improve workplace productivity with practical Microsoft Office training in Word, Excel, PowerPoint, and Outlook.
+          </p>
+          <ul class="text-sm text-gray-500 space-y-2 mb-6">
+            <li>• Beginner to advanced modules</li>
+            <li>• Reporting and document workflows</li>
+            <li>• Data handling and spreadsheets</li>
+            <li>• Productivity best practices</li>
+          </ul>
+          <a href="{{ route('services.seo.ms-office-training') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+        </div>
+
+        <!-- Website Development Card -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
+            <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
+              <path d="M2 4h16v12H2zM7 8l-2 2 2 2M13 8l2 2-2 2"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Website Development</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            We build professional websites that are fast, mobile-friendly, and optimized for search visibility and lead generation.
+          </p>
+          <ul class="text-sm text-gray-500 space-y-2 mb-6">
+            <li>• Business and institutional websites</li>
+            <li>• SEO-ready page structure</li>
+            <li>• Content and conversion optimization</li>
+            <li>• Ongoing website support</li>
+          </ul>
+          <a href="{{ route('services.seo.website-development') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
         </div>
 
         <!-- IT Consulting Card -->
         <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 group">
           <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300" style="background-color: rgba(34, 197, 94, 0.10);">
             <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
+              <path d="M10 3v14M3 10h14"/>
             </svg>
           </div>
           <h3 class="text-2xl font-bold text-gray-900 mb-4">IT Consulting</h3>
           <p class="text-gray-600 mb-6 leading-relaxed">
-            Strategic technology consulting to optimize IT infrastructure and business processes for maximum efficiency.
+            Our IT consulting service helps organizations choose the right technologies, improve operations, and plan sustainable digital growth.
           </p>
           <ul class="text-sm text-gray-500 space-y-2 mb-6">
-            <li>• Technology Strategy Development</li>
-            <li>• Process Optimization</li>
-            <li>• Digital Transformation</li>
-            <li>• Infrastructure Planning</li>
+            <li>• Technology planning and advisory</li>
+            <li>• ICT implementation support</li>
+            <li>• School and TVET digital strategy</li>
+            <li>• Business process improvement</li>
           </ul>
-          <a href="{{ url('services/it-consulting') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
+          <a href="{{ route('services.seo.it-consulting') }}" class="inline-flex items-center px-5 py-2.5 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">Learn More</a>
         </div>
       </div>
 
       <!-- Service Selection Outcome -->
       <div class="bg-kb-50 rounded-2xl p-8 mb-16">
         <div class="text-center">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Transform Your Business?</h3>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Need Training or Technology Support?</h3>
           <p class="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">
-            Partner with our certified professionals to accelerate digital transformation and achieve measurable ROI improvements.
+            Speak to KAYISE IT about drone building training, 4IR skills training, cyber security awareness, Microsoft Office productivity, website development, and IT consulting.
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <x-front-end-btn linking="contact" color="blue" showme="" name="Schedule Consultation" />

@@ -52,6 +52,9 @@
                 <a href="{{ route('opportunities') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('opportunities') ? 'navbar-active' : '' }}">
                     {{ __('Opportunities') }}
                 </a>
+                <a href="{{ route('training-skills') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('training-skills') ? 'navbar-active' : '' }}">
+                    {{ __('Training & Skills') }}
+                </a>
                 @if(Route::has('certification.form'))
                 <a href="{{ route('certification.form') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('certification.*') ? 'navbar-active' : '' }}">
                     {{ __('Certificate') }}
@@ -152,6 +155,9 @@
                 </a>
                 <a href="{{ route('opportunities') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('opportunities') ? 'text-gray-900' : '' }}">
                     {{ __('Opportunities') }}
+                </a>
+                <a href="{{ route('training-skills') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('training-skills') ? 'text-gray-900' : '' }}">
+                    {{ __('Training & Skills') }}
                 </a>
                 @if(Route::has('certification.form'))
                 <a href="{{ route('certification.form') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('certification.*') ? 'text-gray-900' : '' }}">

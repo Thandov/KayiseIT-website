@@ -154,6 +154,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const messages = document.getElementById('kayise-chatbot-messages');
     const quickReplyButtons = document.querySelectorAll('.kayise-chatbot-quick-reply');
 
+    if (!toggleBtn || !closeBtn || !panel || !form || !input || !messages) {
+        return;
+    }
+
     const addMessage = function (text, sender) {
         const msg = document.createElement('div');
         msg.className = `kayise-chatbot-message ${sender}`;
@@ -172,19 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return typingMsg;
     };
 
-    const openPanel = function () {
-        panel.hidden = false;
-        toggleBtn.hidden = true;
-        input.focus();
-    };
-
-    const closePanel = function () {
-        panel.hidden = true;
-        toggleBtn.hidden = false;
-    };
-
-    toggleBtn.addEventListener('click', openPanel);
-    closeBtn.addEventListener('click', closePanel);
+    // Open/close state is controlled in layouts/app.blade.php to avoid conflicts across pages.
 
     const handleQuestion = function (questionText) {
         if (!questionText) {

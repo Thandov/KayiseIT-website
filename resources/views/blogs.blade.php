@@ -27,7 +27,7 @@
              
                     <h1 class="text font-semibold text-gray-800 dark:text-white mt-2">Author: Mary Jane Doe/ Created at: 27 August 2023</h1>                     
                 <div class="grid grid-cols-2 items-center justify-between mt-20">
-                        <a href="/viewblog/{{$blogs->first()->id}}" class="bg-white-600 px-3 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grey-600">Read More</a>
+                        <a href="{{ route('blogs.displayblog', $blogs->first()->id) }}" class="bg-white-600 px-3 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grey-600">Read More</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     <h6 style="color: #070707" class="text-center mb-5 font-italic text-2xl md:text-2xl">{{ $relatedBlog->subtitle ?? '' }}</h6>
                 </div>
                 <div class="grid grid-cols-2 items-center justify-between">
-                    <a href="/viewblog/{{$relatedBlog->id}}" class="bg-white-600 px-3 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grey-600">View More</a>
+                    <a href="{{ route('blogs.displayblog', $relatedBlog->id) }}" class="bg-white-600 px-3 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grey-600">View More</a>
                 </div>
             </div>
             @endforeach         

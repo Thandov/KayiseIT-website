@@ -120,14 +120,20 @@
 
         @if(!request()->is('dashboard/*'))
             <div id="kayise-chatbot" class="kayise-chatbot" aria-live="polite">
-                <button id="kayise-chatbot-toggle" class="kayise-chatbot-toggle" type="button" aria-label="Open chatbot">
-                    Chat With Us
+                <button id="kayise-chatbot-toggle" class="kayise-chatbot-toggle" type="button" aria-label="Open chatbot" aria-expanded="false" title="Chat with us">
+                    <span class="kayise-chatbot-toggle-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+                            <path d="M11 2h2v2h3a3 3 0 013 3v7a3 3 0 01-3 3h-3.2l-2.8 3-2.8-3H5a3 3 0 01-3-3V7a3 3 0 013-3h3V2h2v2h1V2zm-6 6a1 1 0 100 2 1 1 0 000-2zm14 0a1 1 0 100 2 1 1 0 000-2zM7 12h10a3 3 0 01-3 3H10a3 3 0 01-3-3z" fill="currentColor"/>
+                        </svg>
+                    </span>
+                    <span class="kayise-chatbot-toggle-text" aria-hidden="true">Ask me</span>
+                    <span class="kayise-chatbot-toggle-label">Open chatbot assistant</span>
                 </button>
 
-                <section id="kayise-chatbot-panel" class="kayise-chatbot-panel" hidden>
+                <section id="kayise-chatbot-panel" class="kayise-chatbot-panel" hidden style="display: none;">
                     <header class="kayise-chatbot-header">
                         <h3>KAYISE IT Assistant</h3>
-                        <button id="kayise-chatbot-close" type="button" aria-label="Close chatbot">x</button>
+                        <button id="kayise-chatbot-close" type="button" aria-label="Close chatbot">&times;</button>
                     </header>
 
                     <div id="kayise-chatbot-messages" class="kayise-chatbot-messages">
@@ -148,6 +154,98 @@
                     </form>
                 </section>
             </div>
+
+            <script>
+                (function () {
+                    var init = function () {
+                        if (window.__kayiseChatbotStateControlInitialized) {
+                            return;
+                        }
+                        window.__kayiseChatbotStateControlInitialized = true;
+
+                        var toggleBtn = document.getElementById('kayise-chatbot-toggle');
+                        var closeBtn = document.getElementById('kayise-chatbot-close');
+                        var panel = document.getElementById('kayise-chatbot-panel');
+                        var input = document.getElementById('kayise-chatbot-input');
+
+                        if (!toggleBtn || !panel || !closeBtn) {
+                            return;
+                        }
+
+                        var setPanelState = function (isOpen) {
+                            panel.hidden = !isOpen;
+                            panel.style.display = isOpen ? 'flex' : 'none';
+                            toggleBtn.hidden = isOpen;
+                            toggleBtn.style.display = isOpen ? 'none' : 'inline-flex';
+                            toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                            if (isOpen && input) {
+                                input.disabled = false;
+                                input.readOnly = false;
+                                input.focus();
+                            }
+                        };
+
+                        // Initialize in closed state for consistent behavior.
+                        setPanelState(false);
+
+                        if (input) {
+                            // Prevent unrelated global key listeners from blocking typing in chat input.
+                            input.addEventListener('keydown', function (event) {
+                                event.stopPropagation();
+                            });
+
+                            input.addEventListener('click', function (event) {
+                                event.stopPropagation();
+                                input.disabled = false;
+                                input.readOnly = false;
+                            });
+                        }
+                        // Re-apply state after initial render cycle to prevent script race conditions.
+                        setTimeout(function () {
+                            setPanelState(false);
+                        }, 0);
+
+                        toggleBtn.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            setPanelState(true);
+                        });
+
+                        closeBtn.addEventListener('click', function (event) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            setPanelState(false);
+                        });
+
+                        document.addEventListener('click', function (event) {
+                            if (!(event.target instanceof Element)) {
+                                return;
+                            }
+
+                            if (event.target.closest('#kayise-chatbot-toggle') && event.isTrusted) {
+                                setPanelState(true);
+                                return;
+                            }
+
+                            if (event.target.closest('#kayise-chatbot-close') && event.isTrusted) {
+                                setPanelState(false);
+                            }
+                        }, true);
+
+                        document.addEventListener('keydown', function (event) {
+                            if (event.key === 'Escape' && panel.hidden === false) {
+                                setPanelState(false);
+                            }
+                        });
+                    };
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', init);
+                    } else {
+                        init();
+                    }
+                })();
+            </script>
         @endif
     </div>
     

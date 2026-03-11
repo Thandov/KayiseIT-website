@@ -83,10 +83,30 @@ class CaseStudySeeder extends Seeder
                 'is_active' => true,
                 'order' => 4,
             ],
+            [
+                'title' => 'Website Revamp and Digital Presence Growth for a Local Business',
+                'client_name' => 'Local Business Client',
+                'year' => '2026',
+                'problem' => 'The client had an outdated website with slow loading speed, weak mobile usability, and limited visibility on search engines. Their digital identity was inconsistent across channels, resulting in low online engagement and missed opportunities for lead generation.',
+                'solution' => 'KAYISE IT redesigned and optimized the website with a modern responsive interface, improved navigation, and performance enhancements. We strengthened on-page SEO, refined service messaging, and aligned social media and contact pathways to present one consistent and professional digital presence.',
+                'results' => 'The client experienced stronger online performance and a measurable uplift in visibility and engagement within the first few months.',
+                'results_list' => [
+                    ['text' => 'Faster page load times and improved mobile user experience across key pages'],
+                    ['text' => 'Increased organic traffic and stronger engagement from website visitors'],
+                    ['text' => 'Higher volume of direct inquiries through contact forms and call-to-action channels'],
+                    ['text' => 'Client testimonial: "KAYISE IT transformed our online presence completely. Our new website is professional, fast, and easy for our customers to use."'],
+                ],
+                'is_featured' => true,
+                'is_active' => true,
+                'order' => 5,
+            ],
         ];
 
         foreach ($caseStudies as $caseStudy) {
-            CaseStudy::create($caseStudy);
+            CaseStudy::updateOrCreate(
+                ['title' => $caseStudy['title']],
+                $caseStudy
+            );
         }
     }
 }

@@ -70,9 +70,111 @@ Route::get('services', function () {
     return view('services');
 })->name('services');
 
+Route::get('services/drone-building-course-south-africa', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => 'Drone Building Course South Africa',
+        'serviceIntro' => 'KAYISE IT offers practical drone building training for schools, TVET colleges, and training programs across South Africa.',
+        'servicePoints' => [
+            'Hands-on drone assembly and testing sessions',
+            'STEM-focused learning with practical application',
+            'Suitable for educators, learners, and youth programs',
+            'Delivered on-site or through structured institutional programs',
+        ],
+        'seoPhrase' => 'drone building course South Africa',
+    ]);
+})->name('services.seo.drone-building');
+
+Route::get('services/ict-training-for-tvet-colleges', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => 'ICT Training for TVET Colleges',
+        'serviceIntro' => 'Our ICT skills training equips TVET college learners and school communities with practical digital competencies for study and work.',
+        'servicePoints' => [
+            'Computer literacy and foundational digital skills',
+            'Institution-ready training delivery and support',
+            'Practical lab sessions and learner assessments',
+            'Aligned with employability and digital readiness goals',
+        ],
+        'seoPhrase' => 'ICT training for TVET colleges',
+    ]);
+})->name('services.seo.ict-training');
+
+Route::get('services/4ir-skills-training', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => '4IR Skills Training',
+        'serviceIntro' => 'KAYISE IT delivers practical 4IR technology training to help institutions and teams prepare for digital transformation.',
+        'servicePoints' => [
+            'Industry 4.0 fundamentals and practical context',
+            'Digital innovation and transformation readiness',
+            'Workforce and learner upskilling pathways',
+            'Programs for schools, TVET colleges, and organizations',
+        ],
+        'seoPhrase' => '4IR skills training',
+    ]);
+})->name('services.seo.4ir-training');
+
+Route::get('services/cyber-security-training-south-africa', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => 'Cyber Security Training South Africa',
+        'serviceIntro' => 'Our cyber security training helps institutions and businesses strengthen digital safety, awareness, and data protection practices.',
+        'servicePoints' => [
+            'Cyber awareness for teams and learners',
+            'Phishing prevention and safe online behavior',
+            'Data protection and password management practices',
+            'Practical security protocols for daily operations',
+        ],
+        'seoPhrase' => 'cyber security training South Africa',
+    ]);
+})->name('services.seo.cyber-security-training');
+
+Route::get('services/microsoft-office-productivity-training', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => 'Microsoft Office Productivity Training',
+        'serviceIntro' => 'Build practical productivity skills in Microsoft Word, Excel, PowerPoint, and Outlook for school, college, and workplace performance.',
+        'servicePoints' => [
+            'Beginner to advanced Office application training',
+            'Reporting, spreadsheets, and document workflows',
+            'Time-saving productivity techniques',
+            'Training for institutions, teams, and individuals',
+        ],
+        'seoPhrase' => 'Microsoft Office productivity training',
+    ]);
+})->name('services.seo.ms-office-training');
+
+Route::get('services/website-development-south-africa', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => 'Website Development South Africa',
+        'serviceIntro' => 'We design and build professional websites that support visibility, credibility, and lead generation for organizations in South Africa.',
+        'servicePoints' => [
+            'Mobile-friendly and user-focused website design',
+            'SEO-ready website structure and content support',
+            'Fast, secure, and scalable development',
+            'Ongoing website improvement and maintenance',
+        ],
+        'seoPhrase' => 'website development South Africa',
+    ]);
+})->name('services.seo.website-development');
+
+Route::get('services/it-consulting-south-africa', function () {
+    return view('services.seo-landing', [
+        'serviceTitle' => 'IT Consulting South Africa',
+        'serviceIntro' => 'KAYISE IT consulting services help schools, colleges, and businesses choose the right technologies and improve operational efficiency.',
+        'servicePoints' => [
+            'Technology planning and solution advisory',
+            'Digital transformation support',
+            'ICT implementation guidance',
+            'Process improvement through practical IT strategy',
+        ],
+        'seoPhrase' => 'IT consulting South Africa',
+    ]);
+})->name('services.seo.it-consulting');
+
 Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
+
+Route::get('training-skills', function () {
+    return view('training-skills');
+})->name('training-skills');
 
 Route::get('opportunities', [DashboardController::class, 'opportunities'])->name('opportunities');
 
@@ -574,7 +676,9 @@ Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('
 
 //Blog
 Route::get('/blogs', function () {
-    $blogs = App\Models\Blog::select('id', 'icon', 'title', 'category_no')->get();
+    $blogs = App\Models\Blog::select('id', 'icon', 'title', 'category_no', 'subtitle', 'created_at')
+        ->orderByDesc('created_at')
+        ->get();
     return view('blogs', compact('blogs'));
 })->name('blogs');
 
