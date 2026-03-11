@@ -16,6 +16,7 @@
 
         <form action="{{$linking}}" method="POST" class="flex flex-col" id="multi-step-form" enctype="multipart/form-data">
             @csrf
+            {{ $slot }}
             @foreach($slides as $index => $slideRoute)
             <?php $slideContent = view($slideRoute)->render(); 
             $indi = ($index === 0) ? 'block' : 'hidden' ;

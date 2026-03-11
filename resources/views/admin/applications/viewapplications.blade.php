@@ -1,98 +1,28 @@
 <x-app-layout>
-    <div class="flex justify-content-center p-5 bg-slate-100">
-        <div class="registration-section current-section" id="section1">
-            <h1 class="my-4">Applicant Details</h1>
-            <table border="1">
-                <tr>
-                    <th>Name</th>
-                    <td class="px-5">{{ $applications->name }}</td>
-                </tr>
-                <tr>
-                    <th>Surname</th>
-                    <td class="px-5">{{ $applications->surname }}</td>
-                </tr>
-                <tr>
-                    <th>Date of Birth</th>
-                    <td class="px-5">{{ $applications->dob }}</td>
-                </tr>
-                <tr>
-                    <th>Age</th>
-                    <td class="px-5">{{ $applications->age }}</td>
-                </tr>
-                <tr>
-                    <th>Gender</th>
-                    <td class="px-5">{{ $applications->gender }}</td>
-                </tr>
-                <tr>
-                    <th>Level</th>
-                    <td class="px-5">{{ $applications->highest_level }}</td>
-                </tr>
-                <tr>
-                    <th>School Name</th>
-                    <td class="px-5">{{ $applications->School_name }}</td>
-                </tr>
-                <tr>
-                    <th>Number</th>
-                    <td class="px-5">{{ $applications->number }}</td>
-                </tr>
-                <tr>
-                    <th>address</th>
-                    <td class="px-5">{{ $applications->address }}</td>
-                </tr>
-            </table>
+    <div class="max-w-4xl mx-auto py-8 px-4">
+        <div class="bg-white rounded-lg shadow border border-gray-200 p-6">
+            <h1 class="text-2xl font-bold text-gray-900 mb-6">Application Details</h1>
 
-            <h1 class="my-4">Guardian Details</h1>
-            <table border="1">
-                <tr>
-                    <th>Name</th>
-                    <td class="px-5">{{ $applications->guardian_name }}</td>
-                </tr>
-                <tr>
-                    <th>Relation</th>
-                    <td class="px-5">{{ $applications->relation }}</td>
-                </tr>
-                <tr>
-                    <th>Phone Number</th>
-                    <td class="px-5">{{ $applications->guardian_number }}</td>
-                </tr>
-                <tr>
-                    <th>Email Address</th>
-                    <td class="px-5">{{ $applications->guardian_email }}</td>
-                </tr>
-                <tr>
-                    <th>Home Address</th>
-                    <td class="px-5">{{ $applications->guardian_address }}</td>
-                </tr>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div><strong>Name:</strong> {{ $application->name ?? 'N/A' }}</div>
+                <div><strong>Email:</strong> {{ $application->email ?? 'N/A' }}</div>
+                <div><strong>ID Number:</strong> {{ $application->id_no ?? 'N/A' }}</div>
+                <div><strong>Status:</strong> {{ ucfirst($application->status ?? 'pending') }}</div>
+                <div><strong>Application Type:</strong> {{ $application->app_type ?? 'N/A' }}</div>
+                <div><strong>Field:</strong> {{ $application->field ?? 'N/A' }}</div>
+                <div><strong>Program Partner:</strong> {{ $application->program_partner ?? 'N/A' }}</div>
+                <div><strong>Age:</strong> {{ $application->age ?? 'N/A' }}</div>
+                <div class="md:col-span-2"><strong>Address:</strong> {{ $application->address ?? 'N/A' }}</div>
+            </div>
 
-            </table>
-
-            <h1 class="my-4">Next Of kin</h1>
-            <table border="1">
-                <tr>
-                    <th>Name</th>
-                    <td class="px-5">{{ $applications->kin_name }}</td>
-                </tr>
-                <tr>
-                    <th>Relation</th>
-                    <td class="px-5">{{ $applications->kin_relation }}</td>
-                </tr>
-                <tr>
-                    <th>Phone Number</th>
-                    <td class="px-5">{{ $applications->kin_number }}</td>
-                </tr>
-
-            </table>
-
-            <h1 class="my-4">Programme</h1>
-            <table border="1">
-                <tr>
-                    <th>Name</th>
-                    <td class="px-5">{{ $applications->course }}</td>
-                </tr>
-                <tr>
-                    <th>Price</th>
-                    <td class="px-5">R599</td>
-                </tr>
-            </table>
+            <div class="mt-6 pt-4 border-t border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900 mb-3">Supporting Documents</h2>
+                <div class="space-y-2 text-sm">
+                    <div><strong>CV:</strong> {{ $application->cv_path ?? 'N/A' }}</div>
+                    <div><strong>ID Copy:</strong> {{ $application->id_copy_path ?? 'N/A' }}</div>
+                    <div><strong>Qualification Copy:</strong> {{ $application->qualification_copy_path ?? 'N/A' }}</div>
+                </div>
+            </div>
         </div>
+    </div>
 </x-app-layout>

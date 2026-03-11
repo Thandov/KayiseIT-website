@@ -214,8 +214,8 @@ class AdminController extends Controller
 
     public function viewapplications($id)
     {
-        $applications = DB::table('applications')->find($id);
-        return view('admin/applications/viewapplications', compact('applications'),);
+        $application = InternshipApplication::findOrFail($id);
+        return view('admin/applications/viewapplications', compact('application'));
     }
 
 
@@ -508,7 +508,7 @@ class AdminController extends Controller
     // Applications CRUD methods
     public function applications()
     {
-        $applications = Application::orderBy('created_at', 'desc')->get();
+        $applications = InternshipApplication::orderBy('created_at', 'desc')->get();
         return view('admin.dashboard.applications.index', compact('applications'));
     }
 
@@ -522,30 +522,32 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:500',
+            'app_type' => 'nullable|string|max:255',
+            'field' => 'nullable|string|max:255',
+            'program_partner' => 'nullable|string|max:255',
             'status' => 'required|in:pending,approved,rejected'
         ]);
 
-        Application::create($validatedData);
+        InternshipApplication::create($validatedData);
         return redirect()->route('dashboard.applications')->with('success', 'Application created successfully.');
     }
 
     public function editApplication($id)
     {
-        $application = Application::findOrFail($id);
+        $application = InternshipApplication::findOrFail($id);
         return view('admin.applications.edit', compact('application'));
     }
 
     public function updateApplication(Request $request, $id)
     {
-        $application = Application::findOrFail($id);
+        $application = InternshipApplication::findOrFail($id);
         
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:500',
+            'app_type' => 'nullable|string|max:255',
+            'field' => 'nullable|string|max:255',
+            'program_partner' => 'nullable|string|max:255',
             'status' => 'required|in:pending,approved,rejected'
         ]);
 
@@ -555,7 +557,7 @@ class AdminController extends Controller
 
     public function deleteApplication($id)
     {
-        $application = Application::findOrFail($id);
+        $application = InternshipApplication::findOrFail($id);
         $application->delete();
         return redirect()->back()->with('success', 'Application deleted successfully.');
     }
@@ -563,7 +565,7 @@ class AdminController extends Controller
     public function deleteSelectedApplications(Request $request)
     {
         $selectedIds = json_decode($request->input('selected_ids'));
-        Application::whereIn('id', $selectedIds)->delete();
+        InternshipApplication::whereIn('id', $selectedIds)->delete();
         return redirect()->back()->with('success', 'Selected applications deleted successfully.');
     }
 

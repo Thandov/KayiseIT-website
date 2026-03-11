@@ -13,6 +13,12 @@
             </div>
         </div>
         <div class="max-w-3xl mx-auto my-4 sm:px-6 lg:px-8">
+            @if(isset($selectedProgram) && $selectedProgram)
+                <div class="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-900">
+                    You are applying for: <strong>{{ $selectedProgram->name }}</strong>
+                </div>
+            @endif
+
             @php
                 // Array of slide names without the '.blade.php' extension
                 $slides = [
@@ -22,7 +28,11 @@
                 'internships.slide4',
                 ];
             @endphp
-            <x-multistep-form :slides="$slides" linking="{{ route('apply.store') }}" />
+            <x-multistep-form :slides="$slides" linking="{{ route('apply.store') }}">
+                @if(isset($selectedProgram) && $selectedProgram)
+                    <input type="hidden" name="selected_program_id" value="{{ $selectedProgram->id }}">
+                @endif
+            </x-multistep-form>
         </div>
     @else
         <div class="bg-slate-100">

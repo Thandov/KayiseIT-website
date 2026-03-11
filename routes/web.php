@@ -27,6 +27,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Carousel;
 use App\Models\Blog;
 use App\Models\InternshipApplication;
+use App\Models\InternshipProgram;
 use App\Models\PostCategories;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\CaseStudyController;
@@ -73,10 +74,7 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
-Route::get('opportunities', function () {
-    // Internship Programs removed - using Interns & Learners instead
-    return view('opportunities');
-})->name('opportunities');
+Route::get('opportunities', [DashboardController::class, 'opportunities'])->name('opportunities');
 
 // Public Announcements Page
 Route::get('announcements', [App\Http\Controllers\AnnouncementController::class, 'publicIndex'])->name('announcements');
@@ -111,8 +109,15 @@ Route::get('internship', function () {
 })->name('internship');
 
 Route::get('internship/internship_application', function () {
-$existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
-return view('internships/internship_application', compact('existingApplication'));
+    $existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
+    $selectedProgram = null;
+    $selectedProgramId = request()->query('program');
+
+    if (!empty($selectedProgramId)) {
+        $selectedProgram = InternshipProgram::active()->find($selectedProgramId);
+    }
+
+    return view('internships/internship_application', compact('existingApplication', 'selectedProgram'));
 })->middleware('auth')->name('internship_application');
 
 Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.store');

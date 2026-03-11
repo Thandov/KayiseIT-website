@@ -46,7 +46,7 @@
                             Name
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Email
+                            Application
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Date
@@ -74,7 +74,8 @@
                             <div class="text-sm text-gray-900">{{ $application->name ?? 'N/A' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $application->email ?? 'N/A' }}</div>
+                            <div class="text-sm text-gray-900">{{ $application->app_type ?? 'N/A' }}</div>
+                            <div class="text-xs text-gray-500">{{ $application->field ?? 'No field selected' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-500">{{ $application->created_at->format('M d, Y') }}</div>
@@ -91,12 +92,6 @@
                                    title="View Details">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <button onclick="editApplication(this)" 
-                                        data-id="{{ $application->id }}"
-                                        class="text-indigo-600 hover:text-indigo-900 transition-colors duration-200" 
-                                        title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
                                 <button onclick="deleteApplication(this)" 
                                         data-id="{{ $application->id }}"
                                         class="text-red-600 hover:text-red-900 transition-colors duration-200" 
@@ -161,11 +156,6 @@ function deleteSelected() {
         document.getElementById('selected-ids-input').value = JSON.stringify(selectedIdsArray);
         document.getElementById('delete-selected-form').submit();
     }
-}
-
-function editApplication(button) {
-    const id = button.getAttribute('data-id');
-    window.location.href = `/dashboard/applications/edit/${id}`;
 }
 
 function deleteApplication(button) {

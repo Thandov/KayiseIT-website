@@ -19,6 +19,7 @@ use App\Models\Announcement;
 use App\Models\Partner;
 use App\Models\Product;
 use App\Models\Carousel;
+use App\Models\InternshipProgram;
 use App\Helpers\ImagePathResolver;
 use Illuminate\Http\QuotationRequest;
 
@@ -204,5 +205,15 @@ class DashboardController extends Controller
         }
 
         return view('home', compact('services', 'testimonials', 'blog', 'galleries', 'featuredGalleryPhotos', 'announcements', 'partners', 'products', 'carouselSlides'));
+    }
+
+    public function opportunities()
+    {
+        $internshipPrograms = InternshipProgram::active()
+            ->orderBy('recruitment_end_date')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('opportunities', compact('internshipPrograms'));
     }
 }

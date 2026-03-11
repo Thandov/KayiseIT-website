@@ -40,29 +40,44 @@
                         @enderror
                     </div>
 
-                    <!-- Phone -->
+                    <!-- Application Type -->
                     <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                        <input type="tel" 
-                               id="phone" 
-                               name="phone" 
-                               value="{{ old('phone') }}"
-                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('phone') border-red-500 @enderror" 
-                               placeholder="Enter phone number">
-                        @error('phone')
+                        <label for="app_type" class="block text-sm font-medium text-gray-700 mb-2">Application Type</label>
+                        <input type="text" 
+                               id="app_type" 
+                               name="app_type" 
+                               value="{{ old('app_type') }}"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('app_type') border-red-500 @enderror" 
+                               placeholder="Internship, TVET Placement, etc.">
+                        @error('app_type')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <!-- Address -->
+                    <!-- Field -->
                     <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address</label>
-                        <textarea id="address" 
-                                  name="address" 
-                                  rows="3"
-                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('address') border-red-500 @enderror" 
-                                  placeholder="Enter address">{{ old('address') }}</textarea>
-                        @error('address')
+                        <label for="field" class="block text-sm font-medium text-gray-700 mb-2">Field</label>
+                        <input type="text"
+                                  id="field"
+                                  name="field"
+                                  value="{{ old('field') }}"
+                                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('field') border-red-500 @enderror" 
+                                  placeholder="Software & Web Development">
+                        @error('field')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Program Partner -->
+                    <div class="md:col-span-2">
+                        <label for="program_partner" class="block text-sm font-medium text-gray-700 mb-2">Program Partner</label>
+                        <input type="text"
+                               id="program_partner"
+                               name="program_partner"
+                               value="{{ old('program_partner') }}"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 @error('program_partner') border-red-500 @enderror"
+                               placeholder="Optional partner name">
+                        @error('program_partner')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

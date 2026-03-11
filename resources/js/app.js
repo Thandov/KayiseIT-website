@@ -10,6 +10,7 @@ import { gsap } from 'gsap';
 window.gsap = gsap;
 
 import Alpine from 'alpinejs';
+import { getKayiseChatbotResponse } from './chatbotResponses';
 
 window.Alpine = Alpine;
 
@@ -138,3 +139,84 @@ function slideBoxes(direction) {
 
 // Make slideBoxes globally available
 window.slideBoxes = slideBoxes;
+
+document.addEventListener('DOMContentLoaded', function () {
+    const chatbotRoot = document.getElementById('kayise-chatbot');
+    if (!chatbotRoot) {
+        return;
+    }
+
+    const toggleBtn = document.getElementById('kayise-chatbot-toggle');
+    const closeBtn = document.getElementById('kayise-chatbot-close');
+    const panel = document.getElementById('kayise-chatbot-panel');
+    const form = document.getElementById('kayise-chatbot-form');
+    const input = document.getElementById('kayise-chatbot-input');
+    const messages = document.getElementById('kayise-chatbot-messages');
+    const quickReplyButtons = document.querySelectorAll('.kayise-chatbot-quick-reply');
+
+    const addMessage = function (text, sender) {
+        const msg = document.createElement('div');
+        msg.className = `kayise-chatbot-message ${sender}`;
+        msg.textContent = text;
+        messages.appendChild(msg);
+        messages.scrollTop = messages.scrollHeight;
+        return msg;
+    };
+
+    const addTypingMessage = function () {
+        const typingMsg = document.createElement('div');
+        typingMsg.className = 'kayise-chatbot-message bot';
+        typingMsg.textContent = 'KAYISE IT Assistant is typing...';
+        messages.appendChild(typingMsg);
+        messages.scrollTop = messages.scrollHeight;
+        return typingMsg;
+    };
+
+    const openPanel = function () {
+        panel.hidden = false;
+        toggleBtn.hidden = true;
+        input.focus();
+    };
+
+    const closePanel = function () {
+        panel.hidden = true;
+        toggleBtn.hidden = false;
+    };
+
+    toggleBtn.addEventListener('click', openPanel);
+    closeBtn.addEventListener('click', closePanel);
+
+    const handleQuestion = function (questionText) {
+        if (!questionText) {
+            return;
+        }
+
+        addMessage(questionText, 'user');
+        const typingMsg = addTypingMessage();
+
+        setTimeout(function () {
+            const reply = getKayiseChatbotResponse(questionText);
+            typingMsg.textContent = reply;
+            messages.scrollTop = messages.scrollHeight;
+        }, 3000);
+    };
+
+    quickReplyButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            const question = button.getAttribute('data-question');
+            handleQuestion(question);
+        });
+    });
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const message = input.value.trim();
+        if (!message) {
+            return;
+        }
+
+        handleQuestion(message);
+        input.value = '';
+    });
+});

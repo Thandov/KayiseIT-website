@@ -4,22 +4,22 @@
     "src": "public/images/bg_dark.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-7b4da085.css",
+    "file": "assets/app-e4540435.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/css/dashboard.css": {
-    "file": "assets/dashboard-67c3c80b.css",
+    "file": "assets/dashboard-286b74fe.css",
     "isEntry": true,
     "src": "resources/css/dashboard.css"
   },
   "resources/js/app.js": {
-    "file": "assets/app-ca409aca.js",
+    "file": "assets/app-7c0ce990.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-ec994552.js",
+    "file": "assets/dashboard-5473c78e.js",
     "isEntry": true,
     "src": "resources/js/dashboard.js"
   }

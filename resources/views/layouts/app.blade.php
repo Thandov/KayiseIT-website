@@ -117,6 +117,38 @@
             @endif
         </main>
         @include('layouts.footer')
+
+        @if(!request()->is('dashboard/*'))
+            <div id="kayise-chatbot" class="kayise-chatbot" aria-live="polite">
+                <button id="kayise-chatbot-toggle" class="kayise-chatbot-toggle" type="button" aria-label="Open chatbot">
+                    Chat With Us
+                </button>
+
+                <section id="kayise-chatbot-panel" class="kayise-chatbot-panel" hidden>
+                    <header class="kayise-chatbot-header">
+                        <h3>KAYISE IT Assistant</h3>
+                        <button id="kayise-chatbot-close" type="button" aria-label="Close chatbot">x</button>
+                    </header>
+
+                    <div id="kayise-chatbot-messages" class="kayise-chatbot-messages">
+                        <div class="kayise-chatbot-message bot">Welcome to KAYISE IT. Ask about our services, drone training, school ICT training, partnerships, or contact details.</div>
+                    </div>
+
+                    <div class="kayise-chatbot-quick-replies" aria-label="Quick questions">
+                        <button type="button" class="kayise-chatbot-quick-reply" data-question="What services does Kayise IT offer?">Services</button>
+                        <button type="button" class="kayise-chatbot-quick-reply" data-question="Do you offer drone training?">Drone Training</button>
+                        <button type="button" class="kayise-chatbot-quick-reply" data-question="Do you provide ICT training for schools?">ICT Schools</button>
+                        <button type="button" class="kayise-chatbot-quick-reply" data-question="How can I partner with Kayise IT?">Partnership</button>
+                        <button type="button" class="kayise-chatbot-quick-reply" data-question="How do I contact Kayise IT?">Contact</button>
+                    </div>
+
+                    <form id="kayise-chatbot-form" class="kayise-chatbot-form">
+                        <input id="kayise-chatbot-input" type="text" placeholder="Type your question..." maxlength="250" required>
+                        <button type="submit">Send</button>
+                    </form>
+                </section>
+            </div>
+        @endif
     </div>
     
     <!-- Stack for additional scripts -->

@@ -14,11 +14,13 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Mail\ApplicationNotification;
 use App\Mail\ApplicationSummary;
 use App\Mail\InternshipConfirmation;
 use App\Mail\NewIntenshipNotification;
 use App\Helpers\UserFolderHelper;
+use App\Models\InternshipProgram;
 
 class ApplicationsController extends Controller
 {
@@ -33,9 +35,15 @@ class ApplicationsController extends Controller
             'cv' => 'required|file|mimes:pdf|max:2048',
             'id_copy' => 'required|file|mimes:pdf|max:2048',
             'qualification_copy' => 'required|file|mimes:pdf|max:2048',
+            'selected_program_id' => 'nullable|exists:internship_programs,id',
         ]);
 
         $user = Auth::user();
+        $selectedProgram = null;
+        if (!empty($validatedData['selected_program_id'])) {
+            $selectedProgram = InternshipProgram::find($validatedData['selected_program_id']);
+        }
+
         $folderName = UserFolderHelper::generateFolderName($user);
 
         // Create a directory in the appropriate folder based on application type
@@ -59,11 +67,15 @@ class ApplicationsController extends Controller
         $internship = new InternshipApplication();
         $internship->app_id = $folderName;
         $internship->user_id = $user->id;
+        $internship->name = $user->name;
+        $internship->email = $user->email;
         $internship->id_no = $request->id_number;
         $internship->age = $request->age;
         
         $internship->app_type = $request->app_type;
         $internship->field = $request->field;
+        $internship->program_partner = $selectedProgram?->partner?->name;
+        $internship->status = 'pending';
 
         /* High School */
         $internship->address = $request->address;
@@ -82,12 +94,35 @@ class ApplicationsController extends Controller
         
         $internship->save();
 
-       Mail::to($user->email)->send(new InternshipConfirmation());
+        $mailFailed = false;
+
+        try {
+            Mail::to($user->email)->send(new InternshipConfirmation());
+        } catch (\Throwable $e) {
+            $mailFailed = true;
+            Log::warning('Failed to send internship confirmation email.', [
+                'user_id' => $user->id,
+                'application_id' => $internship->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         $adminEmails = ['info@kayiseit.com', 'thapelo@kayiseit.com', 'thando@kayiseit.com'];
-        Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $user->name, $cvPath, $idCopyPath, $qualificationCopyPath));
+        try {
+            Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $user->name, $cvPath, $idCopyPath, $qualificationCopyPath));
+        } catch (\Throwable $e) {
+            $mailFailed = true;
+            Log::warning('Failed to send internship admin notification email.', [
+                'user_id' => $user->id,
+                'application_id' => $internship->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
-         
+        if ($mailFailed) {
+            return redirect('/profile')->with('success', 'Application submitted successfully. Email notification is temporarily unavailable.');
+        }
+
         return redirect('/profile')->with('success', 'Application submitted successfully!');
     }
 
@@ -164,10 +199,26 @@ class ApplicationsController extends Controller
         ];
 
         $adminEmail = 'info@kayiseit.com';
-        Mail::to($adminEmail)->send(new ApplicationNotification($request, $quotationData));
+        try {
+            Mail::to($adminEmail)->send(new ApplicationNotification($request, $quotationData));
+        } catch (\Throwable $e) {
+            Log::warning('Failed to send drone application admin email.', [
+                'user_id' => auth()->id(),
+                'application_id' => $application->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         $userEmail = auth()->user()->email;
-        Mail::to($userEmail)->send(new ApplicationSummary($quotationData));
+        try {
+            Mail::to($userEmail)->send(new ApplicationSummary($quotationData));
+        } catch (\Throwable $e) {
+            Log::warning('Failed to send drone application summary email.', [
+                'user_id' => auth()->id(),
+                'application_id' => $application->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         return view('drone_application/summary', compact('quotationData'));
     }
