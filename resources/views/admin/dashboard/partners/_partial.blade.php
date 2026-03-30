@@ -28,7 +28,7 @@
         </div>
         
         <!-- Status Badge -->
-        <div class="mb-4">
+        <div class="mb-4 flex flex-wrap gap-2 items-center">
             @if($partner->is_active)
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                     <i class="fas fa-check-circle mr-1"></i>Active
@@ -38,7 +38,13 @@
                     <i class="fas fa-times-circle mr-1"></i>Inactive
                 </span>
             @endif
-            <span class="ml-2 text-xs text-gray-500">Order: {{ $partner->display_order }}</span>
+            @if($partner->mou_signed)
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    MOU Signed
+                </span>
+            @endif
+            <span class="text-xs text-gray-500">Order: {{ $partner->display_order }}</span>
         </div>
     </div>
     

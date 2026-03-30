@@ -1164,6 +1164,9 @@ class AdminController extends Controller
             'description' => 'nullable|string',
             'display_order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
+            'mou_signed' => 'boolean',
+            'mou_date' => 'nullable|date',
+            'mou_document' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
         $partnerData = [
@@ -1173,6 +1176,8 @@ class AdminController extends Controller
             'description' => $validatedData['description'] ?? null,
             'display_order' => $validatedData['display_order'] ?? 0,
             'is_active' => $validatedData['is_active'] ?? true,
+            'mou_signed' => $request->boolean('mou_signed'),
+            'mou_date' => $validatedData['mou_date'] ?? null,
         ];
 
         // Handle logo upload - store directly in public/images/partners
@@ -1191,6 +1196,19 @@ class AdminController extends Controller
             $file->move($destination, $filename);
 
             $partnerData['logo_path'] = 'images/partners/' . $filename;
+        }
+
+        // Handle MOU document upload
+        if ($request->hasFile('mou_document')) {
+            $mouFile = $request->file('mou_document');
+            $safeName = \Illuminate\Support\Str::slug($validatedData['name'] ?: 'partner');
+            $mouFilename = 'MOU_' . $safeName . '_' . date('Ymd') . '.pdf';
+            $mouDest = public_path('documents/mou');
+            if (!is_dir($mouDest)) {
+                mkdir($mouDest, 0755, true);
+            }
+            $mouFile->move($mouDest, $mouFilename);
+            $partnerData['mou_document'] = 'documents/mou/' . $mouFilename;
         }
 
         Partner::create($partnerData);
@@ -1222,6 +1240,9 @@ class AdminController extends Controller
             'description' => 'nullable|string',
             'display_order' => 'nullable|integer|min:0',
             'is_active' => 'boolean',
+            'mou_signed' => 'boolean',
+            'mou_date' => 'nullable|date',
+            'mou_document' => 'nullable|file|mimes:pdf|max:10240',
         ]);
 
         $partnerData = [
@@ -1231,6 +1252,8 @@ class AdminController extends Controller
             'description' => $validatedData['description'] ?? null,
             'display_order' => $validatedData['display_order'] ?? 0,
             'is_active' => $validatedData['is_active'] ?? true,
+            'mou_signed' => $request->boolean('mou_signed'),
+            'mou_date' => $validatedData['mou_date'] ?? null,
         ];
 
         // Handle logo upload - store directly in public/images/partners
@@ -1257,6 +1280,22 @@ class AdminController extends Controller
             $file->move($destination, $filename);
 
             $partnerData['logo_path'] = 'images/partners/' . $filename;
+        }
+
+        // Handle MOU document upload
+        if ($request->hasFile('mou_document')) {
+            if ($partner->mou_document) {
+                @unlink(public_path($partner->mou_document));
+            }
+            $mouFile = $request->file('mou_document');
+            $safeName = \Illuminate\Support\Str::slug($validatedData['name'] ?: $partner->name ?: 'partner');
+            $mouFilename = 'MOU_' . $safeName . '_' . date('Ymd') . '.pdf';
+            $mouDest = public_path('documents/mou');
+            if (!is_dir($mouDest)) {
+                mkdir($mouDest, 0755, true);
+            }
+            $mouFile->move($mouDest, $mouFilename);
+            $partnerData['mou_document'] = 'documents/mou/' . $mouFilename;
         }
 
         $partner->update($partnerData);

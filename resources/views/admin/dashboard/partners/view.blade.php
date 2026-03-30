@@ -90,6 +90,47 @@
                 </div>
             </div>
 
+            <!-- MOU Section -->
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <h3 class="text-base font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    Memorandum of Understanding
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">MOU Status</label>
+                        @if($partner->mou_signed)
+                            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                MOU Signed
+                            </span>
+                        @else
+                            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-600">
+                                No MOU
+                            </span>
+                        @endif
+                    </div>
+                    @if($partner->mou_signed)
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Date Signed</label>
+                        <p class="text-gray-900">{{ $partner->mou_date ? $partner->mou_date->format('d F Y') : '—' }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">MOU Document</label>
+                        @if($partner->mou_document)
+                            <a href="{{ asset($partner->mou_document) }}" target="_blank"
+                               class="inline-flex items-center gap-1 text-sm text-green-700 underline hover:text-green-900">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                Download MOU PDF
+                            </a>
+                        @else
+                            <p class="text-gray-400 text-sm">No document uploaded</p>
+                        @endif
+                    </div>
+                    @endif
+                </div>
+            </div>
+
             <div class="mt-6 pt-6 border-t border-gray-200">
                 <div class="flex justify-between text-sm text-gray-500">
                     <span>Created: {{ $partner->created_at->format('M d, Y H:i') }}</span>

@@ -179,63 +179,106 @@
       </p>
 
       <!-- Partners Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-        <!-- MICT SETA -->
-        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
-          <div class="mb-4 h-24 flex items-center justify-center">
-            <img
-              class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              src="{{ asset('images/partners/mict.png') }}"
-              alt="MICT SETA"
-              loading="lazy"
-            >
-          </div>
-          <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">MICT SETA</h4>
-          <p class="text-sm text-gray-600 text-center">Media, Information and Communication Technologies Sector Education and Training Authority</p>
-        </div>
+      @php
+        $dbPartners = \App\Models\Partner::active()->ordered()->get();
+      @endphp
 
-        <!-- Ehlanzeni TVET College -->
-        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
-          <div class="mb-4 h-24 flex items-center justify-center">
-            <img
-              class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              src="{{ asset('images/partners/Ehlanzeni.png') }}"
-              alt="Ehlanzeni TVET College"
-              loading="lazy"
-            >
-          </div>
-          <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">Ehlanzeni TVET College</h4>
-          <p class="text-sm text-gray-600 text-center">Technical and Vocational Education and Training institution supporting skills development</p>
+      @if($dbPartners->isNotEmpty())
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          @foreach($dbPartners as $dbPartner)
+            @php
+              $pLogoUrl = $dbPartner->logo_path;
+              if ($pLogoUrl && str_starts_with($pLogoUrl, 'partners/')) {
+                  $pLogoUrl = 'images/partners/' . basename($pLogoUrl);
+              }
+            @endphp
+            <div class="relative bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+              @if($dbPartner->mou_signed)
+                <span class="absolute top-3 right-3 inline-flex items-center gap-1 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-full leading-none shadow">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  MOU Signed
+                </span>
+              @endif
+              @if($pLogoUrl)
+              <div class="mb-4 h-24 flex items-center justify-center">
+                <img
+                  class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                  src="{{ asset($pLogoUrl) }}"
+                  alt="{{ $dbPartner->name }}"
+                  loading="lazy"
+                >
+              </div>
+              @endif
+              <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">{{ $dbPartner->name }}</h4>
+              @if($dbPartner->description)
+                <p class="text-sm text-gray-600 text-center">{{ $dbPartner->description }}</p>
+              @endif
+              @if($dbPartner->mou_signed && $dbPartner->mou_date)
+                <p class="mt-2 text-xs text-green-700">MOU since {{ $dbPartner->mou_date->format('M Y') }}</p>
+              @endif
+            </div>
+          @endforeach
         </div>
+      @else
+        {{-- Fallback static grid when no partners in DB --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <!-- MICT SETA -->
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+            <div class="mb-4 h-24 flex items-center justify-center">
+              <img
+                class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                src="{{ asset('images/partners/mict.png') }}"
+                alt="MICT SETA"
+                loading="lazy"
+              >
+            </div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">MICT SETA</h4>
+            <p class="text-sm text-gray-600 text-center">Media, Information and Communication Technologies Sector Education and Training Authority</p>
+          </div>
 
-        <!-- Tarsus on Demand -->
-        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
-          <div class="mb-4 h-24 flex items-center justify-center">
-            <img
-              class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              src="{{ asset('images/partners/tarsus.png') }}"
-              alt="Tarsus on Demand"
-              loading="lazy"
-            >
+          <!-- Ehlanzeni TVET College -->
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+            <div class="mb-4 h-24 flex items-center justify-center">
+              <img
+                class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                src="{{ asset('images/partners/Ehlanzeni.png') }}"
+                alt="Ehlanzeni TVET College"
+                loading="lazy"
+              >
+            </div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">Ehlanzeni TVET College</h4>
+            <p class="text-sm text-gray-600 text-center">Technical and Vocational Education and Training institution supporting skills development</p>
           </div>
-          <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">Tarsus on Demand</h4>
-          <p class="text-sm text-gray-600 text-center">Leading technology distribution and solutions provider</p>
-        </div>
 
-        <!-- SCG South Africa -->
-        <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
-          <div class="mb-4 h-24 flex items-center justify-center">
-            <img
-              class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-              src="{{ asset('images/partners/scg.png') }}"
-              alt="SCG South Africa"
-              loading="lazy"
-            >
+          <!-- Tarsus on Demand -->
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+            <div class="mb-4 h-24 flex items-center justify-center">
+              <img
+                class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                src="{{ asset('images/partners/tarsus.png') }}"
+                alt="Tarsus on Demand"
+                loading="lazy"
+              >
+            </div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">Tarsus on Demand</h4>
+            <p class="text-sm text-gray-600 text-center">Leading technology distribution and solutions provider</p>
           </div>
-          <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">SCG South Africa</h4>
-          <p class="text-sm text-gray-600 text-center">Strategic technology and business solutions partner</p>
+
+          <!-- SCG South Africa -->
+          <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col items-center">
+            <div class="mb-4 h-24 flex items-center justify-center">
+              <img
+                class="h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                src="{{ asset('images/partners/scg.png') }}"
+                alt="SCG South Africa"
+                loading="lazy"
+              >
+            </div>
+            <h4 class="text-lg font-semibold text-gray-800 mb-2 text-center">SCG South Africa</h4>
+            <p class="text-sm text-gray-600 text-center">Strategic technology and business solutions partner</p>
+          </div>
         </div>
-      </div>
+      @endif
 
       <!-- Partnership Benefits -->
       <div class="mt-12 bg-white rounded-xl p-8 shadow-lg border border-gray-100">

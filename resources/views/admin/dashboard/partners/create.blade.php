@@ -148,6 +148,41 @@
                     </div>
                 </div>
 
+                <!-- MOU Section -->
+                <div class="border border-green-200 rounded-lg p-6 bg-green-50">
+                    <h3 class="text-base font-semibold text-green-800 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        Memorandum of Understanding (MOU)
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="flex items-center">
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="checkbox"
+                                       name="mou_signed"
+                                       id="mou_signed"
+                                       value="1"
+                                       {{ old('mou_signed') ? 'checked' : '' }}
+                                       onchange="toggleMouFields(this.checked)"
+                                       class="w-5 h-5 rounded border-gray-300 text-green-600 shadow-sm focus:ring-green-500">
+                                <span class="text-sm font-medium text-green-800">MOU Signed</span>
+                            </label>
+                        </div>
+                        <div id="mou_date_field" class="{{ old('mou_signed') ? '' : 'hidden' }}">
+                            <label for="mou_date" class="block text-sm font-medium text-gray-700 mb-1">Date Signed</label>
+                            <input type="date" name="mou_date" id="mou_date" value="{{ old('mou_date') }}"
+                                   class="block w-full border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-green-500 focus:border-green-500">
+                            @error('mou_date')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                        </div>
+                        <div id="mou_document_field" class="{{ old('mou_signed') ? '' : 'hidden' }}">
+                            <label for="mou_document" class="block text-sm font-medium text-gray-700 mb-1">MOU Document (PDF)</label>
+                            <input type="file" name="mou_document" id="mou_document" accept=".pdf"
+                                   class="block w-full text-sm text-gray-500 file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:font-medium file:bg-green-100 file:text-green-700 hover:file:bg-green-200">
+                            <p class="mt-1 text-xs text-gray-500">PDF only, max 10MB</p>
+                            @error('mou_document')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Submit Button -->
                 <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
                     <a href="{{ route('dashboard.partners') }}" 
@@ -163,6 +198,12 @@
         </div>
     </div>
     <script>
+        function toggleMouFields(checked) {
+            const dateField = document.getElementById('mou_date_field');
+            const docField  = document.getElementById('mou_document_field');
+            dateField.classList.toggle('hidden', !checked);
+            docField.classList.toggle('hidden', !checked);
+        }
         document.addEventListener('DOMContentLoaded', function () {
             const fileInput = document.getElementById('logo');
             const previewImg = document.getElementById('logo-preview');

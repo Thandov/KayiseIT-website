@@ -19,10 +19,15 @@ class Partner extends Model
         'description',
         'display_order',
         'is_active',
+        'mou_signed',
+        'mou_date',
+        'mou_document',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'mou_signed' => 'boolean',
+        'mou_date' => 'date',
         'display_order' => 'integer',
     ];
 
@@ -48,6 +53,12 @@ class Partner extends Model
     public function scopeSkillsDevelopment($query)
     {
         return $query->where('partner_type', 'Skills Development');
+    }
+
+    // Scope for MOU partners
+    public function scopeWithMou($query)
+    {
+        return $query->where('mou_signed', true);
     }
 
     // Relationships
