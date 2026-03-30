@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Role;
 use App\Models\User;
-use App\Models\Business;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
 {
@@ -17,37 +16,47 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        // Admin 1
-        $user = User::create([
-            'name' => 'Thando',
-            'email' => 'thando@kayiseit.co.za',
-            'password' => Hash::make('thando@kayiseit.co.za'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $adminRole = Role::where('name', 'admin')->first();
 
-        $user->attachRole(1);
+        if (! $adminRole) {
+            $this->command?->warn('Admin role not found. Skipping AdminUserSeeder role assignment.');
+            return;
+        }
+
+        // Admin 1
+        $user = User::firstOrCreate(
+            ['email' => 'thando@kayiseit.co.za'],
+            [
+                'name' => 'Thando',
+                'password' => Hash::make('thando@kayiseit.co.za'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+        $user->attachRole($adminRole->name);
 
         // Admin 2
-        $user = User::create([
-            'name' => 'Thapelo Maluka',
-            'email' => 'thapelo@kayiseit.com',
-            'password' => Hash::make('thapelo@kayiseit.com'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $user->attachRole(1);
+        $user = User::firstOrCreate(
+            ['email' => 'thapelo@kayiseit.com'],
+            [
+                'name' => 'Thapelo Maluka',
+                'password' => Hash::make('thapelo@kayiseit.com'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+        $user->attachRole($adminRole->name);
 
         // Admin 3 (Mandla)
-        $user = User::create([
-            'name' => 'Mandla',
-            'email' => 'mandla@kayiseit.co.za',
-            'password' => Hash::make('Mandla@02'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $user->attachRole(1);
+        $user = User::firstOrCreate(
+            ['email' => 'mandla@kayiseit.co.za'],
+            [
+                'name' => 'Mandla',
+                'password' => Hash::make('Mandla@02'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+        $user->attachRole($adminRole->name);
     }
 }

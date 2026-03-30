@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -85,9 +86,9 @@ class RegisteredUserController extends Controller
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
 
-        // Attach role only if one was provided; allow role to be null
-        if ($request->filled('role_id')) {
-            $user->attachRole($request->role_id);
+        // Attach role only if one was provided and exists
+        if ($request->filled('role_id') && Role::whereKey($request->role_id)->exists()) {
+            $user->attachRole((int) $request->role_id);
         }
 
         // Create user folder based on role/opportunity type
@@ -138,7 +139,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
-        $user->attachRole('3');
+        $user->attachRole('client');
 
         // Create user folder for training opportunity
         UserFolderHelper::createUserFolder($user, 'training');
@@ -170,7 +171,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'email_verified_at' => null, // Set email_verified_at to null initially
         ]);
-        $user->attachRole('4');
+        $user->attachRole('applicant');
 
         // Create user folder for internship opportunity
         UserFolderHelper::createUserFolder($user, 'internship');

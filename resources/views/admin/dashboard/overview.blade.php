@@ -8,7 +8,10 @@
 
     {{-- Sales per month — color by progress (good/bad) --}}
     <section class="mb-8">
-        <h2 class="text-lg font-medium text-gray-800 mb-3">Sales per month</h2>
+        <div class="mb-3">
+            <h2 class="text-lg font-medium text-gray-800">Sales per month</h2>
+            <p class="text-sm text-gray-500">Financial year: {{ $financialYearLabel }}</p>
+        </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             @foreach($salesByMonth as $row)
             @php

@@ -31,6 +31,9 @@ use App\Models\InternsLearner;
 use App\Models\MictBeneficiary;
 use App\Models\Partner;
 use App\Models\Message;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationAccepted;
+use App\Mail\ApplicationRejected;
 
 
 
@@ -106,10 +109,18 @@ class AdminController extends Controller
             }
         }
 
-        // Sales per month (last 12 months) with trend for good/bad coloring
+        // Sales per month for the active financial year (April to March)
+        $today = now();
+        $financialYearStart = $today->copy()->month(4)->day(1)->startOfDay();
+        if ((int) $today->format('n') < 4) {
+            $financialYearStart->subYear();
+        }
+        $financialYearEnd = $financialYearStart->copy()->addYear()->subDay()->endOfDay();
+        $financialYearLabel = 'Apr ' . $financialYearStart->format('Y') . ' - Mar ' . $financialYearEnd->format('Y');
+
         $salesPerMonth = Invoice::query()
             ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(COALESCE(total_price, 0)) as total')
-            ->where('created_at', '>=', now()->subMonths(12)->startOfMonth())
+            ->whereBetween('created_at', [$financialYearStart, $financialYearEnd])
             ->groupBy('year', 'month')
             ->orderBy('year')
             ->orderBy('month')
@@ -119,8 +130,8 @@ class AdminController extends Controller
         $monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         $salesByMonth = [];
         $prevTotal = null;
-        for ($i = 11; $i >= 0; $i--) {
-            $date = now()->subMonths($i);
+        for ($i = 0; $i < 12; $i++) {
+            $date = $financialYearStart->copy()->addMonths($i);
             $key = $date->format('Y-m');
             $row = $salesPerMonth->get($key);
             $total = (float) ($row->total ?? 0);
@@ -147,7 +158,7 @@ class AdminController extends Controller
 
         $pageTitle = 'Dashboard';
 
-        return view('admin.dashboard.overview', compact('users', 'employees', 'blogs', 'carousels', 'occupations', 'applications', 'internships', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments', 'salesByMonth', 'leads', 'staffTotal', 'staffNewThisMonth', 'pageTitle'));
+        return view('admin.dashboard.overview', compact('users', 'employees', 'blogs', 'carousels', 'occupations', 'applications', 'internships', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments', 'salesByMonth', 'financialYearLabel', 'leads', 'staffTotal', 'staffNewThisMonth', 'pageTitle'));
     }
 
     public function remove($id)
@@ -1283,5 +1294,65 @@ class AdminController extends Controller
         }
         
         return redirect()->back()->with('success', 'Selected partners deleted successfully.');
+    }
+
+    // ==================== APPLICATION ACCEPTANCE/REJECTION ====================
+
+    /**
+     * Accept an application and send email to applicant
+     */
+    public function acceptApplication(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'admin_message' => 'required|string|max:1000',
+            ]);
+
+            $application = InternshipApplication::findOrFail($id);
+            $user = auth()->user();
+
+            // Update application
+            $application->status = 'accepted';
+            $application->admin_message = $request->admin_message;
+            $application->responded_by = $user->id;
+            $application->responded_at = now();
+            $application->save();
+
+            // Send acceptance email
+            Mail::to($application->email)->send(new ApplicationAccepted($application, $request->admin_message));
+
+            return redirect()->back()->with('success', 'Application accepted successfully and email has been sent to the applicant.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error accepting application: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Reject an application and send email to applicant
+     */
+    public function rejectApplication(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'admin_message' => 'required|string|max:1000',
+            ]);
+
+            $application = InternshipApplication::findOrFail($id);
+            $user = auth()->user();
+
+            // Update application
+            $application->status = 'rejected';
+            $application->admin_message = $request->admin_message;
+            $application->responded_by = $user->id;
+            $application->responded_at = now();
+            $application->save();
+
+            // Send rejection email
+            Mail::to($application->email)->send(new ApplicationRejected($application, $request->admin_message));
+
+            return redirect()->back()->with('success', 'Application rejected and email has been sent to the applicant.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error rejecting application: ' . $e->getMessage());
+        }
     }
 }

@@ -120,6 +120,23 @@
 
         @if(!request()->is('dashboard/*'))
             <div id="kayise-chatbot" class="kayise-chatbot" aria-live="polite">
+                    <a
+                        class="kayise-chatbot-whatsapp"
+                        href="https://wa.me/27693907862"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Chat with us on WhatsApp"
+                        title="Chat with us on WhatsApp"
+                    >
+                        <span class="kayise-chatbot-whatsapp-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
+                                <path d="M19.05 4.94A9.9 9.9 0 0012 2a9.93 9.93 0 00-8.63 14.84L2 22l5.31-1.39A9.93 9.93 0 1019.05 4.94zm-7.05 15.37a8.28 8.28 0 01-4.22-1.16l-.3-.18-3.15.82.84-3.07-.2-.31A8.28 8.28 0 1112 20.31zm4.54-6.19c-.25-.13-1.47-.72-1.7-.8-.23-.08-.39-.13-.56.12-.16.25-.64.8-.78.97-.14.16-.28.19-.53.06-.25-.13-1.04-.38-1.98-1.2-.74-.66-1.24-1.46-1.38-1.71-.14-.25-.02-.38.11-.5.11-.11.25-.28.38-.42.13-.14.17-.25.25-.41.08-.16.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.56-.43l-.48-.01c-.16 0-.42.06-.64.31-.22.25-.84.82-.84 2 0 1.18.86 2.31.98 2.47.13.16 1.7 2.6 4.12 3.65.58.25 1.03.4 1.38.51.58.18 1.1.15 1.52.09.46-.07 1.47-.6 1.68-1.17.21-.57.21-1.06.15-1.17-.07-.11-.23-.18-.48-.31z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="kayise-chatbot-whatsapp-text" aria-hidden="true">WhatsApp</span>
+                        <span class="kayise-chatbot-toggle-label">Open WhatsApp chat</span>
+                    </a>
+
                 <button id="kayise-chatbot-toggle" class="kayise-chatbot-toggle" type="button" aria-label="Open chatbot" aria-expanded="false" title="Chat with us">
                     <span class="kayise-chatbot-toggle-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
@@ -149,7 +166,7 @@
                     </div>
 
                     <form id="kayise-chatbot-form" class="kayise-chatbot-form">
-                        <input id="kayise-chatbot-input" type="text" placeholder="Type your question..." maxlength="250" required>
+                        <textarea id="kayise-chatbot-input" rows="1" wrap="soft" placeholder="Type your question..." maxlength="250" required></textarea>
                         <button type="submit">Send</button>
                     </form>
                 </section>

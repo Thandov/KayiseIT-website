@@ -1,11 +1,13 @@
 <nav 
     x-data="{ open: false, scrolled: false }" 
     x-init="
-        scrolled = window.scrollY > 100;
-        window.addEventListener('scroll', () => { scrolled = window.scrollY > 100 });
+        scrolled = true;
+        window.addEventListener('scroll', () => {
+            scrolled = true
+        });
     "
     id="main-navbar"
-    class="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-md transition-all duration-300 navbar-transparent"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black/95 backdrop-blur-lg navbar-scrolled"
     :style="open ? 'background-color: rgba(255, 255, 255, 0.95) !important;' : ''"
     style="transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;"
 >
@@ -70,12 +72,12 @@
                 <!-- Guest Auth Links -->
                 @guest
                     @if (Route::has('login'))
-                        <a href="{{ route('login') }}" :class="scrolled ? 'text-gray-700 hover:text-gray-900' : 'text-white/90 hover:text-white'" class="transition-colors duration-200 font-medium">
+                        <a href="{{ route('login') }}" class="text-white/90 hover:text-white transition-colors duration-200 font-medium">
                             {{ __('Login') }}
                         </a>
                     @endif
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" :class="scrolled ? 'bg-gray-100 hover:bg-gray-200 text-gray-700' : 'bg-white/20 hover:bg-white/30 text-white'" class="px-4 py-2 rounded-lg transition-all duration-200 font-medium">
+                        <a href="{{ route('register') }}" class="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg transition-all duration-200 font-medium">
                             {{ __('Register') }}
                         </a>
                     @endif
@@ -84,9 +86,9 @@
                 <!-- User Profile -->
                 @auth
                 <div class="relative group">
-                    <button :class="scrolled ? 'text-gray-700 hover:text-gray-900' : 'text-white/90 hover:text-white'" class="flex items-center transition-colors duration-200 font-medium">
-                        <div :class="scrolled ? 'bg-gray-200' : 'bg-white/20'" class="w-8 h-8 rounded-full flex items-center justify-center mr-2 transition-colors duration-200">
-                            <span :class="scrolled ? 'text-gray-700' : 'text-white'" class="text-sm font-semibold transition-colors duration-200">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                    <button class="text-white/90 hover:text-white flex items-center transition-colors duration-200 font-medium">
+                        <div class="bg-white/20 w-8 h-8 rounded-full flex items-center justify-center mr-2 transition-colors duration-200">
+                            <span class="text-white text-sm font-semibold transition-colors duration-200">{{ substr(Auth::user()->name, 0, 1) }}</span>
                         </div>
                         {{ Auth::user()->name }}
                         <svg class="ml-1 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +122,7 @@
             
             <!-- Mobile menu button -->
             <div class="lg:hidden">
-                <button @click="open = ! open" :class="scrolled ? 'text-gray-700 hover:text-gray-900' : 'text-white/90 hover:text-white'" class="transition-colors duration-200 p-2">
+                <button @click="open = ! open" class="text-white/90 hover:text-white transition-colors duration-200 p-2">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path x-show="!open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path x-show="open" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -130,78 +132,78 @@
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="lg:hidden bg-white/95 backdrop-blur-md border-t border-white/20">
+        <div :class="{'block': open, 'hidden': ! open}" class="lg:hidden bg-black/95 backdrop-blur-md border-t border-white/20">
             <div class="px-4 py-6 space-y-4">
-                <a href="{{ route('home') }}#starfield" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('home') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('home') }}#starfield" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('home') ? 'text-white' : '' }}">
                     {{ __('Home') }}
                 </a>
                 
                 <div class="space-y-2">
-                    <div class="text-gray-700 font-medium">{{ __('Services') }}</div>
+                    <div class="text-white font-medium">{{ __('Services') }}</div>
                     @if(isset($services) && $services->count() > 0)
                         @foreach ($services as $service)
                         @php $slug = str_replace(' ','-', strtolower($service->name)) @endphp
-                        <a href="{{ route('service.show', $slug) }}" class="block pl-4 text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <a href="{{ route('service.show', $slug) }}" class="block pl-4 text-white/80 hover:text-white transition-colors duration-200">
                             {{ $service->name }}
                         </a>
                         @endforeach
                     @else
-                        <div class="block pl-4 text-gray-500 text-sm">No services available</div>
+                        <div class="block pl-4 text-white/60 text-sm">No services available</div>
                     @endif
                 </div>
                 
-                <a href="{{ route('about') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('about') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('about') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('about') ? 'text-white' : '' }}">
                     {{ __('About') }}
                 </a>
-                <a href="{{ route('opportunities') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('opportunities') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('opportunities') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('opportunities') ? 'text-white' : '' }}">
                     {{ __('Opportunities') }}
                 </a>
-                <a href="{{ route('training-skills') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('training-skills') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('training-skills') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('training-skills') ? 'text-white' : '' }}">
                     {{ __('Training & Skills') }}
                 </a>
                 @if(Route::has('certification.form'))
-                <a href="{{ route('certification.form') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('certification.*') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('certification.form') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('certification.*') ? 'text-white' : '' }}">
                     {{ __('Certificate') }}
                 </a>
                 @endif
-                <a href="{{ route('gallery') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('gallery') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('gallery') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('gallery') ? 'text-white' : '' }}">
                     {{ __('Gallery') }}
                 </a>
-                <a href="{{ route('contact') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('contact') ? 'text-gray-900' : '' }}">
+                <a href="{{ route('contact') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('contact') ? 'text-white' : '' }}">
                     {{ __('Contact') }}
                 </a>
                 
                 @guest
                     @if (Route::has('login'))
-                        <a href="{{ route('login') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
+                        <a href="{{ route('login') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200">
                             {{ __('Login') }}
                         </a>
                     @endif
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="block bg-gray-100 hover:bg-gray-200 text-gray-700 text-center px-4 py-2 rounded-lg transition-all duration-200 font-medium">
+                        <a href="{{ route('register') }}" class="block bg-white/20 hover:bg-white/30 text-white text-center px-4 py-2 rounded-lg transition-all duration-200 font-medium">
                             {{ __('Register') }}
                         </a>
                     @endif
                 @endguest
                 
                 @auth
-                <div class="border-t border-gray-200 pt-4">
+                <div class="border-t border-white/20 pt-4">
                     @if(Auth::user()->hasRole('admin'))
-                    <a href="{{ route('dashboard') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('dashboard') ? 'text-gray-900' : '' }}">
+                    <a href="{{ route('dashboard') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('dashboard') ? 'text-white' : '' }}">
                         {{ __('Dashboard') }}
                     </a>
                     @endif
                     @if(Auth::user()->hasRole('student'))
-                    <a href="{{ route('student.portal') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('student.portal') ? 'text-gray-900' : '' }}">
+                    <a href="{{ route('student.portal') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('student.portal') ? 'text-white' : '' }}">
                         {{ __('Student Portal') }}
                     </a>
                     @endif
-                    <a href="{{ route('profile.edit') }}" class="block text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200 {{ request()->routeIs('profile.edit') ? 'text-gray-900' : '' }}">
+                    <a href="{{ route('profile.edit') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('profile.edit') ? 'text-white' : '' }}">
                         {{ __('Profile') }}
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="block w-full text-left text-gray-700 hover:text-gray-900 font-medium transition-colors duration-200">
+                        <button type="submit" class="block w-full text-left text-white/90 hover:text-white font-medium transition-colors duration-200">
                             {{ __('Log Out') }}
                         </button>
                     </form>
@@ -215,6 +217,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const navbar = document.getElementById('main-navbar');
+    const isHomePage = false;
     if (!navbar) {
         console.error('Navbar not found!');
         return;
@@ -226,8 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleScroll() {
         const currentScrollY = window.scrollY || 0;
         const scrollingDown = currentScrollY > lastScrollY;
-        
-        const isScrolled = currentScrollY > 100;
+        const isScrolled = !isHomePage || currentScrollY > 100;
         
         // Update navbar background and text colors based on scroll
         if (isScrolled) {
@@ -235,8 +237,8 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.classList.remove('navbar-transparent');
             // Remove Tailwind background and blur classes that conflict
             navbar.classList.remove('bg-white/10', 'backdrop-blur-md', 'bg-white/95', 'backdrop-blur-lg');
-            // Set solid red background and remove blur with !important to override everything
-            navbar.style.setProperty('background-color', '#dc2626', 'important'); // red-600
+            // Set solid black background and remove blur with !important to override everything
+            navbar.style.setProperty('background-color', '#000000', 'important');
             navbar.style.setProperty('backdrop-filter', 'none', 'important');
             navbar.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
             
@@ -250,38 +252,38 @@ document.addEventListener('DOMContentLoaded', function() {
             const links = navbar.querySelectorAll('.navbar-link');
             links.forEach(link => {
                 const isActive = link.classList.contains('navbar-active');
-                link.classList.remove('text-white/90', 'hover:text-white', 'text-white');
+                link.classList.remove('text-gray-700', 'hover:text-gray-900', 'text-green-600', 'hover:text-green-700');
                 if (isActive) {
-                    link.classList.add('text-green-600', 'hover:text-green-700', 'font-semibold');
+                    link.classList.add('text-white', 'font-semibold');
                 } else {
-                    link.classList.add('text-gray-700', 'hover:text-gray-900');
+                    link.classList.add('text-white/90', 'hover:text-white');
                 }
             });
             
             // Update register button
             const registerBtn = navbar.querySelector('.navbar-register');
             if (registerBtn) {
-                registerBtn.classList.remove('bg-white/20', 'hover:bg-white/30', 'text-white');
-                registerBtn.classList.add('bg-gray-100', 'hover:bg-gray-200', 'text-gray-700');
+                registerBtn.classList.remove('bg-gray-100', 'hover:bg-gray-200', 'text-gray-700');
+                registerBtn.classList.add('bg-white/20', 'hover:bg-white/30', 'text-white');
             }
             
             // Update avatar
             const avatar = navbar.querySelector('.navbar-avatar');
             const avatarText = navbar.querySelector('.navbar-avatar-text');
             if (avatar) {
-                avatar.classList.remove('bg-white/20');
-                avatar.classList.add('bg-gray-200');
+                avatar.classList.remove('bg-gray-200');
+                avatar.classList.add('bg-white/20');
             }
             if (avatarText) {
-                avatarText.classList.remove('text-white');
-                avatarText.classList.add('text-gray-700');
+                avatarText.classList.remove('text-gray-700');
+                avatarText.classList.add('text-white');
             }
         } else {
             navbar.classList.remove('navbar-scrolled');
             navbar.classList.add('navbar-transparent');
             // Restore Tailwind classes for transparent/blurred state
             navbar.classList.add('bg-white/10', 'backdrop-blur-md');
-            navbar.classList.remove('bg-white/95', 'backdrop-blur-lg');
+            navbar.classList.remove('bg-black/95', 'backdrop-blur-lg');
             // Remove inline styles to allow Tailwind classes to work
             navbar.style.removeProperty('background-color');
             navbar.style.removeProperty('backdrop-filter');
@@ -326,13 +328,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Hide navbar when scrolling down past 100px
-        if (currentScrollY > 100 && scrollingDown) {
+        if (isHomePage && currentScrollY > 100 && scrollingDown) {
             navbar.style.transform = 'translateY(-100%)';
             navbar.style.opacity = '0';
             navbar.style.pointerEvents = 'none';
         }
         // Show navbar when at top (<= 100px) or scrolling up
-        else if (currentScrollY <= 100 || !scrollingDown) {
+        else if (!isHomePage || currentScrollY <= 100 || !scrollingDown) {
             navbar.style.transform = 'translateY(0)';
             navbar.style.opacity = '1';
             navbar.style.pointerEvents = 'auto';
@@ -359,9 +361,9 @@ document.addEventListener('DOMContentLoaded', function() {
     links.forEach(link => {
         const isActive = link.classList.contains('navbar-active');
         if (isActive) {
-            if (window.scrollY > 100) {
-                link.classList.add('text-green-600', 'hover:text-green-700', 'font-semibold');
-                link.classList.remove('text-white/90', 'hover:text-white', 'text-white');
+            if (!isHomePage || window.scrollY > 100) {
+                link.classList.add('text-white', 'font-semibold');
+                link.classList.remove('text-white/90', 'hover:text-white');
             } else {
                 link.classList.add('text-white', 'font-semibold');
                 link.classList.remove('text-white/90', 'hover:text-white');

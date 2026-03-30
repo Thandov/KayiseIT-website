@@ -158,6 +158,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    const chatInputMaxHeight = 180;
+
+    const resizeChatInput = function () {
+        input.style.height = 'auto';
+        input.style.height = `${Math.min(input.scrollHeight, chatInputMaxHeight)}px`;
+        input.style.overflowY = input.scrollHeight > chatInputMaxHeight ? 'auto' : 'hidden';
+    };
+
     const addMessage = function (text, sender) {
         const msg = document.createElement('div');
         msg.className = `kayise-chatbot-message ${sender}`;
@@ -200,6 +208,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    input.addEventListener('input', resizeChatInput);
+    input.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault();
+            form.requestSubmit();
+        }
+    });
+
+    resizeChatInput();
+
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -210,5 +228,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         handleQuestion(message);
         input.value = '';
+        resizeChatInput();
     });
 });

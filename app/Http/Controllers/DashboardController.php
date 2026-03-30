@@ -209,7 +209,10 @@ class DashboardController extends Controller
 
     public function opportunities()
     {
+        $today = now()->toDateString();
+
         $internshipPrograms = InternshipProgram::active()
+            ->whereDate('recruitment_end_date', '>=', $today)
             ->orderBy('recruitment_end_date')
             ->orderByDesc('created_at')
             ->get();

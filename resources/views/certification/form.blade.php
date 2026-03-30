@@ -1,7 +1,15 @@
 <x-app-layout title="Request Your Certificate">
-    <div class="py-10 bg-gray-50">
+    <div class="pt-24 pb-10 bg-gray-50">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white shadow rounded-lg p-6">
+                <div class="mb-4">
+                    <a href="{{ url()->previous() }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200">
+                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back
+                    </a>
+                </div>
                 <h1 class="text-2xl font-bold text-gray-900 mb-2">Request Your Certificate</h1>
                 <p class="text-gray-600 mb-6">Enter your details below. We will verify your ID against our learner records and generate your certificate if you are eligible. You do not need to log in.</p>
 

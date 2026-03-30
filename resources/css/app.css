@@ -210,6 +210,60 @@ body {
   right: 20px;
   bottom: 20px;
   z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.kayise-chatbot-whatsapp,
+.kayise-chatbot-toggle {
+  text-decoration: none;
+}
+
+.kayise-chatbot-whatsapp {
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+  color: #fff;
+  font-weight: 600;
+  min-width: 148px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.kayise-chatbot-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(22, 163, 74, 0.36);
+  background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
+}
+
+.kayise-chatbot-whatsapp-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kayise-chatbot-whatsapp-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.kayise-chatbot-whatsapp-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
 }
 
 .kayise-chatbot-toggle {
@@ -361,12 +415,13 @@ body {
 .kayise-chatbot-form {
   border-top: 1px solid #e5e7eb;
   display: flex;
+  align-items: flex-end;
   gap: 8px;
   padding: 10px;
   background: #fff;
 }
 
-.kayise-chatbot-form input {
+.kayise-chatbot-form textarea {
   flex: 1;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
@@ -376,9 +431,19 @@ body {
   -webkit-text-fill-color: #0f172a;
   padding: 8px 10px;
   font-size: 13px;
+  line-height: 1.5;
+  min-height: 38px;
+  max-height: 180px;
+  resize: none;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 
-.kayise-chatbot-form input::placeholder {
+.kayise-chatbot-form textarea::placeholder {
   color: #64748b;
 }
 
@@ -398,12 +463,14 @@ body {
     bottom: 10px;
   }
 
+  .kayise-chatbot-whatsapp,
   .kayise-chatbot-toggle {
     min-width: 118px;
     height: 50px;
     padding: 0 12px;
   }
 
+  .kayise-chatbot-whatsapp-text,
   .kayise-chatbot-toggle-text {
     font-size: 13px;
   }

@@ -29,6 +29,9 @@ class InternshipApplication extends Model
         'cv_path',
         'id_copy_path',
         'qualification_copy_path',
+        'admin_message',
+        'responded_at',
+        'responded_by',
     ];
 
     // Relationships

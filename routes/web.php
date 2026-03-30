@@ -292,6 +292,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::GET('/dashboard/viewapplications/{id}', [AdminController::class, 'viewapplications'])->name('dashboard.viewapplications');
     Route::GET('/dashboard/viewinternship/{id}', [AdminController::class, 'viewinternship'])->name('dashboard.viewinternship');
     Route::GET('/dashboard/viewinternship/{id}/download/{type}', [AdminController::class, 'downloadinternshipDocs'])->name('internship.download');
+    Route::GET('/dashboard/applications/{id}/download/{type}', [AdminController::class, 'downloadinternshipDocs'])->name('download.internship.docs');
 
     // Applications CRUD Routes
     Route::GET('/dashboard/applications', [AdminController::class, 'applications'])->name('dashboard.applications');
@@ -301,6 +302,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::PUT('/dashboard/applications/update/{id}', [AdminController::class, 'updateApplication'])->name('dashboard.applications.update');
     Route::DELETE('/dashboard/applications/delete/{id}', [AdminController::class, 'deleteApplication'])->name('dashboard.applications.delete');
     Route::DELETE('/dashboard/applications/deleteSelected', [AdminController::class, 'deleteSelectedApplications'])->name('admin.dashboard.applications.deleteSelected');
+    Route::POST('/dashboard/applications/accept/{id}', [AdminController::class, 'acceptApplication'])->name('dashboard.applications.accept');
+    Route::POST('/dashboard/applications/reject/{id}', [AdminController::class, 'rejectApplication'])->name('dashboard.applications.reject');
     
     // Programs CRUD Routes (formerly Internships)
     Route::GET('/dashboard/programs', [AdminController::class, 'programs'])->name('dashboard.programs');

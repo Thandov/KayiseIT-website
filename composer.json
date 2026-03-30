@@ -11,9 +11,9 @@
         "php": "^8.0.2",
         "anhskohbo/no-captcha": "^3.5",
         "barryvdh/laravel-dompdf": "^2.0",
+        "carbonphp/carbon-doctrine-types": "2.1.0",
         "daltcore/lara-pdf-merger": "^2.0",
         "doctrine/dbal": "^3.7",
-        "carbonphp/carbon-doctrine-types": "2.1.0",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
@@ -24,6 +24,7 @@
         "laravel/ui": "^4.1",
         "santigarcor/laratrust": "^7.1",
         "tightenco/ziggy": "^1.0",
+        "twilio/sdk": "^8.11",
         "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
