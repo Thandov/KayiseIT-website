@@ -8,8 +8,8 @@
     </style>
     <div id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50"></div>
     <div class="min-h-[80vh] flex flex-col items-center justify-center py-16 px-4 bg-gradient-to-b from-emerald-50 to-white">
-        <div class="text-center max-w-2xl">
-            <h1 class="text-6xl sm:text-7xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 mb-6 animate-pop-in">
+        <div class="text-center max-w-4xl w-full pt-16">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-green-600 to-teal-600 mb-6 animate-pop-in leading-tight break-words">
                 Congratulations
             </h1>
             <p class="text-xl text-gray-600 mb-2">Your certificate is ready, {{ $name }}!</p>

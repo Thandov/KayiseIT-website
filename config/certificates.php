@@ -49,4 +49,11 @@ return [
     |--------------------------------------------------------------------------
     */
     'training_name' => env('CERTIFICATE_TRAINING_NAME', 'Business Essentials for Entrepreneurs'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Certificate logo path (relative to public/)
+    |--------------------------------------------------------------------------
+    */
+    'logo_path' => env('CERTIFICATE_LOGO_PATH', 'images/kayise_IT_logo_No_Background.png'),
 ];

@@ -38,6 +38,11 @@ class GenerateCertificateJob implements ShouldQueue
         $pythonBinary = config('certificates.python_binary', 'python3');
         $timeoutSeconds = config('certificates.process_timeout_seconds', 60);
 
+        // Normalize Python binary path on Windows
+        if (PHP_OS_FAMILY === 'Windows') {
+            $pythonBinary = str_replace('/', '\\', $pythonBinary);
+        }
+
         $disk = config('certificates.storage_disk', 'local');
         $tempSubdir = config('certificates.temp_subdir', 'certificates/temp');
         $outputSubdir = config('certificates.output_subdir', 'certificates/output');
@@ -54,6 +59,8 @@ class GenerateCertificateJob implements ShouldQueue
         $surname = $this->learner['surname'] ?? '';
         $idNumber = $this->learner['id_number'] ?? '';
         $certNo = $this->learner['certificate_number'] ?? 'UE25401';
+        $courseName = config('certificates.training_name', 'Business Essentials for Entrepreneurs');
+        $logoPath = public_path(config('certificates.logo_path', 'images/kayise_IT_logo_No_Background.png'));
         $fullName = trim($name . ' ' . $surname) ?: 'Recipient';
         $safeName = substr(str_replace(['/', ' '], ['-', '_'], $fullName), 0, 50);
 
@@ -89,10 +96,21 @@ class GenerateCertificateJob implements ShouldQueue
         fputcsv($handle, $csvRow);
         fclose($handle);
 
+        $quotedPython = escapeshellarg($pythonBinary);
         $quotedScript = escapeshellarg($scriptPath);
         $quotedCsv = escapeshellarg($tempCsvPath);
         $quotedOutput = escapeshellarg($outputDir);
-        $command = sprintf('%s %s %s --output-dir %s', $pythonBinary, $quotedScript, $quotedCsv, $quotedOutput);
+        $quotedCourseName = escapeshellarg($courseName);
+        $quotedLogoPath = escapeshellarg($logoPath);
+        $command = sprintf(
+            '%s %s %s --output-dir %s --course-name %s --logo-path %s',
+            $quotedPython,
+            $quotedScript,
+            $quotedCsv,
+            $quotedOutput,
+            $quotedCourseName,
+            $quotedLogoPath
+        );
 
         $process = Process::fromShellCommandline($command);
         $process->setTimeout($timeoutSeconds);
