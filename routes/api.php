@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\InternshipProgram;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,34 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/chatbot/opportunities', function () {
+    $today = now()->toDateString();
+
+    $programs = InternshipProgram::query()
+        ->active()
+        ->whereDate('recruitment_end_date', '>=', $today)
+        ->orderBy('recruitment_end_date')
+        ->orderByDesc('created_at')
+        ->limit(5)
+        ->pluck('name')
+        ->filter()
+        ->values();
+
+    if ($programs->isEmpty()) {
+        return response()->json([
+            'has_opportunities' => false,
+            'names' => [],
+            'response' => 'There are currently no open opportunities right now. Please check our Opportunities page again soon for new openings.'
+        ]);
+    }
+
+    return response()->json([
+        'has_opportunities' => true,
+        'names' => $programs->all(),
+        'response' => 'Yes, we currently have open opportunities: ' . $programs->implode(', ') . '. Visit the Opportunities page to view details and apply.'
+    ]);
 });
 
 /*

@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const chatInputMaxHeight = 180;
+    const conversationHistory = [];
 
     const resizeChatInput = function () {
         input.style.height = 'auto';
@@ -191,13 +192,24 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        const historySnapshot = conversationHistory.slice(-6);
         addMessage(questionText, 'user');
         const typingMsg = addTypingMessage();
 
-        setTimeout(function () {
-            const reply = getKayiseChatbotResponse(questionText);
-            typingMsg.textContent = reply;
-            messages.scrollTop = messages.scrollHeight;
+        setTimeout(async function () {
+            try {
+                const reply = await getKayiseChatbotResponse(questionText, historySnapshot);
+                typingMsg.textContent = reply;
+                messages.scrollTop = messages.scrollHeight;
+            } catch (error) {
+                typingMsg.textContent = 'Please check the Opportunities page for current programs and openings. You can also use the Contact page to ask about available opportunities and eligibility.';
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            conversationHistory.push(questionText);
+            if (conversationHistory.length > 10) {
+                conversationHistory.shift();
+            }
         }, 3000);
     };
 

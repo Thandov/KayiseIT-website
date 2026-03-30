@@ -63,12 +63,21 @@ export const kayiseChatbotResponses = [
     questions: [
       "training and skills",
       "training & skills",
+      "training skills",
+      "skills training",
+      "training",
       "courses",
       "what courses do you offer",
-      "training programs"
+      "training programs",
+      "tvet training",
+      "school training",
+      "microsoft office training",
+      "computer productivity",
+      "entrepreneurship training",
+      "build a drone"
     ],
     response:
-      "Our Training & Skills page includes ICT Skills Training, Build a Drone Course, Microsoft Office Training, Computer Productivity, Cyber Security Training, and Entrepreneurship Training."
+      "Our Training & Skills programs include:\n1. ICT Skills Training: computer literacy, internet skills, and digital communication.\n2. Build a Drone Course: hands-on drone assembly, testing, and STEM learning.\n3. Microsoft Office Training: Word, Excel, PowerPoint, and Outlook.\n4. Computer Productivity: file management, collaboration tools, and digital workflow habits.\n5. Cyber Security Training: online safety, password protection, and data security.\n6. Entrepreneurship Training: business thinking, opportunity identification, and startup skills.\nThese programs are designed for schools, TVET colleges, and institutions. You can view full details on the Training & Skills page."
   },
   {
     intent: "website_and_consulting",
@@ -100,26 +109,37 @@ export const kayiseChatbotResponses = [
       "how can i contact you",
       "phone number",
       "email address",
-      "where are you located",
-      "location",
-      "address"
+      "email",
+      "get in touch"
     ],
     response:
-      "You can contact KAYISE IT at info@kayiseit.co.za, call +27 87 702 2625 or +27 12 345 6789, or use the Contact page form. Our office is Suite 2, 2nd Floor, Nelbro Building, 39B Brown Street, Mbombela."
+      "You can contact KAYISE IT at info@kayiseit.co.za, call +27 87 702 2625 or +27 12 345 6789, or use the Contact page form. On the Contact page there is a clickable map you can use to get directions to our office."
   },
   {
     intent: "location",
     questions: [
+      "location",
+      "located",
+      "locate",
       "where is kayise it located",
       "where is kayiseit located",
+      "where is the company located",
+      "company location",
       "where are you located",
       "where is your office",
       "location of kayise",
       "kayise location",
-      "physical address"
+      "physical address",
+      "address",
+      "company address",
+      "office address",
+      "directions",
+      "direction",
+      "map",
+      "gps"
     ],
     response:
-      "KAYISE IT is located at Suite 2, 2nd Floor, Nelbro Building, 39B Brown Street, Mbombela."
+      "KAYISE IT is located at Suite 2, 2nd Floor, Nelbro Building, 39B Brown Street, Mbombela. You can also open the Contact page and click the map to get directions."
   },
   {
     intent: "certification",
@@ -162,7 +182,7 @@ export const kayiseChatbotResponses = [
     questions: [
       "about",
       "who is kayise it",
-      "company",
+      "company profile",
       "about kayise"
     ],
     response:
@@ -210,8 +230,89 @@ const confidentialKeywords = [
   "user data"
 ];
 
-export function getKayiseChatbotResponse(userMessage = "") {
-  const normalized = userMessage.toLowerCase().trim();
+const stopWords = new Set([
+  "a", "an", "and", "are", "as", "at", "be", "by", "can", "do", "for", "from",
+  "how", "i", "in", "is", "it", "my", "of", "on", "or", "our", "please", "the",
+  "to", "we", "what", "when", "where", "with", "you", "your"
+]);
+
+function normalizeText(text = "") {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\bopportuniess\b|\bopportunites\b|\boppertunities\b|\boppotunities\b/g, "opportunities")
+    .replace(/\bopportunitys\b/g, "opportunities")
+    .replace(/\s+/g, " ");
+}
+
+function extractKeywords(text = "") {
+  return [...new Set(text
+    .split(" ")
+    .filter((part) => part.length >= 3 && !stopWords.has(part)))];
+}
+
+function scoreQuestionMatch(inputKeywordSet, historyKeywordSet, question) {
+  const normalizedQuestion = normalizeText(question);
+  const keywords = extractKeywords(normalizedQuestion);
+
+  let score = 0;
+  for (const keyword of keywords) {
+    if (inputKeywordSet.has(keyword)) {
+      score += 2;
+      continue;
+    }
+
+    if (historyKeywordSet.has(keyword)) {
+      score += 1;
+    }
+  }
+
+  return score;
+}
+
+function matchesQuestion(normalizedInput, inputKeywordSet, question) {
+  const normalizedQuestion = normalizeText(question);
+  if (!normalizedQuestion) {
+    return false;
+  }
+
+  if (!normalizedQuestion.includes(" ")) {
+    return inputKeywordSet.has(normalizedQuestion);
+  }
+
+  return (` ${normalizedInput} `).includes(` ${normalizedQuestion} `);
+}
+
+async function getLiveOpportunitiesResponse() {
+  try {
+    const res = await fetch('/api/chatbot/opportunities', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    if (!res.ok) {
+      return 'Please check the Opportunities page for current programs and openings. You can also use the Contact page to ask about available opportunities and eligibility.';
+    }
+
+    const data = await res.json();
+    if (data && typeof data.response === 'string' && data.response.length > 0) {
+      return data.response;
+    }
+
+    return 'Please check the Opportunities page for current programs and openings. You can also use the Contact page to ask about available opportunities and eligibility.';
+  } catch (error) {
+    return 'Please check the Opportunities page for current programs and openings. You can also use the Contact page to ask about available opportunities and eligibility.';
+  }
+}
+
+export async function getKayiseChatbotResponse(userMessage = "", conversationHistory = []) {
+  const normalized = normalizeText(userMessage);
+  const inputKeywordSet = new Set(extractKeywords(normalized));
+  const historyText = normalizeText(conversationHistory.slice(-6).join(" "));
+  const historyKeywordSet = new Set(extractKeywords(historyText));
 
   if (!normalized) {
     return kayiseFallbackResponse;
@@ -222,11 +323,46 @@ export function getKayiseChatbotResponse(userMessage = "") {
     return kayiseConfidentialResponse;
   }
 
+  // Strong keyword override for Training & Skills queries.
+  if (inputKeywordSet.has('training') && (inputKeywordSet.has('skills') || inputKeywordSet.has('skill'))) {
+    const trainingItem = kayiseChatbotResponses.find((item) => item.intent === 'training_skills_page');
+    if (trainingItem) {
+      return trainingItem.response;
+    }
+  }
+
   for (const item of kayiseChatbotResponses) {
-    const matched = item.questions.some((q) => normalized.includes(q));
+    const matched = item.questions.some((q) => matchesQuestion(normalized, inputKeywordSet, q));
     if (matched) {
+      if (item.intent === 'opportunities') {
+        return await getLiveOpportunitiesResponse();
+      }
       return item.response;
     }
+  }
+
+  let bestScore = 0;
+  let bestResponse = "";
+
+  for (const item of kayiseChatbotResponses) {
+    let score = 0;
+    for (const question of item.questions) {
+      score += scoreQuestionMatch(inputKeywordSet, historyKeywordSet, question);
+    }
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestResponse = item.response;
+    }
+  }
+
+  if (bestScore >= 2 && bestResponse) {
+    const bestItem = kayiseChatbotResponses.find((item) => item.response === bestResponse);
+    if (bestItem && bestItem.intent === 'opportunities') {
+      return await getLiveOpportunitiesResponse();
+    }
+
+    return bestResponse;
   }
 
   return kayiseFallbackResponse;

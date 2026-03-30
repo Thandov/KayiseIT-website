@@ -373,6 +373,8 @@ body {
   border-radius: 10px;
   font-size: 13px;
   line-height: 1.45;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .kayise-chatbot-message.user {

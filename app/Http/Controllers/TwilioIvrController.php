@@ -7,6 +7,7 @@ use App\Services\ChatbotResponseService;
 use App\Models\CallLog;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
 use Twilio\TwiML\VoiceResponse;
 
 class TwilioIvrController extends Controller
@@ -171,6 +172,10 @@ class TwilioIvrController extends Controller
             \Log::error('Failed to save call log: ' . $e->getMessage());
         }
 
+        if (in_array($callStatus, ['completed', 'failed', 'busy', 'no-answer', 'canceled'], true)) {
+            Cache::forget('twilio_chat_history_' . $callSid);
+        }
+
         return response('', 200);
     }
 
@@ -182,11 +187,20 @@ class TwilioIvrController extends Controller
     {
         $speechResult = $request->input('SpeechResult', '');
         $confidence = $request->input('Confidence', 0);
+        $callSid = (string) $request->input('CallSid', '');
+        $historyKey = 'twilio_chat_history_' . $callSid;
+        $history = $callSid !== '' ? Cache::get($historyKey, []) : [];
 
         \Log::info('Speech Input: ' . $speechResult . ' (Confidence: ' . $confidence . ')');
 
         if ($confidence > 0.5) {
-            $aiResponse = $this->chatbotService->getResponse($speechResult);
+            $aiResponse = $this->chatbotService->getResponse($speechResult, $history);
+
+            if ($callSid !== '') {
+                $history[] = $speechResult;
+                $history = array_slice($history, -10);
+                Cache::put($historyKey, $history, now()->addMinutes(30));
+            }
         } else {
             $aiResponse = "I didn't catch that clearly. Please try again or press 0 to speak to an agent.";
         }
