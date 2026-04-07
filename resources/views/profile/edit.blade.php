@@ -112,188 +112,136 @@
 
                 <!-- Right column: tabbed content -->
                 <main class="profile-main">
-                    @if(Auth::user()->hasRole('applicant'))
-                        <div class="profile-tabs" role="tablist">
-                            <button type="button" class="profile-tab is-active" data-tab="applications">
-                                Applications
-                            </button>
-                            @if($hasProgramRegistration)
-                                <button type="button" class="profile-tab" data-tab="documents">
-                                    Supporting documents
-                                </button>
-                            @endif
-                            <button type="button" class="profile-tab" data-tab="career">
-                                Career path
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="resources">
-                                Resources
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="portfolio">
-                                Portfolio
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="progress">
-                                Progress
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="notifications">
-                                Notifications
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="settings">
-                                Settings
-                            </button>
-                        </div>
-
-                        <section id="tab-applications" class="profile-panel is-active" data-tab-panel="applications" role="tabpanel">
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Programme applications</h2>
-                                    <p class="profile-panel-subtitle">
-                                        View the status of your internship, TVET placement and short programme applications.
-                                    </p>
-                                </div>
-                                <a href="{{ route('opportunities') }}" class="btn-primary">
-                                    Apply for a programme
-                                </a>
-                            </header>
-                            @include('profile.partials.application')
-                        </section>
-
+                    <!-- All users see applications and status tabs -->
+                    <div class="profile-tabs" role="tablist">
+                        <button type="button" class="profile-tab is-active" data-tab="applications">
+                            Applications
+                        </button>
                         @if($hasProgramRegistration)
-                            <section id="tab-documents" class="profile-panel" data-tab-panel="documents" role="tabpanel" hidden>
-                                <header class="profile-panel-header">
-                                    <div>
-                                        <h2 class="profile-panel-title">Supporting documents</h2>
-                                        <p class="profile-panel-subtitle">
-                                            Securely stored copies of your CV, ID and qualifications for each programme application.
-                                        </p>
-                                    </div>
-                                </header>
-                                @include('profile.partials.documents')
-                            </section>
+                            <button type="button" class="profile-tab" data-tab="documents">
+                                Supporting documents
+                            </button>
                         @endif
+                        <button type="button" class="profile-tab" data-tab="career">
+                            Career path
+                        </button>
+                        <button type="button" class="profile-tab" data-tab="resources">
+                            Resources
+                        </button>
+                        <button type="button" class="profile-tab" data-tab="portfolio">
+                            Portfolio
+                        </button>
+                        <button type="button" class="profile-tab" data-tab="progress">
+                            Progress
+                        </button>
+                        <button type="button" class="profile-tab" data-tab="notifications">
+                            Notifications
+                        </button>
+                        <button type="button" class="profile-tab" data-tab="settings">
+                            Settings
+                        </button>
+                    </div>
 
-                        <section id="tab-career" class="profile-panel" data-tab-panel="career" role="tabpanel" hidden>
+                    <section id="tab-applications" class="profile-panel is-active" data-tab-panel="applications" role="tabpanel">
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Programme applications</h2>
+                                <p class="profile-panel-subtitle">
+                                    View the status of your internship, TVET placement and short programme applications.
+                                </p>
+                            </div>
+                            <a href="{{ route('opportunities') }}" class="btn-primary">
+                                Apply for a programme
+                            </a>
+                        </header>
+                        @include('profile.partials.application')
+                    </section>
+
+                    @if($hasProgramRegistration)
+                        <section id="tab-documents" class="profile-panel" data-tab-panel="documents" role="tabpanel" hidden>
                             <header class="profile-panel-header">
                                 <div>
-                                    <h2 class="profile-panel-title">Career path</h2>
+                                    <h2 class="profile-panel-title">Supporting documents</h2>
                                     <p class="profile-panel-subtitle">
-                                        Map out where you are now and where you want your career to go.
+                                        Securely stored copies of your CV, ID and qualifications for each programme application.
                                     </p>
                                 </div>
                             </header>
-                            @include('profile.partials.career-path')
-                        </section>
-
-                        <section id="tab-resources" class="profile-panel" data-tab-panel="resources" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Learning resources</h2>
-                                    <p class="profile-panel-subtitle">
-                                        Curated articles, videos and tools to help you succeed in your programme.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.resources')
-                        </section>
-
-                        <section id="tab-portfolio" class="profile-panel" data-tab-panel="portfolio" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Portfolio</h2>
-                                    <p class="profile-panel-subtitle">
-                                        Showcase the projects and work you are most proud of.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.portfolio')
-                        </section>
-
-                        <section id="tab-progress" class="profile-panel" data-tab-panel="progress" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Progress</h2>
-                                    <p class="profile-panel-subtitle">
-                                        Keep an eye on milestones and how far you have come.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.progress')
-                        </section>
-
-                        <section id="tab-notifications" class="profile-panel" data-tab-panel="notifications" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Notifications</h2>
-                                    <p class="profile-panel-subtitle">
-                                        See important updates about your applications and programmes.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.notifications')
-                        </section>
-
-                        <section id="tab-settings" class="profile-panel" data-tab-panel="settings" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Account & security</h2>
-                                    <p class="profile-panel-subtitle">
-                                        Update your personal details, password and privacy preferences.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.settings')
-                        </section>
-                    @else
-                        <!-- Non-applicant account layout -->
-                        <div class="profile-tabs" role="tablist">
-                            <button type="button" class="profile-tab is-active" data-tab="projects">
-                                Projects
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="quotations">
-                                Quotations
-                            </button>
-                            <button type="button" class="profile-tab" data-tab="settings">
-                                Settings
-                            </button>
-                        </div>
-
-                        <section id="tab-projects" class="profile-panel is-active" data-tab-panel="projects" role="tabpanel">
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Projects</h2>
-                                    <p class="profile-panel-subtitle">
-                                        View the projects and services Kayise IT is delivering for you.
-                                    </p>
-                                </div>
-                            </header>
-                            <p class="text-sm text-gray-500">
-                                Project tracking for client accounts will appear here.
-                            </p>
-                        </section>
-
-                        <section id="tab-quotations" class="profile-panel" data-tab-panel="quotations" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Quotations</h2>
-                                    <p class="profile-panel-subtitle">
-                                        Access and download past and current quotations.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.quotations')
-                        </section>
-
-                        <section id="tab-settings" class="profile-panel" data-tab-panel="settings" role="tabpanel" hidden>
-                            <header class="profile-panel-header">
-                                <div>
-                                    <h2 class="profile-panel-title">Account settings</h2>
-                                    <p class="profile-panel-subtitle">
-                                        Update your details and manage how we contact you.
-                                    </p>
-                                </div>
-                            </header>
-                            @include('profile.partials.settings')
+                            @include('profile.partials.documents')
                         </section>
                     @endif
+
+                    <section id="tab-career" class="profile-panel" data-tab-panel="career" role="tabpanel" hidden>
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Career path</h2>
+                                <p class="profile-panel-subtitle">
+                                    Map out where you are now and where you want your career to go.
+                                </p>
+                            </div>
+                        </header>
+                        @include('profile.partials.career-path')
+                    </section>
+
+                    <section id="tab-resources" class="profile-panel" data-tab-panel="resources" role="tabpanel" hidden>
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Learning resources</h2>
+                                <p class="profile-panel-subtitle">
+                                    Curated articles, videos and tools to help you succeed in your programme.
+                                </p>
+                            </div>
+                        </header>
+                        @include('profile.partials.resources')
+                    </section>
+
+                    <section id="tab-portfolio" class="profile-panel" data-tab-panel="portfolio" role="tabpanel" hidden>
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Portfolio</h2>
+                                <p class="profile-panel-subtitle">
+                                    Showcase the projects and work you are most proud of.
+                                </p>
+                            </div>
+                        </header>
+                        @include('profile.partials.portfolio')
+                    </section>
+
+                    <section id="tab-progress" class="profile-panel" data-tab-panel="progress" role="tabpanel" hidden>
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Progress</h2>
+                                <p class="profile-panel-subtitle">
+                                    Keep an eye on milestones and how far you have come.
+                                </p>
+                            </div>
+                        </header>
+                        @include('profile.partials.progress')
+                    </section>
+
+                    <section id="tab-notifications" class="profile-panel" data-tab-panel="notifications" role="tabpanel" hidden>
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Notifications</h2>
+                                <p class="profile-panel-subtitle">
+                                    See important updates about your applications and programmes.
+                                </p>
+                            </div>
+                        </header>
+                        @include('profile.partials.notifications')
+                    </section>
+
+                    <section id="tab-settings" class="profile-panel" data-tab-panel="settings" role="tabpanel" hidden>
+                        <header class="profile-panel-header">
+                            <div>
+                                <h2 class="profile-panel-title">Account & security</h2>
+                                <p class="profile-panel-subtitle">
+                                    Update your personal details, password and privacy preferences.
+                                </p>
+                            </div>
+                        </header>
+                        @include('profile.partials.settings')
+                    </section>
                 </main>
             </div>
         </div>

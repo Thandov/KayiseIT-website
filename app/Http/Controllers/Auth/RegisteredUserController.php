@@ -96,17 +96,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        // Send verification email
-        $user->sendEmailVerificationNotification();
 
-        Auth::login($user);
 
-        // Redirect students to student portal
-        if ($user->hasRole('student')) {
-            return redirect()->route('student.portal');
-        }
-
-        return redirect(RouteServiceProvider::HOME);
+        // Do not log in or send email. Redirect to login page with success message.
+        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 
     public function storeapplicant(Request $request)
@@ -146,12 +139,10 @@ class RegisteredUserController extends Controller
 
         //event(new Registered($user));
 
-        // Send verification email
-        //$user->sendEmailVerificationNotification();
 
-        Auth::login($user);
 
-        return view('drone_application/drone_reg');
+        // Do not log in or send email. Redirect to login page with success message.
+        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 
     public function storeintern(Request $request)
@@ -178,13 +169,9 @@ class RegisteredUserController extends Controller
 
         //event(new Registered($user));
 
-        // Send verification email
-        //$user->sendEmailVerificationNotification();
 
-        Auth::login($user);
 
-        $existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
-
-        return view('internships/internship_application', compact('existingApplication'));
+        // Do not log in or send email. Redirect to login page with success message.
+        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
     }
 }

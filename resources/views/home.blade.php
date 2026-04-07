@@ -1491,34 +1491,7 @@
     }
     </style>
 
-    <!-- CLIENT TESTIMONIALS: Social Proof -->
-    <section class="bg-white py-20">
-        <div class="container mx-auto px-4 max-w-7xl">
-            @include('_testimonials')
-        </div>
-    </section>
 
-    <!-- FINAL CTA -->
-    <section class="relative py-32 overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0); background-size: 32px 32px;"></div>
-        </div>
-        <div class="container mx-auto px-4 max-w-4xl text-center relative z-10">
-            <h2 class="text-5xl font-bold text-white mb-6">Ready to Build Something Amazing?</h2>
-            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Let's discuss your project and explore how we can bring your vision to life with cutting-edge technology
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-2xl hover:scale-105" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
-                    Start Your Project
-                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                </a>
-                <a href="{{ route('services') }}" class="inline-flex items-center justify-center px-8 py-4 rounded-full text-white font-semibold ring-2 ring-white/30 hover:ring-white/60 transition-all duration-300 hover:bg-white/10">
-                    Explore Services
-                </a>
-            </div>
-        </div>
-    </section>
 
     <!-- Contact info is now integrated into the footer -->
 </x-app-layout>
