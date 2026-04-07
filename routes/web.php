@@ -211,7 +211,6 @@ Route::get('internship', function () {
 })->name('internship');
 
 Route::get('internship/internship_application', function () {
-    $existingApplication = InternshipApplication::where('user_id', auth()->id())->exists();
     $selectedProgram = null;
     $selectedProgramId = request()->query('program');
 
@@ -219,10 +218,17 @@ Route::get('internship/internship_application', function () {
         $selectedProgram = InternshipProgram::active()->find($selectedProgramId);
     }
 
+    $existingApplication = InternshipApplication::where('user_id', auth()->id())
+        ->when(
+            $selectedProgram,
+            fn ($query) => $query->where('internship_program_id', $selectedProgram->id)
+        )
+        ->exists();
+
     return view('internships/internship_application', compact('existingApplication', 'selectedProgram'));
 })->middleware('auth')->name('internship_application');
 
-Route::post('/apply', [ApplicationsController::class, 'store'])->name('apply.store');
+Route::post('/apply', [ApplicationsController::class, 'store'])->middleware('auth')->name('apply.store');
 
 
 Route::group(['middleware' => ['auth']], function () {

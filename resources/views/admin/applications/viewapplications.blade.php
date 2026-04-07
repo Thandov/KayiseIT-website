@@ -24,6 +24,7 @@
                 <div><strong>ID Number:</strong> {{ $application->id_no ?? 'N/A' }}</div>
                 <div><strong>Age:</strong> {{ $application->age ?? 'N/A' }}</div>
                 <div><strong>Application Type:</strong> {{ $application->app_type ?? 'N/A' }}</div>
+                <div><strong>Programme:</strong> {{ $application->internshipProgram->name ?? 'N/A' }}</div>
                 <div><strong>Field:</strong> {{ $application->field ?? 'N/A' }}</div>
                 <div><strong>Program Partner:</strong> {{ $application->program_partner ?? 'N/A' }}</div>
                 <div><strong>Applied On:</strong> {{ $application->created_at->format('M d, Y H:i') ?? 'N/A' }}</div>

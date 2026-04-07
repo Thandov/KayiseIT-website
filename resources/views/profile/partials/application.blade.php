@@ -17,7 +17,7 @@
             @foreach ($applications as $application)
             <tr class="hover:bg-gray-50 transition">
                 <td class="px-6 py-4 font-medium text-gray-900">{{ $application->app_id }}</td>
-                <td class="px-6 py-4">{{ $application->app_type ?? 'N/A' }}</td>
+                <td class="px-6 py-4">{{ $application->internshipProgram->name ?? ($application->app_type ?? 'N/A') }}</td>
                 <td class="px-6 py-4">{{ $application->field ?? 'N/A' }}</td>
                 <td class="px-6 py-4">
                     @php
@@ -109,8 +109,17 @@
                 <td class="px-6 py-4 font-medium text-gray-900">Drone Programme</td>
                 <td class="px-6 py-4">{{ $droneapp->course ?? 'N/A' }}</td>
                 <td class="px-6 py-4">
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold inline-block bg-yellow-100 text-yellow-800">
-                        Submitted
+                    @php
+                        $statusColors = [
+                            'pending' => 'bg-yellow-100 text-yellow-800',
+                            'accepted' => 'bg-green-100 text-green-800',
+                            'rejected' => 'bg-red-100 text-red-800',
+                        ];
+                        $badgeClass = $statusColors[$droneapp->status ?? 'pending'] ?? 'bg-gray-100 text-gray-800';
+                        $statusText = ucfirst($droneapp->status ?? 'pending');
+                    @endphp
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold inline-block {{ $badgeClass }}">
+                        {{ $statusText }}
                     </span>
                 </td>
                 <td class="px-6 py-4">{{ $droneapp->created_at->format('d M Y') }}</td>

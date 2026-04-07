@@ -1,5 +1,5 @@
 <x-app-layout>
-@if($existingApplication != 1 || !empty($existingApplication))
+@if(!$existingApplication)
         <div class="bg-slate-100">
             <div class="mx-auto max-w-2xl py-32">
                 <div class="hidden sm:mb-8 sm:flex sm:justify-center">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">We already have your application</h1>
+                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">We already have your application for this programme</h1>
                 </div>
             </div>
         </div>

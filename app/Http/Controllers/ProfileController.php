@@ -25,7 +25,7 @@ class ProfileController extends Controller
     {
         $userid = Auth::user()->id;
         $user = Auth::user();
-        $applications = InternshipApplication::select('*')->where('user_id', $userid)->get();
+        $applications = InternshipApplication::with('internshipProgram')->where('user_id', $userid)->get();
         $droneapps = Application::select('*')->where('user_id', $userid)->get();
         $invoices = $invoiceService->getUserInvoices($userid);
         $quotations = $quotationService->getUserQuotations($userid);

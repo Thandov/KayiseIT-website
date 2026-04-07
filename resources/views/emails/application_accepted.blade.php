@@ -7,7 +7,7 @@ Great news! Your application for the **{{ $application->app_type }}** program in
 
 ## Application Details
 - **Application ID:** {{ $application->app_id }}
-- **Program:** {{ $application->app_type }}
+- **Program:** {{ $application->internshipProgram->name ?? ($application->app_type ?? 'N/A') }}
 - **Field:** {{ $application->field }}
 - **Program Partner:** {{ $application->program_partner ?? 'N/A' }}
 - **Status:** Accepted

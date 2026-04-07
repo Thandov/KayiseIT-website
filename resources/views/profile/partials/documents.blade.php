@@ -9,7 +9,7 @@
                 <div class="flex items-start justify-between gap-4">
                     <div>
                         <h3 class="text-base font-semibold text-gray-900">
-                            {{ $application->field ?? 'Programme application' }}
+                            {{ $application->internshipProgram->name ?? ($application->field ?? 'Programme application') }}
                         </h3>
                         <p class="mt-1 text-xs text-gray-500">
                             {{ $application->app_type ?? 'Application' }} &middot;

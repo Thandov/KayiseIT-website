@@ -25,12 +25,7 @@ use App\Models\InternshipProgram;
 class ApplicationsController extends Controller
 {
     public function store(Request $request)
-    {                
-        $existingApplication = InternshipApplication::where('id_no', $request->id_number)->first();
-        if ($existingApplication) {
-            return redirect('/profile')->with('error', 'Application already exists. Find Your Application Details Here!');
-        }
-
+    {
         $validatedData = $request->validate([
             'cv' => 'required|file|mimes:pdf|max:2048',
             'id_copy' => 'required|file|mimes:pdf|max:2048',
@@ -40,8 +35,24 @@ class ApplicationsController extends Controller
 
         $user = Auth::user();
         $selectedProgram = null;
+
         if (!empty($validatedData['selected_program_id'])) {
-            $selectedProgram = InternshipProgram::find($validatedData['selected_program_id']);
+            $selectedProgram = InternshipProgram::active()->find($validatedData['selected_program_id']);
+            if (!$selectedProgram) {
+                return redirect()->route('opportunities')->with('error', 'This program is no longer available for applications.');
+            }
+        }
+
+        $existingApplicationQuery = InternshipApplication::where('user_id', $user->id);
+
+        if ($selectedProgram) {
+            $existingApplicationQuery->where('internship_program_id', $selectedProgram->id);
+        } else {
+            $existingApplicationQuery->whereNull('internship_program_id');
+        }
+
+        if ($existingApplicationQuery->exists()) {
+            return redirect('/profile')->with('error', 'You have already applied for this programme. Find your application details on your profile.');
         }
 
         $folderName = UserFolderHelper::generateFolderName($user);
@@ -74,6 +85,7 @@ class ApplicationsController extends Controller
         
         $internship->app_type = $request->app_type;
         $internship->field = $request->field;
+        $internship->internship_program_id = $selectedProgram?->id;
         $internship->program_partner = $selectedProgram?->partner?->name;
         $internship->status = 'pending';
 
@@ -155,6 +167,7 @@ class ApplicationsController extends Controller
         $application->course = $request->course;
         $application->paid = '0';
         $application->payment_date = 'null';
+        $application->status = 'pending';
 
         $application->save();
 

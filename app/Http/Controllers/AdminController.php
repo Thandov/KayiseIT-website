@@ -225,7 +225,7 @@ class AdminController extends Controller
 
     public function viewapplications($id)
     {
-        $application = InternshipApplication::findOrFail($id);
+        $application = InternshipApplication::with('internshipProgram')->findOrFail($id);
         return view('admin/applications/viewapplications', compact('application'));
     }
 
@@ -519,7 +519,7 @@ class AdminController extends Controller
     // Applications CRUD methods
     public function applications()
     {
-        $applications = InternshipApplication::orderBy('created_at', 'desc')->get();
+        $applications = InternshipApplication::with('internshipProgram')->orderBy('created_at', 'desc')->get();
         return view('admin.dashboard.applications.index', compact('applications'));
     }
 
@@ -536,7 +536,7 @@ class AdminController extends Controller
             'app_type' => 'nullable|string|max:255',
             'field' => 'nullable|string|max:255',
             'program_partner' => 'nullable|string|max:255',
-            'status' => 'required|in:pending,approved,rejected'
+            'status' => 'required|in:pending,accepted,rejected'
         ]);
 
         InternshipApplication::create($validatedData);
@@ -559,7 +559,7 @@ class AdminController extends Controller
             'app_type' => 'nullable|string|max:255',
             'field' => 'nullable|string|max:255',
             'program_partner' => 'nullable|string|max:255',
-            'status' => 'required|in:pending,approved,rejected'
+            'status' => 'required|in:pending,accepted,rejected'
         ]);
 
         $application->update($validatedData);

@@ -74,14 +74,14 @@
                             <div class="text-sm text-gray-900">{{ $application->name ?? 'N/A' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">{{ $application->app_type ?? 'N/A' }}</div>
+                            <div class="text-sm text-gray-900">{{ $application->internshipProgram->name ?? ($application->app_type ?? 'N/A') }}</div>
                             <div class="text-xs text-gray-500">{{ $application->field ?? 'No field selected' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-500">{{ $application->created_at->format('M d, Y') }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $application->status === 'approved' ? 'bg-green-100 text-green-800' : ($application->status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
+                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ $application->status === 'accepted' ? 'bg-green-100 text-green-800' : ($application->status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
                                 {{ ucfirst($application->status ?? 'pending') }}
                             </span>
                         </td>
