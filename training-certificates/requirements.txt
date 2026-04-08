@@ -1,0 +1,10 @@
+# convert_docx_to_pdf.py uses LibreOffice (soffice), no Python deps required.
+# Install: brew install --cask libreoffice
+#
+# add_logo_to_pdfs.py requires:
+pymupdf>=1.24.0
+pypdf>=4.0.0
+#
+# certificate_template.py requires:
+reportlab>=4.0.0
+Pillow>=9.0.0  # optional: removes black background from KAYISE logo

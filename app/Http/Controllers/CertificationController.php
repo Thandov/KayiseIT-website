@@ -32,43 +32,73 @@ class CertificationController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
             'id_number' => ['required', 'string', 'max:50'],
+            'certificate_number' => ['required', 'string', 'max:50'],
             'email' => ['nullable', 'email', 'max:255'],
         ]);
 
-        $idNumber = $validated['id_number'];
-        $normalizedId = CertificateEligibilityService::normalizeId($idNumber);
-        if ($normalizedId === '') {
-            return back()->withInput()->withErrors(['id_number' => 'Please enter a valid ID number.']);
-        }
+        $name = trim($validated['name']);
+        $surname = trim($validated['surname']);
+        $id = trim($validated['id_number']);
+        $cert = trim($validated['certificate_number']);
+        $safeName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
+        $safeSurname = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $surname);
+        $filename = "Certificate_{$safeName}_{$safeSurname}.pdf";
 
-        $learner = $this->eligibility->findLearnerById($idNumber);
-        if ($learner === null) {
-            return back()->withInput()->withErrors([
-                'id_number' => 'This ID number was not found in our records. If you believe this is an error, please contact support.',
+        // 1. Write temp CSV
+        $tempDir = storage_path('app/certificates/temp');
+        if (!is_dir($tempDir)) mkdir($tempDir, 0775, true);
+        $tempCsv = $tempDir . '/cert_' . uniqid() . '.csv';
+        $csvContent = "Name,Surname,ID number,Certificate number\n\"$name\",\"$surname\",\"$id\",\"$cert\"\n";
+        file_put_contents($tempCsv, $csvContent);
+
+        // 2. Call Python script
+        $python = config('certificates.python_binary', 'python3');
+        $basePath = config('certificates.python_base_path');
+        $script = rtrim($basePath, '/\\') . DIRECTORY_SEPARATOR . config('certificates.python_script');
+        $outputDir = storage_path('app/certificates/output');
+        if (!is_dir($outputDir)) mkdir($outputDir, 0775, true);
+        $date = date('d/m/Y');
+        $cmd = "$python \"$script\" \"$tempCsv\" --output-dir \"$outputDir\" --date \"$date\"";
+        $output = [];
+        $returnVar = 0;
+        exec($cmd, $output, $returnVar);
+
+
+        // 3. Find the generated PDF in the correct subfolder
+        $pdfPath = null;
+        $subdirs = glob($outputDir . DIRECTORY_SEPARATOR . 'cert_*', GLOB_ONLYDIR);
+        usort($subdirs, function($a, $b) { return filemtime($b) - filemtime($a); }); // newest first
+        foreach ($subdirs as $subdir) {
+            $candidate = $subdir . DIRECTORY_SEPARATOR . $filename;
+            if (file_exists($candidate)) {
+                $pdfPath = $candidate;
+                break;
+            }
+        }
+        if (!$pdfPath) {
+            \Log::error('Certificate generation failed (PDF not found in subfolders)', [
+                'cmd' => $cmd,
+                'output' => $output,
+                'returnVar' => $returnVar,
+                'searched' => $subdirs,
+                'filename' => $filename,
             ]);
+            return back()->withInput()->withErrors(['certificate' => 'Certificate generation failed. Please try again or contact support.']);
         }
 
-        $learnerData = [
-            'name' => $learner['name'],
-            'surname' => $learner['surname'],
-            'id_number' => $idNumber,
-            'certificate_number' => $learner['certificate_number'],
-            'email' => $validated['email'] ?? null,
-        ];
+        // 4. Move PDF to public/certificates for download
+        $publicDir = public_path('certificates');
+        if (!is_dir($publicDir)) mkdir($publicDir, 0775, true);
+        $publicPdfPath = $publicDir . DIRECTORY_SEPARATOR . $filename;
+        copy($pdfPath, $publicPdfPath);
 
-        $token = Str::random(48);
-        // Run synchronously so we can redirect to download; for async, use dispatch() and notify by email.
-        GenerateCertificateJob::dispatchSync($learnerData, $token);
-
-        $record = CertificateDownload::where('download_token', $token)->first();
-        if ($record === null) {
-            return redirect()
-                ->route('certification.form')
-                ->withInput()
-                ->with('error', 'Certificate generation failed. Please try again or contact support.');
-        }
-
-        return redirect()->route('certification.success', ['token' => $token]);
+        // 5. Redirect to congratulations page with all params
+        return redirect()->route('certification.success', [
+            'name' => $name,
+            'surname' => $surname,
+            'id' => $id,
+            'cert' => $cert,
+        ]);
     }
 
     /**
@@ -76,18 +106,16 @@ class CertificationController extends Controller
      */
     public function success(Request $request): View|\Illuminate\Http\RedirectResponse
     {
-        $token = $request->query('token');
-        if (! $token) {
+        $name = $request->query('name');
+        $surname = $request->query('surname');
+        if (!$name || !$surname) {
             return redirect()->route('certification.form')->with('error', 'Invalid link.');
         }
-        $record = CertificateDownload::where('download_token', $token)->first();
-        if ($record === null || $record->isExpired()) {
-            return redirect()->route('certification.form')->with('error', 'Invalid or expired link.');
-        }
         return view('certification.success', [
-            'token' => $token,
-            'name' => trim($record->name . ' ' . $record->surname),
+            'name' => trim($name . ' ' . $surname),
             'training_name' => config('certificates.training_name', 'Business Essentials for Entrepreneurs'),
+            'download_name' => $name,
+            'download_surname' => $surname,
         ]);
     }
 
@@ -96,28 +124,19 @@ class CertificationController extends Controller
      */
     public function download(Request $request)
     {
-        $token = $request->query('token');
-        if (! $token) {
-            return redirect()->route('certification.form')->with('error', 'Invalid download link.');
+        $name = $request->query('name');
+        $surname = $request->query('surname');
+        if (!$name || !$surname) {
+            return redirect()->route('certification.form')->with('error', 'Missing name or surname.');
         }
-        $record = CertificateDownload::where('download_token', $token)->first();
-        if ($record === null) {
-            return redirect()->route('certification.form')->with('error', 'Invalid or expired download link.');
+        $safeName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', trim($name));
+        $safeSurname = preg_replace('/[^a-zA-Z0-9_\-]/', '_', trim($surname));
+        $filename = "Certificate_{$safeName}_{$safeSurname}.pdf";
+        $path = public_path("certificates/{$filename}");
+        if (!file_exists($path)) {
+            return redirect()->route('certification.form')->with('error', 'Certificate not found.');
         }
-        if ($record->isExpired()) {
-            return redirect()->route('certification.form')->with('error', 'This download link has expired.');
-        }
-
-        $disk = config('certificates.storage_disk', 'local');
-        $fullPath = \Illuminate\Support\Facades\Storage::disk($disk)->path($record->storage_path);
-        if (! is_file($fullPath) || ! is_readable($fullPath)) {
-            return redirect()->route('certification.form')->with('error', 'Certificate file is no longer available. Please contact support.');
-        }
-
-        $filename = 'Certificate_' . trim($record->name . ' ' . $record->surname) . '.pdf';
-        $filename = preg_replace('/[^a-zA-Z0-9_\-\.]/', '_', $filename) ?: 'certificate.pdf';
-
-        return response()->download($fullPath, $filename, [
+        return response()->download($path, $filename, [
             'Content-Type' => 'application/pdf',
         ]);
     }

@@ -57,6 +57,12 @@
                         </div>
 
                         <div class="sm:col-span-2">
+                            <label for="certificate_number" class="block text-sm font-medium text-gray-700">Certificate Number<span class="text-red-600">*</span></label>
+                            <input type="text" id="certificate_number" name="certificate_number" value="{{ old('certificate_number') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                            <p class="mt-1 text-sm text-gray-500">Enter your certificate number as provided in your records.</p>
+                        </div>
+
+                        <div class="sm:col-span-2">
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                             <input type="email" id="email" name="email" value="{{ old('email') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
                             <p class="mt-1 text-sm text-gray-500">Optional. Used to send you the certificate or contact you if needed.</p>
