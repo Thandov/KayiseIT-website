@@ -108,8 +108,8 @@
             </header>
         @endif
 
-        <!-- Page Content -->
-        <main class="pt-0">
+        <!-- Page Content: offset fixed navbar on public site (dashboard uses own chrome) -->
+        <main @class(['pt-16' => ! request()->is('dashboard/*'), 'pt-0' => request()->is('dashboard/*')])>
             @hasSection('content')
                 @yield('content')
             @else

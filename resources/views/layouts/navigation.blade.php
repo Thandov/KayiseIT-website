@@ -215,162 +215,62 @@
 </nav>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.getElementById('main-navbar');
-    const isHomePage = false;
     if (!navbar) {
-        console.error('Navbar not found!');
         return;
     }
-    
+
+    const isHomePage = @json(request()->routeIs('home'));
+    const logoWhite = @json(asset('images/Logo_White_No_Background.png'));
+    const logoDark = @json(asset('images/kayise_IT_logo_No_Background.png'));
+
+    const logo = document.getElementById('navbar-logo');
     let lastScrollY = window.scrollY || 0;
     let ticking = false;
-    
+
+    function syncLogo() {
+        if (!logo) {
+            return;
+        }
+        const y = window.scrollY || 0;
+        if (!isHomePage || y > 80) {
+            logo.src = logoDark;
+        } else {
+            logo.src = logoWhite;
+        }
+    }
+
     function handleScroll() {
         const currentScrollY = window.scrollY || 0;
         const scrollingDown = currentScrollY > lastScrollY;
-        const isScrolled = !isHomePage || currentScrollY > 100;
-        
-        // Update navbar background and text colors based on scroll
-        if (isScrolled) {
-            navbar.classList.add('navbar-scrolled');
-            navbar.classList.remove('navbar-transparent');
-            // Remove Tailwind background and blur classes that conflict
-            navbar.classList.remove('bg-white/10', 'backdrop-blur-md', 'bg-white/95', 'backdrop-blur-lg');
-            // Set solid black background and remove blur with !important to override everything
-            navbar.style.setProperty('background-color', '#000000', 'important');
-            navbar.style.setProperty('backdrop-filter', 'none', 'important');
-            navbar.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
-            
-            // Update logo
-            const logo = document.getElementById('navbar-logo');
-            if (logo) {
-                logo.src = '/images/kayise_IT_logo_No_Background.png';
-            }
-            
-            // Update all navbar links (preserve active state)
-            const links = navbar.querySelectorAll('.navbar-link');
-            links.forEach(link => {
-                const isActive = link.classList.contains('navbar-active');
-                link.classList.remove('text-gray-700', 'hover:text-gray-900', 'text-green-600', 'hover:text-green-700');
-                if (isActive) {
-                    link.classList.add('text-white', 'font-semibold');
-                } else {
-                    link.classList.add('text-white/90', 'hover:text-white');
-                }
-            });
-            
-            // Update register button
-            const registerBtn = navbar.querySelector('.navbar-register');
-            if (registerBtn) {
-                registerBtn.classList.remove('bg-gray-100', 'hover:bg-gray-200', 'text-gray-700');
-                registerBtn.classList.add('bg-white/20', 'hover:bg-white/30', 'text-white');
-            }
-            
-            // Update avatar
-            const avatar = navbar.querySelector('.navbar-avatar');
-            const avatarText = navbar.querySelector('.navbar-avatar-text');
-            if (avatar) {
-                avatar.classList.remove('bg-gray-200');
-                avatar.classList.add('bg-white/20');
-            }
-            if (avatarText) {
-                avatarText.classList.remove('text-gray-700');
-                avatarText.classList.add('text-white');
-            }
-        } else {
-            navbar.classList.remove('navbar-scrolled');
-            navbar.classList.add('navbar-transparent');
-            // Restore Tailwind classes for transparent/blurred state
-            navbar.classList.add('bg-white/10', 'backdrop-blur-md');
-            navbar.classList.remove('bg-black/95', 'backdrop-blur-lg');
-            // Remove inline styles to allow Tailwind classes to work
-            navbar.style.removeProperty('background-color');
-            navbar.style.removeProperty('backdrop-filter');
-            navbar.style.removeProperty('-webkit-backdrop-filter');
-            
-            // Update logo
-            const logo = document.getElementById('navbar-logo');
-            if (logo) {
-                logo.src = '{{ asset('images/Logo_White_No_Background.png') }}';
-            }
-            
-            // Update all navbar links (preserve active state)
-            const links = navbar.querySelectorAll('.navbar-link');
-            links.forEach(link => {
-                const isActive = link.classList.contains('navbar-active');
-                link.classList.remove('text-gray-700', 'hover:text-gray-900', 'text-green-600', 'hover:text-green-700', 'font-semibold');
-                if (isActive) {
-                    link.classList.add('text-white', 'font-semibold');
-                } else {
-                    link.classList.add('text-white/90', 'hover:text-white');
-                }
-            });
-            
-            // Update register button
-            const registerBtn = navbar.querySelector('.navbar-register');
-            if (registerBtn) {
-                registerBtn.classList.remove('bg-gray-100', 'hover:bg-gray-200', 'text-gray-700');
-                registerBtn.classList.add('bg-white/20', 'hover:bg-white/30', 'text-white');
-            }
-            
-            // Update avatar
-            const avatar = navbar.querySelector('.navbar-avatar');
-            const avatarText = navbar.querySelector('.navbar-avatar-text');
-            if (avatar) {
-                avatar.classList.remove('bg-gray-200');
-                avatar.classList.add('bg-white/20');
-            }
-            if (avatarText) {
-                avatarText.classList.remove('text-gray-700');
-                avatarText.classList.add('text-white');
-            }
-        }
-        
-        // Hide navbar when scrolling down past 100px
+
+        syncLogo();
+
         if (isHomePage && currentScrollY > 100 && scrollingDown) {
             navbar.style.transform = 'translateY(-100%)';
             navbar.style.opacity = '0';
             navbar.style.pointerEvents = 'none';
-        }
-        // Show navbar when at top (<= 100px) or scrolling up
-        else if (!isHomePage || currentScrollY <= 100 || !scrollingDown) {
+        } else {
             navbar.style.transform = 'translateY(0)';
             navbar.style.opacity = '1';
             navbar.style.pointerEvents = 'auto';
         }
-        
+
         lastScrollY = currentScrollY;
     }
-    
-    window.addEventListener('scroll', function() {
+
+    window.addEventListener('scroll', function () {
         if (!ticking) {
-            window.requestAnimationFrame(function() {
+            window.requestAnimationFrame(function () {
                 handleScroll();
                 ticking = false;
             });
             ticking = true;
         }
     }, { passive: true });
-    
-    // Initial check
+
+    syncLogo();
     handleScroll();
-    
-    // Set initial active states
-    const links = navbar.querySelectorAll('.navbar-link');
-    links.forEach(link => {
-        const isActive = link.classList.contains('navbar-active');
-        if (isActive) {
-            if (!isHomePage || window.scrollY > 100) {
-                link.classList.add('text-white', 'font-semibold');
-                link.classList.remove('text-white/90', 'hover:text-white');
-            } else {
-                link.classList.add('text-white', 'font-semibold');
-                link.classList.remove('text-white/90', 'hover:text-white');
-            }
-        }
-    });
-    
-    console.log('Navbar scroll handler initialized');
 });
 </script>

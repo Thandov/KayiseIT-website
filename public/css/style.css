@@ -1195,4 +1195,34 @@ footer .footer-content .link-boxes .box {
      object-position: center;
   display: block;
   margin: 0 auto;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/* Public navbar: always applied via style.css so the bar stays correct even if Vite/Tailwind fails to load */
+#main-navbar {
+  background-color: rgba(0, 0, 0, 0.95);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+#main-navbar .navbar-link {
+  color: rgba(255, 255, 255, 0.92);
+}
+#main-navbar .navbar-link:hover,
+#main-navbar .navbar-link.navbar-active {
+  color: #ffffff;
+}
+#main-navbar .navbar-link.navbar-active {
+  font-weight: 600;
+}
+#main-navbar a[href*="register"] {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+#main-navbar a[href*="register"]:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+#main-navbar a[href*="login"] {
+  color: rgba(255, 255, 255, 0.9);
+}
+/*# sourceMappingURL=style.css.map */
