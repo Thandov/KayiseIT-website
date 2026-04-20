@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\GenerateCertificateJob;
-use App\Models\CertificateDownload;
 use App\Services\CertificateEligibilityService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class CertificationController extends Controller
@@ -29,20 +26,34 @@ class CertificationController extends Controller
     public function submit(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
+            'name' => ['nullable', 'string', 'max:255'],
+            'surname' => ['nullable', 'string', 'max:255'],
             'id_number' => ['required', 'string', 'max:50'],
-            'certificate_number' => ['required', 'string', 'max:50'],
             'email' => ['nullable', 'email', 'max:255'],
         ]);
 
-        $name = trim($validated['name']);
-        $surname = trim($validated['surname']);
         $id = trim($validated['id_number']);
-        $cert = trim($validated['certificate_number']);
-        $safeName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $name);
-        $safeSurname = preg_replace('/[^a-zA-Z0-9_\-]/', '_', $surname);
-        $filename = "Certificate_{$safeName}_{$safeSurname}.pdf";
+        $learner = $this->eligibility->findLearnerById($id);
+        if ($learner === null) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'id_number' => 'This ID number was not found in our records. If you believe this is an error, please contact support.',
+                ]);
+        }
+
+        $name = trim($learner['name']) ?: trim($validated['name'] ?? '');
+        $surname = trim($learner['surname']) ?: trim($validated['surname'] ?? '');
+        if ($name === '' && $surname === '') {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'id_number' => 'Your learner record has no name on file. Please contact support.',
+                ]);
+        }
+
+        $cert = trim($learner['certificate_number'] ?? '');
+        $filename = $this->certificatePdfFilename($name, $surname);
 
         // 1. Write temp CSV
         $tempDir = storage_path('app/certificates/temp');
@@ -96,8 +107,6 @@ class CertificationController extends Controller
         return redirect()->route('certification.success', [
             'name' => $name,
             'surname' => $surname,
-            'id' => $id,
-            'cert' => $cert,
         ]);
     }
 
@@ -106,9 +115,9 @@ class CertificationController extends Controller
      */
     public function success(Request $request): View|\Illuminate\Http\RedirectResponse
     {
-        $name = $request->query('name');
-        $surname = $request->query('surname');
-        if (!$name || !$surname) {
+        $name = trim((string) $request->query('name', ''));
+        $surname = trim((string) $request->query('surname', ''));
+        if ($name === '' && $surname === '') {
             return redirect()->route('certification.form')->with('error', 'Invalid link.');
         }
         return view('certification.success', [
@@ -124,14 +133,12 @@ class CertificationController extends Controller
      */
     public function download(Request $request)
     {
-        $name = $request->query('name');
-        $surname = $request->query('surname');
-        if (!$name || !$surname) {
-            return redirect()->route('certification.form')->with('error', 'Missing name or surname.');
+        $name = trim((string) $request->query('name', ''));
+        $surname = trim((string) $request->query('surname', ''));
+        if ($name === '' && $surname === '') {
+            return redirect()->route('certification.form')->with('error', 'Invalid download link.');
         }
-        $safeName = preg_replace('/[^a-zA-Z0-9_\-]/', '_', trim($name));
-        $safeSurname = preg_replace('/[^a-zA-Z0-9_\-]/', '_', trim($surname));
-        $filename = "Certificate_{$safeName}_{$safeSurname}.pdf";
+        $filename = $this->certificatePdfFilename($name, $surname);
         $path = public_path("certificates/{$filename}");
         if (!file_exists($path)) {
             return redirect()->route('certification.form')->with('error', 'Certificate not found.');
@@ -139,5 +146,16 @@ class CertificationController extends Controller
         return response()->download($path, $filename, [
             'Content-Type' => 'application/pdf',
         ]);
+    }
+
+    /**
+     * Basename for the generated PDF (must match training-certificates/certificate_template.py).
+     */
+    private function certificatePdfFilename(string $name, string $surname): string
+    {
+        $fullName = trim(trim($name) . ' ' . trim($surname)) ?: 'Recipient';
+        $safe = substr(str_replace(['/', ' '], ['-', '_'], $fullName), 0, 50);
+
+        return "Certificate_{$safe}.pdf";
     }
 }

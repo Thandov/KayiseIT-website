@@ -6,10 +6,11 @@ return [
     |--------------------------------------------------------------------------
     | Certificate generator (Python) paths
     |--------------------------------------------------------------------------
-    | Base path to the Training_certifactes folder. Use full filesystem path.
-    | Paths with spaces must be valid; we quote them when calling the script.
+    | Default: training-certificates/ inside this app (works locally and on any
+    | server path). Override CERTIFICATE_PYTHON_PATH in .env only if files live
+    | elsewhere (e.g. legacy folder outside the repo).
     */
-    'python_base_path' => env('CERTIFICATE_PYTHON_PATH', '/Applications/MAMP/htdocs/Python Programs/Training_certifactes'),
+    'python_base_path' => rtrim((string) env('CERTIFICATE_PYTHON_PATH', base_path('training-certificates')), '/\\'),
     'python_script' => 'certificate_template.py',
     'python_binary' => env('CERTIFICATE_PYTHON_BINARY', 'python3'),
 

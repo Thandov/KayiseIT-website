@@ -39,7 +39,7 @@
                             Name
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Type
+                            Tiers
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
@@ -62,7 +62,17 @@
                             <div class="text-sm font-medium text-gray-900">{{ $service->name }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-500">{{ $service->service_type ?? 'N/A' }}</div>
+                            @php
+                                $pub = $service->publicSlug();
+                            @endphp
+                            <div class="flex flex-wrap gap-x-2 gap-y-1 text-xs">
+                                <a class="text-kb-600 hover:underline" target="_blank" rel="noopener" href="{{ route('service.show.tier', ['slug' => $pub, 'tier' => 'small']) }}">S</a>
+                                <span class="text-gray-300">|</span>
+                                <a class="text-kb-600 hover:underline" target="_blank" rel="noopener" href="{{ route('service.show.tier', ['slug' => $pub, 'tier' => 'medium']) }}">M</a>
+                                <span class="text-gray-300">|</span>
+                                <a class="text-kb-600 hover:underline" target="_blank" rel="noopener" href="{{ route('service.show.tier', ['slug' => $pub, 'tier' => 'enterprise']) }}">E</a>
+                            </div>
+                            <div class="text-xs text-gray-400 mt-1">{{ $service->service_type ?? '—' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">

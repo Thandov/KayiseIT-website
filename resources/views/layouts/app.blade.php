@@ -118,8 +118,13 @@
         </main>
         @include('layouts.footer')
 
-        @if(!request()->is('dashboard/*'))
+        @php
+            $showWhatsappFloating = $showWhatsappFloating ?? true;
+            $showChatbotFloating = $showChatbotFloating ?? true;
+        @endphp
+        @if(!request()->is('dashboard/*') && ($showWhatsappFloating || $showChatbotFloating))
             <div id="kayise-chatbot" class="kayise-chatbot" aria-live="polite">
+                @if($showWhatsappFloating)
                     <a
                         class="kayise-chatbot-whatsapp"
                         href="https://wa.me/27693907862"
@@ -136,7 +141,9 @@
                         <span class="kayise-chatbot-whatsapp-text" aria-hidden="true">WhatsApp</span>
                         <span class="kayise-chatbot-toggle-label">Open WhatsApp chat</span>
                     </a>
+                @endif
 
+                @if($showChatbotFloating)
                 <button id="kayise-chatbot-toggle" class="kayise-chatbot-toggle" type="button" aria-label="Open chatbot" aria-expanded="false" title="Chat with us">
                     <span class="kayise-chatbot-toggle-icon" aria-hidden="true">
                         <svg viewBox="0 0 24 24" role="img" focusable="false" aria-hidden="true">
@@ -170,8 +177,10 @@
                         <button type="submit">Send</button>
                     </form>
                 </section>
+                @endif
             </div>
 
+            @if($showChatbotFloating)
             <script>
                 (function () {
                     var init = function () {
@@ -263,6 +272,7 @@
                     }
                 })();
             </script>
+            @endif
         @endif
     </div>
     

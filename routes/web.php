@@ -33,6 +33,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\CaseStudyController;
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\AcademyCourseController;
+use App\Http\Controllers\TrainingSkillsController;
 use App\Models\Service;
 
 
@@ -172,9 +174,7 @@ Route::get('career-mapping', function () {
     return view('career-mapping');
 })->name('career-mapping');
 
-Route::get('training-skills', function () {
-    return view('training-skills');
-})->name('training-skills');
+Route::get('training-skills', TrainingSkillsController::class)->name('training-skills');
 
 Route::get('opportunities', [DashboardController::class, 'opportunities'])->name('opportunities');
 
@@ -289,6 +289,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
     
     Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::GET('/dashboard/settings', [AdminController::class, 'settings'])->name('dashboard.settings');
+    Route::POST('/dashboard/settings', [AdminController::class, 'updateSettings'])->name('dashboard.settings.update');
     Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('dashboard.quotations');
     Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('dashboard.invoices');
     Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('dashboard.viewquotations');
@@ -320,6 +322,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::PUT('/dashboard/programs/update/{id}', [AdminController::class, 'updateProgram'])->name('dashboard.programs.update');
     Route::DELETE('/dashboard/programs/delete/{id}', [AdminController::class, 'deleteProgram'])->name('dashboard.programs.delete');
     Route::DELETE('/dashboard/programs/deleteSelected', [AdminController::class, 'deleteSelectedPrograms'])->name('admin.dashboard.programs.deleteSelected');
+
+    // Academy (Training & Skills courses)
+    Route::get('/dashboard/academy', [AcademyCourseController::class, 'index'])->name('dashboard.academy.index');
+    Route::get('/dashboard/academy/create', [AcademyCourseController::class, 'create'])->name('dashboard.academy.create');
+    Route::post('/dashboard/academy', [AcademyCourseController::class, 'store'])->name('dashboard.academy.store');
+    Route::get('/dashboard/academy/{academy_course}/edit', [AcademyCourseController::class, 'edit'])->name('dashboard.academy.edit');
+    Route::post('/dashboard/academy/{academy_course}/toggle', [AcademyCourseController::class, 'toggleFrontend'])->name('dashboard.academy.toggle');
+    Route::put('/dashboard/academy/{academy_course}', [AcademyCourseController::class, 'update'])->name('dashboard.academy.update');
+    Route::delete('/dashboard/academy/{academy_course}', [AcademyCourseController::class, 'destroy'])->name('dashboard.academy.destroy');
     
     // Keep old internship routes for backward compatibility (redirect to programs)
     Route::GET('/dashboard/internships', function() { return redirect()->route('dashboard.programs'); })->name('dashboard.internships');
@@ -516,10 +527,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/option/{id}', [OptionsController::class, 'destroyoption']);
 
     //Services
-    Route::GET('/dashboard/services/addservice', function () {
-        $service = new \App\Models\Service();
-        return view('admin.services.addservice', compact('service'));
-    })->name('dashboard.services.addservice');
+    Route::GET('/dashboard/services/addservice', [ServicesController::class, 'createServiceForm'])->name('dashboard.services.addservice');
     Route::GET('/dashboard/services', [AdminController::class, 'services'])->name('dashboard.services');
     Route::GET('/dashboard/services/viewservice/{id}', [AdminController::class, 'viewservice'])->name('dashboard.services.viewservice');
     Route::POST('/dashboard/editservice', [ServicesController::class, 'updateService'])->name('dashboard.editservice');
@@ -538,7 +546,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/services/addsubservices/{id}', [SubServicesController::class, 'index'])->name('dashboard.services.addsubservices');
     Route::post('/dashboard/services/subservice/{id}', [SubServicesController::class, 'store'])->name('subservice.store');
     Route::POST('/dashboard/subservices/deletesubservice', [SubServicesController::class, 'destroy'])->name('dashboard.subservices.deletesubservice');
-    Route::get('services/{slug}/{subslug}', [SubServicesController::class, 'display_subservice_name']);
     Route::POST('dashboard/services/{slug}/addsubservices', [SubServicesController::class, 'store'])->name('dashboard.services.slug.addsubservices');
     Route::get('viewsubservice/{id}', [SubServicesController::class, 'show'])->name('show');
 
@@ -673,6 +680,10 @@ Route::get('viewspecialization/{spec_id}', [SpecializationsController::class, 's
 //Service Controller
 
 Route::get('/viewservice/{slug}', [ServicesController::class, 'show'])->name('show');
+Route::get('services/{slug}/{tier}', [ServicesController::class, 'displayServiceTier'])
+    ->whereIn('tier', ['small', 'medium', 'enterprise'])
+    ->name('service.show.tier');
+Route::get('services/{slug}/{subslug}', [SubServicesController::class, 'display_subservice_name']);
 Route::get('services/{slug}', [ServicesController::class, 'display_service_name'])->name('service.show');
 
 

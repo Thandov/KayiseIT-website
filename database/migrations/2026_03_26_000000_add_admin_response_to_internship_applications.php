@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->timestamp('responded_at')->nullable()->after('admin_message');
             }
             if (! Schema::hasColumn('internship_applications', 'responded_by')) {
-                $table->unsignedBigInteger('responded_by')->nullable()->after('responded_at');
+                $table->unsignedInteger('responded_by')->nullable()->after('responded_at');
                 $table->foreign('responded_by')->references('id')->on('users')->onDelete('set null');
             }
         });

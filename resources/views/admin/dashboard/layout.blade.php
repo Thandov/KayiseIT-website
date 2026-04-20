@@ -161,7 +161,8 @@
                         invoices: 'Invoices',
                         quotations: 'Quotations',
                         careermapping: 'Career Mapping',
-                        blogs: 'Blogs'
+                        blogs: 'Blogs',
+                        settings: 'Settings'
                     };
                     return tabTitles[this.activeTab] || 'Dashboard';
                 }

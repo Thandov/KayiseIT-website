@@ -11,7 +11,7 @@
                     </a>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-900 mb-2">Request Your Certificate</h1>
-                <p class="text-gray-600 mb-6">Enter your details below. We will verify your ID against our learner records and generate your certificate if you are eligible. You do not need to log in.</p>
+                <p class="text-gray-600 mb-6">Enter your South African ID number below. If it matches our learner records, we will use your name from those records to generate your certificate. You do not need to log in.</p>
 
                 @if (session('success'))
                     <div class="mb-6 rounded-md bg-green-50 p-4 text-green-800">
@@ -40,26 +40,22 @@
                     @csrf
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Name<span class="text-red-600">*</span></label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        </div>
-
-                        <div>
-                            <label for="surname" class="block text-sm font-medium text-gray-700">Surname<span class="text-red-600">*</span></label>
-                            <input type="text" id="surname" name="surname" value="{{ old('surname') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        </div>
-
                         <div class="sm:col-span-2">
                             <label for="id_number" class="block text-sm font-medium text-gray-700">ID Number<span class="text-red-600">*</span></label>
                             <input type="text" id="id_number" name="id_number" value="{{ old('id_number') }}" required placeholder="13-digit ID number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                            <p class="mt-1 text-sm text-gray-500">Eligibility is determined by your ID number. It must appear in our learner records.</p>
+                            <p class="mt-1 text-sm text-gray-500">Required. Your ID must appear in our learner records. Your name and surname on the certificate will come from that record.</p>
                         </div>
 
-                        <div class="sm:col-span-2">
-                            <label for="certificate_number" class="block text-sm font-medium text-gray-700">Certificate Number<span class="text-red-600">*</span></label>
-                            <input type="text" id="certificate_number" name="certificate_number" value="{{ old('certificate_number') }}" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                            <p class="mt-1 text-sm text-gray-500">Enter your certificate number as provided in your records.</p>
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                            <p class="mt-1 text-sm text-gray-500">Optional. Only used if your record is missing a first name.</p>
+                        </div>
+
+                        <div>
+                            <label for="surname" class="block text-sm font-medium text-gray-700">Surname</label>
+                            <input type="text" id="surname" name="surname" value="{{ old('surname') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                            <p class="mt-1 text-sm text-gray-500">Optional. Only used if your record is missing a surname.</p>
                         </div>
 
                         <div class="sm:col-span-2">

@@ -30,6 +30,7 @@ use App\Models\InternshipProgram;
 use App\Models\InternsLearner;
 use App\Models\MictBeneficiary;
 use App\Models\Partner;
+use App\Models\SiteSetting;
 use App\Models\Message;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ApplicationAccepted;
@@ -271,7 +272,8 @@ class AdminController extends Controller
 
     public function services()
     {
-        $services = Service::all();
+        $services = Service::with('tiers')->orderBy('name')->get();
+
         return view('admin.dashboard.services.index', compact('services'));
     }
 
@@ -293,11 +295,12 @@ class AdminController extends Controller
         if (!$service) {
             return redirect()->back()->withErrors(['error' => 'Service not found.']);
         }
+        $service->load(['tiers.page', 'tiers.tierPrice', 'tiers.packages.features', 'tiers.addons']);
+        $tiersByKey = $service->tiers->keyBy('tier_key');
         $subservices = Subservice::where('service_id', $service->service_id)->get();
         $extras = $subservices->isNotEmpty();
 
-
-        return view('admin.services.viewservice', compact('service', 'subservices', 'extras'));
+        return view('admin.services.viewservice', compact('service', 'subservices', 'extras', 'tiersByKey'));
     }
 
     public function viewsubservice($id)
@@ -1139,6 +1142,25 @@ class AdminController extends Controller
         InternshipProgram::whereIn('id', $selectedIds)->delete();
         
         return redirect()->back()->with('success', 'Selected programs deleted successfully.');
+    }
+
+    public function settings()
+    {
+        $pageTitle = 'Settings';
+        $user = auth()->user();
+        $siteSettings = SiteSetting::current();
+
+        return view('admin.dashboard.settings.index', compact('pageTitle', 'user', 'siteSettings'));
+    }
+
+    public function updateSettings(Request $request)
+    {
+        $settings = SiteSetting::current();
+        $settings->show_whatsapp_floating = $request->boolean('show_whatsapp_floating');
+        $settings->show_chatbot_floating = $request->boolean('show_chatbot_floating');
+        $settings->save();
+
+        return redirect()->route('dashboard.settings')->with('success', 'Frontend floating buttons updated.');
     }
 
     // ==================== PARTNERS CRUD ====================

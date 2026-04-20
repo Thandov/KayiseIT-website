@@ -34,73 +34,21 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-                <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
-                        <svg class="w-6 h-6" style="color:#16A34A;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M4 4h16v12H4z"></path>
-                            <path d="M8 20h8"></path>
-                        </svg>
+                @forelse ($courses as $course)
+                    <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
+                            <x-academy-course-icon :icon-key="$course->icon_key" />
+                        </div>
+                        <h2 class="text-2xl font-semibold text-gray-900 mb-3">{{ $course->title }}</h2>
+                        <p class="text-gray-600 leading-relaxed">{{ $course->description }}</p>
+                        <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">{{ $course->category }}</p>
+                    </article>
+                @empty
+                    <div class="col-span-full rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-10 text-center text-gray-600">
+                        <p class="text-lg font-medium text-gray-800 mb-2">No courses to display yet</p>
+                        <p class="text-sm">Add courses in the dashboard under <strong>Academy</strong>, or run <code class="text-xs bg-white px-1 py-0.5 rounded border">php artisan db:seed --class=AcademyCoursesSeeder</code>.</p>
                     </div>
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">ICT Skills Training</h2>
-                    <p class="text-gray-600 leading-relaxed">A practical course that develops computer literacy, internet skills, and digital communication. Ideal for learners who need strong technology foundations for study and work readiness.</p>
-                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">Digital Foundations</p>
-                </article>
-
-                <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
-                        <svg class="w-6 h-6" style="color:#16A34A;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l8 8-8 8-8-8z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Build a Drone Course</h2>
-                    <p class="text-gray-600 leading-relaxed">Learners assemble and test drones while understanding core STEM concepts, including electronics and systems thinking. This course promotes hands-on problem-solving and innovation.</p>
-                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">STEM + Hands-On</p>
-                </article>
-
-                <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
-                        <svg class="w-6 h-6" style="color:#16A34A;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M4 4h16v16H4z"></path>
-                            <path d="M8 8h8M8 12h8M8 16h5"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Microsoft Office Training</h2>
-                    <p class="text-gray-600 leading-relaxed">Structured training in Word, Excel, PowerPoint, and Outlook to improve academic and workplace performance. Learners gain practical document, data, and presentation skills.</p>
-                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">Office Productivity</p>
-                </article>
-
-                <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
-                        <svg class="w-6 h-6" style="color:#16A34A;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M4 6h16M4 12h10M4 18h7"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Computer Productivity</h2>
-                    <p class="text-gray-600 leading-relaxed">Focuses on digital efficiency, file management, collaboration tools, and workflow habits that help learners and staff work smarter and complete tasks faster.</p>
-                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">Workflow Skills</p>
-                </article>
-
-                <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
-                        <svg class="w-6 h-6" style="color:#16A34A;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Cyber Security Training</h2>
-                    <p class="text-gray-600 leading-relaxed">Builds awareness of digital threats and teaches practical online safety, password protection, and data security practices for classrooms, offices, and institutions.</p>
-                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">Cyber Awareness</p>
-                </article>
-
-                <article class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style="background-color: rgba(34, 197, 94, 0.12);">
-                        <svg class="w-6 h-6" style="color:#16A34A;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 3v18M3 12h18"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-2xl font-semibold text-gray-900 mb-3">Entrepreneurship Training</h2>
-                    <p class="text-gray-600 leading-relaxed">Introduces learners to business thinking, opportunity identification, and practical startup skills. Supports youth empowerment and enterprise development in local communities.</p>
-                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide" style="color:#16A34A;">Business Readiness</p>
-                </article>
+                @endforelse
             </div>
         </div>
     </section>
