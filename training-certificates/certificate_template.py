@@ -353,6 +353,10 @@ def main():
     )
     parser.add_argument("--output-dir", type=Path, default=base / "certificates", help="Parent directory for output (default: certificates/)")
     parser.add_argument("--course", default=DEFAULT_COURSE, help="Course title")
+    # Backwards-compatible aliases used by some integrations.
+    # (We don't use logo-path in this generator, but accept it to avoid hard failures.)
+    parser.add_argument("--course-name", dest="course", help=argparse.SUPPRESS)
+    parser.add_argument("--logo-path", help=argparse.SUPPRESS)
     parser.add_argument("--date", default="20/10/2025", help="Date of issue (dd/mm/yyyy)")
     parser.add_argument("--single", action="store_true", help="Generate single sample certificate only")
     args = parser.parse_args()

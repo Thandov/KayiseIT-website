@@ -5,17 +5,15 @@ namespace App\Jobs;
 use App\Models\CertificateDownload;
 use App\Services\CertificateEligibilityService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Process;
 
-class GenerateCertificateJob implements ShouldQueue
+class GenerateCertificateJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, Queueable, SerializesModels;
 
     public int $tries = 2;
     public int $timeout = 120;
