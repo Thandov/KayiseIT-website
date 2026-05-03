@@ -28,7 +28,7 @@
         #hero-banner .zoom { position: absolute; inset: 0; background: radial-gradient(100% 100% at 50% 50%, #01040a 0%, #000 60%); transform: scale(1); animation: zoomIn 60s linear infinite alternate; z-index: 0; }
         @keyframes zoomIn { from { transform: scale(1); } to { transform: scale(1.15); } }
         #hero-banner .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(92vw, 880px); text-align: center; z-index: 3; padding: 16px; }
-        #hero-banner .logo { width: min(280px, 40vw); height: auto; display: block; margin: 0 auto 16px; filter: drop-shadow(0 6px 30px rgba(124,199,255,.25)); }
+        #hero-banner .logo { width: min(280px, 40vw); height: auto; display: block; margin: 0 auto 16px; filter: brightness(0) invert(1) drop-shadow(0 6px 30px rgba(124,199,255,.25)); }
         #hero-banner .title { font-size: clamp(28px, 4vw, 56px); letter-spacing: .06em; margin: 0 0 8px; text-transform: uppercase; text-shadow: 0 0 10px rgba(255,255,255,.25); min-height: 1.2em; }
         #hero-banner .subtitle { font-size: clamp(14px, 2vw, 18px); color: #cbd5e1; margin: 0 0 18px; min-height: 1.5em; }
         #hero-banner .cta { display: inline-block; padding: 10px 16px; border: 1px solid rgba(124,199,255,.3); color: #cfe9ff; border-radius: 999px; text-decoration: none; backdrop-filter: blur(4px); background: rgba(15,35,55,.35); box-shadow: inset 0 0 0 1px rgba(124,199,255,.08); }
@@ -55,7 +55,7 @@
             <canvas id="starfield" aria-hidden="true"></canvas>
             <div class="glow" aria-hidden="true"></div>
             <main class="center">
-                <img src="{{ asset('images/Logo_White_No_Background.png') }}" alt="KAYISE IT" class="logo">
+                <img src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" class="logo">
                 <div id="text-carousel" class="relative">
                     @if($hasSlides)
                         @foreach($carouselSlides as $index => $slide)

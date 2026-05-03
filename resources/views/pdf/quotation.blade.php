@@ -114,7 +114,7 @@
     <div class="container content">
         <div class="header">
             <div class="logo" style="float: center; width: 100px;">
-                <!-- <img src="{{ asset('images/logo.png') }}"> -->
+                <!-- <img src="{{ asset('images/kayise-logo.png') }}"> -->
             </div>
         </div>
         <table style="border: none;">

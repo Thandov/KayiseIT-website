@@ -19,8 +19,15 @@ class CertificateEligibilityService
 
     public function __construct(?string $basePath = null, ?array $csvFilenames = null)
     {
-        $this->basePath = $basePath ?? rtrim(config('certificates.python_base_path', ''), '/');
-        $this->csvFilenames = $csvFilenames ?? config('certificates.learner_csvs', []);
+        $this->basePath = $basePath ?? rtrim((string) config('certificates.python_base_path', ''), '/');
+        $fromConfig = config('certificates.learner_csvs', []);
+        $resolved = $csvFilenames ?? $fromConfig;
+        if (! is_array($resolved)) {
+            $resolved = is_string($resolved)
+                ? array_values(array_filter(array_map('trim', explode(',', $resolved))))
+                : [];
+        }
+        $this->csvFilenames = array_values(array_filter($resolved, static fn ($f) => is_string($f) && $f !== ''));
     }
 
     /**

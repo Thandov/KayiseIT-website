@@ -16,7 +16,7 @@
             <!-- Logo -->
             <div class="flex items-center">
                 <a href="{{ route('home') }}#starfield">
-                    <img id="navbar-logo" src="{{ asset('images/Logo_White_No_Background.png') }}" alt="KAYISE IT" class="h-8 w-auto transition-opacity duration-300">
+                    <img id="navbar-logo" src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" class="h-8 w-auto transition-opacity duration-300" x-bind:style="open ? 'filter: none' : 'filter: brightness(0) invert(1)'">
                 </a>
             </div>
             
@@ -57,11 +57,6 @@
                 <a href="{{ route('training-skills') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('training-skills') ? 'navbar-active' : '' }}">
                     {{ __('Training & Skills') }}
                 </a>
-                @if(Route::has('certification.form'))
-                <a href="{{ route('certification.form') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('certification.*') ? 'navbar-active' : '' }}">
-                    {{ __('Certificate') }}
-                </a>
-                @endif
                 <a href="{{ route('gallery') }}" class="navbar-link transition-colors duration-200 font-medium {{ request()->routeIs('gallery') ? 'navbar-active' : '' }}">
                     {{ __('Gallery') }}
                 </a>
@@ -161,11 +156,6 @@
                 <a href="{{ route('training-skills') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('training-skills') ? 'text-white' : '' }}">
                     {{ __('Training & Skills') }}
                 </a>
-                @if(Route::has('certification.form'))
-                <a href="{{ route('certification.form') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('certification.*') ? 'text-white' : '' }}">
-                    {{ __('Certificate') }}
-                </a>
-                @endif
                 <a href="{{ route('gallery') }}" class="block text-white/90 hover:text-white font-medium transition-colors duration-200 {{ request()->routeIs('gallery') ? 'text-white' : '' }}">
                     {{ __('Gallery') }}
                 </a>
@@ -222,30 +212,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const isHomePage = @json(request()->routeIs('home'));
-    const logoWhite = @json(asset('images/Logo_White_No_Background.png'));
-    const logoDark = @json(asset('images/kayise_IT_logo_No_Background.png'));
 
-    const logo = document.getElementById('navbar-logo');
     let lastScrollY = window.scrollY || 0;
     let ticking = false;
-
-    function syncLogo() {
-        if (!logo) {
-            return;
-        }
-        const y = window.scrollY || 0;
-        if (!isHomePage || y > 80) {
-            logo.src = logoDark;
-        } else {
-            logo.src = logoWhite;
-        }
-    }
 
     function handleScroll() {
         const currentScrollY = window.scrollY || 0;
         const scrollingDown = currentScrollY > lastScrollY;
-
-        syncLogo();
 
         if (isHomePage && currentScrollY > 100 && scrollingDown) {
             navbar.style.transform = 'translateY(-100%)';
@@ -270,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }, { passive: true });
 
-    syncLogo();
     handleScroll();
 });
 </script>

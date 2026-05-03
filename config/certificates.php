@@ -22,7 +22,10 @@ return [
     | eligibility. Columns must be: Name, Surname, ID number, Certificate number.
     | ID number is the primary key for eligibility.
     */
-    'learner_csvs' => array_filter(explode(',', env('CERTIFICATE_LEARNER_CSVS', 'barberton_learners.csv,kabokweni_learners.csv'))),
+    'learner_csvs' => array_values(array_filter(array_map('trim', explode(',', (string) env(
+        'CERTIFICATE_LEARNER_CSVS',
+        'barberton_learners.csv,kabokweni_learners.csv'
+    ))))),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,8 +33,11 @@ return [
     |--------------------------------------------------------------------------
     | Generated PDFs are stored under storage/app/certificates/ (see disks below).
     | Temp one-row CSVs are created under certificates/temp/ and removed after use.
+    |
+    | CERTIFICATE_DISK_ROOT: optional absolute path (writable) to store PDFs when
+    | storage/app is full or not writable (same disk as the app is fine).
     */
-    'storage_disk' => env('CERTIFICATE_STORAGE_DISK', 'local'),
+    'storage_disk' => env('CERTIFICATE_STORAGE_DISK', 'certificates_local'),
     'storage_subdir' => 'certificates',
     'temp_subdir' => 'certificates/temp',
     'output_subdir' => 'certificates/output',
@@ -56,5 +62,5 @@ return [
     | Certificate logo path (relative to public/)
     |--------------------------------------------------------------------------
     */
-    'logo_path' => env('CERTIFICATE_LOGO_PATH', 'images/kayise_IT_logo_No_Background.png'),
+    'logo_path' => env('CERTIFICATE_LOGO_PATH', 'images/kayise-logo.png'),
 ];

@@ -4,7 +4,7 @@
         <div class="md:flex justify-center items-center md:w-1/2">
             <!-- images 2 in 1 -->
             <div>
-                <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-600 rounded-lg relative bg-cover bg-center hidden sm:block" style="background-image: url('../images/Kayise-IT-Logo-Dark-Green-Background.jpg')" alt="Kayise IT:Kayise IT Logo Dark Green Background"></div>
+                <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-600 rounded-lg relative bg-no-repeat bg-center bg-contain hidden sm:block" style="background-image: url('{{ asset('images/kayise-logo.png') }}')" role="img" aria-label="KAYISE IT"></div>
                 <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-600 rounded-lg relative bg-cover bg-center mt-2 hidden sm:block" style="background-image: url('../images/skills2.jpeg')" alt="Kayise IT:Soft Skills"></div>
             </div>
             <!-- single image -->

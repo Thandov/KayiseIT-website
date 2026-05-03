@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -67,5 +69,43 @@ class Handler extends ExceptionHandler
         });
         
         parent::registerErrorHandling();
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($this->shouldShowBeRightBackPage($request, $e)) {
+            return response()->view('errors.be-right-back', [], 500);
+        }
+
+        return parent::render($request, $e);
+    }
+
+    protected function shouldShowBeRightBackPage(Request $request, Throwable $e): bool
+    {
+        $status = $e instanceof HttpExceptionInterface
+            ? $e->getStatusCode()
+            : 500;
+
+        if ($status !== 500) {
+            return false;
+        }
+
+        if ($request->expectsJson()) {
+            return false;
+        }
+
+        try {
+            $user = $request->user();
+            if ($user && method_exists($user, 'hasRole') && $user->hasRole('admin')) {
+                return false;
+            }
+        } catch (Throwable) {
+            return true;
+        }
+
+        return true;
     }
 }

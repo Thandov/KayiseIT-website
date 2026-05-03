@@ -1,18 +1,4 @@
-/* Montserrat-Bold */
-@font-face {
-  font-family: "Montserrat-Bold";
-  font-weight: 700;
-  font-style: normal;
-  src: url("../fonts/Montserrat-Bold.ttf") format("truetype");
-}
-
-/* Montserrat-Regular */
-@font-face {
-  font-family: "Montserrat";
-  font-weight: normal;
-  font-style: normal;
-  src: url("../fonts/Montserrat-Regular.ttf") format("truetype");
-}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap");
 
 // Primary & Secondary Colors
 $pcolor: #22c55e;
@@ -70,7 +56,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat-Black", sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
+  font-weight: 900;
   line-height: 1.2;
 }
 

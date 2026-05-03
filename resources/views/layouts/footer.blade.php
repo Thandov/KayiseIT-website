@@ -43,7 +43,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
             {{-- Company --}}
             <div class="lg:col-span-1">
-                <img src="{{ asset('images/Logo_White_No_Background.png') }}" alt="KAYISE IT" class="h-10 w-auto mb-4">
+                <img src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" class="h-10 w-auto mb-4 brightness-0 invert">
                 <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
                     Specialized IT solutions for digital transformation. Enterprise technology services to accelerate your business.
                 </p>

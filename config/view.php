@@ -28,9 +28,13 @@ return [
     |
     */
 
+    /*
+     * Do not use realpath() here: if the directory is missing, realpath returns false
+     * and Blade compilation breaks with opaque 500s.
+     */
     'compiled' => env(
         'VIEW_COMPILED_PATH',
-        realpath(storage_path('framework/views'))
+        storage_path('framework/views')
     ),
 
 ];

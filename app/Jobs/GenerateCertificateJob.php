@@ -7,6 +7,7 @@ use App\Services\CertificateEligibilityService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Process;
@@ -30,6 +31,8 @@ class GenerateCertificateJob
 
     public function handle(): ?string
     {
+        self::configureCertificateDiskRoot();
+
         $basePath = rtrim(config('certificates.python_base_path'), '/\\');
         $scriptName = config('certificates.python_script', 'certificate_template.py');
         $scriptPath = $basePath . DIRECTORY_SEPARATOR . $scriptName;
@@ -41,7 +44,7 @@ class GenerateCertificateJob
             $pythonBinary = str_replace('/', '\\', $pythonBinary);
         }
 
-        $disk = config('certificates.storage_disk', 'local');
+        $disk = config('certificates.storage_disk', 'certificates_local');
         $tempSubdir = config('certificates.temp_subdir', 'certificates/temp');
         $outputSubdir = config('certificates.output_subdir', 'certificates/output');
 
@@ -58,7 +61,7 @@ class GenerateCertificateJob
         $idNumber = $this->learner['id_number'] ?? '';
         $certNo = $this->learner['certificate_number'] ?? 'UE25401';
         $courseName = config('certificates.training_name', 'Business Essentials for Entrepreneurs');
-        $logoPath = public_path(config('certificates.logo_path', 'images/kayise_IT_logo_No_Background.png'));
+        $logoPath = public_path(config('certificates.logo_path', 'images/kayise-logo.png'));
         $fullName = trim($name . ' ' . $surname) ?: 'Recipient';
         $safeName = substr(str_replace(['/', ' '], ['-', '_'], $fullName), 0, 50);
 
@@ -100,14 +103,16 @@ class GenerateCertificateJob
         $quotedOutput = escapeshellarg($outputDir);
         $quotedCourseName = escapeshellarg($courseName);
         $quotedLogoPath = escapeshellarg($logoPath);
+        $quotedDate = escapeshellarg(date('d/m/Y'));
         $command = sprintf(
-            '%s %s %s --output-dir %s --course-name %s --logo-path %s',
+            '%s %s %s --output-dir %s --course-name %s --logo-path %s --date %s',
             $quotedPython,
             $quotedScript,
             $quotedCsv,
             $quotedOutput,
             $quotedCourseName,
-            $quotedLogoPath
+            $quotedLogoPath,
+            $quotedDate
         );
 
         $process = Process::fromShellCommandline($command);
@@ -145,5 +150,96 @@ class GenerateCertificateJob
         ]);
 
         return $this->downloadToken;
+    }
+
+    /**
+     * When storage/app hits disk quota, use a deterministic temp-dir root so PDF
+     * generation and download still resolve the same paths (see config/filesystems
+     * disk certificates_local).
+     */
+    public static function configureCertificateDiskRoot(): void
+    {
+        $disk = (string) config('certificates.storage_disk', 'certificates_local');
+        if ($disk === '') {
+            return;
+        }
+
+        $driver = config("filesystems.disks.{$disk}.driver");
+        if ($driver !== 'local') {
+            return;
+        }
+
+        $root = self::firstWritableCertificateRoot();
+        Config::set("filesystems.disks.{$disk}.root", $root);
+        Storage::forgetDisk($disk);
+    }
+
+    /**
+     * True if the configured certificate disk root can create a PDF temp file.
+     * Call after {@see configureCertificateDiskRoot()}.
+     */
+    public static function canEmitCertificatePdf(): bool
+    {
+        self::configureCertificateDiskRoot();
+        $disk = (string) config('certificates.storage_disk', 'certificates_local');
+        $root = rtrim((string) config("filesystems.disks.{$disk}.root"), '/\\');
+
+        return self::canWriteScratchFileUnder($root);
+    }
+
+    /**
+     * Prefer storage/app, then CERTIFICATE_DISK_ROOT, then system temp paths (some hosts
+     * quota only $HOME; if every location fails, returns storage/app as last resort).
+     */
+    private static function firstWritableCertificateRoot(): string
+    {
+        $base = storage_path('app');
+
+        $fromEnv = env('CERTIFICATE_DISK_ROOT');
+        if (is_string($fromEnv) && $fromEnv !== '') {
+            $r = rtrim($fromEnv, '/\\');
+            if (self::canWriteScratchFileUnder($r)) {
+                return $r;
+            }
+        }
+
+        if (self::canWriteScratchFileUnder($base)) {
+            return rtrim($base, '/\\');
+        }
+
+        $candidates = [
+            rtrim(sys_get_temp_dir(), '/\\') . DIRECTORY_SEPARATOR . 'kayiseit-certs-' . md5($base),
+            '/var/tmp/kayiseit-certs-' . md5($base),
+        ];
+        foreach ($candidates as $fallback) {
+            if (! is_dir($fallback)) {
+                @mkdir($fallback, 0755, true);
+            }
+            if (self::canWriteScratchFileUnder($fallback)) {
+                return rtrim($fallback, '/\\');
+            }
+        }
+
+        return rtrim($base, '/\\');
+    }
+
+    /**
+     * mkdir can succeed while creating a real file still hits quota — test a tiny write.
+     */
+    private static function canWriteScratchFileUnder(string $base): bool
+    {
+        $base = rtrim($base, '/\\');
+        $dir = $base . DIRECTORY_SEPARATOR . 'certificates' . DIRECTORY_SEPARATOR . 'temp';
+        if (! @mkdir($dir, 0755, true) && ! is_dir($dir)) {
+            return false;
+        }
+
+        $file = $dir . DIRECTORY_SEPARATOR . '__w_' . bin2hex(random_bytes(6)) . '.tmp';
+        if (@file_put_contents($file, '0') === false) {
+            return false;
+        }
+        @unlink($file);
+
+        return true;
     }
 }

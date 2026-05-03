@@ -56,7 +56,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
+            <img src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" width="100">
         </div>
     </div>
     <div class="header">

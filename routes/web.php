@@ -238,6 +238,7 @@ Route::group(['middleware' => ['auth']], function () {
 // LMS Certification (public) — request certificate by ID; eligibility from learner CSVs
 Route::get('lms/certification', [CertificationController::class, 'showForm'])->name('certification.form');
 Route::post('lms/certification', [CertificationController::class, 'submit'])->name('certification.submit');
+Route::post('lms/certification/support', [CertificationController::class, 'sendSupportInquiry'])->name('certification.support')->middleware('throttle:8,1');
 Route::get('lms/certification/success', [CertificationController::class, 'success'])->name('certification.success');
 Route::get('lms/certification/download', [CertificationController::class, 'download'])->name('certification.download')->middleware('throttle:10,1');
 

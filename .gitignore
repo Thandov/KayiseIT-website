@@ -25,6 +25,7 @@ yarn-error.log
 # OS
 .DS_Store
 Thumbs.db
+__MACOSX/
 
 # Laravel, Python, and generated/output files and folders
 /storage/app/
@@ -54,6 +55,8 @@ __pycache__/
 *.pid
 *.seed
 *.csv
+!training-certificates/barberton_learners.csv
+!training-certificates/kabokweni_learners.csv
 *.pdf
 *.zip
 *.tar.gz
