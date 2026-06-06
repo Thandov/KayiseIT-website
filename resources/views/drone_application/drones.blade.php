@@ -1,13 +1,9 @@
-<x-app-layout>
+<x-app-layout
+    title="Drone programme information | KAYISE IT"
+    description="Information on KAYISE IT drone programmes and applications. Explore how we support STEM and aviation-related learning pathways."
+    keywords="KAYISE IT drones, drone workshop, STEM South Africa, Mbombela, drone programme"
+>
     <section id="hero-banner">
-        <!-- Meta tags -->
-        @section('meta')
-        @php
-        $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
-        $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
-        $metaKeywords = "IT Company, drones, kayiseit, kayise, mictseta, stem, robotics, science, technology, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
-        @endphp
-        @endsection
         <x-hero-banner hero="drone-hero" title="Drone Workshop 1" />
     </section>
 

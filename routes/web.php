@@ -19,6 +19,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\OccupationsController;
 use App\Http\Controllers\SpecializationsController;
 use App\Http\Controllers\CareerStepsController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PostCategoriesController;
@@ -35,6 +36,7 @@ use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\AcademyCourseController;
 use App\Http\Controllers\TrainingSkillsController;
+use App\Http\Controllers\NavMenuController;
 use App\Models\Service;
 
 
@@ -64,18 +66,13 @@ Route::get('about', function () {
     return view('about');
 })->name('about');
 
-Route::get('contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::get('services', function () {
-    return view('services');
-})->name('services');
+Route::get('contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('services/drone-building-course-south-africa', function () {
     return view('services.seo-landing', [
         'serviceTitle' => 'Drone Building Course South Africa',
         'serviceIntro' => 'KAYISE IT offers practical drone building training for schools, TVET colleges, and training programs across South Africa.',
+        'metaDescription' => 'Hands-on drone building for schools and TVET colleges: assembly, testing, and STEM-focused sessions delivered on-site or as part of your institution\'s programme.',
         'servicePoints' => [
             'Hands-on drone assembly and testing sessions',
             'STEM-focused learning with practical application',
@@ -90,6 +87,7 @@ Route::get('services/ict-training-for-tvet-colleges', function () {
     return view('services.seo-landing', [
         'serviceTitle' => 'ICT Training for TVET Colleges',
         'serviceIntro' => 'Our ICT skills training equips TVET college learners and school communities with practical digital competencies for study and work.',
+        'metaDescription' => 'Practical ICT and digital literacy for TVET learners: lab sessions, assessments, and employability-focused skills aligned to college outcomes.',
         'servicePoints' => [
             'Computer literacy and foundational digital skills',
             'Institution-ready training delivery and support',
@@ -104,6 +102,7 @@ Route::get('services/4ir-skills-training', function () {
     return view('services.seo-landing', [
         'serviceTitle' => '4IR Skills Training',
         'serviceIntro' => 'KAYISE IT delivers practical 4IR technology training to help institutions and teams prepare for digital transformation.',
+        'metaDescription' => 'Industry 4.0 readiness for teams and learners: digital transformation context, innovation skills, and structured upskilling for schools, colleges, and organisations.',
         'servicePoints' => [
             'Industry 4.0 fundamentals and practical context',
             'Digital innovation and transformation readiness',
@@ -118,6 +117,7 @@ Route::get('services/cyber-security-training-south-africa', function () {
     return view('services.seo-landing', [
         'serviceTitle' => 'Cyber Security Training South Africa',
         'serviceIntro' => 'Our cyber security training helps institutions and businesses strengthen digital safety, awareness, and data protection practices.',
+        'metaDescription' => 'Build safer digital habits: phishing awareness, passwords, data protection, and practical security routines for staff and learners.',
         'servicePoints' => [
             'Cyber awareness for teams and learners',
             'Phishing prevention and safe online behavior',
@@ -132,6 +132,7 @@ Route::get('services/microsoft-office-productivity-training', function () {
     return view('services.seo-landing', [
         'serviceTitle' => 'Microsoft Office Productivity Training',
         'serviceIntro' => 'Build practical productivity skills in Microsoft Word, Excel, PowerPoint, and Outlook for school, college, and workplace performance.',
+        'metaDescription' => 'Word, Excel, PowerPoint, and Outlook training from foundations to advanced reporting—built for classrooms, campuses, and workplaces.',
         'servicePoints' => [
             'Beginner to advanced Office application training',
             'Reporting, spreadsheets, and document workflows',
@@ -146,6 +147,7 @@ Route::get('services/website-development-south-africa', function () {
     return view('services.seo-landing', [
         'serviceTitle' => 'Website Development South Africa',
         'serviceIntro' => 'We design and build professional websites that support visibility, credibility, and lead generation for organizations in South Africa.',
+        'metaDescription' => 'Professional, mobile-friendly websites with clear structure for search and conversions—design, build, and ongoing improvements for SA organisations.',
         'servicePoints' => [
             'Mobile-friendly and user-focused website design',
             'SEO-ready website structure and content support',
@@ -160,6 +162,7 @@ Route::get('services/it-consulting-south-africa', function () {
     return view('services.seo-landing', [
         'serviceTitle' => 'IT Consulting South Africa',
         'serviceIntro' => 'KAYISE IT consulting services help schools, colleges, and businesses choose the right technologies and improve operational efficiency.',
+        'metaDescription' => 'Practical technology planning and ICT advisory for schools, colleges, and businesses: solution selection, implementation guidance, and efficiency gains.',
         'servicePoints' => [
             'Technology planning and solution advisory',
             'Digital transformation support',
@@ -170,13 +173,12 @@ Route::get('services/it-consulting-south-africa', function () {
     ]);
 })->name('services.seo.it-consulting');
 
-Route::get('career-mapping', function () {
-    return view('career-mapping');
-})->name('career-mapping');
-
 Route::get('training-skills', TrainingSkillsController::class)->name('training-skills');
 
 Route::get('opportunities', [DashboardController::class, 'opportunities'])->name('opportunities');
+
+Route::get('programs', [App\Http\Controllers\PeopleController::class, 'publicIndex'])->name('programs');
+Route::post('programs/register', [App\Http\Controllers\PeopleController::class, 'publicStore'])->name('programs.register');
 
 // Public Announcements Page
 Route::get('announcements', [App\Http\Controllers\AnnouncementController::class, 'publicIndex'])->name('announcements');
@@ -240,7 +242,13 @@ Route::get('lms/certification', [CertificationController::class, 'showForm'])->n
 Route::post('lms/certification', [CertificationController::class, 'submit'])->name('certification.submit');
 Route::post('lms/certification/support', [CertificationController::class, 'sendSupportInquiry'])->name('certification.support')->middleware('throttle:8,1');
 Route::get('lms/certification/success', [CertificationController::class, 'success'])->name('certification.success');
-Route::get('lms/certification/download', [CertificationController::class, 'download'])->name('certification.download')->middleware('throttle:10,1');
+Route::get('lms/certification/download', [CertificationController::class, 'download'])
+    ->name('certification.download')
+    ->middleware('throttle:10,1')
+    ->withoutMiddleware([
+        \App\Http\Middleware\HandleInertiaRequests::class,
+        \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+    ]);
 
 // Student Portal - students get redirected here on login
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
@@ -292,6 +300,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/dashboard/settings', [AdminController::class, 'settings'])->name('dashboard.settings');
     Route::POST('/dashboard/settings', [AdminController::class, 'updateSettings'])->name('dashboard.settings.update');
+    Route::GET('/dashboard/nav-menu', [NavMenuController::class, 'index'])->name('dashboard.nav-menu');
+    Route::POST('/dashboard/nav-menu', [NavMenuController::class, 'store'])->name('dashboard.nav-menu.store');
+    Route::POST('/dashboard/nav-menu/reset', [NavMenuController::class, 'reset'])->name('dashboard.nav-menu.reset');
     Route::GET('/dashboard/quotations', [AdminController::class, 'quotations'])->name('dashboard.quotations');
     Route::GET('/dashboard/invoices', [AdminController::class, 'invoices'])->name('dashboard.invoices');
     Route::GET('/dashboard/viewquotations/{id}', [AdminController::class, 'viewquotations'])->name('dashboard.viewquotations');
@@ -323,6 +334,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::PUT('/dashboard/programs/update/{id}', [AdminController::class, 'updateProgram'])->name('dashboard.programs.update');
     Route::DELETE('/dashboard/programs/delete/{id}', [AdminController::class, 'deleteProgram'])->name('dashboard.programs.delete');
     Route::DELETE('/dashboard/programs/deleteSelected', [AdminController::class, 'deleteSelectedPrograms'])->name('admin.dashboard.programs.deleteSelected');
+    Route::POST('/dashboard/programs/{id}/toggle-enquiry', [AdminController::class, 'toggleProgramEnquiry'])->name('dashboard.programs.toggle-enquiry');
+
+    // People
+    Route::GET('/dashboard/people', [App\Http\Controllers\PeopleController::class, 'index'])->name('dashboard.people');
+    Route::GET('/dashboard/people/create', [App\Http\Controllers\PeopleController::class, 'create'])->name('dashboard.people.create');
+    Route::POST('/dashboard/people/store', [App\Http\Controllers\PeopleController::class, 'store'])->name('dashboard.people.store');
+    Route::GET('/dashboard/people/view/{person}', [App\Http\Controllers\PeopleController::class, 'show'])->name('dashboard.people.view');
+    Route::GET('/dashboard/people/edit/{person}', [App\Http\Controllers\PeopleController::class, 'edit'])->name('dashboard.people.edit');
+    Route::PUT('/dashboard/people/update/{person}', [App\Http\Controllers\PeopleController::class, 'update'])->name('dashboard.people.update');
+    Route::DELETE('/dashboard/people/delete/{person}', [App\Http\Controllers\PeopleController::class, 'destroy'])->name('dashboard.people.delete');
 
     // Academy (Training & Skills courses)
     Route::get('/dashboard/academy', [AcademyCourseController::class, 'index'])->name('dashboard.academy.index');
@@ -513,6 +534,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::POST('/dashboard/gallery/delete-selected', [GalleryController::class, 'bulkDestroy'])->name('dashboard.gallery.deleteSelected');
     Route::DELETE('/dashboard/gallery/category/{id}', [GalleryController::class, 'destroyCategory'])->name('dashboard.gallery.delete-category');
     Route::POST('/dashboard/gallery/{id}/set-featured', [GalleryController::class, 'setFeatured'])->name('dashboard.gallery.set-featured');
+    Route::PUT('/dashboard/gallery/{id}/homepage-section', [GalleryController::class, 'updateHomepageSection'])->name('dashboard.gallery.homepage-section');
     //download quotation&invoice PDFs
     Route::get('/dashboard/download_quotation/{id}', [QuotationController::class, 'quotationPDF'])->name('quotation.pdf');
     Route::get('/dashboard/download_invoice/{id}', [QuotationController::class, 'invoicePDF'])->name('invoice.pdf');
@@ -620,6 +642,8 @@ Route::group(['middleware' => ['auth']], function () {
     })->name('dashboard.careermapping');
     Route::delete('/occupations/{occupation}', [OccupationsController::class, 'delete'])->name('occupations.delete');
     Route::GET('/dashboard/admin_viewoccupations/{occup_id}', [OccupationsController::class, 'showadmin_viewoccupations'])->name('dashboard.admin_viewoccupations');
+    Route::get('/dashboard/careermapping/occupations/{occup_id}/edit', [OccupationsController::class, 'editOccupation'])->name('dashboard.occupations.edit');
+    Route::put('/dashboard/careermapping/occupations/{occup_id}', [OccupationsController::class, 'updateOccupation'])->name('dashboard.occupations.update');
     Route::post('addoccupation-form', [OccupationsController::class, 'addoccupation']);
     Route::post('dashboard/admin_viewoccupations/{occup_id}', [SpecializationsController::class, 'addspecialization'])->name('addspecialization');
     Route::GET('/dashboard/career_mapping/viewspecialization/{spec_id}', [SpecializationsController::class, 'showadmin_viewspecialization'])->name('dashboard.career_mapping.viewspecialization');
@@ -630,13 +654,21 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('addcareersteps-form', [CareerStepsController::class, 'addcareersteps']);
 
-    Route::get('/dashboard/career_mapping/specialization/edit/{spec_id}', function () {
-        return view('/dashboard/career_mapping/specialization/edit');
+    Route::get('/dashboard/career_mapping/specialization/edit/{spec_id}', function ($spec_id) {
+        return view('admin.dashboard.career_mapping.specialization.edit', compact('spec_id'));
     })->name('dashboard.career_mapping.specialization.edit');
 
-    Route::get('/dashboard/career_mapping/careersteps/edit/{steps_id}', function () {
-        return view('/dashboard/career_mapping/careersteps/edit');
-    });
+    Route::get('/dashboard/career_mapping/careersteps/edit/{careerstep}', [CareerStepsController::class, 'edit'])
+        ->name('dashboard.careersteps.edit');
+
+    Route::resource('/dashboard/modules', ModuleController::class)->names([
+        'index' => 'dashboard.modules.index',
+        'create' => 'dashboard.modules.create',
+        'store' => 'dashboard.modules.store',
+        'edit' => 'dashboard.modules.edit',
+        'update' => 'dashboard.modules.update',
+        'destroy' => 'dashboard.modules.destroy',
+    ])->except(['show']);
     //Carousel CRUD Routes
     Route::GET('/dashboard/carousel', [CarouselController::class, 'index'])->name('admin.dashboard.carousel');
     Route::GET('/dashboard/carousel/create', [CarouselController::class, 'create'])->name('admin.dashboard.carousel.create');
@@ -665,20 +697,25 @@ Route::group(['middleware' => ['auth']], function () {
 });
 //==================================End of Admin Controls==================================================
 
-//Events 
-Route::get('Events', function () {
+// Events (canonical lowercase URL)
+Route::get('events', function () {
     return view('Events.events');
 })->name('events');
+
+Route::permanentRedirect('Events', '/events');
 
 Route::post('subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 
 
 // Career Maps
 Route::GET('career-mapping', [OccupationsController::class, 'showoccupations'])->name('career-mapping');
-Route::GET('viewoccupations/{occup_id}', [OccupationsController::class, 'showviewoccupations'])->name('viewoccupations');
+Route::get('careers/{slug}', [OccupationsController::class, 'showCareerBySlug'])->name('careers.show');
+Route::GET('viewoccupations/{occup_id}', [OccupationsController::class, 'redirectLegacyOccupation'])->name('viewoccupations');
 Route::get('viewspecialization/{spec_id}', [SpecializationsController::class, 'showviewspecialization'])->name('viewspecialization');
 
 //Service Controller
+// Dashboard-created services use the dynamic routes below — no per-service entries needed here.
+// Hand-written SEO landing pages (e.g. services/drone-building-course-south-africa) stay as explicit routes above.
 
 Route::get('/viewservice/{slug}', [ServicesController::class, 'show'])->name('show');
 Route::get('services/{slug}/{tier}', [ServicesController::class, 'displayServiceTier'])
@@ -689,8 +726,6 @@ Route::get('services/{slug}', [ServicesController::class, 'display_service_name'
 
 
 Route::post('viewsubservice/quote', [QuotationController::class, 'quote'])->name('viewsubservice.quote');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-
 Route::post('contact/contact', [ContactController::class, 'contact'])->name('contactsubmit');
 Route::post('footer/subscribe', [ContactController::class, 'subscribe'])->name('footer.subscribe');
 
@@ -708,7 +743,8 @@ Route::get('/qr-code-generator', function () {
     return view('qr-code-generator');
 })->name('qr-code-generator');
 Route::get('/blogs/displayblog/{id}', function ($id) {
-    $blog = App\Models\Blog::where('id', $id)->first();
+    $blog = App\Models\Blog::where('id', $id)->firstOrFail();
+
     return view('blogs.displayblog', compact('blog'));
 })->name('blogs.displayblog');
 

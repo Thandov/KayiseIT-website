@@ -135,35 +135,35 @@ class CareerStepsTableSeeder extends Seeder
             [
                 
                 'occup_id' => 1,
-                'spec_id' => 2,
+                'spec_id' => 4,
                 'step_number' => 1,
                 'qualification' => 'Diploma',
             ],
             [
                 
                 'occup_id' => 1,
-                'spec_id' => 2,
+                'spec_id' => 4,
                 'step_number' => 2,
                 'qualification' => 'Bachelor\'s Degree',
             ],
             [
                 
                 'occup_id' => 1,
-                'spec_id' => 2,
+                'spec_id' => 4,
                 'step_number' => 3,
                 'qualification' => 'Internship',
             ],
             [
                 
                 'occup_id' => 1,
-                'spec_id' => 2,
+                'spec_id' => 4,
                 'step_number' => 4,
                 'qualification' => 'MCSD Certification',
             ],
             [
                 
                 'occup_id' => 1,
-                'spec_id' => 2,
+                'spec_id' => 4,
                 'step_number' => 5,
                 'qualification' => 'Scrum Certification',
             ],

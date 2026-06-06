@@ -1,58 +1,71 @@
-<x-app-layout>
-    <div x-data="{ 
-        lightbox: false, 
-        selectedImageIndex: null, 
-        images: [], 
-        selectedGallery: null, 
-        activeGalleryId: null,
-        init() {
-            // Keyboard navigation for lightbox
-            window.addEventListener('keydown', (e) => {
-                if (this.lightbox) {
-                    if (e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        this.prevImage();
-                    } else if (e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        this.nextImage();
-                    } else if (e.key === 'Escape') {
-                        e.preventDefault();
-                        this.lightbox = false;
+<x-app-layout
+    title="Project and event gallery | KAYISE IT"
+    description="See photos from KAYISE IT training sessions, launches, and community ICT and drone programmes."
+    keywords="KAYISE IT gallery, events, training photos, ICT programmes South Africa"
+>
+    <script>
+        function publicGallery() {
+            return {
+                lightbox: false,
+                selectedImageIndex: null,
+                images: [],
+                selectedGallery: null,
+                activeGalleryId: null,
+                galleries: @json($galleries ?? []),
+                assetBase: @json(rtrim(asset('/'), '/') . '/'),
+                init() {
+                    window.addEventListener('keydown', (e) => {
+                        if (!this.lightbox) {
+                            return;
+                        }
+                        if (e.key === 'ArrowLeft') {
+                            e.preventDefault();
+                            this.prevImage();
+                        } else if (e.key === 'ArrowRight') {
+                            e.preventDefault();
+                            this.nextImage();
+                        } else if (e.key === 'Escape') {
+                            e.preventDefault();
+                            this.lightbox = false;
+                        }
+                    });
+                },
+                openLightbox(galleryIndex, imageIndex) {
+                    const galleries = this.galleries;
+                    if (!galleries?.[galleryIndex]?.photos?.length) {
+                        return;
                     }
-                }
-            });
-        },
-        openLightbox(galleryIndex, imageIndex) { 
-            const galleries = {{ json_encode($galleries ?? []) }}; 
-            if (galleries && galleries[galleryIndex] && galleries[galleryIndex].photos) {
-                const gallery = galleries[galleryIndex]; 
-                this.lightbox = true; 
-                this.selectedImageIndex = imageIndex; 
-                this.images = gallery.photos.map(photo => {
-                    let path = photo.path || '';
-                    // Path is already in format "images/gallery/..." - use directly
-                    return {
-                        ...photo, 
-                        path: path ? '{{ asset('') }}' + path : '' 
-                    };
-                }); 
-                this.selectedGallery = gallery; 
-            }
-        }, 
-        nextImage() { 
-            if (this.images && this.images.length > 0) {
-                this.selectedImageIndex = (this.selectedImageIndex + 1) % this.images.length; 
-            }
-        }, 
-        prevImage() { 
-            if (this.images && this.images.length > 0) {
-                this.selectedImageIndex = (this.selectedImageIndex - 1 + this.images.length) % this.images.length; 
-            }
-        },
-        openGallery(galleryId) {
-            this.activeGalleryId = this.activeGalleryId === galleryId ? null : galleryId;
-        } 
-    }">
+                    const gallery = galleries[galleryIndex];
+                    this.lightbox = true;
+                    this.selectedImageIndex = imageIndex;
+                    this.images = gallery.photos.map((photo) => {
+                        const path = photo.path || '';
+                        return {
+                            ...photo,
+                            path: path ? this.assetBase + path : '',
+                        };
+                    });
+                    this.selectedGallery = gallery;
+                },
+                nextImage() {
+                    if (!this.images?.length) {
+                        return;
+                    }
+                    this.selectedImageIndex = (this.selectedImageIndex + 1) % this.images.length;
+                },
+                prevImage() {
+                    if (!this.images?.length) {
+                        return;
+                    }
+                    this.selectedImageIndex = (this.selectedImageIndex - 1 + this.images.length) % this.images.length;
+                },
+                openGallery(galleryId) {
+                    this.activeGalleryId = this.activeGalleryId === galleryId ? null : galleryId;
+                },
+            };
+        }
+    </script>
+    <div x-data="publicGallery()">
         
         <!-- Hero Section -->
         <x-page-hero 
@@ -80,14 +93,6 @@
                 <div 
                     class="relative group cursor-pointer"
                     @click="openGallery({{ $gallery['gallery_id'] }})"
-                    x-data="{ 
-                        isActive: false,
-                        init() {
-                            this.$watch('$store.activeGalleryId', (value) => {
-                                this.isActive = value === {{ $gallery['gallery_id'] }};
-                            });
-                        }
-                    }"
                 >
                     <!-- Folder Card with Cover Image -->
                     <div 

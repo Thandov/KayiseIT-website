@@ -1,12 +1,8 @@
-<x-app-layout>
-    @section('meta')
-    @php
-        $metaTitle = $serviceTitle . ' | KAYISE IT';
-        $metaDescription = $serviceIntro;
-        $metaKeywords = $seoPhrase . ', KAYISE IT services, technology training South Africa';
-    @endphp
-    @endsection
-
+<x-app-layout
+    :title="$serviceTitle . ' | KAYISE IT'"
+    :description="$metaDescription ?? $serviceIntro"
+    :keywords="$seoPhrase . ', KAYISE IT services, technology training South Africa'"
+>
     <x-page-hero
         :title="$serviceTitle"
         subtitle="KAYISE IT Services"

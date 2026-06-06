@@ -25,14 +25,21 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@vueuse/core": "^14.3.0",
         "animate.css": "^4.1.1",
         "aos": "^2.3.4",
         "chart.js": "^4.4.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
         "esbuild": "^0.18.14",
         "gsap": "^3.13.0",
         "jquery": "^3.7.1",
+        "lucide-vue-next": "^1.0.0",
         "owl.carousel": "^2.3.4",
+        "reka-ui": "^2.9.8",
         "sweetalert2": "^11.10.6",
+        "tailwind-merge": "^3.6.0",
+        "tailwindcss-animate": "^1.0.7",
         "watch": "^0.13.0"
     }
 }

@@ -1,8 +1,15 @@
-<x-app-layout>
+<x-app-layout title="Add blog post | Dashboard">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @include('breadcrumb')
         <h6 class=" mb-3 font-bold text-5xl md:text-2xl">Add New Post</h6>
-        @include('../admin/blogs/_blog-form', ['route' => 'dashboard.blogs.storeblog-form'])
+        <x-post-form
+            :action="route('dashboard.blogs.storeblog-form')"
+            :post="new \App\Models\Blog()"
+            buttonlinking="#"
+            buttoncolor="submit"
+            buttonshowme="store-blog-post"
+            buttonname="Publish"
+        />
     </div>
 
 </x-app-layout>

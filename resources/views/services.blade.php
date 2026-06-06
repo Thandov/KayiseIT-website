@@ -1,13 +1,8 @@
-<x-app-layout>
-  <!-- Meta tags -->
-  @section('meta')
-  @php
-  $metaTitle = "Drone Building, ICT & 4IR Skills Training in South Africa | KAYISE IT Services";
-  $metaDescription = "KAYISE IT offers drone building training, ICT skills training, 4IR technology training, cyber security training, Microsoft Office productivity training, website development, and IT consulting for schools, TVET colleges, and businesses.";
-  $metaKeywords = "drone building course South Africa, 4IR skills training, ICT training for TVET colleges, cyber security training South Africa, Microsoft Office training, website development services, IT consulting South Africa";
-  @endphp
-  @endsection
-  
+<x-app-layout
+  title="ICT training, drones, web and IT services | KAYISE IT"
+  description="Explore KAYISE IT services: drone building courses, TVET ICT training, 4IR skills, cyber security awareness, Microsoft Office productivity, website development, and IT consulting for institutions and businesses."
+  keywords="drone building course South Africa, 4IR skills training, ICT training TVET, cyber security training, Microsoft Office training, website development South Africa, IT consulting"
+>
   <!-- Hero Section -->
   <x-page-hero 
       title="Training and Technology Services" 

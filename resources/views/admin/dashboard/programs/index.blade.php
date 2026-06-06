@@ -49,6 +49,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recruitment Period</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Number Needed</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Public page</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
@@ -85,6 +86,17 @@
                                 @else
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Inactive</span>
                                 @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox"
+                                           class="enquiry-toggle rounded border-gray-300 text-kb-600 focus:ring-kb-500"
+                                           data-url="{{ route('dashboard.programs.toggle-enquiry', $program->id) }}"
+                                           {{ $program->allows_enquiry ? 'checked' : '' }}>
+                                    <span class="ml-2 text-xs font-medium enquiry-label {{ $program->allows_enquiry ? 'text-sky-700' : 'text-emerald-700' }}">
+                                        {{ $program->allows_enquiry ? 'Collecting' : 'Running' }}
+                                    </span>
+                                </label>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <a href="{{ route('dashboard.programs.view', $program->id) }}" 
@@ -183,6 +195,35 @@
                 deleteBtn.disabled = checked.length === 0;
             }
         }
+
+        document.querySelectorAll('.enquiry-toggle').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const label = this.closest('label').querySelector('.enquiry-label');
+                fetch(this.dataset.url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            checkbox.checked = data.allows_enquiry;
+                            if (label) {
+                                label.textContent = data.allows_enquiry ? 'Collecting' : 'Running';
+                                label.classList.toggle('text-sky-700', data.allows_enquiry);
+                                label.classList.toggle('text-emerald-700', !data.allows_enquiry);
+                            }
+                        }
+                    })
+                    .catch(() => {
+                        checkbox.checked = !checkbox.checked;
+                        alert('Could not update enquiry setting. Please try again.');
+                    });
+            });
+        });
 
         // Delete selected
         document.getElementById('deleteSelected')?.addEventListener('click', function() {

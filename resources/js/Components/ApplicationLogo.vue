@@ -1,3 +1,3 @@
 <template>
-    <img src="/images/kayise-logo.png" alt="KAYISE IT" />
+    <img src="/images/logo.svg" alt="KAYISE IT" />
 </template>

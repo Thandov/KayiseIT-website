@@ -24,6 +24,10 @@ class CertificateDownload extends Model
 
     public function isExpired(): bool
     {
-        return $this->expires_at && $this->expires_at->isPast();
+        if ($this->expires_at === null) {
+            return false;
+        }
+
+        return $this->expires_at->isPast();
     }
 }

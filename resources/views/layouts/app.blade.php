@@ -17,14 +17,66 @@
       gtag('config', 'G-HJTS8XQSPF');
     </script>
 
+    @php
+        $defaultMetaDescription = 'Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training.';
+        $defaultMetaKeywords = 'ICT, Technology, Computers and Information Technology, Software, IT Support, IT Company';
+        $resolvedTitle = $metaTitle ?? config('app.name', 'KAYISE IT');
+        $resolvedDescription = $metaDescription ?? $defaultMetaDescription;
+        $resolvedKeywords = $metaKeywords ?? $defaultMetaKeywords;
+        $canonicalUrl = url()->current();
+        $ogImagePath = $metaOgImage ?? 'images/banner/businessAnalyst.png';
+        $ogImageAbsolute = \Illuminate\Support\Str::startsWith($ogImagePath, ['http://', 'https://'])
+            ? $ogImagePath
+            : asset($ogImagePath);
+        $siteUrl = rtrim((string) config('app.url'), '/');
+        $organizationLd = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'KAYISE IT',
+            'url' => $siteUrl ?: url('/'),
+            'logo' => asset('images/logo.svg'),
+            'email' => 'info@kayiseit.com',
+            'telephone' => '+27-87-702-2625',
+            'sameAs' => [
+                'https://www.facebook.com/KAYISEIT?mibextid=ZbWKwL',
+                'https://instagram.com/kayiseit?igshid=ZDdkNTZiNTM=',
+                'https://www.linkedin.com/company/kayise-it/',
+                'https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw',
+            ],
+        ];
+    @endphp
+
     <!-- SEO META TAGS -->
-    <title>{{ $metaTitle ?? config('app.name', 'Kayise IT') }}</title>
-    <meta name="description" content="{{ $metaDescription ?? 'Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training.' }}">
-    <meta name="keywords" content="{{ $metaKeywords ?? 'ICT, Technology, Computers and Information Technology, Software, IT Support, IT Company' }}">
-    <link rel="icon" type="image/png" href="{{ asset('images/kayise-logo.png') }}">
-    
+    <title>{{ $resolvedTitle }}</title>
+    <meta name="description" content="{{ e($resolvedDescription) }}">
+    @if($resolvedKeywords !== '')
+        <meta name="keywords" content="{{ e($resolvedKeywords) }}">
+    @endif
+    @if(!empty($metaNoindex))
+        <meta name="robots" content="noindex,follow">
+    @endif
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ config('app.name', 'KAYISE IT') }}">
+    <meta property="og:title" content="{{ e($resolvedTitle) }}">
+    <meta property="og:description" content="{{ e($resolvedDescription) }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:image" content="{{ $ogImageAbsolute }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ e($resolvedTitle) }}">
+    <meta name="twitter:description" content="{{ e($resolvedDescription) }}">
+    <meta name="twitter:image" content="{{ $ogImageAbsolute }}">
+
+    <script type="application/ld+json">{!! json_encode($organizationLd, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}</script>
+
+    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
+
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="{{ url('/sitemap.xml') }}">
+
+    @stack('meta')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">

@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <h3 class="text-lg font-semibold text-gray-900">Featured Gallery on Homepage</h3>
-                    <p class="text-sm text-gray-600">Select which gallery appears in the "Placements & Internships" section</p>
+                    <p class="text-sm text-gray-600">Select which gallery appears on the homepage. The gallery name and description (edit via Gallery → Edit) are shown as the section heading and text.</p>
                 </div>
             </div>
             <div class="flex items-center space-x-4">
@@ -60,6 +60,19 @@
                 </select>
             </div>
         </div>
+        @if($featuredGallery)
+        <div class="mt-6 pt-6 border-t border-kb-200">
+            <p class="text-sm font-medium text-gray-700 mb-2">Homepage preview</p>
+            <div class="bg-white rounded-lg px-4 py-3 border border-kb-300">
+                <p class="text-lg font-bold text-gray-900">{{ $featuredGallery->name }}</p>
+                @if($featuredGallery->description)
+                <p class="text-sm text-gray-600 mt-1">{{ $featuredGallery->description }}</p>
+                @else
+                <p class="text-sm text-gray-400 mt-1 italic">No description — add one when editing this gallery.</p>
+                @endif
+            </div>
+        </div>
+        @endif
     </div>
 
     <!-- Action Bar -->

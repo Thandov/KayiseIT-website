@@ -30,6 +30,7 @@ class InternshipProgram extends Model
         'requirements',
         'qr_code_path',
         'is_active',
+        'allows_enquiry',
     ];
 
     protected $casts = [
@@ -41,6 +42,7 @@ class InternshipProgram extends Model
         'has_accreditation' => 'boolean',
         'youth_beneficiaries' => 'boolean',
         'is_active' => 'boolean',
+        'allows_enquiry' => 'boolean',
         'stipend_amount' => 'decimal:2',
     ];
 
@@ -72,6 +74,38 @@ class InternshipProgram extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeEnquiryEnabled($query)
+    {
+        return $query->active()->where('allows_enquiry', true);
+    }
+
+    /** Programmes collecting interest before official launch (shown on /programs for enquiry). */
+    public function scopeCollectingEnquiries($query)
+    {
+        return $query->enquiryEnabled()->orderBy('name');
+    }
+
+    /** Programmes actively running (shown on /programs as live). */
+    public function scopeActivelyRunning($query)
+    {
+        return $query->active()->where('allows_enquiry', false)->orderBy('name');
+    }
+
+    public function isCollectingEnquiries(): bool
+    {
+        return $this->is_active && $this->allows_enquiry;
+    }
+
+    public function isActivelyRunning(): bool
+    {
+        return $this->is_active && ! $this->allows_enquiry;
+    }
+
+    public function people()
+    {
+        return $this->hasMany(Person::class, 'internship_program_id');
     }
 
     // Scope for currently recruiting programs

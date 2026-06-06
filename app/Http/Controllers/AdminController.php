@@ -825,19 +825,22 @@ class AdminController extends Controller
     {
         try {
             $selectedIds = json_decode($request->input('selected_ids'));
-            
+
             if (empty($selectedIds)) {
                 return redirect()->back()->with('warning', 'No services selected for deletion.');
             }
-            
+
             $count = Service::whereIn('id', $selectedIds)->count();
-            Service::whereIn('id', $selectedIds)->delete();
-            
+
+            DB::transaction(function () use ($selectedIds) {
+                Service::whereIn('id', $selectedIds)->get()->each->delete();
+            });
+
             return redirect()->route('dashboard.services')
-                ->with('success', $count . ' service(s) deleted successfully.');
+                ->with('success', $count.' service(s) deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->route('dashboard.services')
-                ->with('error', 'Failed to delete services: ' . $e->getMessage());
+                ->with('error', 'Failed to delete services: '.$e->getMessage());
         }
     }
 
@@ -1061,6 +1064,7 @@ class AdminController extends Controller
             'youth_beneficiaries' => 'boolean',
             'requirements' => 'required|string',
             'is_active' => 'boolean',
+            'allows_enquiry' => 'boolean',
         ]);
 
         $programData = [
@@ -1080,6 +1084,7 @@ class AdminController extends Controller
             'youth_beneficiaries' => $validatedData['youth_beneficiaries'] ?? false,
             'requirements' => $validatedData['requirements'],
             'is_active' => $validatedData['is_active'] ?? true,
+            'allows_enquiry' => $validatedData['allows_enquiry'] ?? false,
         ];
 
         InternshipProgram::create($programData);
@@ -1121,11 +1126,34 @@ class AdminController extends Controller
             'youth_beneficiaries' => 'boolean',
             'requirements' => 'required|string',
             'is_active' => 'boolean',
+            'allows_enquiry' => 'boolean',
         ]);
 
-        $program->update($validatedData);
+        $program->update([
+            ...$validatedData,
+            'has_stipend' => $validatedData['has_stipend'] ?? false,
+            'has_accreditation' => $validatedData['has_accreditation'] ?? false,
+            'youth_beneficiaries' => $validatedData['youth_beneficiaries'] ?? false,
+            'is_active' => $validatedData['is_active'] ?? false,
+            'allows_enquiry' => $validatedData['allows_enquiry'] ?? false,
+        ]);
 
         return redirect()->route('dashboard.programs')->with('success', 'Program updated successfully.');
+    }
+
+    public function toggleProgramEnquiry($id)
+    {
+        $program = InternshipProgram::findOrFail($id);
+        $program->allows_enquiry = ! $program->allows_enquiry;
+        $program->save();
+
+        return response()->json([
+            'success' => true,
+            'allows_enquiry' => $program->allows_enquiry,
+            'message' => $program->allows_enquiry
+                ? 'Program is now collecting interest on the public Programmes page.'
+                : 'Program is marked as actively running on the public Programmes page.',
+        ]);
     }
 
     public function deleteProgram($id)

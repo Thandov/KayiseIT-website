@@ -1,13 +1,8 @@
-<x-app-layout>
-  <!-- Meta tags -->
-  @section('meta')
-  @php
-  $metaTitle = "About - Profitable IT Solutions & Youth Development";
-  $metaDescription = "KAYISE IT: A profitable technology company delivering enterprise IT solutions while developing South Africa's next generation of tech talent through comprehensive training and internship programs.";
-  $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa, Youth Development, Internship Programs, Corporate Social Responsibility";
-  @endphp
-  @endsection
-  <!-- Page Body -->
+<x-app-layout
+  title="About KAYISE IT | ICT, software and youth skills"
+  description="Learn how KAYISE IT combines enterprise ICT delivery with skills development, internships, and community-focused technology programmes across South Africa."
+  keywords="KAYISE IT, about, ICT company South Africa, software development, youth skills, internships"
+>
   <!-- Hero Section -->
   <x-page-hero 
       title="About Us" 

@@ -22,7 +22,7 @@
                 <!-- Logo & Brand -->
                 <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                     <div class="flex items-center space-x-3">
-                        <img src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" class="h-9 w-auto object-contain">
+                        <img src="{{ asset('images/logo.svg') }}" alt="KAYISE IT" class="h-9 w-auto object-contain">
                         <h2 class="text-xl font-bold text-gray-900">KayiseIT</h2>
                     </div>
                     <button @click="sidebarOpen = false" class="md:hidden text-gray-500 hover:text-gray-700">

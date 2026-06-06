@@ -11,10 +11,20 @@ window.gsap = gsap;
 
 import Alpine from 'alpinejs';
 import { getKayiseChatbotResponse } from './chatbotResponses';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 window.Alpine = Alpine;
 
 Alpine.start();
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+AOS.init({
+    once: true,
+    duration: 600,
+    offset: 40,
+    disable: prefersReducedMotion,
+});
 
 function callback(event) {
     removeSliderClass(event);

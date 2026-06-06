@@ -1,4 +1,8 @@
-<x-app-layout title="Congratulations!">
+<x-app-layout
+    title="Certificate ready | KAYISE IT"
+    description="Your KAYISE IT certificate is ready to download."
+    :noindex="true"
+>
     <style>
         @keyframes pop-in {
             from { opacity: 0; transform: scale(0.8); }

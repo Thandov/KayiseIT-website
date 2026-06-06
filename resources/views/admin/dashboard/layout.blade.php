@@ -20,7 +20,7 @@
     <title>{{ $pageTitle ?? 'Gallery Management - Kayise IT Dashboard' }}</title>
     <meta name="description" content="Gallery Management Dashboard">
     <meta name="keywords" content="gallery, dashboard, admin">
-    <link rel="icon" type="image/png" href="{{ asset('images/kayise-logo.png') }}">
+    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
 
     <!-- Tailwind CSS - Loaded first for admin panels -->
     <script src="https://cdn.tailwindcss.com"></script>

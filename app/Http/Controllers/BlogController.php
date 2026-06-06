@@ -33,6 +33,8 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'content' => 'required|string',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:2000',
         ]);
 
         $profilePicture = "";
@@ -58,7 +60,9 @@ class BlogController extends Controller
         $blog->title = $request->title;
         $blog->subtitle = $request->subtitle;
         $blog->content = $request->content;
-        $blog->category_no = 1;
+        $blog->category_no = $request->filled('subtitle2') ? (int) $request->subtitle2 : 1;
+        $blog->meta_title = $request->input('meta_title');
+        $blog->meta_description = $request->input('meta_description');
         $blog->save();
         $blogs = Blog::all();
         return redirect()->route('blogs');
@@ -72,7 +76,13 @@ class BlogController extends Controller
 
     public function updateblog(Request $request, $id)
     {
-       
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string|max:255',
+            'content' => 'required|string',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:2000',
+        ]);
 
         // Find the blog by its ID
         $blog = Blog::findOrFail($id);
@@ -80,6 +90,9 @@ class BlogController extends Controller
         $newTitle = $request->input('title');
         $newSubtitle = $request->input('subtitle');
         $newContent = $request->input('content');
+        $newMetaTitle = $request->input('meta_title');
+        $newMetaDescription = $request->input('meta_description');
+        $newCategory = $request->input('subtitle2');
 
         // Check if any of the values have changed
         $hasChanged = false;
@@ -97,6 +110,22 @@ class BlogController extends Controller
             $blog->content = $newContent;
             $hasChanged = true;
         }
+
+        if (($blog->meta_title ?? null) !== $newMetaTitle) {
+            $blog->meta_title = $newMetaTitle;
+            $hasChanged = true;
+        }
+
+        if (($blog->meta_description ?? null) !== $newMetaDescription) {
+            $blog->meta_description = $newMetaDescription;
+            $hasChanged = true;
+        }
+
+        if ($request->filled('subtitle2') && (string) $blog->category_no !== (string) $newCategory) {
+            $blog->category_no = (int) $newCategory;
+            $hasChanged = true;
+        }
+
         $name = $request->title;
 
         if ($request->hasFile('profile_picture') && !empty($request->hasFile('profile_picture'))) {

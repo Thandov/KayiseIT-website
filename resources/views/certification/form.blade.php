@@ -1,4 +1,8 @@
-<x-app-layout title="Request Your Certificate">
+<x-app-layout
+    title="Download your training certificate | KAYISE IT"
+    description="Enter your learner details to verify eligibility and download your KAYISE IT training certificate as a PDF."
+    keywords="KAYISE IT certificate, training certificate download, learner certificate"
+>
     @php
         /** @var \Illuminate\Support\ViewErrorBag $errors */
         $errors = $errors ?? new \Illuminate\Support\ViewErrorBag;

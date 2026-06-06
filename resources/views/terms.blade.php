@@ -1,4 +1,8 @@
-<x-app-layout>
+<x-app-layout
+    title="Terms and conditions | KAYISE IT"
+    description="Terms and conditions for using KAYISE IT websites, services, and training programmes."
+    keywords="KAYISE IT terms, legal, conditions of use"
+>
     <div class="container p-5" id="terms">
         <div class="row justify-content-center">
             <div class="col-md-10">

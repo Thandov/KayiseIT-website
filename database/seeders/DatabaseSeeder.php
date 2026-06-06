@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call(OccupationsTableSeeder::class);
         $this->call(SpecializationsTableSeeder::class);
         $this->call(CareerStepsTableSeeder::class);
+        $this->call(CareerMappingEnrichmentSeeder::class);
+        $this->call(ModulesTableSeeder::class);
+        $this->call(CareerStepModuleTableSeeder::class);
         $this->call(AdminUserSeeder::class);
         $this->call(CarouselSeeder::class);
         $this->call(AcademyCoursesSeeder::class);

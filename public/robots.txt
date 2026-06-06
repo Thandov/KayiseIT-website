@@ -9,6 +9,7 @@ Disallow: /dashboard/
 Disallow: /admin/
 Disallow: /profile/
 Disallow: /checkout/
+Disallow: /lms/certification/success
 
 # Allow important public pages
 Allow: /
@@ -20,3 +21,6 @@ Allow: /blogs
 Allow: /career-mapping
 Allow: /opportunities
 Allow: /announcements
+Allow: /training-skills
+Allow: /events
+Allow: /lms/certification

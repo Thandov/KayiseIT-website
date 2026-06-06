@@ -10,8 +10,9 @@ use App\Models\CertificateDownload;
 use App\Services\CertificateEligibilityService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Throwable;
 
 class CertificationController extends Controller
 {
@@ -243,31 +244,60 @@ class CertificationController extends Controller
      */
     public function download(Request $request)
     {
-        GenerateCertificateJob::configureCertificateDiskRoot();
+        try {
+            GenerateCertificateJob::configureCertificateDiskRoot();
 
-        $token = trim((string) $request->query('token', ''));
-        if ($token === '') {
-            return redirect()->route('certification.form')->with('error', 'Invalid download link.');
+            $token = trim((string) $request->query('token', ''));
+            if ($token === '') {
+                return redirect()->route('certification.form')->with('error', 'Invalid download link.');
+            }
+
+            $download = CertificateDownload::where('download_token', $token)->first();
+            if ($download === null || $download->isExpired()) {
+                return redirect()->route('certification.form')->with('error', 'This download link has expired or is invalid.');
+            }
+
+            $relative = (string) $download->storage_path;
+            $absolute = GenerateCertificateJob::resolveStoredCertificateAbsolutePath($relative);
+            if ($absolute === null) {
+                \Log::error('Certificate file missing for token', ['token_prefix' => substr($token, 0, 8)]);
+
+                return redirect()->route('certification.form')->with('error', 'Certificate not found.');
+            }
+
+            if (! is_readable($absolute)) {
+                \Log::error('Certificate PDF not readable', [
+                    'token_prefix' => substr($token, 0, 8),
+                    'path' => $absolute,
+                ]);
+
+                return redirect()->route('certification.form')->with('error', 'Certificate not found.');
+            }
+
+            // Read here (inside try/catch). BinaryFileResponse streams on send(), so open/read
+            // errors after the controller returns would still surface as a 500 otherwise.
+            $content = @file_get_contents($absolute);
+            if ($content === false || $content === '') {
+                \Log::error('Certificate PDF could not be read', ['token_prefix' => substr($token, 0, 8)]);
+
+                return redirect()->route('certification.form')->with('error', 'Certificate not found.');
+            }
+
+            $rawName = basename(str_replace('\\', '/', $relative));
+            $filename = Str::ascii($rawName);
+            $filename = $filename !== '' ? str_replace(["\0", '"', "\r", "\n"], '', $filename) : 'certificate.pdf';
+
+            return response($content, 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+            ]);
+        } catch (Throwable $e) {
+            \Log::error('Certificate download failed', [
+                'token_prefix' => substr((string) $request->query('token', ''), 0, 8),
+                'exception' => $e->getMessage(),
+            ]);
+
+            return redirect()->route('certification.form')->with('error', 'Could not download your certificate. Please try again or contact support.');
         }
-
-        $download = CertificateDownload::where('download_token', $token)->first();
-        if ($download === null || $download->isExpired()) {
-            return redirect()->route('certification.form')->with('error', 'This download link has expired or is invalid.');
-        }
-
-        $disk = config('certificates.storage_disk', 'certificates_local');
-        $relative = $download->storage_path;
-        if ($relative === '' || ! Storage::disk($disk)->exists($relative)) {
-            \Log::error('Certificate file missing for token', ['token_prefix' => substr($token, 0, 8)]);
-
-            return redirect()->route('certification.form')->with('error', 'Certificate not found.');
-        }
-
-        $absolute = Storage::disk($disk)->path($relative);
-        $filename = basename($relative);
-
-        return response()->download($absolute, $filename, [
-            'Content-Type' => 'application/pdf',
-        ]);
     }
 }

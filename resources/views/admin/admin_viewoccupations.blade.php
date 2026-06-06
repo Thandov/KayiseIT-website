@@ -13,7 +13,11 @@
                         <img class="h-28 w-auto rounded-md mx-auto" src="{{ asset('images/occupations_logo/'.$occupations->image) }}">
                     </div>
                     <h3 class="text-center font-bold text-4xl my-4">{{ $occupations->occupation_name }}</h3>
-                    <button id="spec-btn" class="inline-flex items-center mb-4 px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Specialization</button>
+                    <div class="flex flex-wrap justify-center gap-2 mb-4">
+                        <a href="{{ route('dashboard.occupations.edit', $occupations->occup_id) }}"
+                           class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700">Edit occupation details</a>
+                        <button id="spec-btn" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Specialization</button>
+                    </motion>
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>

@@ -67,6 +67,7 @@ class DashboardController extends Controller
         $blog = collect();
         $galleries = [];
         $featuredGalleryPhotos = [];
+        $featuredGallery = null;
         $announcements = collect();
         $partners = collect();
         $products = collect();
@@ -92,11 +93,10 @@ class DashboardController extends Controller
         }
 
         try {
-            // Get featured gallery for homepage
             $featuredGallery = Gallery::where('featured_on_homepage', true)
                 ->with('photos')
                 ->first();
-            
+
             if ($featuredGallery && $featuredGallery->photos) {
                 $allPhotos = $featuredGallery->photos->map(function($photo) {
                     // Normalize path: convert old "gallery/..." to "images/gallery/..." for consistency
@@ -204,7 +204,7 @@ class DashboardController extends Controller
             Log::error('Home page: Failed to load carousel slides - '.$e->getMessage());
         }
 
-        return view('home', compact('services', 'testimonials', 'blog', 'galleries', 'featuredGalleryPhotos', 'announcements', 'partners', 'products', 'carouselSlides'));
+        return view('home', compact('services', 'testimonials', 'blog', 'galleries', 'featuredGallery', 'featuredGalleryPhotos', 'announcements', 'partners', 'products', 'carouselSlides'));
     }
 
     public function opportunities()

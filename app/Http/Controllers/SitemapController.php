@@ -24,6 +24,14 @@ class SitemapController extends Controller
             ['url' => 'about', 'priority' => '0.8', 'changefreq' => 'monthly'],
             ['url' => 'contact', 'priority' => '0.8', 'changefreq' => 'monthly'],
             ['url' => 'services', 'priority' => '0.9', 'changefreq' => 'weekly'],
+            ['url' => 'training-skills', 'priority' => '0.85', 'changefreq' => 'weekly'],
+            ['url' => 'services/drone-building-course-south-africa', 'priority' => '0.85', 'changefreq' => 'monthly'],
+            ['url' => 'services/ict-training-for-tvet-colleges', 'priority' => '0.85', 'changefreq' => 'monthly'],
+            ['url' => 'services/4ir-skills-training', 'priority' => '0.85', 'changefreq' => 'monthly'],
+            ['url' => 'services/cyber-security-training-south-africa', 'priority' => '0.85', 'changefreq' => 'monthly'],
+            ['url' => 'services/microsoft-office-productivity-training', 'priority' => '0.85', 'changefreq' => 'monthly'],
+            ['url' => 'services/website-development-south-africa', 'priority' => '0.85', 'changefreq' => 'monthly'],
+            ['url' => 'services/it-consulting-south-africa', 'priority' => '0.85', 'changefreq' => 'monthly'],
             ['url' => 'gallery', 'priority' => '0.7', 'changefreq' => 'weekly'],
             ['url' => 'career-mapping', 'priority' => '0.8', 'changefreq' => 'monthly'],
             ['url' => 'opportunities', 'priority' => '0.8', 'changefreq' => 'weekly'],
@@ -81,6 +89,12 @@ class SitemapController extends Controller
         } catch (\Throwable $e) {
             // Silently fail if database is unavailable
         }
+
+        $urlsByLoc = [];
+        foreach ($urls as $entry) {
+            $urlsByLoc[$entry['loc']] = $entry;
+        }
+        $urls = array_values($urlsByLoc);
 
         // Generate XML
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";

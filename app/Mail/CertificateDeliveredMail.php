@@ -2,11 +2,11 @@
 
 namespace App\Mail;
 
+use App\Jobs\GenerateCertificateJob;
 use App\Models\CertificateDownload;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
 
 class CertificateDeliveredMail extends Mailable
 {
@@ -19,9 +19,12 @@ class CertificateDeliveredMail extends Mailable
 
     public function build(): self
     {
-        $disk = config('certificates.storage_disk', 'certificates_local');
+        GenerateCertificateJob::configureCertificateDiskRoot();
         $relative = (string) $this->download->storage_path;
-        $absolute = $relative !== '' ? Storage::disk($disk)->path($relative) : '';
+        $absolute = $relative !== ''
+            ? GenerateCertificateJob::resolveStoredCertificateAbsolutePath($relative)
+            : null;
+        $absolute = $absolute ?? '';
 
         $displayName = trim(trim((string) $this->download->name) . ' ' . trim((string) $this->download->surname));
         if ($displayName === '') {

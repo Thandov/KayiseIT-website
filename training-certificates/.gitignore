@@ -8,3 +8,6 @@ __pycache__/
 .mypy_cache/
 .env
 .env.*
+
+# Ephemeral JPEG written while flattening partner SVG for ReportLab
+logo/_partner_logo_render.jpg

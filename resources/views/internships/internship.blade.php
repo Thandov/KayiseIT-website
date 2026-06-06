@@ -1,13 +1,9 @@
-<x-app-layout>
+<x-app-layout
+    title="Internship programme | KAYISE IT"
+    description="Learn about the KAYISE IT internship programme: who it is for, what you will work on, and how to apply for hands-on ICT experience."
+    keywords="KAYISE IT internship, ICT internship South Africa, Mbombela, software internship"
+>
     <section id="hero-banner">
-        <!-- Meta tags -->
-        @section('meta')
-        @php
-        $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
-        $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
-        $metaKeywords = "IT Company, drones, kayiseit, kayise, mictseta, stem, robotics, science, technology, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
-        @endphp
-        @endsection
         <x-hero-banner hero="drone-hero" title="2024/2025 Internship Programme" />
     </section>
 

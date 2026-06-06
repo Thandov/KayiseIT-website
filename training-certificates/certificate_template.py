@@ -5,6 +5,7 @@ double red border, Times (serif) fonts, same layout as the reference.
 """
 
 import io
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -20,7 +21,15 @@ LOGO_DIR = BASE_DIR / "logo"
 SIGNATURE_DIR = BASE_DIR / "signature"
 UNISA_LOGO_PATH = LOGO_DIR / "unisa.jpg"
 NYDA_LOGO_PATH = LOGO_DIR / "nyda.jpg"
-KAYISE_LOGO_PATH = LOGO_DIR / "logo_sm.png"  # partner logo
+KAYISE_LOGO_PATH = LOGO_DIR / "logo.svg"  # source artwork (embedded raster); PDF uses logo_opaque.jpg when present
+PARTNER_LOGO_OPAQUE_JPEG = LOGO_DIR / "logo_opaque.jpg"  # flattened on white — avoids ReportLab PNG alpha "black box"
+
+
+def _partner_logo_path() -> Path:
+    """Prefer committed opaque JPEG (works without Pillow); else SVG (requires Pillow to flatten)."""
+    if PARTNER_LOGO_OPAQUE_JPEG.is_file():
+        return PARTNER_LOGO_OPAQUE_JPEG
+    return KAYISE_LOGO_PATH
 
 def _find_signature_image() -> Optional[Path]:
     """Use image from signature folder (e.g. signature/signature.jpg)."""
@@ -124,6 +133,30 @@ NQF_LEVEL = "4"
 DEFAULT_COURSE = "BUSINESS ESSENTIALS FOR ENTREPRENEURS"
 
 
+def _image_reader_flatten_white(path: Path) -> Optional[ImageReader]:
+    """Composite every pixel onto opaque white, then JPEG for ReportLab (PNG+mask='auto' can render as a black box)."""
+    try:
+        from logo_assets import flatten_logo_on_white_jpeg_bytes
+    except ImportError:
+        sys.stderr.write(
+            "certificate_template: logo_assets missing (keep logo_assets.py next to this script)\n"
+        )
+        return None
+    try:
+        jpeg_bytes = flatten_logo_on_white_jpeg_bytes(path)
+        buf = io.BytesIO(jpeg_bytes)
+        buf.seek(0)
+        return ImageReader(buf)
+    except ImportError:
+        sys.stderr.write(
+            "certificate_template: Pillow missing; cannot flatten partner logo (install Pillow)\n"
+        )
+        return None
+    except Exception as e:
+        sys.stderr.write(f"certificate_template: could not flatten logo {path}: {e}\n")
+        return None
+
+
 def draw_double_border(c: canvas.Canvas):
     """Draw double border to match reference: outer then inner."""
     c.setStrokeColorRGB(*BLACK)
@@ -134,6 +167,17 @@ def draw_double_border(c: canvas.Canvas):
     c.rect(INNER, INNER, INNER_W, INNER_H, stroke=1, fill=0)
 
 
+def _fill_white_rect(c: canvas.Canvas, x_center: float, y_bottom: float, box_w: float, box_h: float) -> None:
+    """Paint allocation box white (isolates logo from prior canvas fill/stroke colour)."""
+    x = x_center - box_w / 2
+    y = y_bottom - box_h
+    c.saveState()
+    c.setFillColorRGB(1, 1, 1)
+    c.setStrokeColorRGB(1, 1, 1)
+    c.rect(x, y, box_w, box_h, stroke=0, fill=1)
+    c.restoreState()
+
+
 def _draw_image_in_rect(
     c: canvas.Canvas,
     path: Path,
@@ -142,21 +186,50 @@ def _draw_image_in_rect(
     box_w: float,
     box_h: float,
     use_alpha: bool = False,
+    flatten_on_white: bool = False,
 ) -> bool:
-    """Draw image centered in a fixed box. Scale to fit, preserve aspect. If use_alpha True, PNG transparency is respected (mask='auto')."""
+    """Draw image centered in a fixed box. Scale to fit, preserve aspect.
+    If flatten_on_white, composite on white then draw opaque image (recommended for partner logo).
+    Else if use_alpha True, PNG transparency is respected (mask='auto')."""
     if not path.exists():
         return False
     try:
-        img = ImageReader(str(path))
+        img: ImageReader
+        if flatten_on_white:
+            flat = _image_reader_flatten_white(path)
+            if flat is not None:
+                img = flat
+                use_alpha = False
+            else:
+                # Never use mask='auto' here: ReportLab renders PNG/SVG transparency as a solid black rectangle.
+                # Prefer logo_opaque.jpg committed next to logo.svg; otherwise only opaque JPEG fallback.
+                if path.suffix.lower() in (".jpg", ".jpeg"):
+                    try:
+                        img = ImageReader(str(path))
+                        use_alpha = False
+                    except Exception:
+                        return False
+                else:
+                    return False
+        else:
+            img = ImageReader(str(path))
         iw, ih = img.getSize()
         scale = min(box_w / iw, box_h / ih)
         w, h = iw * scale, ih * scale
         x = x_center - w / 2
         y = y_bottom - h
         if use_alpha:
-            c.drawImage(img, x, y, width=w, height=h, mask="auto")
+            c.drawImage(
+                img,
+                x,
+                y,
+                width=w,
+                height=h,
+                mask="auto",
+                preserveAspectRatio=True,
+            )
         else:
-            c.drawImage(img, x, y, width=w, height=h)
+            c.drawImage(img, x, y, width=w, height=h, preserveAspectRatio=True)
         return True
     except Exception:
         return False
@@ -294,7 +367,7 @@ def draw_signature_block(c: canvas.Canvas, date_issued: str, cert_no: str, manag
 
 
 def draw_footer_logos(c: canvas.Canvas) -> None:
-    """Draw all footer logos from logo folder: NYDA (left), partner logo_sm (right)."""
+    """Draw all footer logos from logo folder: NYDA (left), partner logo.svg (right)."""
     if NYDA_LOGO_PATH.exists():
         _draw_image_in_rect(
             c, NYDA_LOGO_PATH,
@@ -305,10 +378,25 @@ def draw_footer_logos(c: canvas.Canvas) -> None:
         c.setFillColorRGB(*BLACK)
         c.setFont("Helvetica", 8)
         c.drawString(NYDA_LEFT_PT, NYDA_BOTTOM_PT, "NATIONAL YOUTH DEVELOPMENT AGENCY")
-    if KAYISE_LOGO_PATH.exists():
+    partner_path = _partner_logo_path()
+    if partner_path.exists():
         kayise_center_x = KAYISE_RIGHT_PT - KAYISE_W_PT / 2
         y_bottom = KAYISE_BOTTOM_PT + KAYISE_H_PT
-        _draw_image_in_rect(c, KAYISE_LOGO_PATH, kayise_center_x, y_bottom, KAYISE_W_PT, KAYISE_H_PT, use_alpha=True)
+        # White backing + avoid Pillow/BytesIO JPEG round-trip for committed logo_opaque.jpg
+        # (ReportLab can mis-render some in-memory JPEG masks as solid black).
+        _fill_white_rect(c, kayise_center_x, y_bottom, KAYISE_W_PT, KAYISE_H_PT)
+        use_flatten = partner_path.suffix.lower() not in (".jpg", ".jpeg")
+        if not _draw_image_in_rect(
+            c,
+            partner_path,
+            kayise_center_x,
+            y_bottom,
+            KAYISE_W_PT,
+            KAYISE_H_PT,
+            flatten_on_white=use_flatten,
+        ):
+            c.setFont("Helvetica-Bold", 9)
+            c.drawString(KAYISE_RIGHT_PT - 50, KAYISE_BOTTOM_PT + 10, "KAYISE IT")
     else:
         c.setFont("Helvetica-Bold", 9)
         c.drawString(KAYISE_RIGHT_PT - 50, KAYISE_BOTTOM_PT + 10, "KAYISE IT")
@@ -316,8 +404,8 @@ def draw_footer_logos(c: canvas.Canvas) -> None:
 
 def build_certificate(
     output_path: Path,
-    full_name: str = "ZANELE SPHIWE KHOZA",
-    id_number: str = "0605280788080",
+    full_name: str = "RECIPIENT NAME",
+    id_number: str = "0000000000000",
     course: str = DEFAULT_COURSE,
     date_issued: str = "20/10/2025",
     certificate_no: str = "UE25401",
@@ -359,17 +447,20 @@ def main():
     parser.add_argument("--logo-path", help=argparse.SUPPRESS)
     parser.add_argument("--date", default="20/10/2025", help="Date of issue (dd/mm/yyyy)")
     parser.add_argument("--single", action="store_true", help="Generate single sample certificate only")
+    parser.add_argument("--name", default="RECIPIENT NAME", help="Recipient full name (single mode only)")
+    parser.add_argument("--id-number", default="0000000000000", help="Recipient ID number (single mode only)")
+    parser.add_argument("--cert-no", default="UE25401", help="Certificate number (single mode only)")
     args = parser.parse_args()
 
     if args.single or not args.csv_files:
         out = base / "Certificate_UNISA_Enterprise_template.pdf"
         build_certificate(
             out,
-            full_name="ZANELE SPHIWE KHOZA",
-            id_number="0605280788080",
+            full_name=args.name,
+            id_number=args.id_number,
             course=args.course,
             date_issued=args.date,
-            certificate_no="UE25401",
+            certificate_no=args.cert_no,
         )
         print(f"Saved: {out}")
         return

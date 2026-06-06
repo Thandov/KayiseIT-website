@@ -44,7 +44,7 @@ class GenerateCertificateJob
             $pythonBinary = str_replace('/', '\\', $pythonBinary);
         }
 
-        $disk = config('certificates.storage_disk', 'certificates_local');
+        $disk = self::effectiveCertificateStorageDisk();
         $tempSubdir = config('certificates.temp_subdir', 'certificates/temp');
         $outputSubdir = config('certificates.output_subdir', 'certificates/output');
 
@@ -153,16 +153,74 @@ class GenerateCertificateJob
     }
 
     /**
+     * Normalised disk name for certificate PDFs (must be a configured local disk).
+     */
+    public static function effectiveCertificateStorageDisk(): string
+    {
+        $name = trim((string) config('certificates.storage_disk', 'certificates_local'));
+        if ($name === '') {
+            $name = 'certificates_local';
+        }
+
+        $driver = config("filesystems.disks.{$name}.driver");
+        if ($driver !== 'local' || ! is_array(config("filesystems.disks.{$name}"))) {
+            return 'certificates_local';
+        }
+
+        return $name;
+    }
+
+    /**
+     * Resolve a PDF written under any certificate root (storage/app, disk_root, temp fallbacks).
+     */
+    public static function resolveStoredCertificateAbsolutePath(string $relative): ?string
+    {
+        $relative = trim($relative);
+        if ($relative === '') {
+            return null;
+        }
+
+        self::configureCertificateDiskRoot();
+        $disk = self::effectiveCertificateStorageDisk();
+
+        $primary = Storage::disk($disk)->path($relative);
+        if (is_file($primary)) {
+            return $primary;
+        }
+
+        $norm = ltrim(str_replace('\\', '/', $relative), '/');
+        $sep = DIRECTORY_SEPARATOR;
+        $tail = str_replace('/', $sep, $norm);
+
+        $candidates = [];
+        $candidates[] = rtrim(storage_path('app'), '/\\') . $sep . $tail;
+
+        $diskRoot = config('certificates.disk_root');
+        if (is_string($diskRoot) && $diskRoot !== '') {
+            $candidates[] = rtrim($diskRoot, '/\\') . $sep . $tail;
+        }
+
+        $hash = md5((string) storage_path('app'));
+        $candidates[] = rtrim(sys_get_temp_dir(), '/\\') . $sep . 'kayiseit-certs-' . $hash . $sep . $tail;
+        $candidates[] = '/var/tmp/kayiseit-certs-' . $hash . $sep . $tail;
+
+        foreach ($candidates as $abs) {
+            if (is_file($abs)) {
+                return $abs;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * When storage/app hits disk quota, use a deterministic temp-dir root so PDF
      * generation and download still resolve the same paths (see config/filesystems
      * disk certificates_local).
      */
     public static function configureCertificateDiskRoot(): void
     {
-        $disk = (string) config('certificates.storage_disk', 'certificates_local');
-        if ($disk === '') {
-            return;
-        }
+        $disk = self::effectiveCertificateStorageDisk();
 
         $driver = config("filesystems.disks.{$disk}.driver");
         if ($driver !== 'local') {
@@ -181,7 +239,7 @@ class GenerateCertificateJob
     public static function canEmitCertificatePdf(): bool
     {
         self::configureCertificateDiskRoot();
-        $disk = (string) config('certificates.storage_disk', 'certificates_local');
+        $disk = self::effectiveCertificateStorageDisk();
         $root = rtrim((string) config("filesystems.disks.{$disk}.root"), '/\\');
 
         return self::canWriteScratchFileUnder($root);
@@ -195,9 +253,9 @@ class GenerateCertificateJob
     {
         $base = storage_path('app');
 
-        $fromEnv = env('CERTIFICATE_DISK_ROOT');
-        if (is_string($fromEnv) && $fromEnv !== '') {
-            $r = rtrim($fromEnv, '/\\');
+        $fromConfig = config('certificates.disk_root');
+        if (is_string($fromConfig) && $fromConfig !== '') {
+            $r = rtrim($fromConfig, '/\\');
             if (self::canWriteScratchFileUnder($r)) {
                 return $r;
             }

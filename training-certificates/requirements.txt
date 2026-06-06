@@ -5,6 +5,6 @@
 pymupdf>=1.24.0
 pypdf>=4.0.0
 #
-# certificate_template.py requires:
-reportlab>=4.0.0
-Pillow>=9.0.0  # optional: removes black background from KAYISE logo
+# certificate_template.py (Python 3.6: use reportlab 3.x; reinstall if ImportError: NormalDate)
+reportlab>=3.6.8,<4
+Pillow>=8.4,<9  # Pillow 9+ drops Python 3.6

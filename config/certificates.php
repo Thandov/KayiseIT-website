@@ -36,8 +36,14 @@ return [
     |
     | CERTIFICATE_DISK_ROOT: optional absolute path (writable) to store PDFs when
     | storage/app is full or not writable (same disk as the app is fine).
+    | Read via config() only (not env() in app code) so php artisan config:cache works.
     */
-    'storage_disk' => env('CERTIFICATE_STORAGE_DISK', 'certificates_local'),
+    'disk_root' => (($r = trim((string) env('CERTIFICATE_DISK_ROOT'))) !== '') ? rtrim($r, '/\\') : null,
+    /*
+    | If .env sets CERTIFICATE_STORAGE_DISK= (empty), env() returns '' and would break
+    | Storage::disk(''). Coalesce empty to certificates_local.
+    */
+    'storage_disk' => (($t = trim((string) env('CERTIFICATE_STORAGE_DISK', 'certificates_local'))) !== '') ? $t : 'certificates_local',
     'storage_subdir' => 'certificates',
     'temp_subdir' => 'certificates/temp',
     'output_subdir' => 'certificates/output',

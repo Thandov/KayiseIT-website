@@ -42,7 +42,7 @@
                                     <div class="text-sm text-gray-900">{{ $careerStep->qualification }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ url('/admin/career_mapping/careersteps/edit',$careerStep->steps_id)  }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <a href="{{ route('dashboard.careersteps.edit', $careerStep) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <form action="{{ route('careersteps.delete', $careerStep->steps_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this Career Step?');">

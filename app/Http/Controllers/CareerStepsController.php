@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CareerSteps;
+use App\Models\Module;
 use App\Models\Specializations;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,18 +65,45 @@ class CareerStepsController extends Controller
         return redirect()->back()->with('success', 'Career Step(s) added successfully.');
     }
 
+    public function edit(CareerSteps $careerstep)
+    {
+        $careerstep->load('modules');
+        $modules = Module::orderBy('title')->get();
+        $pageTitle = 'Edit Career Step';
+
+        return view('admin.dashboard.career_mapping.careersteps.edit', compact('careerstep', 'modules', 'pageTitle'));
+    }
+
     public function updateCareerStep(Request $request)
     {
         $request->validate([
             'steps_id' => 'required|integer',
             'step_number' => 'required|integer',
             'qualification' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'summary' => 'nullable|string',
+            'nqf_level' => 'nullable|integer|min:1|max:10',
+            'duration' => 'nullable|string|max:255',
+            'typical_cost' => 'nullable|string|max:255',
+            'next_action' => 'nullable|string|max:500',
+            'module_ids' => 'nullable|array',
+            'module_ids.*' => 'integer|exists:modules,id',
         ]);
-        //
+
         $careerStep = CareerSteps::findOrFail($request->input('steps_id'));
-        $careerStep->step_number = $request->input('step_number');
-        $careerStep->qualification = $request->input('qualification');
+        $careerStep->fill($request->only([
+            'step_number',
+            'qualification',
+            'title',
+            'summary',
+            'nqf_level',
+            'duration',
+            'typical_cost',
+            'next_action',
+        ]));
         $careerStep->save();
+
+        $careerStep->modules()->sync($request->input('module_ids', []));
 
         return redirect()->back()->with('success', 'Career Step updated successfully.');
     }

@@ -1,13 +1,8 @@
-<x-app-layout>
-    <!-- Meta tags -->
-    @section('meta')
-    @php
-    $metaTitle = "Contact - Technical Solutions and Exceptional Support";
-    $metaDescription = "Connect with KAYISE IT in Mbombela. Call +27 87 702 2625 or +27 12 345 6789, email info@kayiseit.co.za, and follow us on social media for updates.";
-    $metaKeywords = "IT Company, Computers and Information Technology, Software, Technology, ICT, IT Services, Nelspruit, Near Me";
-    @endphp
-    @endsection
-    <!-- Page Body -->
+<x-app-layout
+    title="Contact KAYISE IT | Mbombela ICT and training"
+    description="Contact KAYISE IT for software projects, website builds, or institutional ICT and drone training. Speak to our team by phone, email, or WhatsApp."
+    keywords="contact KAYISE IT, ICT Mbombela, Nelspruit IT company, software quote, training enquiry"
+>
     <!-- Hero Section -->
     <x-page-hero 
         title="Contact Us" 

@@ -6,37 +6,34 @@ use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
-    /**
-     * The component alias name.
-     */
     public string $title;
 
-    /**
-     * Create the component instance.
-     */
-    public function __construct(string $title = 'Kayise IT')
-    {
-        $this->title = $title;
+    public function __construct(
+        ?string $title = null,
+        public ?string $description = null,
+        public ?string $keywords = null,
+        public bool $noindex = false,
+        public ?string $ogImage = null,
+    ) {
+        $this->title = $title ?? (string) config('app.name', 'KAYISE IT');
     }
 
     /**
      * Get the view / contents that represents the component.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Contracts\View\View
      */
     public function render()
     {
-        // Check if we're in the admin area and dispatch an event or return an extended layout
-        if (request()->is('dashboard*') || request()->is('admin/*')) {
-            // For admin route
-            $isAdmin = true;
-        } else {
-            $isAdmin = false;
-        }
-        
+        $isAdmin = request()->is('dashboard*') || request()->is('admin/*');
+
         return view('layouts.app', [
             'isAdmin' => $isAdmin,
             'metaTitle' => $this->title,
+            'metaDescription' => $this->description,
+            'metaKeywords' => $this->keywords,
+            'metaNoindex' => $this->noindex,
+            'metaOgImage' => $this->ogImage,
         ]);
     }
 }

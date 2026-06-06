@@ -143,6 +143,8 @@
                             <span class="ml-2 text-sm text-gray-700">Active</span>
                         </label>
                     </div>
+
+                    @include('admin.dashboard.programs._enquire-toggle', ['program' => $program])
                 </div>
 
                 <div class="mt-6 flex justify-end space-x-3">

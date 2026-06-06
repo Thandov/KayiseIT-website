@@ -26,6 +26,15 @@
     Staff
 </a>
 
+<!-- People -->
+<a href="{{ route('dashboard.people') }}" 
+   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group no-underline {{ request()->routeIs('dashboard.people*') ? 'bg-kg-50 text-kg-700' : 'text-gray-700 hover:bg-gray-50' }}">
+    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard.people*') ? 'text-kg-700' : 'text-gray-400 group-hover:text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+    </svg>
+    People
+</a>
+
 <!-- Gallery -->
 <a href="{{ route('dashboard.gallery') }}" 
    class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group no-underline {{ request()->routeIs('dashboard.gallery') || request()->routeIs('gallery') ? 'bg-kg-50 text-kg-700' : 'text-gray-700 hover:bg-gray-50' }}">
@@ -159,6 +168,15 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
     </svg>
     Career Mapping
+</a>
+
+<!-- Navigation menu -->
+<a href="{{ route('dashboard.nav-menu') }}"
+   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group no-underline {{ request()->routeIs('dashboard.nav-menu*') ? 'bg-kg-50 text-kg-700' : 'text-gray-700 hover:bg-gray-50' }}">
+    <svg class="w-5 h-5 mr-3 {{ request()->routeIs('dashboard.nav-menu*') ? 'text-kg-700' : 'text-gray-400 group-hover:text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+    </svg>
+    Navigation Menu
 </a>
 
 <!-- Settings -->

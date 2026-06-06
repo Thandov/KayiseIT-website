@@ -1,1 +1,1 @@
-<img src="{{ asset('images/kayise-logo.png') }}" alt="{{ config('app.name', 'KAYISE IT') }}" {{ $attributes->class(['object-contain']) }} />
+<img src="{{ asset('images/logo.svg') }}" alt="{{ config('app.name', 'KAYISE IT') }}" {{ $attributes->class(['object-contain']) }} />

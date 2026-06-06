@@ -1,14 +1,8 @@
-<x-app-layout>
-  <!-- Meta tags -->
-  @section('meta')
-  @php
-  $metaTitle = "Announcements - Latest News & Updates from KAYISE IT";
-  $metaDescription = "Stay updated with the latest announcements, news, programs, and opportunities from KAYISE IT. Discover new internship programs, service updates, and career development opportunities.";
-  $metaKeywords = "Announcements, News, Updates, KAYISE IT, Internship Programs, IT Services, Career Opportunities, South Africa";
-  @endphp
-  @endsection
-
-  <!-- Page Body -->
+<x-app-layout
+  title="News and announcements | KAYISE IT"
+  description="Official updates from KAYISE IT: new programmes, partnerships, events, and service announcements for clients, learners, and partners."
+  keywords="KAYISE IT news, announcements, programmes, internships, South Africa ICT"
+>
   <!-- Hero Section -->
   <x-page-hero 
       title="Announcements" 

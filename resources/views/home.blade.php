@@ -33,10 +33,66 @@
         #hero-banner .subtitle { font-size: clamp(14px, 2vw, 18px); color: #cbd5e1; margin: 0 0 18px; min-height: 1.5em; }
         #hero-banner .cta { display: inline-block; padding: 10px 16px; border: 1px solid rgba(124,199,255,.3); color: #cfe9ff; border-radius: 999px; text-decoration: none; backdrop-filter: blur(4px); background: rgba(15,35,55,.35); box-shadow: inset 0 0 0 1px rgba(124,199,255,.08); }
         #hero-banner .cta:hover { background: rgba(15,35,55,.55); border-color: rgba(124,199,255,.55); }
-        .slide { opacity: 0; transition: opacity 0.8s ease-in-out; position: absolute; width: 100%; }
-        .slide.active { opacity: 1; position: relative; }
+        #text-carousel { position: relative; min-height: clamp(100px, 18vh, 180px); }
+        .slide { opacity: 0; pointer-events: none; position: absolute; width: 100%; left: 0; top: 0; }
+        .slide.active,
+        .slide.glitch-out,
+        .slide.glitch-in { opacity: 1; pointer-events: auto; }
+        .slide.active { position: relative; }
+        .slide.glitch-out { z-index: 3; }
+        .slide.glitch-in { z-index: 2; position: relative; }
+        #hero-banner .slide .title,
+        #hero-banner .slide .subtitle,
+        #hero-banner .slide .slide-tagline {
+            display: block;
+        }
+        #hero-banner .slide.glitch-out .title,
+        #hero-banner .slide.glitch-out .subtitle,
+        #hero-banner .slide.glitch-out .slide-tagline {
+            animation: heroGlitchOut 0.55s steps(6) forwards;
+        }
+        #hero-banner .slide.glitch-in .title {
+            animation: heroGlitchIn 0.65s steps(7) forwards;
+            animation-delay: 0s;
+        }
+        #hero-banner .slide.glitch-in .subtitle {
+            animation: heroGlitchIn 0.65s steps(7) forwards;
+            animation-delay: 0.08s;
+        }
+        #hero-banner .slide.glitch-in .slide-tagline {
+            animation: heroGlitchIn 0.65s steps(7) forwards;
+            animation-delay: 0.14s;
+        }
+        @keyframes heroGlitchOut {
+            0%   { opacity: 1; transform: translate(0); clip-path: inset(0 0 0 0); text-shadow: none; }
+            12%  { opacity: 1; transform: translate(-4px, 2px) skewX(-2deg); clip-path: inset(8% 0 72% 0); text-shadow: 3px 0 #00e5ff, -3px 0 #ff2d6a; }
+            24%  { opacity: 0.9; transform: translate(5px, -1px) skewX(3deg); clip-path: inset(62% 0 12% 0); text-shadow: -4px 0 #00e5ff, 4px 0 #ff2d6a; }
+            36%  { opacity: 0.75; transform: translate(-2px, 0); clip-path: inset(28% 0 48% 0); text-shadow: 2px 0 #7cc7ff, -2px 0 #ff2d6a; }
+            48%  { opacity: 0.5; transform: translate(6px, 3px); clip-path: inset(0 12% 0 0); text-shadow: 5px 0 #00e5ff, -5px 0 #ff2d6a; }
+            64%  { opacity: 0.25; transform: translate(-6px, -2px) skewX(-4deg); clip-path: inset(0 0 0 18%); text-shadow: none; }
+            100% { opacity: 0; transform: translate(0); clip-path: inset(50% 0 50% 0); text-shadow: none; }
+        }
+        @keyframes heroGlitchIn {
+            0%   { opacity: 0; transform: translate(6px, -3px) skewX(4deg); clip-path: inset(48% 0 48% 0); text-shadow: 4px 0 #00e5ff, -4px 0 #ff2d6a; }
+            18%  { opacity: 0.35; transform: translate(-5px, 2px); clip-path: inset(20% 0 55% 0); text-shadow: -3px 0 #00e5ff, 3px 0 #ff2d6a; }
+            36%  { opacity: 0.6; transform: translate(4px, 0) skewX(-3deg); clip-path: inset(55% 0 15% 0); text-shadow: 3px 0 #7cc7ff, -3px 0 #ff2d6a; }
+            54%  { opacity: 0.85; transform: translate(-2px, 1px); clip-path: inset(5% 10% 5% 0); text-shadow: 2px 0 #00e5ff, -2px 0 #ff2d6a; }
+            72%  { opacity: 0.95; transform: translate(2px, -1px); clip-path: inset(0 0 8% 0); text-shadow: 1px 0 #00e5ff, -1px 0 #ff2d6a; }
+            100% { opacity: 1; transform: translate(0); clip-path: inset(0 0 0 0); text-shadow: none; }
+        }
         #hero-banner .glow { position: absolute; left: 50%; top: 50%; width: 60vmax; height: 60vmax; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(124,199,255,.07), transparent 70%); filter: blur(30px); z-index: 2; }
-        @media (prefers-reduced-motion: reduce) { #hero-banner .zoom { animation: none; } }
+        @media (prefers-reduced-motion: reduce) {
+            #hero-banner .zoom { animation: none; }
+            #hero-banner .slide.glitch-out .title,
+            #hero-banner .slide.glitch-out .subtitle,
+            #hero-banner .slide.glitch-out .slide-tagline,
+            #hero-banner .slide.glitch-in .title,
+            #hero-banner .slide.glitch-in .subtitle,
+            #hero-banner .slide.glitch-in .slide-tagline {
+                animation: none;
+            }
+            .slide { transition: opacity 0.8s ease-in-out; }
+        }
         </style>
         <div class="scene" role="img" aria-label="Moving forward through space with stars warping past">
             @if($hasSlides)
@@ -55,7 +111,7 @@
             <canvas id="starfield" aria-hidden="true"></canvas>
             <div class="glow" aria-hidden="true"></div>
             <main class="center">
-                <img src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" class="logo">
+                <img src="{{ asset('images/logo.svg') }}" alt="KAYISE IT" class="logo">
                 <div id="text-carousel" class="relative">
                     @if($hasSlides)
                         @foreach($carouselSlides as $index => $slide)
@@ -63,7 +119,7 @@
                                 <h1 class="title">{{ $slide->middletxt ?? 'Welcome to KAYISE IT' }}</h1>
                                 <p class="subtitle">{{ $slide->btmtxt ?? 'Your trusted partner in digital transformation' }}</p>
                                 @if($slide->title)
-                                    <p class="text-sm text-blue-400 mt-2">{{ $slide->title }}</p>
+                                    <p class="slide-tagline text-sm text-blue-400 mt-2">{{ $slide->title }}</p>
                                 @endif
                             </div>
                         @endforeach
@@ -151,7 +207,13 @@
         (function() {
             const slides = document.querySelectorAll('#text-carousel .slide');
             const bgSlides = document.querySelectorAll('.slide-bg');
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const SLIDE_INTERVAL_MS = 10000;
+            const GLITCH_OUT_MS = prefersReducedMotion ? 0 : 550;
+            const GLITCH_IN_MS = prefersReducedMotion ? 0 : 650;
+            const BG_FADE_MS = 800;
             let currentSlide = 0;
+            let isTransitioning = false;
             
             // Set background images from data attributes
             bgSlides.forEach((bgSlide) => {
@@ -162,16 +224,7 @@
                 }
             });
             
-            function showSlide(index) {
-                // Update text slides
-                slides.forEach((slide, i) => {
-                    slide.classList.remove('active');
-                    if (i === index) {
-                        slide.classList.add('active');
-                    }
-                });
-                
-                // Update background images
+            function updateBackground(index) {
                 bgSlides.forEach((bgSlide, i) => {
                     if (i === index) {
                         bgSlide.classList.add('active');
@@ -184,24 +237,71 @@
                             if (!bgSlide.classList.contains('active')) {
                                 bgSlide.style.display = 'none';
                             }
-                        }, 800); // Match transition duration
+                        }, BG_FADE_MS);
                     }
                 });
             }
             
+            function showSlide(index, instant) {
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active', 'glitch-out', 'glitch-in');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    }
+                });
+                updateBackground(index);
+                currentSlide = index;
+            }
+            
+            function transitionToSlide(nextIndex) {
+                if (isTransitioning || nextIndex === currentSlide) {
+                    return;
+                }
+                isTransitioning = true;
+                const outgoing = slides[currentSlide];
+                const incoming = slides[nextIndex];
+                
+                updateBackground(nextIndex);
+                
+                if (prefersReducedMotion) {
+                    showSlide(nextIndex, true);
+                    isTransitioning = false;
+                    return;
+                }
+                
+                outgoing.classList.remove('active');
+                outgoing.classList.add('glitch-out');
+                
+                setTimeout(() => {
+                    outgoing.classList.remove('glitch-out');
+                    slides.forEach((slide, i) => {
+                        if (i !== nextIndex) {
+                            slide.classList.remove('active', 'glitch-in', 'glitch-out');
+                        }
+                    });
+                    incoming.classList.add('active', 'glitch-in');
+                    currentSlide = nextIndex;
+                    
+                    setTimeout(() => {
+                        incoming.classList.remove('glitch-in');
+                        isTransitioning = false;
+                    }, GLITCH_IN_MS);
+                }, GLITCH_OUT_MS);
+            }
+            
             function nextSlide() {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
+                const nextIndex = (currentSlide + 1) % slides.length;
+                transitionToSlide(nextIndex);
             }
             
             // Initialize first slide
             if (slides.length > 0) {
-                showSlide(0);
+                showSlide(0, true);
             }
             
-            // Change slide every 4 seconds
+            // Change slide every 10 seconds
             if (slides.length > 1) {
-                setInterval(nextSlide, 4000);
+                setInterval(nextSlide, SLIDE_INTERVAL_MS);
             }
         })();
 
@@ -1354,14 +1454,17 @@
         </div>
     </section>
 
-    <!-- PLACEMENTS & INTERNSHIPS: Human impact -->
+    <!-- Featured gallery (managed in admin: Gallery → Featured Gallery on Homepage) -->
     <section class="bg-white py-20">
         <div class="container mx-auto px-4 max-w-7xl">
+            @if($featuredGallery)
             <div class="text-center mb-12">
-                <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4" style="color:#22C55E;border:1px solid #22C55E;background-color: rgba(34,197,94,.10);">Placements & Internships</span>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">TVET Placements We're Proud Of</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">A snapshot of our recent TVET placements and internship cohorts across South Africa</p>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ $featuredGallery->name }}</h2>
+                @if($featuredGallery->description)
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ $featuredGallery->description }}</p>
+                @endif
             </div>
+            @endif
             @if(!empty($featuredGalleryPhotos) && count($featuredGalleryPhotos) > 0)
             @php
                 $galleryWithUrls = array_map(fn($p) => array_merge($p, ['url' => asset($p['path'] ?? '')]), $featuredGalleryPhotos);

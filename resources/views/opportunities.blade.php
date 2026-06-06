@@ -1,4 +1,8 @@
-<x-app-layout>
+<x-app-layout
+    title="Careers and internships at KAYISE IT"
+    description="Discover internships and career opportunities at KAYISE IT. Join a team delivering software, web, and technology skills programmes across South Africa."
+    keywords="KAYISE IT careers, vacancies, internship South Africa, ICT jobs"
+>
 
 @push('styles')
 @vite(['resources/css/dashboard.css'])

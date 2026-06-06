@@ -12,7 +12,15 @@ class Gallery extends Model
 
     protected $table = 'gallery_groups';
 
-    protected $fillable = ['name', 'user_id', 'description', 'featured_on_homepage'];
+    protected $fillable = [
+        'name',
+        'user_id',
+        'description',
+        'featured_on_homepage',
+        'homepage_badge',
+        'homepage_title',
+        'homepage_subtitle',
+    ];
 
     // Define relationships
     public function user()

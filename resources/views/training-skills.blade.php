@@ -1,12 +1,8 @@
-<x-app-layout>
-    @section('meta')
-    @php
-        $metaTitle = 'Training & Skills Courses for Schools and TVET Colleges | KAYISE IT';
-        $metaDescription = 'Explore KAYISE IT training courses in ICT skills, drone building, Microsoft Office, computer productivity, cyber security, and entrepreneurship for schools and TVET colleges in South Africa.';
-        $metaKeywords = 'Training and Skills, ICT Skills Training, Build a Drone Course, Microsoft Office Training, Computer Productivity, Cyber Security Training, Entrepreneurship Training, TVET colleges South Africa';
-    @endphp
-    @endsection
-
+<x-app-layout
+    title="Training and skills courses for schools and TVET | KAYISE IT"
+    description="Browse KAYISE IT training in ICT fundamentals, drone building, Microsoft Office, cyber security, and entrepreneurship—delivered for schools and TVET colleges in South Africa."
+    keywords="TVET training, ICT skills South Africa, drone building course, Microsoft Office training, cyber security training, KAYISE IT"
+>
     <x-page-hero
         title="Training & Skills"
         subtitle="Future-Ready Learning Programs"

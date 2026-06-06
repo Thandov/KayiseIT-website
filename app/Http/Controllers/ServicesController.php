@@ -7,10 +7,10 @@ use App\Models\Service;
 use App\Models\ServiceTier;
 use App\Models\Subservice;
 use App\Models\Testimonial;
+use App\Services\ServiceLifecycleService;
 use App\Services\ServiceTierSyncService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
@@ -19,7 +19,8 @@ use Illuminate\Validation\Validator as ValidatorInstance;
 class ServicesController extends Controller
 {
     public function __construct(
-        protected ServiceTierSyncService $tierSync
+        protected ServiceTierSyncService $tierSync,
+        protected ServiceLifecycleService $lifecycle,
     ) {
     }
 
@@ -52,7 +53,7 @@ class ServicesController extends Controller
 
             $service = new Service;
             $service->name = $request->name;
-            $service->slug = strtolower(str_replace(' ', '_', $request->name));
+            $service->slug = Service::slugFromName($request->name);
             $service->description = $request->input('description', '');
             $service->service_type = 'static';
             $service->price = 0;
@@ -63,7 +64,7 @@ class ServicesController extends Controller
             $service->save();
 
             $this->tierSync->sync($service, $request);
-            $this->ensureServiceBladeExists($service->name);
+            $this->lifecycle->createBladeIfMissing($service);
 
             DB::commit();
 
@@ -82,10 +83,14 @@ class ServicesController extends Controller
     {
         $testimonials = Testimonial::all();
         $service = Service::find($id);
+        if (! $service) {
+            abort(404);
+        }
         $subservices = Subservice::where('service_id', $service->service_id)->get();
         $storedOptions = unserialize($request->session()->get('key'));
+        $services = $this->buildPublicServicePayload($service);
 
-        return view('viewservice', compact('service', 'subservices', 'testimonials'));
+        return view('viewservice', compact('service', 'subservices', 'testimonials', 'services'));
     }
 
     /**
@@ -136,11 +141,14 @@ class ServicesController extends Controller
 
     protected function resolveServiceByUrlSlug(string $slug): ?Service
     {
+        $normalized = str_replace('_', '-', $slug);
         $underscore = str_replace('-', '_', $slug);
 
         return Service::query()
-            ->where(function ($q) use ($slug, $underscore) {
-                $q->where('slug', $slug)->orWhere('slug', $underscore);
+            ->where(function ($q) use ($slug, $normalized, $underscore) {
+                $q->where('slug', $slug)
+                    ->orWhere('slug', $normalized)
+                    ->orWhere('slug', $underscore);
             })
             ->first();
     }
@@ -198,18 +206,17 @@ class ServicesController extends Controller
 
             DB::beginTransaction();
 
+            $oldName = $service->name;
+            $oldSlug = $service->slug;
+
             $service->name = $request->input('name');
             $service->description = $request->input('description');
-
-            $newSlug = strtolower(str_replace(' ', '_', $request->input('name')));
-            if ($service->slug !== $newSlug) {
-                $service->slug = $newSlug;
-            }
+            $service->slug = Service::slugFromName($request->input('name'));
 
             $service->save();
 
             $this->tierSync->sync($service, $request);
-            $this->ensureServiceBladeExists($service->name);
+            $this->lifecycle->syncBladeOnRename($service, $oldName, $oldSlug);
 
             DB::commit();
 
@@ -305,7 +312,10 @@ class ServicesController extends Controller
             }
 
             $serviceName = $service->name;
-            $service->delete();
+
+            DB::transaction(function () use ($service) {
+                $service->delete();
+            });
 
             return redirect()->route('dashboard.services')
                 ->with('success', 'Service "'.$serviceName.'" deleted successfully.');
@@ -319,68 +329,5 @@ class ServicesController extends Controller
     {
         $services = Service::all();
         View::share('services', $services);
-    }
-
-    protected function ensureServiceBladeExists(string $serviceName): void
-    {
-        $componentName = Str::slug($serviceName);
-        $viewNameFlat = 'components.'.$componentName;
-        $viewNameSubfolder = 'components.services.'.$componentName;
-
-        if (view()->exists($viewNameSubfolder) || view()->exists($viewNameFlat)) {
-            return;
-        }
-
-        $servicesComponentsPath = resource_path('views/components/services');
-        if (! File::isDirectory($servicesComponentsPath)) {
-            File::makeDirectory($servicesComponentsPath, 0755, true);
-        }
-        $bladePath = $servicesComponentsPath.DIRECTORY_SEPARATOR.$componentName.'.blade.php';
-
-        $title = Str::title($serviceName);
-        $content = <<<BLADE
-<div class="container grid sm:grid-flow-row md:grid-cols-1 pb-4">
-    <div class="px-4 mt-4">
-        <x-titlestyle smheading="Transform Your" bgheading="{$title}!" alignment="text-left" smheadingcolor="" bgheadingcolor=""></x-titlestyle>
-        <p class="text-left">{{ \$service }} - We provide comprehensive solutions tailored to your business needs.</p>
-        <div class="grid sm:grid-cols-1 md:grid-cols-4 gap-4 my-4">
-            @foreach(\$subservices ?? [] as \$subservice)
-            @php
-            \$slug = str_replace(' ','-', strtolower(\$service));
-            \$subslug = str_replace(' ','-', strtolower(\$subservice['subservice_name'] ?? ''));
-            \$uniqueId = "subserv_card_" . \$subslug;
-            @endphp
-            <div class="subserv_card justify-center" id="{{ \$uniqueId }}" data-target="slide_{{\$subslug}}">
-                <div class="overflow-hidden shadow-md rounded-lg p-4">
-                    <div class="flex justify-center">
-                        <div class="h-16 w-16 rounded-md bg-green-500 flex items-center justify-center">
-                            @if(isset(\$subservice['icon']))
-                            <img class="w-12" src="{{ asset('images/subservices/'.\$subservice['icon']) }}">
-                            @endif
-                        </div>
-                    </div>
-                    <div class="flex justify-center">
-                        <h2 class="mt-4 text-xl text-center font-bold smalltxt">{{ \$subservice['subservice_name'] ?? 'Subservice' }}</h2>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-
-<script>
-    function highlightRow(checkbox) {
-        const row = checkbox.closest('.grid');
-        if (checkbox.checked) {
-            row.classList.add('highlighted-row');
-        } else {
-            row.classList.remove('highlighted-row');
-        }
-    }
-</script>
-BLADE;
-
-        File::put($bladePath, $content);
     }
 }

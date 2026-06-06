@@ -174,4 +174,32 @@ class CertificationTokenTest extends TestCase
         $response->assertOk();
         $response->assertHeader('content-type', 'application/pdf');
     }
+
+    /**
+     * Empty CERTIFICATE_STORAGE_DISK= in .env yields '' and used to break Storage::disk('').
+     */
+    public function test_download_returns_pdf_when_storage_disk_config_is_empty_string(): void
+    {
+        Config::set('certificates.storage_disk', '');
+
+        Storage::disk('local')->makeDirectory('certificates/output/stubdir2');
+        Storage::disk('local')->put('certificates/output/stubdir2/Certificate_Other_User.pdf', '%PDF-1.4 test certificate stub');
+
+        CertificateDownload::create([
+            'id_number' => '9001015009089',
+            'name' => 'Other',
+            'surname' => 'User',
+            'email' => null,
+            'storage_path' => 'certificates/output/stubdir2/Certificate_Other_User.pdf',
+            'download_token' => 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+            'expires_at' => now()->addDay(),
+        ]);
+
+        $response = $this->get(route('certification.download', [
+            'token' => 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+        ]));
+
+        $response->assertOk();
+        $response->assertHeader('content-type', 'application/pdf');
+    }
 }

@@ -1,16 +1,28 @@
-<x-app-layout>
-    @section('meta')
-        <title>{{ $serviceTier->page?->meta_title ?? $serviceTier->page?->hero_heading ?? $service->name }}</title>
-        @if($serviceTier->page?->meta_description)
-            <meta name="description" content="{{ e($serviceTier->page->meta_description) }}">
-        @endif
-    @endsection
-
+@php
+    $tierLabel = match ($tierKey) {
+        'small' => 'Small',
+        'medium' => 'Medium',
+        'enterprise' => 'Enterprise',
+        default => ucfirst((string) $tierKey),
+    };
+    $tierMetaTitle = $serviceTier->page?->meta_title
+        ?? (($serviceTier->page?->hero_heading ?? $service->name).' ('.$tierLabel.') | KAYISE IT');
+    $tierMetaDescription = $serviceTier->page?->meta_description
+        ?? \Illuminate\Support\Str::limit(
+            trim(strip_tags($serviceTier->page?->hero_subheading ?? $service->description ?? '')),
+            160
+        );
+    if ($tierMetaDescription === '') {
+        $tierMetaDescription = $service->name.' — '.$tierLabel.' tier pricing and packages from KAYISE IT. Request a consultation.';
+    }
+@endphp
+<x-app-layout
+    :title="$tierMetaTitle"
+    :description="$tierMetaDescription"
+    :keywords="($service->name ?? 'Service').', IT services, KAYISE IT, South Africa'"
+>
     @php
-        $slug = \Illuminate\Support\Str::slug($services['service']);
-        $componentNameSubfolder = 'components.services.' . $slug;
-        $componentNameFlat = 'components.' . $slug;
-        $componentName = view()->exists($componentNameSubfolder) ? $componentNameSubfolder : $componentNameFlat;
+        $componentName = $service->componentViewName();
         $componentExists = view()->exists($componentName);
     @endphp
 

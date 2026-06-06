@@ -534,4 +534,42 @@ class GalleryController extends Controller
             return back()->with('error', 'Failed to set featured gallery: ' . $e->getMessage());
         }
     }
+
+    /**
+     * Update homepage section copy for a gallery (badge, heading, subheading).
+     */
+    public function updateHomepageSection(Request $request, $id)
+    {
+        try {
+            $gallery = Gallery::findOrFail($id);
+
+            $request->validate([
+                'homepage_badge' => 'nullable|string|max:100',
+                'homepage_title' => 'nullable|string|max:255',
+                'homepage_subtitle' => 'nullable|string|max:1000',
+            ]);
+
+            $gallery->update([
+                'homepage_badge' => $request->input('homepage_badge') ?: null,
+                'homepage_title' => $request->input('homepage_title') ?: null,
+                'homepage_subtitle' => $request->input('homepage_subtitle') ?: null,
+            ]);
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Homepage section updated.',
+                    'gallery' => $gallery->fresh(),
+                ]);
+            }
+
+            return back()->with('success', 'Homepage section updated.');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['success' => false, 'message' => 'Failed to update homepage section: ' . $e->getMessage()], 500);
+            }
+
+            return back()->with('error', 'Failed to update homepage section: ' . $e->getMessage());
+        }
+    }
 }

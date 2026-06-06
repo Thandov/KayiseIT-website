@@ -17,6 +17,17 @@
 
         <div class="grid gap-6 max-w-3xl">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900">Public website — navigation menu</h2>
+                <p class="mt-1 text-sm text-gray-600">Add, reorder, and nest links in the site header (WordPress-style menu builder).</p>
+                <div class="mt-4">
+                    <a href="{{ route('dashboard.nav-menu') }}"
+                       class="inline-flex items-center px-4 py-2 bg-kb-100 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-kb-600 no-underline">
+                        Edit navigation menu
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <h2 class="text-lg font-semibold text-gray-900">Public website — floating buttons</h2>
                 <p class="mt-1 text-sm text-gray-600">Control the green WhatsApp pill and the blue “Ask me” assistant on pages that use the main site layout (not the admin dashboard).</p>
 
