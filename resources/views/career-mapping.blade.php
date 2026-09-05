@@ -3,9 +3,13 @@
     description="Explore ICT career paths in South Africa with simple steps, qualifications, and where Kayise IT can help you register for accredited programmes."
     keywords="career mapping, ICT careers South Africa, digital skills pathways, TVET careers, KAYISE IT"
 >
-    <x-hero-banner hero="career-mapping-hero" title="Career Mapping"></x-hero-banner>
+    <x-page-header
+        title="Career Mapping"
+        hero-id="career-mapping-hero"
+        background-image="images/banner/CareerMapping.png"
+        height="h-96" />
 
-    <section class="relative bg-gradient-to-b from-white via-kb-50/30 to-white py-10 md:py-14">
+    <section class="relative bg-white py-10 md:py-14">
         <div aria-hidden="true" class="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-kg-700/10 blur-3xl"></div>
         <div aria-hidden="true" class="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-kb-100/15 blur-3xl"></div>
         <div class="container relative max-w-screen-xl mx-auto px-4 md:px-8">

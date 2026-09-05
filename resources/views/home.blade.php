@@ -8,303 +8,9 @@
     @endphp
     @endsection
     
-    <!-- Hero banner -->
-    <section id="hero-banner" style="margin-top:0;">
-        @php
-        // Use carousel slides passed from controller (with fallback to empty collection)
-        $carouselSlides = $carouselSlides ?? collect();
-        // Fallback to default if no carousel slides exist
-        $hasSlides = $carouselSlides->count() > 0;
-        @endphp
-        <style>
-        html, body { height: 100%; margin: 0; background: #000; color: #fff; }
-        #hero-banner { background: #000; }
-        #hero-banner .scene { position: relative; width: 100vw; height: 100vh; }
-        #hero-banner #starfield { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; }
-        #hero-banner .photo { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: .25; z-index: 0; transition: opacity 0.8s ease-in-out; }
-        #hero-banner .slide-bg { opacity: 0; }
-        #hero-banner .slide-bg.active { opacity: .25; }
-        #hero-banner .slide-bg[data-bg-image] { background-image: var(--bg-image); }
-        #hero-banner .zoom { position: absolute; inset: 0; background: radial-gradient(100% 100% at 50% 50%, #01040a 0%, #000 60%); transform: scale(1); animation: zoomIn 60s linear infinite alternate; z-index: 0; }
-        @keyframes zoomIn { from { transform: scale(1); } to { transform: scale(1.15); } }
-        #hero-banner .center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(92vw, 880px); text-align: center; z-index: 3; padding: 16px; }
-        #hero-banner .logo { width: min(280px, 40vw); height: auto; display: block; margin: 0 auto 16px; filter: brightness(0) invert(1) drop-shadow(0 6px 30px rgba(124,199,255,.25)); }
-        #hero-banner .title { font-size: clamp(28px, 4vw, 56px); letter-spacing: .06em; margin: 0 0 8px; text-transform: uppercase; text-shadow: 0 0 10px rgba(255,255,255,.25); min-height: 1.2em; }
-        #hero-banner .subtitle { font-size: clamp(14px, 2vw, 18px); color: #cbd5e1; margin: 0 0 18px; min-height: 1.5em; }
-        #hero-banner .cta { display: inline-block; padding: 10px 16px; border: 1px solid rgba(124,199,255,.3); color: #cfe9ff; border-radius: 999px; text-decoration: none; backdrop-filter: blur(4px); background: rgba(15,35,55,.35); box-shadow: inset 0 0 0 1px rgba(124,199,255,.08); }
-        #hero-banner .cta:hover { background: rgba(15,35,55,.55); border-color: rgba(124,199,255,.55); }
-        #text-carousel { position: relative; min-height: clamp(100px, 18vh, 180px); }
-        .slide { opacity: 0; pointer-events: none; position: absolute; width: 100%; left: 0; top: 0; }
-        .slide.active,
-        .slide.glitch-out,
-        .slide.glitch-in { opacity: 1; pointer-events: auto; }
-        .slide.active { position: relative; }
-        .slide.glitch-out { z-index: 3; }
-        .slide.glitch-in { z-index: 2; position: relative; }
-        #hero-banner .slide .title,
-        #hero-banner .slide .subtitle,
-        #hero-banner .slide .slide-tagline {
-            display: block;
-        }
-        #hero-banner .slide.glitch-out .title,
-        #hero-banner .slide.glitch-out .subtitle,
-        #hero-banner .slide.glitch-out .slide-tagline {
-            animation: heroGlitchOut 0.55s steps(6) forwards;
-        }
-        #hero-banner .slide.glitch-in .title {
-            animation: heroGlitchIn 0.65s steps(7) forwards;
-            animation-delay: 0s;
-        }
-        #hero-banner .slide.glitch-in .subtitle {
-            animation: heroGlitchIn 0.65s steps(7) forwards;
-            animation-delay: 0.08s;
-        }
-        #hero-banner .slide.glitch-in .slide-tagline {
-            animation: heroGlitchIn 0.65s steps(7) forwards;
-            animation-delay: 0.14s;
-        }
-        @keyframes heroGlitchOut {
-            0%   { opacity: 1; transform: translate(0); clip-path: inset(0 0 0 0); text-shadow: none; }
-            12%  { opacity: 1; transform: translate(-4px, 2px) skewX(-2deg); clip-path: inset(8% 0 72% 0); text-shadow: 3px 0 #00e5ff, -3px 0 #ff2d6a; }
-            24%  { opacity: 0.9; transform: translate(5px, -1px) skewX(3deg); clip-path: inset(62% 0 12% 0); text-shadow: -4px 0 #00e5ff, 4px 0 #ff2d6a; }
-            36%  { opacity: 0.75; transform: translate(-2px, 0); clip-path: inset(28% 0 48% 0); text-shadow: 2px 0 #7cc7ff, -2px 0 #ff2d6a; }
-            48%  { opacity: 0.5; transform: translate(6px, 3px); clip-path: inset(0 12% 0 0); text-shadow: 5px 0 #00e5ff, -5px 0 #ff2d6a; }
-            64%  { opacity: 0.25; transform: translate(-6px, -2px) skewX(-4deg); clip-path: inset(0 0 0 18%); text-shadow: none; }
-            100% { opacity: 0; transform: translate(0); clip-path: inset(50% 0 50% 0); text-shadow: none; }
-        }
-        @keyframes heroGlitchIn {
-            0%   { opacity: 0; transform: translate(6px, -3px) skewX(4deg); clip-path: inset(48% 0 48% 0); text-shadow: 4px 0 #00e5ff, -4px 0 #ff2d6a; }
-            18%  { opacity: 0.35; transform: translate(-5px, 2px); clip-path: inset(20% 0 55% 0); text-shadow: -3px 0 #00e5ff, 3px 0 #ff2d6a; }
-            36%  { opacity: 0.6; transform: translate(4px, 0) skewX(-3deg); clip-path: inset(55% 0 15% 0); text-shadow: 3px 0 #7cc7ff, -3px 0 #ff2d6a; }
-            54%  { opacity: 0.85; transform: translate(-2px, 1px); clip-path: inset(5% 10% 5% 0); text-shadow: 2px 0 #00e5ff, -2px 0 #ff2d6a; }
-            72%  { opacity: 0.95; transform: translate(2px, -1px); clip-path: inset(0 0 8% 0); text-shadow: 1px 0 #00e5ff, -1px 0 #ff2d6a; }
-            100% { opacity: 1; transform: translate(0); clip-path: inset(0 0 0 0); text-shadow: none; }
-        }
-        #hero-banner .glow { position: absolute; left: 50%; top: 50%; width: 60vmax; height: 60vmax; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(124,199,255,.07), transparent 70%); filter: blur(30px); z-index: 2; }
-        @media (prefers-reduced-motion: reduce) {
-            #hero-banner .zoom { animation: none; }
-            #hero-banner .slide.glitch-out .title,
-            #hero-banner .slide.glitch-out .subtitle,
-            #hero-banner .slide.glitch-out .slide-tagline,
-            #hero-banner .slide.glitch-in .title,
-            #hero-banner .slide.glitch-in .subtitle,
-            #hero-banner .slide.glitch-in .slide-tagline {
-                animation: none;
-            }
-            .slide { transition: opacity 0.8s ease-in-out; }
-        }
-        </style>
-        <div class="scene" role="img" aria-label="Moving forward through space with stars warping past">
-            @if($hasSlides)
-                @foreach($carouselSlides as $index => $slide)
-                    @php
-                        $bgImage = $slide->image ? (str_starts_with($slide->image, 'http') ? $slide->image : asset($slide->image)) : asset('images/KayiseIT-Team.jpg');
-                    @endphp
-                    <div class="photo slide-bg {{ $index === 0 ? 'active' : '' }}" 
-                         data-bg-image="{{ $bgImage }}"
-                         @if($index !== 0) style="display: none;" @endif></div>
-                @endforeach
-            @else
-                <div class="photo" style="background-image: url('{{ asset('images/KayiseIT-Team.jpg') }}');"></div>
-            @endif
-            <div class="zoom"></div>
-            <canvas id="starfield" aria-hidden="true"></canvas>
-            <div class="glow" aria-hidden="true"></div>
-            <main class="center">
-                <img src="{{ asset('images/logo.svg') }}" alt="KAYISE IT" class="logo">
-                <div id="text-carousel" class="relative">
-                    @if($hasSlides)
-                        @foreach($carouselSlides as $index => $slide)
-                            <div class="slide {{ $index === 0 ? 'active' : '' }}">
-                                <h1 class="title">{{ $slide->middletxt ?? 'Welcome to KAYISE IT' }}</h1>
-                                <p class="subtitle">{{ $slide->btmtxt ?? 'Your trusted partner in digital transformation' }}</p>
-                                @if($slide->title)
-                                    <p class="slide-tagline text-sm text-blue-400 mt-2">{{ $slide->title }}</p>
-                                @endif
-                            </div>
-                        @endforeach
-                    @else
-                        <!-- Fallback content if no carousel slides exist -->
-                        <div class="slide active">
-                            <h1 class="title">Welcome on Board to KAYISE IT</h1>
-                            <p class="subtitle">Your trusted partner in digital transformation and innovation</p>
-                        </div>
-                        <div class="slide">
-                            <h1 class="title">What We Offer</h1>
-                            <p class="subtitle">Custom software development, web solutions, and IT consulting services</p>
-                        </div>
-                        <div class="slide">
-                            <h1 class="title">Why Us</h1>
-                            <p class="subtitle">10+ years of experience delivering cutting-edge solutions with 24/7 support</p>
-                        </div>
-                    @endif
-                </div>
-                <a class="cta" href="mailto:info@kayiseit.com">Contact us: info@kayiseit.com</a>
-            </main>
-        </div>
-        <script>
-        (function() {
-            const canvas = document.getElementById('starfield');
-            const ctx = canvas.getContext('2d');
-            let stars = [];
-            let width = 0, height = 0, cx = 0, cy = 0;
-            function resize() {
-                const cssW = canvas.parentElement.clientWidth;
-                const cssH = canvas.parentElement.clientHeight;
-                const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-                canvas.style.width = cssW + 'px';
-                canvas.style.height = cssH + 'px';
-                canvas.width = Math.floor(cssW * dpr);
-                canvas.height = Math.floor(cssH * dpr);
-                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                width = cssW; height = cssH; cx = width / 2; cy = height / 2;
-                const target = Math.max(400, Math.floor(width * height * 0.00020));
-                if (stars.length < target) {
-                    for (let i = stars.length; i < target; i++) stars[i] = spawn();
-                } else {
-                    stars.length = target;
-                }
-            }
-            function spawn() {
-                const angle = Math.random() * Math.PI * 2;
-                const radius = Math.random() * Math.max(width, height) * 0.65;
-                return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius, z: Math.random() * 800 + 200, s: Math.random() * 1.5 + 0.5 };
-            }
-            function updateAndDraw(dt) {
-                ctx.clearRect(0, 0, width, height);
-                ctx.fillStyle = '#fff';
-                const speed = 40;
-                for (let i = 0; i < stars.length; i++) {
-                    const st = stars[i];
-                    st.z -= speed * dt;
-                    if (st.z <= 1) { stars[i] = spawn(); continue; }
-                    const f = 200 / st.z;
-                    const sx = cx + st.x * f;
-                    const sy = cy + st.y * f;
-                    const r = Math.max(0.7, st.s * (1.2 - st.z / 1000));
-                    const a = Math.min(1, 1.1 - st.z / 1000);
-                    if (sx < -50 || sx > width + 50 || sy < -50 || sy > height + 50) { stars[i] = spawn(); continue; }
-                    ctx.globalAlpha = a;
-                    ctx.beginPath();
-                    ctx.arc(sx, sy, r, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-                ctx.globalAlpha = 1;
-            }
-            let last = performance.now();
-            function frame(now) {
-                const dt = Math.min(0.05, (now - last) / 1000);
-                last = now;
-                updateAndDraw(dt);
-                requestAnimationFrame(frame);
-            }
-            window.addEventListener('resize', resize);
-            resize();
-            requestAnimationFrame(frame);
-        })();
+    @include('_carousel')
 
-        // Text Carousel with Background Image Sync
-        (function() {
-            const slides = document.querySelectorAll('#text-carousel .slide');
-            const bgSlides = document.querySelectorAll('.slide-bg');
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const SLIDE_INTERVAL_MS = 10000;
-            const GLITCH_OUT_MS = prefersReducedMotion ? 0 : 550;
-            const GLITCH_IN_MS = prefersReducedMotion ? 0 : 650;
-            const BG_FADE_MS = 800;
-            let currentSlide = 0;
-            let isTransitioning = false;
-            
-            // Set background images from data attributes
-            bgSlides.forEach((bgSlide) => {
-                const bgImage = bgSlide.getAttribute('data-bg-image');
-                if (bgImage) {
-                    bgSlide.style.setProperty('--bg-image', 'url(' + bgImage + ')');
-                    bgSlide.style.backgroundImage = 'url(' + bgImage + ')';
-                }
-            });
-            
-            function updateBackground(index) {
-                bgSlides.forEach((bgSlide, i) => {
-                    if (i === index) {
-                        bgSlide.classList.add('active');
-                        bgSlide.style.display = 'block';
-                        bgSlide.style.opacity = '1';
-                    } else {
-                        bgSlide.classList.remove('active');
-                        bgSlide.style.opacity = '0';
-                        setTimeout(() => {
-                            if (!bgSlide.classList.contains('active')) {
-                                bgSlide.style.display = 'none';
-                            }
-                        }, BG_FADE_MS);
-                    }
-                });
-            }
-            
-            function showSlide(index, instant) {
-                slides.forEach((slide, i) => {
-                    slide.classList.remove('active', 'glitch-out', 'glitch-in');
-                    if (i === index) {
-                        slide.classList.add('active');
-                    }
-                });
-                updateBackground(index);
-                currentSlide = index;
-            }
-            
-            function transitionToSlide(nextIndex) {
-                if (isTransitioning || nextIndex === currentSlide) {
-                    return;
-                }
-                isTransitioning = true;
-                const outgoing = slides[currentSlide];
-                const incoming = slides[nextIndex];
-                
-                updateBackground(nextIndex);
-                
-                if (prefersReducedMotion) {
-                    showSlide(nextIndex, true);
-                    isTransitioning = false;
-                    return;
-                }
-                
-                outgoing.classList.remove('active');
-                outgoing.classList.add('glitch-out');
-                
-                setTimeout(() => {
-                    outgoing.classList.remove('glitch-out');
-                    slides.forEach((slide, i) => {
-                        if (i !== nextIndex) {
-                            slide.classList.remove('active', 'glitch-in', 'glitch-out');
-                        }
-                    });
-                    incoming.classList.add('active', 'glitch-in');
-                    currentSlide = nextIndex;
-                    
-                    setTimeout(() => {
-                        incoming.classList.remove('glitch-in');
-                        isTransitioning = false;
-                    }, GLITCH_IN_MS);
-                }, GLITCH_OUT_MS);
-            }
-            
-            function nextSlide() {
-                const nextIndex = (currentSlide + 1) % slides.length;
-                transitionToSlide(nextIndex);
-            }
-            
-            // Initialize first slide
-            if (slides.length > 0) {
-                showSlide(0, true);
-            }
-            
-            // Change slide every 10 seconds
-            if (slides.length > 1) {
-                setInterval(nextSlide, SLIDE_INTERVAL_MS);
-            }
-        })();
-
+    <script>
         // Hypnotic abstract animation (Why Choose Us) - init after DOM ready
         (function() {
             function init(){
@@ -322,9 +28,7 @@
                     }
                     function bdraw(dt){
                         t += dt; bctx.clearRect(0,0,bw,bh);
-                        const g = bctx.createLinearGradient(0,0,0,bh);
-                        g.addColorStop(0,'#ffffff'); g.addColorStop(1,'#f8fafc');
-                        bctx.fillStyle = g; bctx.fillRect(0,0,bw,bh);
+                        bctx.fillStyle = '#ffffff'; bctx.fillRect(0,0,bw,bh);
                         const rings = 22;
                         for (let i=0;i<rings;i++){
                             const r = (i+1) * (Math.min(bw,bh)/(rings+2));
@@ -359,10 +63,7 @@
                 function draw(dt) {
                     t += dt;
                     ctx.clearRect(0,0,w,h);
-                    const g = ctx.createRadialGradient(cx, cy, 10, cx, cy, Math.max(w,h));
-                    g.addColorStop(0, '#020617');
-                    g.addColorStop(1, '#0b1220');
-                    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+                    ctx.fillStyle = '#020617'; ctx.fillRect(0,0,w,h);
                     const rings = 18;
                     for (let i=0;i<rings;i++) {
                         const r = (i+1) * (Math.min(w,h)/ (rings+2));
@@ -389,8 +90,7 @@
                 window.addEventListener('DOMContentLoaded', init);
             }
         })();
-        </script>
-    </section>
+    </script>
 
     <!-- NOTIFICATION BAR: Space-themed Announcements -->
     @php
@@ -432,10 +132,7 @@
     @endphp
     
     @if($hasAnnouncements)
-    <section id="notification-bar" class="relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-top: 1px solid rgba(124,199,255,.1);">
-        <!-- Subtle star particles background -->
-        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
-        
+    <section id="notification-bar" class="relative overflow-hidden" style="background: #183ea4; border-top: 1px solid rgba(255,255,255,.12);">
         <div class="container mx-auto px-4 max-w-7xl relative z-10">
             <div class="notification-container relative" style="min-height: 60px;">
                 @foreach($notificationAnnouncements as $index => $announcement)
@@ -445,7 +142,7 @@
                         <!-- Left side: Badge + Message -->
                         <div class="flex items-center gap-4 flex-1">
                             <span class="notification-badge px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider" 
-                                  style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 1px solid rgba(34,197,94,0.5); color: #22C55E; box-shadow: 0 0 15px rgba(34,197,94,0.3);">
+                                  style="background: #16A34A; border: 1px solid #16A34A; color: #fff;">
                                 ✨ {{ $announcement->title }}
                             </span>
                             <p class="notification-message text-white text-sm md:text-base flex-1" style="text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
@@ -458,7 +155,7 @@
                             @if(isset($announcement->link) && isset($announcement->link_text))
                                 <a href="{{ $announcement->link }}" 
                                    class="notification-cta px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
-                                   style="background: linear-gradient(135deg, rgba(124,199,255,0.2) 0%, rgba(124,199,255,0.1) 100%); border: 1px solid rgba(124,199,255,0.4); box-shadow: 0 0 10px rgba(124,199,255,0.2);">
+                                   style="background: #fff; border: 1px solid #fff; color: #183ea4;">
                                     {{ $announcement->link_text }} →
                                 </a>
                             @endif
@@ -529,9 +226,9 @@
         }
         
         .notification-cta:hover {
-            background: linear-gradient(135deg, rgba(124,199,255,0.35) 0%, rgba(124,199,255,0.25) 100%) !important;
-            border-color: rgba(124,199,255,0.6) !important;
-            box-shadow: 0 0 15px rgba(124,199,255,0.4) !important;
+            background: #f0f4ff !important;
+            border-color: #183ea4 !important;
+            color: #183ea4 !important;
         }
         
         @media (max-width: 768px) {
@@ -754,181 +451,55 @@
     <section class="bg-gray-50 py-20">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-16">
-                <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4" style="color:#22C55E;border:1px solid #22C55E;background-color: rgba(34, 197, 94, 0.10);">Our Services</span>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Specialized IT Solutions</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Enterprise-grade technology services designed to accelerate your digital transformation</p>
+                <span class="ki-kicker">What we do</span>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Software, web, and IT support from Nelspruit</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Custom systems, websites, and consulting for schools, TVET colleges, government programmes, and private organisations.</p>
             </div>
             
-            <!-- Service Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                <div class="bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-                    <div class="w-16 h-16 rounded-lg flex items-center justify-center mb-6" style="background-color: rgba(34, 197, 94, 0.10);">
-                        <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
-                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Software Development</h3>
-                    <ul class="text-sm text-gray-500 space-y-2">
-                        <li>• Enterprise Applications</li>
-                        <li>• Custom Business Logic</li>
-                        <li>• API Development</li>
-                        <li>• Integration Solutions</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-                    <div class="w-16 h-16 rounded-lg flex items-center justify-center mb-6" style="background-color: rgba(34, 197, 94, 0.10);">
-                        <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.265.633l-4-12a1 1 0 011.265-.633L8 10l4.316-10.949z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Web Development</h3>
-                    <ul class="text-sm text-gray-500 space-y-2">
-                        <li>• Progressive Web Apps</li>
-                        <li>• E-Commerce Platforms</li>
-                        <li>• Corporate Websites</li>
-                        <li>• Mobile-First Design</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-lg shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
-                    <div class="w-16 h-16 rounded-lg flex items-center justify-center mb-6" style="background-color: rgba(34, 197, 94, 0.10);">
-                        <svg class="w-8 h-8" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">IT Consulting</h3>
-                    <ul class="text-sm text-gray-500 space-y-2">
-                        <li>• Technology Strategy</li>
-                        <li>• Process Optimization</li>
-                        <li>• Digital Transformation</li>
-                        <li>• Infrastructure Planning</li>
-                    </ul>
-                </div>
+            @php
+                $homeServices = [
+                    ['index' => '01', 'title' => 'Software Development', 'items' => ['Enterprise applications', 'Custom business logic', 'API development', 'System integrations']],
+                    ['index' => '02', 'title' => 'Web Development', 'items' => ['Institutional and business websites', 'E-commerce platforms', 'Progressive web apps', 'Mobile-first design']],
+                    ['index' => '03', 'title' => 'IT Consulting', 'items' => ['Technology strategy', 'Process optimisation', 'Infrastructure planning', 'Digital programme support']],
+                ];
+            @endphp
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                @foreach($homeServices as $homeService)
+                    <x-ki-feature-card
+                        :index="$homeService['index']"
+                        :title="$homeService['title']"
+                        :items="$homeService['items']"
+                        :href="route('services')"
+                        link-text="See services" />
+                @endforeach
             </div>
             
             <div class="text-center">
-                <a href="{{ route('services') }}" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
-                    View All Services
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </a>
+                <a href="{{ route('services') }}" class="ki-btn">View all services</a>
             </div>
         </div>
     </section>
 
-    <!-- CLIENT CASE STUDIES: Problems We've Solved -->
-    @php
-        $caseStudies = App\Models\CaseStudy::with('galleryImages')
-            ->where('is_active', true)
-            ->orderBy('order')
-            ->orderBy('created_at', 'desc')
-            ->limit(6)
-            ->get();
-    @endphp
-    @if($caseStudies->count() > 0)
-    <section class="bg-white py-16">
+    <!-- CLIENT CASE STUDIES -->
+    @if(isset($homeCaseStudies) && $homeCaseStudies->count() > 0)
+    <section class="bg-white py-20">
         <div class="container mx-auto px-4 max-w-7xl">
-            <!-- Section Header with CTA -->
-            <div class="text-center mb-10">
-                <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4" style="color:#22C55E;border:1px solid #22C55E;background-color: rgba(34, 197, 94, 0.10);">Case Studies</span>
-                <h2 class="text-4xl font-bold text-gray-900 mb-6">Problems We've Solved</h2>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
-                        Share Your Challenge
-                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="{{ route('services') }}" class="inline-flex items-center px-6 py-3 rounded-full font-semibold transition-all duration-300 border-2 hover:shadow-lg" style="color: #22C55E; border-color: #22C55E;">
-                        View Our Services
-                    </a>
-                </div>
+            <div class="text-center mb-16">
+                <span class="ki-kicker">Proof</span>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Work we have finished</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Completed projects with the outcomes a buyer can take into a meeting.</p>
             </div>
 
-            <!-- Case Studies Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                @foreach($caseStudies as $caseStudy)
-                <!-- Case Study Card -->
-                <div class="bg-white rounded-lg border-2 border-gray-200 overflow-hidden hover:border-green-400 hover:shadow-xl transition-all duration-300 cursor-pointer case-study-card group" 
-                     data-case-study-id="{{ $caseStudy->id }}"
-                     data-case-study-title="{{ $caseStudy->title }}"
-                     data-case-study-image="{{ $caseStudy->image ?? '' }}"
-                     data-case-study-year="{{ $caseStudy->year ?? '' }}"
-                     data-case-study-client="{{ $caseStudy->client_name ?? '' }}"
-                     data-case-study-problem="{{ $caseStudy->problem }}"
-                     data-case-study-solution="{{ $caseStudy->solution }}"
-                     data-case-study-results="{{ $caseStudy->results ?? '' }}"
-                     data-case-study-results-list="{{ json_encode($caseStudy->results_list ?? []) }}"
-                     data-case-study-hyperlink="{{ $caseStudy->hyperlink ?? '' }}"
-                     data-case-study-featured="{{ $caseStudy->is_featured ? '1' : '0' }}"
-                     data-case-study-has-gallery="{{ $caseStudy->has_gallery ? '1' : '0' }}"
-                     data-case-study-gallery-images="{{ json_encode($caseStudy->galleryImages->map(function($img) { return $img->image_path; })->toArray() ?? []) }}">
-                    @if($caseStudy->image)
-                        <div class="relative h-48 w-full overflow-hidden">
-                            <img src="{{ $caseStudy->image }}" alt="{{ $caseStudy->title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            <div class="absolute top-0 left-0 right-0 p-4 flex items-center justify-between">
-                                @if($caseStudy->is_featured)
-                                    <span class="px-2 py-1 rounded text-xs font-medium text-white shadow-md" style="background-color: #22C55E;">Featured</span>
-                                @else
-                                    <span></span>
-                                @endif
-                                @if($caseStudy->year)
-                                    <span class="px-2 py-1 rounded text-xs font-medium text-white bg-black bg-opacity-50 backdrop-blur-sm">{{ $caseStudy->year }}</span>
-                                @endif
-                            </div>
-                        </div>
-                    @else
-                        <div class="h-48 w-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative">
-                            <div class="absolute top-0 left-0 right-0 p-4 flex items-center justify-between">
-                                @if($caseStudy->is_featured)
-                                    <span class="px-2 py-1 rounded text-xs font-medium text-white shadow-md" style="background-color: #22C55E;">Featured</span>
-                                @else
-                                    <span></span>
-                                @endif
-                                @if($caseStudy->year)
-                                    <span class="px-2 py-1 rounded text-xs font-medium text-gray-700 bg-white bg-opacity-80">{{ $caseStudy->year }}</span>
-                                @endif
-                            </div>
-                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                    @endif
-                    <div class="p-5">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-1 line-clamp-2">{{ $caseStudy->title }}</h3>
-                        @if($caseStudy->client_name)
-                            <p class="text-xs text-gray-500 mb-3">{{ $caseStudy->client_name }}</p>
-                        @endif
-                        <p class="text-sm text-gray-600 mb-4 line-clamp-2 font-medium">{{ Str::limit($caseStudy->problem, 80) }}</p>
-                        <button class="w-full py-2.5 px-4 rounded-lg text-sm font-semibold text-white transition-all duration-300 hover:shadow-lg group-hover:scale-105" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
-                            View Solution →
-                        </button>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                @foreach($homeCaseStudies as $index => $caseStudy)
+                    <x-case-study-card
+                        :case-study="$caseStudy"
+                        :index="str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)" />
                 @endforeach
             </div>
 
-            <!-- Section Break with CTA -->
-            <div class="border-t border-gray-200 pt-12 mt-12">
-                <div class="relative bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl p-10 text-center overflow-hidden" style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
-                    <!-- Decorative elements -->
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-green-200 rounded-full -mr-32 -mt-32 opacity-10"></div>
-                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-teal-200 rounded-full -ml-24 -mb-24 opacity-10"></div>
-                    
-                    <div class="relative z-10">
-                        <h3 class="text-3xl font-bold text-gray-900 mb-4">Have a Challenge We Can Solve?</h3>
-                        <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto font-medium">Let's discuss how we can help your business overcome obstacles and achieve success.</p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-10 py-4 rounded-full text-white font-semibold text-base transition-all duration-300 hover:shadow-2xl hover:scale-105 transform" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%); box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.3), 0 4px 6px -2px rgba(34, 197, 94, 0.2);">
-                                Get Free Consultation
-                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                            </a>
-                            <a href="tel:+27123456789" class="inline-flex items-center justify-center px-10 py-4 rounded-full font-semibold text-base transition-all duration-300 hover:shadow-xl hover:scale-105 transform bg-white border-2" style="color: #22C55E; border-color: #22C55E; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                                Call Us Now
-                                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center">
+                <a href="{{ route('case-studies.index') }}" class="ki-btn">View all case studies</a>
             </div>
         </div>
     </section>
@@ -938,79 +509,35 @@
     <section class="bg-white py-16">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-12">
-                <span class="inline-block px-3 py-1 rounded-full text-xs font-medium mb-3" style="color:#22C55E;border:1px solid rgba(34, 197, 94, 0.2);background-color: rgba(34, 197, 94, 0.08);">Our Products</span>
-                <h2 class="text-3xl font-bold text-gray-900 mb-3">In-House Developed Software</h2>
-                <p class="text-base text-gray-600 max-w-2xl mx-auto">Powerful, reliable software solutions built by our team to streamline your business operations</p>
+                <span class="ki-kicker">Software we build</span>
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">In-house products</h2>
+                <p class="text-base text-gray-600 max-w-2xl mx-auto">Tools we developed for accounting, assets, documents, and project work — available to clients on request.</p>
             </div>
             
             <!-- Software Products Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
-                @forelse($products as $product)
+                @forelse($products as $index => $product)
                     @php
-                        $iconColors = [
-                            'green' => 'rgba(34, 197, 94, 0.1)',
-                            'blue' => 'rgba(59, 130, 246, 0.1)',
-                            'purple' => 'rgba(147, 51, 234, 0.1)',
-                            'indigo' => 'rgba(99, 102, 241, 0.1)',
-                            'teal' => 'rgba(20, 184, 166, 0.1)',
-                        ];
-                        $iconColor = $iconColors[$product->icon_color] ?? $iconColors['green'];
-                        $badgeText = $product->status === 'available'
-                            ? ($product->slug === 'kit-accounting' ? 'Featured' : 'New')
-                            : 'Coming Soon';
-                        $badgeClass = $product->status === 'available'
-                            ? 'text-white'
-                            : 'text-gray-600 bg-gray-100';
-                        $badgeBg = $product->status === 'available' ? '#22C55E' : '';
+                        $badgeText = $product->status === 'available' ? 'Available' : 'Coming soon';
                     @endphp
-                    <div class="bg-white rounded-lg border border-gray-200 p-5 hover:border-gray-300 hover:shadow-md transition-all duration-200">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background-color: {{ $iconColor }};">
-                                @if($product->slug === 'kit-accounting')
-                                    <svg class="w-5 h-5" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                    </svg>
-                                @elseif($product->slug === 'qr-code-generator')
-                                    <svg class="w-5 h-5" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-                                    </svg>
-                                @elseif($product->slug === 'asset-management')
-                                    <svg class="w-5 h-5" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                                    </svg>
-                                @elseif($product->slug === 'project-management')
-                                    <svg class="w-5 h-5" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                    </svg>
-                                @elseif($product->slug === 'document-management')
-                                    <svg class="w-5 h-5" style="color:#22C55E;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                @endif
-                            </div>
-                            <span class="px-2 py-0.5 rounded text-xs font-medium {{ $badgeClass }}" style="{{ $badgeBg ? 'background-color: ' . $badgeBg . ';' : '' }}">{{ $badgeText }}</span>
+                    <article class="ki-card">
+                        <div class="ki-card-meta">
+                            <span class="ki-card-index" style="margin-bottom:0">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                            <span class="ki-badge">{{ $badgeText }}</span>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ $product->name }}</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-snug">
-                            {{ $product->description }}
-                        </p>
+                        <h3 class="ki-card-title">{{ $product->name }}</h3>
+                        <p class="ki-card-body">{{ $product->description }}</p>
                         @if($product->features && count($product->features) > 0)
-                            <ul class="space-y-2 mb-4">
+                            <ul class="ki-card-list">
                                 @foreach($product->features as $feature)
-                                    <li class="flex items-center text-xs text-gray-600">
-                                        <svg class="w-3.5 h-3.5 mr-2 flex-shrink-0" style="color:#22C55E;" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                        </svg>
-                                        <span>{{ $feature }}</span>
-                                    </li>
+                                    <li>{{ $feature }}</li>
                                 @endforeach
                             </ul>
                         @endif
-                        <a href="{{ $product->cta_route ? route($product->cta_route) : route('contact') }}" class="inline-flex items-center w-full justify-center px-4 py-2 rounded-md text-sm font-medium text-white transition-colors hover:opacity-90" style="background-color: #22C55E;">
+                        <a href="{{ $product->cta_route ? route($product->cta_route) : route('contact') }}" class="ki-card-link">
                             {{ $product->cta_text }}
-                            <svg class="ml-1.5 w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </a>
-                    </div>
+                    </article>
                 @empty
                     <div class="col-span-full text-center py-12">
                         <p class="text-gray-500">No products are currently visible on the frontend.</p>
@@ -1020,346 +547,11 @@
             
             <div class="text-center mt-8">
                 <p class="text-base text-gray-600 mb-4">Interested in our software solutions?</p>
-                <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-2.5 rounded-md text-sm font-medium text-white transition-colors hover:opacity-90" style="background-color: #22C55E;">
-                    Contact Us for More Information
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </a>
+                <a href="{{ route('contact') }}" class="ki-btn">Ask about these products</a>
             </div>
         </div>
     </section>
 
-    <!-- Case Study Modal -->
-    <div id="caseStudyModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <!-- Background overlay -->
-            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeCaseStudyModal()"></div>
-
-            <!-- Modal panel -->
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
-                <div class="bg-white">
-                    <!-- Modal Header with Image -->
-                    <div id="modalImageContainer" class="relative h-64 w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-                        <img id="modalImage" class="w-full h-full object-cover" src="" alt="" style="display: none;">
-                        <div id="modalImagePlaceholder" class="w-full h-full flex items-center justify-center">
-                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <div class="absolute top-0 left-0 right-0 p-4 flex items-center justify-between">
-                            <span id="modalFeatured" class="px-2 py-1 rounded text-xs font-medium text-white shadow-md" style="background-color: #22C55E; display: none;">Featured</span>
-                            <span id="modalYear" class="px-2 py-1 rounded text-xs font-medium text-white bg-black bg-opacity-50 backdrop-blur-sm" style="display: none;"></span>
-                        </div>
-                        <button onclick="closeCaseStudyModal()" class="absolute top-4 right-4 w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all z-10">
-                            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Modal Content -->
-                    <div class="px-6 py-6 max-h-[60vh] overflow-y-auto">
-                        <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 mb-2"></h3>
-                        <p id="modalClient" class="text-sm text-gray-500 mb-6"></p>
-
-                        <div class="space-y-6">
-                            <!-- The Problem -->
-                            <div>
-                                <div class="flex items-start mb-3">
-                                    <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0" style="background-color: rgba(239, 68, 68, 0.1);">
-                                        <svg class="w-4 h-4" style="color:#EF4444;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="text-base font-semibold text-gray-900 mb-2">The Problem</h4>
-                                        <p id="modalProblem" class="text-sm text-gray-600 leading-relaxed"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- How KAYISE IT Solved It -->
-                            <div>
-                                <div class="flex items-start mb-3">
-                                    <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0" style="background-color: rgba(34, 197, 94, 0.1);">
-                                        <svg class="w-4 h-4" style="color:#22C55E;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="text-base font-semibold text-gray-900 mb-2">How KAYISE IT Solved It</h4>
-                                        <p id="modalSolution" class="text-sm text-gray-600 leading-relaxed"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- The Results -->
-                            <div>
-                                <div class="flex items-start mb-3">
-                                    <div class="w-8 h-8 rounded-full flex items-center justify-center mr-3 mt-0.5 flex-shrink-0" style="background-color: rgba(59, 130, 246, 0.1);">
-                                        <svg class="w-4 h-4" style="color:#3B82F6;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                        </svg>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="text-base font-semibold text-gray-900 mb-2">The Results</h4>
-                                        <div id="modalResults" class="space-y-2">
-                                            <p id="modalResultsText" class="text-sm text-gray-600 leading-relaxed"></p>
-                                            <ul id="modalResultsList" class="text-sm text-gray-600 space-y-1 ml-4"></ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Gallery Section -->
-                            <div id="modalGallerySection" style="display: none;">
-                                <div class="border-t border-gray-200 pt-6 mt-6">
-                                    <h4 class="text-base font-semibold text-gray-900 mb-4">Project Gallery</h4>
-                                    <div id="modalGalleryGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        <!-- Gallery images will be inserted here -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Footer -->
-                    <div class="bg-gray-50 px-6 py-4 flex items-center justify-between">
-                        <div></div>
-                        <div class="flex space-x-3">
-                            <button onclick="closeCaseStudyModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
-                                Close
-                            </button>
-                            <a id="modalHyperlink" href="#" target="_blank" rel="noopener noreferrer" 
-                               class="px-4 py-2 text-sm font-medium text-white rounded-md transition-colors hover:opacity-90 inline-flex items-center"
-                               style="background-color: #22C55E; display: none;">
-                                Visit Project
-                                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Case Study Modal Functions
-        function openCaseStudyModal(card) {
-            const modal = document.getElementById('caseStudyModal');
-            const data = {
-                title: card.dataset.caseStudyTitle,
-                image: card.dataset.caseStudyImage,
-                year: card.dataset.caseStudyYear,
-                client: card.dataset.caseStudyClient,
-                problem: card.dataset.caseStudyProblem,
-                solution: card.dataset.caseStudySolution,
-                results: card.dataset.caseStudyResults,
-                resultsList: JSON.parse(card.dataset.caseStudyResultsList || '[]'),
-                hyperlink: card.dataset.caseStudyHyperlink,
-                featured: card.dataset.caseStudyFeatured === '1',
-                hasGallery: card.dataset.caseStudyHasGallery === '1',
-                galleryImages: JSON.parse(card.dataset.caseStudyGalleryImages || '[]')
-            };
-
-            // Set modal content
-            document.getElementById('modalTitle').textContent = data.title;
-            document.getElementById('modalClient').textContent = data.client || '';
-            document.getElementById('modalProblem').textContent = data.problem;
-            document.getElementById('modalSolution').textContent = data.solution;
-            document.getElementById('modalResultsText').textContent = data.results || '';
-            
-            // Handle image
-            const modalImage = document.getElementById('modalImage');
-            const modalImagePlaceholder = document.getElementById('modalImagePlaceholder');
-            if (data.image) {
-                modalImage.src = data.image;
-                modalImage.alt = data.title;
-                modalImage.style.display = 'block';
-                modalImagePlaceholder.style.display = 'none';
-            } else {
-                modalImage.style.display = 'none';
-                modalImagePlaceholder.style.display = 'flex';
-            }
-
-            // Handle year
-            const yearSpan = document.getElementById('modalYear');
-            if (data.year) {
-                yearSpan.textContent = data.year;
-                yearSpan.style.display = 'block';
-            } else {
-                yearSpan.style.display = 'none';
-            }
-
-            // Handle featured badge
-            const featuredSpan = document.getElementById('modalFeatured');
-            if (data.featured) {
-                featuredSpan.style.display = 'block';
-            } else {
-                featuredSpan.style.display = 'none';
-            }
-
-            // Handle results list
-            const resultsList = document.getElementById('modalResultsList');
-            resultsList.innerHTML = '';
-            if (data.resultsList && data.resultsList.length > 0) {
-                data.resultsList.forEach(result => {
-                    const li = document.createElement('li');
-                    li.className = 'flex items-center';
-                    li.innerHTML = `
-                        <span class="w-1.5 h-1.5 rounded-full mr-2" style="background-color: #22C55E;"></span>
-                        <span>${result.text || ''}</span>
-                    `;
-                    resultsList.appendChild(li);
-                });
-            }
-
-            // Handle hyperlink
-            const hyperlinkBtn = document.getElementById('modalHyperlink');
-            if (data.hyperlink) {
-                hyperlinkBtn.href = data.hyperlink;
-                hyperlinkBtn.style.display = 'inline-flex';
-            } else {
-                hyperlinkBtn.style.display = 'none';
-            }
-
-            // Handle gallery
-            const gallerySection = document.getElementById('modalGallerySection');
-            const galleryGrid = document.getElementById('modalGalleryGrid');
-            if (data.hasGallery && data.galleryImages && data.galleryImages.length > 0) {
-                gallerySection.style.display = 'block';
-                galleryGrid.innerHTML = '';
-                data.galleryImages.forEach((imgPath, index) => {
-                    const imgDiv = document.createElement('div');
-                    imgDiv.className = 'relative group cursor-pointer';
-                    imgDiv.onclick = () => openGalleryLightbox(index, data.galleryImages);
-                    imgDiv.innerHTML = `
-                        <img src="${imgPath}" alt="Gallery image ${index + 1}" class="w-full h-32 object-cover rounded-lg border border-gray-200 hover:shadow-lg transition-all">
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 rounded-lg transition-all flex items-center justify-center">
-                            <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
-                            </svg>
-                        </div>
-                    `;
-                    galleryGrid.appendChild(imgDiv);
-                });
-            } else {
-                gallerySection.style.display = 'none';
-            }
-
-            // Show modal
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Gallery Lightbox
-        function openGalleryLightbox(index, images) {
-            // Create lightbox if it doesn't exist
-            let lightbox = document.getElementById('galleryLightbox');
-            if (!lightbox) {
-                lightbox = document.createElement('div');
-                lightbox.id = 'galleryLightbox';
-                lightbox.className = 'fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center';
-                lightbox.innerHTML = `
-                    <button onclick="closeGalleryLightbox()" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                    <button onclick="prevGalleryImage()" class="absolute left-4 text-white hover:text-gray-300 z-10">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button onclick="nextGalleryImage()" class="absolute right-4 text-white hover:text-gray-300 z-10">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                    <img id="lightboxImage" class="max-w-7xl max-h-screen object-contain" src="" alt="Gallery image">
-                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-sm">
-                        <span id="lightboxImageCounter"></span>
-                    </div>
-                `;
-                document.body.appendChild(lightbox);
-            }
-
-            window.currentGalleryImages = images;
-            window.currentGalleryIndex = index;
-            updateLightboxImage();
-            lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeGalleryLightbox() {
-            const lightbox = document.getElementById('galleryLightbox');
-            if (lightbox) {
-                lightbox.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        function updateLightboxImage() {
-            const img = document.getElementById('lightboxImage');
-            const counter = document.getElementById('lightboxImageCounter');
-            if (window.currentGalleryImages && window.currentGalleryImages.length > 0) {
-                img.src = window.currentGalleryImages[window.currentGalleryIndex];
-                counter.textContent = `${window.currentGalleryIndex + 1} / ${window.currentGalleryImages.length}`;
-            }
-        }
-
-        function nextGalleryImage() {
-            if (window.currentGalleryImages && window.currentGalleryImages.length > 0) {
-                window.currentGalleryIndex = (window.currentGalleryIndex + 1) % window.currentGalleryImages.length;
-                updateLightboxImage();
-            }
-        }
-
-        function prevGalleryImage() {
-            if (window.currentGalleryImages && window.currentGalleryImages.length > 0) {
-                window.currentGalleryIndex = (window.currentGalleryIndex - 1 + window.currentGalleryImages.length) % window.currentGalleryImages.length;
-                updateLightboxImage();
-            }
-        }
-
-        // Keyboard navigation for gallery
-        document.addEventListener('keydown', function(e) {
-            const lightbox = document.getElementById('galleryLightbox');
-            if (lightbox && lightbox.style.display === 'flex') {
-                if (e.key === 'ArrowRight') nextGalleryImage();
-                if (e.key === 'ArrowLeft') prevGalleryImage();
-                if (e.key === 'Escape') closeGalleryLightbox();
-            }
-        });
-
-        function closeCaseStudyModal() {
-            const modal = document.getElementById('caseStudyModal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Add click handlers to all case study cards
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.case-study-card');
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    // Don't open modal if clicking on hyperlink
-                    if (e.target.closest('a')) {
-                        return;
-                    }
-                    openCaseStudyModal(this);
-                });
-            });
-
-            // Close modal on Escape key
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    closeCaseStudyModal();
-                }
-            });
-        });
-    </script>
 
     <!-- WHY CHOOSE KAYISE IT: Value Proposition -->
     <section class="bg-white py-20 relative overflow-hidden">
@@ -1410,7 +602,7 @@
                 </div>
                 <div class="relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/10">
                     <img src="{{ asset('images/KayiseIT-Team.jpg') }}" alt="Kayise IT team" class="absolute inset-0 w-full h-full object-cover" style="filter: brightness(1.06) contrast(1.08);" loading="lazy">
-                    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(2,6,23,.40) 0%, rgba(2,6,23,.55) 100%);"></div>
+                    <div class="absolute inset-0" style="background: rgba(2,6,23,.5);"></div>
                     <canvas id="why-hypno" class="w-full" style="display:block; height: 28rem;"></canvas>
                 </div>
             </div>
@@ -1421,32 +613,32 @@
     <section class="bg-gray-50 py-20">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-16">
-                <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4" style="color:#22C55E;border:1px solid #22C55E;background-color: rgba(34, 197, 94, 0.10);">Our Tech Stack</span>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Technologies We Master</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Leveraging cutting-edge tools and frameworks to build robust solutions</p>
+                <span class="ki-kicker">How we build</span>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Tools we work with</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">HTML, CSS, JavaScript, PHP, Laravel, and Tailwind — the stack behind most of our websites and applications.</p>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
-                <div class="flex flex-col items-center justify-center p-6 bg-white rounded-xl hover:shadow-lg transition-shadow">
+                <div class="ki-tech">
                     <svg class="w-12 h-12 mb-3" viewBox="0 0 24 24" fill="#22C55E"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>
                     <p class="text-sm font-semibold text-gray-700">HTML5</p>
                 </div>
-                <div class="flex flex-col items-center justify-center p-6 bg-white rounded-xl hover:shadow-lg transition-shadow">
+                <div class="ki-tech">
                     <svg class="w-12 h-12 mb-3" viewBox="0 0 24 24" fill="#1572B6"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>
                     <p class="text-sm font-semibold text-gray-700">CSS3</p>
         </div>
-                <div class="flex flex-col items-center justify-center p-6 bg-white rounded-xl hover:shadow-lg transition-shadow">
+                <div class="ki-tech">
                     <svg class="w-12 h-12 mb-3" viewBox="0 0 24 24" fill="#F7DF1E"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
                     <p class="text-sm font-semibold text-gray-700">JavaScript</p>
             </div>
-                <div class="flex flex-col items-center justify-center p-6 bg-white rounded-xl hover:shadow-lg transition-shadow">
+                <div class="ki-tech">
                     <svg class="w-12 h-12 mb-3" viewBox="0 0 24 24" fill="#777BB4"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.141 19.031c-.771 0-1.402-.63-1.402-1.402s.631-1.402 1.402-1.402c.771 0 1.402.63 1.402 1.402s-.631 1.402-1.402 1.402zm3.91-8.773c-.38.479-.968.835-1.762 1.068v.028c0 .074-.06.134-.134.134h-1.186a.134.134 0 0 1-.134-.134v-.137c0-1.051.509-1.568 1.523-1.551 1.027.017 1.448-.497 1.265-1.539-.184-1.042-1.266-1.042-2.298-1.042-.781 0-1.416.06-1.902.18v4.872c0 .074-.06.134-.134.134H9.102a.134.134 0 0 1-.134-.134V7.723c0-.062.042-.116.102-.13 1.267-.296 2.724-.436 4.371-.421 2.147.02 3.707.757 4.032 2.406.301 1.528-.394 2.712-1.422 3.68z"/></svg>
                     <p class="text-sm font-semibold text-gray-700">PHP</p>
                 </div>
-                <div class="flex flex-col items-center justify-center p-6 bg-white rounded-xl hover:shadow-lg transition-shadow">
+                <div class="ki-tech">
                     <svg class="w-12 h-12 mb-3" viewBox="0 0 24 24" fill="#FF2D20"><path d="M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934a.378.378 0 01-.188.326L9.93 23.949a.316.316 0 01-.066.027c-.008.002-.016.008-.024.01a.348.348 0 01-.192 0c-.011-.002-.02-.008-.03-.012-.02-.008-.042-.014-.062-.025L.533 18.755a.376.376 0 01-.189-.326V2.974c0-.033.005-.066.014-.098.003-.012.01-.02.014-.032a.369.369 0 01.023-.058c.004-.013.015-.022.023-.033l.033-.045c.012-.01.025-.018.037-.027.014-.012.027-.024.041-.034H.53L5.043.05a.375.375 0 01.375 0l4.513 2.6h.001c.016.01.03.021.044.033.012.009.025.018.037.027.013.014.024.028.033.045.008.011.02.021.025.033.01.02.017.038.024.058.003.011.01.021.013.032.01.031.014.064.014.098v9.652l3.76-2.164V5.527c0-.033.004-.066.013-.098.003-.01.01-.02.013-.032a.487.487 0 01.024-.059c.007-.012.018-.02.025-.033.012-.015.021-.03.033-.043.012-.012.025-.02.037-.028.014-.01.026-.023.041-.032h.001l4.513-2.598a.375.375 0 01.375 0l4.513 2.598c.016.01.031.022.046.032.011.009.024.018.036.028.013.014.024.028.034.044.008.012.019.021.024.033.011.02.018.04.024.06.006.01.012.021.015.032zm-.74 5.032V6.179l-1.578.908-2.182 1.256v4.283zm-4.51 7.75v-4.287l-2.147 1.225-6.126 3.498v4.325zM1.093 3.624v14.588l8.273 4.761v-4.325l-4.322-2.445-.002-.003H5.04c-.014-.01-.025-.021-.04-.031-.011-.01-.024-.018-.035-.027l-.001-.002c-.013-.012-.021-.025-.031-.039-.01-.012-.021-.023-.028-.037h-.002c-.008-.014-.013-.031-.02-.047-.006-.016-.014-.027-.018-.043a.49.49 0 01-.008-.057c-.002-.014-.006-.027-.006-.041V5.789l-2.18-1.257zM5.23.81L1.47 2.974l3.76 2.164 3.758-2.164zm1.956 13.505l2.182-1.256V3.624l-1.58.91-2.182 1.255v9.435zm11.581-10.95l-3.76 2.163 3.76 2.163 3.759-2.164zm-.376 4.978L16.21 7.087 14.63 6.18v4.283l2.182 1.256 1.58.908zm-8.65 9.654l5.514-3.148 2.756-1.572-3.757-2.163-4.323 2.489-3.941 2.27z"/></svg>
                     <p class="text-sm font-semibold text-gray-700">Laravel</p>
                 </div>
-                <div class="flex flex-col items-center justify-center p-6 bg-white rounded-xl hover:shadow-lg transition-shadow">
+                <div class="ki-tech">
                     <svg class="w-12 h-12 mb-3" viewBox="0 0 24 24" fill="#06B6D4"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></svg>
                     <p class="text-sm font-semibold text-gray-700">Tailwind</p>
                 </div>
@@ -1454,14 +646,14 @@
         </div>
     </section>
 
-    <!-- Featured gallery (managed in admin: Gallery → Featured Gallery on Homepage) -->
+    <!-- Featured gallery (admin: Gallery → Featured Gallery on Homepage) -->
     <section class="bg-white py-20">
         <div class="container mx-auto px-4 max-w-7xl">
             @if($featuredGallery)
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ $featuredGallery->name }}</h2>
                 @if($featuredGallery->description)
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ $featuredGallery->description }}</p>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto whitespace-pre-line">{{ $featuredGallery->description }}</p>
                 @endif
             </div>
             @endif
@@ -1486,18 +678,18 @@
             }">
                 @foreach($featuredGalleryPhotos as $index => $photo)
                 <div 
-                    class="relative group cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    class="ki-photo cursor-pointer"
                     @click="openLightbox({{ $index }})"
                     style="animation: fadeInUp 0.5s ease-out {{ $index * 0.1 }}s both;"
                 >
                     <img 
                         src="{{ asset($photo['path']) }}" 
                         alt="Gallery Image {{ $index + 1 }}" 
-                        class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-125"
+          class="w-full h-48 object-cover"
                         loading="lazy"
                         onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-48 bg-gray-200 flex items-center justify-center rounded-xl\'><svg class=\'w-12 h-12 text-gray-400\' fill=\'currentColor\' viewBox=\'0 0 20 20\'><path fill-rule=\'evenodd\' d=\'M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z\' clip-rule=\'evenodd\'></path></svg></div>'"
                     >
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
                         <svg class="w-8 h-8 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
                         </svg>
@@ -1576,7 +768,7 @@
             </div>
             @endif
             <div class="mt-8 text-center">
-                <a href="{{ route('gallery') }}" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">View Gallery</a>
+                <a href="{{ route('gallery') }}" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: #16A34A;">View Gallery</a>
             </div>
         </div>
     </section>

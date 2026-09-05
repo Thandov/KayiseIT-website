@@ -58,5 +58,17 @@ class AdminUserSeeder extends Seeder
             ]
         );
         $user->attachRole($adminRole->name);
+
+        // Admin 4 (Fana)
+        $user = User::firstOrCreate(
+            ['email' => 'fana@kayiseit.com'],
+            [
+                'name' => 'Fana',
+                'password' => Hash::make('F@n@'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
+        );
+        $user->attachRole($adminRole->name);
     }
 }

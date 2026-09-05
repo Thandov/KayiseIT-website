@@ -117,7 +117,7 @@ class ChatbotResponseService
                 'email',
                 'get in touch'
             ],
-            'response' => 'You can reach us at +27 87 702 26 25 for voice calls. Our office address is Suite 2, 2nd Floor, Nelbro Building, 39B Brown Street, Mbombela. As a backup, you can also open the Contact page and click the map to get directions.'
+            'response' => 'You can reach us at +27 87 702 2625 for voice calls, or WhatsApp +27 69 390 7862. Our office address is Suite 2, 2nd Floor, Nelbro Building, 39B Brown Street, Mbombela. You can also open the Contact page and use the map for directions.'
         ],
         [
             'intent' => 'location',

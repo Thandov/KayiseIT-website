@@ -1,4 +1,4 @@
-<div class="h-100 item d-flex justify-content-start align-items-center" style="background: url({{$pic}}); background-repeat: no-repeat; background-size: cover; background-position: center">
+<div class="h-100 item d-flex justify-content-start align-items-center" style="background: url('{{ $pic }}') center / cover no-repeat;">
     <div class="black-overlay d-flex justify-content-start align-items-center">
         <div class="container hero-content d-flex align-items-center">
             <div class="py-5 px-3 h-75 border-none">

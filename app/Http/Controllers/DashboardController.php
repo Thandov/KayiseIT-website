@@ -20,6 +20,8 @@ use App\Models\Partner;
 use App\Models\Product;
 use App\Models\Carousel;
 use App\Models\InternshipProgram;
+use App\Models\Employee;
+use App\Models\CaseStudy;
 use App\Helpers\ImagePathResolver;
 use Illuminate\Http\QuotationRequest;
 
@@ -72,6 +74,7 @@ class DashboardController extends Controller
         $partners = collect();
         $products = collect();
         $carouselSlides = collect();
+        $homeCaseStudies = collect();
 
         // Wrap each database query individually to handle connection errors gracefully
         try {
@@ -93,10 +96,11 @@ class DashboardController extends Controller
         }
 
         try {
+            // Get featured gallery for homepage
             $featuredGallery = Gallery::where('featured_on_homepage', true)
                 ->with('photos')
                 ->first();
-
+            
             if ($featuredGallery && $featuredGallery->photos) {
                 $allPhotos = $featuredGallery->photos->map(function($photo) {
                     // Normalize path: convert old "gallery/..." to "images/gallery/..." for consistency
@@ -199,24 +203,72 @@ class DashboardController extends Controller
         }
 
         try {
-            $carouselSlides = Carousel::select('title', 'middletxt', 'btmtxt', 'image')->orderBy('created_at', 'desc')->get();
+            $carouselSlides = Carousel::query()->latest()->get();
         } catch (\Throwable $e) {
             Log::error('Home page: Failed to load carousel slides - '.$e->getMessage());
         }
 
-        return view('home', compact('services', 'testimonials', 'blog', 'galleries', 'featuredGallery', 'featuredGalleryPhotos', 'announcements', 'partners', 'products', 'carouselSlides'));
+        try {
+            $homeCaseStudies = CaseStudy::query()
+                ->published()
+                ->ordered()
+                ->limit(6)
+                ->get();
+        } catch (\Throwable $e) {
+            Log::error('Home page: Failed to load case studies - '.$e->getMessage());
+        }
+
+        return view('home', compact('services', 'testimonials', 'blog', 'galleries', 'featuredGallery', 'featuredGalleryPhotos', 'announcements', 'partners', 'products', 'carouselSlides', 'homeCaseStudies'));
     }
 
     public function opportunities()
     {
-        $today = now()->toDateString();
-
-        $internshipPrograms = InternshipProgram::active()
-            ->whereDate('recruitment_end_date', '>=', $today)
-            ->orderBy('recruitment_end_date')
-            ->orderByDesc('created_at')
-            ->get();
+        $internshipPrograms = InternshipProgram::activelyRunning()->get();
 
         return view('opportunities', compact('internshipPrograms'));
+    }
+
+    public function about()
+    {
+        $ceo = null;
+        $leadership = collect();
+        $interns = collect();
+        $partners = collect();
+
+        try {
+            $employees = Employee::query()
+                ->orderBy('sort_order')
+                ->orderBy('first_name')
+                ->orderBy('last_name')
+                ->get();
+
+            $ceo = $employees->first(function (Employee $employee) {
+                $title = strtolower((string) $employee->job_title);
+
+                return $employee->manager_id === null
+                    && (str_contains($title, 'ceo') || str_contains($title, 'founder'));
+            }) ?? $employees->first(fn (Employee $employee) => $employee->manager_id === null)
+                ?? $employees->first();
+
+            $others = $employees->reject(fn (Employee $employee) => $ceo && $employee->id === $ceo->id)->values();
+
+            $interns = $others->filter(function (Employee $employee) {
+                return str_contains(strtolower((string) $employee->job_title), 'intern');
+            })->values();
+
+            $leadership = $others->reject(function (Employee $employee) {
+                return str_contains(strtolower((string) $employee->job_title), 'intern');
+            })->values();
+        } catch (\Throwable $e) {
+            Log::error('About page: Failed to load team - '.$e->getMessage());
+        }
+
+        try {
+            $partners = Partner::active()->ordered()->get();
+        } catch (\Throwable $e) {
+            Log::error('About page: Failed to load partners - '.$e->getMessage());
+        }
+
+        return view('about', compact('ceo', 'leadership', 'interns', 'partners'));
     }
 }

@@ -20,15 +20,15 @@
         <div class="mb-6">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Carousel Management</h1>
-                    <p class="mt-1 text-sm text-gray-600">Manage carousel slides for the homepage</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Homepage slides</h1>
+                    <p class="mt-1 text-sm text-gray-600">Classic overlay slides, editorial captions, or campaign visuals that link to a blog or page</p>
                 </div>
                 <a href="{{ route('admin.dashboard.carousel.create') }}" 
                    class="inline-flex items-center px-4 py-2 bg-kb-100 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-kb-600 focus:bg-kb-700 active:bg-kb-700 focus:outline-none focus:ring-2 focus:ring-kb-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
-                    Add New Carousel
+                    New slide
                 </a>
             </div>
         </div>
@@ -91,8 +91,8 @@
                 <div class="mx-auto h-24 w-24 text-gray-400 mb-4">
                     <i class="fas fa-images text-6xl"></i>
                 </div>
-                <h3 class="text-lg font-medium text-gray-900 mb-2">No carousels found</h3>
-                <p class="text-gray-500 mb-6">Get started by creating your first carousel slide.</p>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No slides yet</h3>
+                <p class="text-gray-500 mb-6">Create a classic hero, or a campaign visual that opens a blog post.</p>
                 <a href="{{ route('admin.dashboard.carousel.create') }}" 
                    class="inline-flex items-center px-4 py-2 bg-kb-100 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-kb-600 focus:bg-kb-700 active:bg-kb-700 focus:outline-none focus:ring-2 focus:ring-kb-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     <i class="fas fa-plus mr-2"></i>

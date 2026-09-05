@@ -1,5 +1,7 @@
 @extends('admin.dashboard.layout')
 
+@section('page-title', $pageTitle ?? 'Edit Announcement')
+
 @section('content')
     <div class="p-6">
         <div class="max-w-4xl mx-auto">

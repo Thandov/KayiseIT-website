@@ -1,151 +1,62 @@
 <div class="space-y-6">
-    <!-- Recent Notifications -->
+    {{-- Recent Notifications ───────────────────────────────────────── --}}
     <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-        <div class="flex justify-between items-center mb-4">
-            <h4 class="text-lg font-semibold text-gray-900">Recent Notifications</h4>
-            <button class="text-indigo-600 hover:text-indigo-700 text-sm font-medium">Mark All as Read</button>
-        </div>
-        <div class="space-y-3">
-            <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
-                <div class="flex justify-between items-start">
-                    <div class="flex items-start">
-                        <div class="text-xl mr-3">🔴</div>
-                        <div>
-                            <p class="font-medium text-gray-900">Interview Scheduled</p>
-                            <p class="text-sm text-gray-600">Your interview for the Web Development position has been scheduled for January 15, 2025 at 2:00 PM.</p>
-                            <p class="text-xs text-gray-500 mt-1">2 hours ago</p>
-                        </div>
-                    </div>
-                    <button class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
+        <h4 class="text-lg font-semibold text-gray-900 mb-4">Notifications</h4>
+
+        {{-- Application status changes ──────────────────────────────── --}}
+        @php
+            $recentChanges = isset($applications)
+                ? $applications->filter(fn($a) => $a->responded_at !== null)->sortByDesc('responded_at')
+                : collect();
+        @endphp
+
+        @if($recentChanges->isNotEmpty())
+            <div class="space-y-3">
+                @foreach($recentChanges as $app)
+                <div class="border-l-4 {{ $app->status === 'accepted' ? 'border-green-500 bg-green-50' : 'border-red-500 bg-red-50' }} p-4 rounded-r-lg">
+                    <p class="font-medium text-gray-900">
+                        Application {{ $app->app_id }}
+                        <span class="{{ $app->status === 'accepted' ? 'text-green-700' : 'text-red-700' }} font-semibold">
+                            {{ ucfirst($app->status) }}
+                        </span>
+                    </p>
+                    @if($app->admin_message)
+                        <p class="text-sm text-gray-600 mt-1">{{ $app->admin_message }}</p>
+                    @endif
+                    <p class="text-xs text-gray-400 mt-1">{{ $app->responded_at->diffForHumans() }}</p>
                 </div>
+                @endforeach
             </div>
-            
-            <div class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-r-lg">
-                <div class="flex justify-between items-start">
-                    <div class="flex items-start">
-                        <div class="text-xl mr-3">🟡</div>
-                        <div>
-                            <p class="font-medium text-gray-900">New Learning Material Available</p>
-                            <p class="text-sm text-gray-600">New video tutorials for Drone Technology course are now available in your dashboard.</p>
-                            <p class="text-xs text-gray-500 mt-1">5 hours ago</p>
-                        </div>
-                    </div>
-                    <button class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
+        @else
+            <div class="text-center py-10 text-gray-400">
+                <svg class="mx-auto mb-3 w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                </svg>
+                <p class="text-sm">No notifications yet.</p>
+                <p class="text-xs mt-1 text-gray-400">We will notify you here when your application status changes.</p>
             </div>
-            
-            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-r-lg">
-                <div class="flex justify-between items-start">
-                    <div class="flex items-start">
-                        <div class="text-xl mr-3">🔵</div>
-                        <div>
-                            <p class="font-medium text-gray-900">Application Status Updated</p>
-                            <p class="text-sm text-gray-600">Your application for the Data Analytics program has been moved to the next review stage.</p>
-                            <p class="text-xs text-gray-500 mt-1">1 day ago</p>
-                        </div>
-                    </div>
-                    <button class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg">
-                <div class="flex justify-between items-start">
-                    <div class="flex items-start">
-                        <div class="text-xl mr-3">🟢</div>
-                        <div>
-                            <p class="font-medium text-gray-900">Welcome Message from Mentor</p>
-                            <p class="text-sm text-gray-600">John Smith has been assigned as your mentor. Check your messages to connect with them.</p>
-                            <p class="text-xs text-gray-500 mt-1">2 days ago</p>
-                        </div>
-                    </div>
-                    <button class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="border-l-4 border-gray-300 bg-gray-50 p-4 rounded-r-lg">
-                <div class="flex justify-between items-start">
-                    <div class="flex items-start">
-                        <div class="text-xl mr-3">⚪</div>
-                        <div>
-                            <p class="font-medium text-gray-500">Profile Updated Successfully</p>
-                            <p class="text-sm text-gray-500">Your profile information has been updated successfully.</p>
-                            <p class="text-xs text-gray-400 mt-1">3 days ago</p>
-                        </div>
-                    </div>
-                    <button class="text-gray-400 hover:text-gray-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
+        @endif
     </div>
 
-    <!-- Notification Settings -->
+    {{-- Notification preferences ───────────────────────────────────── --}}
     <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
-        <h4 class="text-lg font-semibold text-gray-900 mb-4">Notification Settings</h4>
+        <h4 class="text-lg font-semibold text-gray-900 mb-1">Notification preferences</h4>
+        <p class="text-sm text-gray-500 mb-5">All important updates are sent to your registered email address.</p>
         <div class="space-y-4">
+            @foreach([
+                ['label' => 'Application status updates', 'sub' => 'When your application is accepted or rejected'],
+                ['label' => 'New programmes available',   'sub' => 'When new internship or learnership programmes open'],
+                ['label' => 'Important announcements',    'sub' => 'Updates and news from KAYISE IT'],
+            ] as $pref)
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="font-medium text-gray-900">Application Updates</p>
-                    <p class="text-sm text-gray-500">Get notified when your application status changes</p>
+                    <p class="font-medium text-gray-900 text-sm">{{ $pref['label'] }}</p>
+                    <p class="text-xs text-gray-500">{{ $pref['sub'] }}</p>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked class="sr-only peer">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
+                <span class="text-xs text-gray-400 italic">via email</span>
             </div>
-            
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="font-medium text-gray-900">New Learning Materials</p>
-                    <p class="text-sm text-gray-500">Get notified when new courses or resources are available</p>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked class="sr-only peer">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-            </div>
-            
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="font-medium text-gray-900">Mentor Messages</p>
-                    <p class="text-sm text-gray-500">Get notified when your mentor sends you a message</p>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" class="sr-only peer">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-            </div>
-            
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="font-medium text-gray-900">Email Notifications</p>
-                    <p class="text-sm text-gray-500">Receive notifications via email</p>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked class="sr-only peer">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-                </label>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
-

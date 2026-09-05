@@ -1,3 +1,10 @@
+@php
+    $sectionTitle = trim($__env->yieldContent('page-title'));
+    $resolvedPageTitle = $sectionTitle !== '' ? $sectionTitle : ($pageTitle ?? 'Dashboard');
+    $documentTitle = str_contains($resolvedPageTitle, 'Kayise IT')
+        ? $resolvedPageTitle
+        : $resolvedPageTitle . ' - Kayise IT Dashboard';
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -5,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HJTS8XQSPF"></script>
@@ -16,11 +24,10 @@
       gtag('config', 'G-HJTS8XQSPF');
     </script>
 
-    <!-- SEO META TAGS -->
-    <title>{{ $pageTitle ?? 'Gallery Management - Kayise IT Dashboard' }}</title>
-    <meta name="description" content="Gallery Management Dashboard">
-    <meta name="keywords" content="gallery, dashboard, admin">
-    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
+    <title>{{ $documentTitle }}</title>
+    <meta name="description" content="{{ $resolvedPageTitle }} — Kayise IT admin dashboard.">
+    <link rel="icon" type="image/png" sizes="684x365" href="{{ asset('images/kayise_IT_logo_No_Background.png') }}">
+    <style>[x-cloak] { display: none !important; }</style>
 
     <!-- Tailwind CSS - Loaded first for admin panels -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,28 +35,35 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    spacing: {
+                        control: 'var(--ki-space-control)',
+                        cluster: 'var(--ki-space-cluster)',
+                        card: 'var(--ki-space-card)',
+                        stack: 'var(--ki-space-stack)',
+                        page: 'var(--ki-space-page)',
+                    },
                     colors: {
                         'kb': {
-                            50: '#f0f4ff',
-                            100: '#183ea4',
-                            200: '#0086c9',
-                            300: '#0070b6',
-                            400: '#0064ad',
-                            500: '#1d53a0',
-                            600: '#274698',
-                            700: '#263a57',
+                            50: 'var(--ki-blue-50)',
+                            100: 'var(--ki-blue)',
+                            200: 'var(--ki-blue-200)',
+                            300: 'var(--ki-blue-300)',
+                            400: 'var(--ki-blue-400)',
+                            500: 'var(--ki-blue-500)',
+                            600: 'var(--ki-blue-600)',
+                            700: 'var(--ki-blue-700)',
                         },
                         'kg': {
-                            50: '#f0fdf4',
-                            100: '#c7e0c2',
-                            200: '#a2cfa8',
-                            300: '#7cbd81',
-                            400: '#3fab5f',
-                            500: '#368e4f',
-                            600: '#28663d',
-                            700: '#22C55E',
-                            800: '#1a5a2f',
-                            900: '#0f3421',
+                            50: 'var(--ki-green-50)',
+                            100: 'var(--ki-green-100)',
+                            200: 'var(--ki-green-200)',
+                            300: 'var(--ki-green-300)',
+                            400: 'var(--ki-green-400)',
+                            500: 'var(--ki-green-500)',
+                            600: 'var(--ki-green)',
+                            700: 'var(--ki-green-bright)',
+                            800: 'var(--ki-green-800)',
+                            900: 'var(--ki-green-900)',
                         }
                     }
                 }
@@ -59,12 +73,14 @@
     
     <!-- Vite assets -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/ki-ui.css') }}">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('css/all.css') }}">
     
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('styles')
 </head>
 
 <body class="antialiased bg-gray-50">
@@ -104,7 +120,7 @@
                 </div>
 
                 <!-- Navigation -->
-                <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+                <nav class="flex-1 px-4 py-6 overflow-y-auto">
                     @include('admin.dashboard.partials._navigation')
                 </nav>
             </div>
@@ -169,5 +185,6 @@
             }));
         });
     </script>
+    @stack('scripts')
 </body>
 </html>

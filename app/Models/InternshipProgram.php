@@ -31,6 +31,8 @@ class InternshipProgram extends Model
         'qr_code_path',
         'is_active',
         'allows_enquiry',
+        'application_form_schema',
+        'announcement_id',
     ];
 
     protected $casts = [
@@ -43,6 +45,7 @@ class InternshipProgram extends Model
         'youth_beneficiaries' => 'boolean',
         'is_active' => 'boolean',
         'allows_enquiry' => 'boolean',
+        'application_form_schema' => 'array',
         'stipend_amount' => 'decimal:2',
     ];
 
@@ -121,6 +124,11 @@ class InternshipProgram extends Model
         return $this->belongsTo(Partner::class);
     }
 
+    public function announcement()
+    {
+        return $this->belongsTo(Announcement::class);
+    }
+
     // Check if partner is MICT SETA
     public function isMictPartner()
     {
@@ -128,5 +136,21 @@ class InternshipProgram extends Model
             stripos($this->partner->name, 'MICT') !== false || 
             stripos($this->partner->name, 'MICT SETA') !== false
         );
+    }
+
+    /** @return list<string> */
+    public function getFormFieldKeys(): array
+    {
+        return \App\Support\ProgramFormFields::normalizeSelected(
+            $this->application_form_schema,
+            $this->program_type ?? 'Internship',
+            (bool) $this->allows_enquiry
+        );
+    }
+
+    /** @return array<string, array{label: string, fields: list<array<string, mixed>>}> */
+    public function getGroupedFormFields(): array
+    {
+        return \App\Support\ProgramFormFields::groupedBySection($this->getFormFieldKeys());
     }
 }

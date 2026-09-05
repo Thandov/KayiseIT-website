@@ -1,21 +1,21 @@
-@php
-    $viewserviceName = $services['service'] ?? ($service->name ?? 'IT Services');
-    $viewserviceDesc = \Illuminate\Support\Str::limit(
-        trim(strip_tags($service->description ?? 'Professional IT services and solutions from KAYISE IT.')),
-        140
-    ) . ' Explore subservices and request a quote from KAYISE IT.';
-@endphp
-<x-app-layout
-    :title="$viewserviceName . ' | KAYISE IT'"
-    :description="$viewserviceDesc"
-    :keywords="$viewserviceName . ', IT services, software, KAYISE IT, South Africa'"
->
+<x-app-layout>
+    <!-- Meta tags -->
+    @section('meta')
+    <!-- Page Body -->
+
     <div id="viewservice">
-        <x-hero-banner hero="service-hero" title="{{ $services['service'] }}"></x-hero-banner>
+        <x-page-header
+            :title="$services['service']"
+            hero-id="service-hero"
+            background-image="images/banner/softwareDeveloper.png"
+            height="h-96" />
         <div class="col-span-1 md:col-span-5">
             <!-- Content for left column -->
             @php
-                $componentName = $service->componentViewName();
+                $slug = Str::slug($services['service']);
+                $componentNameSubfolder = 'components.services.' . $slug;
+                $componentNameFlat = 'components.' . $slug;
+                $componentName = view()->exists($componentNameSubfolder) ? $componentNameSubfolder : $componentNameFlat;
                 $componentExists = view()->exists($componentName);
             @endphp
             @if($componentExists)
@@ -55,5 +55,6 @@
                 </div>
             @endif
         </div>
+    </div>
     </div>
 </x-app-layout>

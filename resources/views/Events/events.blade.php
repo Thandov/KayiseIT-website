@@ -1,8 +1,13 @@
-<x-app-layout
-    title="Events | KAYISE IT"
-    description="Upcoming and past KAYISE IT events: workshops, launches, and partner engagements. Register or browse highlights."
-    keywords="KAYISE IT events, workshops, Mandela Washington Fellowship, YALI, South Africa"
->
+<x-app-layout>
+    <!-- Meta tags  -->
+    @section('meta')
+    @php
+    $metaTitle = "Home - Welcome to Kayise IT";
+    $metaDescription = "Explore our innovative technology solutions and experience unparalleled customer satisfaction.";
+    $metaKeywords = "YALI2024, YALINetwork, MandelaWashingtonFellowship";
+    @endphp
+    @endsection
+
     <div class="py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
 
         <!-- Content -->

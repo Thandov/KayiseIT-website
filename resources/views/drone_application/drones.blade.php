@@ -1,11 +1,17 @@
-<x-app-layout
-    title="Drone programme information | KAYISE IT"
-    description="Information on KAYISE IT drone programmes and applications. Explore how we support STEM and aviation-related learning pathways."
-    keywords="KAYISE IT drones, drone workshop, STEM South Africa, Mbombela, drone programme"
->
-    <section id="hero-banner">
-        <x-hero-banner hero="drone-hero" title="Drone Workshop 1" />
-    </section>
+<x-app-layout>
+    @section('meta')
+    @php
+    $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
+    $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
+    $metaKeywords = "IT Company, drones, kayiseit, kayise, mictseta, stem, robotics, science, technology, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
+    @endphp
+    @endsection
+
+    <x-page-header
+        title="Drone Workshop 1"
+        hero-id="drone-hero"
+        background-image="images/icons/drones.png"
+        height="h-96" />
 
     <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
         <div class="row">

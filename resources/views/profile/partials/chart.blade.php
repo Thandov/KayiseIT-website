@@ -32,40 +32,30 @@
             // Create a slightly darker shade of the primary color
             const slightlyDarkerColor = '#1c9a4c';
 
-            // Create gradients for the fill colors with an elegant fade-out effect
-            const quotationGradient = ctx.createLinearGradient(0, 0, 0, 400);
-            quotationGradient.addColorStop(0, primaryColor); // Primary color at the top
-            quotationGradient.addColorStop(1, 'rgba(255, 255, 255, 0.4)'); // Transparent color at the bottom
-
-            const invoiceGradient = ctx.createLinearGradient(0, 0, 0, 400);
-            invoiceGradient.addColorStop(0, primaryColor); // Primary color at the top
-            invoiceGradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); // Transparent color at the bottom
-
-            // Create the chart with fill: true and gradient fill
             const myChart = new Chart(ctx, {
-                type: 'line', // Use a line chart for monthly counts
+                type: 'line',
                 data: {
-                    labels: months, // Month names on the x-axis
+                    labels: months,
                     datasets: [{
                         label: 'Quotation Count',
-                        data: quotationCounts, // Number of quotations on the y-axis
-                        borderColor: slightlyDarkerColor, // Line color (primary color)
-                        borderWidth: 5, // Line width
-                        backgroundColor: quotationGradient, // Gradient fill color with elegant fade-out for quotations
-                        pointBackgroundColor: primaryColor, // Point color (primary color)
-                        pointRadius: 4, // Point radius
-                        pointHoverRadius: 6, // Point hover radius
-                        fill: true, // Enable fill for quotations
+                        data: quotationCounts,
+                        borderColor: slightlyDarkerColor,
+                        borderWidth: 5,
+                        backgroundColor: 'rgba(34, 197, 94, 0.12)',
+                        pointBackgroundColor: primaryColor,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
                     }, {
                         label: 'Invoice Count',
-                        data: invoiceCounts, // Number of invoices on the y-axis
-                        borderColor: lighterColor, // Line color (primary color)
-                        borderWidth: 5, // Line width
-                        backgroundColor: invoiceGradient, // Gradient fill color with elegant fade-out for invoices
-                        pointBackgroundColor: primaryColor, // Point color (primary color)
-                        pointRadius: 4, // Point radius
-                        pointHoverRadius: 6, // Point hover radius
-                        fill: true, // Enable fill for invoices
+                        data: invoiceCounts,
+                        borderColor: lighterColor,
+                        borderWidth: 5,
+                        backgroundColor: 'rgba(24, 62, 164, 0.10)',
+                        pointBackgroundColor: primaryColor,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
                     }]
                 },
                 options: {

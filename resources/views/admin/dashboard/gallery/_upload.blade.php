@@ -17,7 +17,7 @@
             
             <!-- Progress Bar Container -->
             <div class="w-full bg-gray-200 rounded-full h-4 mb-4 overflow-hidden">
-                <div id="progress-bar" class="bg-gradient-to-r from-kb-100 to-kb-200 h-4 rounded-full transition-all duration-300 ease-out" style="width: 0%">
+                <div id="progress-bar" class="bg-[#183ea4] h-4 rounded-full transition-all duration-300 ease-out" style="width: 0%">
                     <div class="h-full bg-white bg-opacity-30 animate-pulse"></div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                                 <line x1="12" y1="3" x2="12" y2="15" />
                             </svg>
                             <h4 class="text-lg font-medium text-kb-100 group-hover:text-kb-200 mb-2">Drop images here or click to browse</h4>
-                            <p class="text-sm text-gray-500 group-hover:text-gray-600">PNG, JPG, and GIF files up to 10MB</p>
+                            <p class="text-sm text-gray-500 group-hover:text-gray-600">JPG, PNG, WebP, or GIF. iPhone HEIC photos are converted automatically.</p>
                         </div>
                     </div>
                 </div>

@@ -13,12 +13,15 @@
         <option value="Senior Position">Senior Position</option>
         <option value="Contract">Contract</option>
         <option value="Freelance">Freelance</option>
+        <option value="Short Programme">Short Programme</option>
     </select>
 </div>
 <div class="mb-4">
     <label for="field" class="block text-sm font-bold text-black font-bold mb-2">Field of Study :</label>
     <select name="field" id="field" class="block w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300">
         <option value="Software and Web Development">Software & Web Development</option>
+        <option value="Coding & Robotics">Coding & Robotics</option>
+        <option value="Computer Literacy">Computer Literacy</option>
         <option value="Robotics">Robotics</option>
         <option value="Business Analysis">Business Analysis</option>
         <option value="Desktop Technicial">Desktop Technician</option>

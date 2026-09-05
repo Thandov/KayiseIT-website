@@ -1,5 +1,7 @@
 @extends('admin.dashboard.layout')
 
+@section('page-title', $pageTitle ?? 'In-House Products')
+
 @section('content')
     <div class="p-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">

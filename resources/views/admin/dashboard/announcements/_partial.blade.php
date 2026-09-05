@@ -2,14 +2,14 @@
 <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group relative h-full flex flex-col">
     <!-- Image Section -->
     @if($announcement->image)
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="relative h-48 overflow-hidden bg-[#f0f4ff]">
             <img src="{{ asset($announcement->image) }}" 
                  alt="{{ $announcement->title ?? 'Announcement' }}" 
                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
             @if($announcement->badge)
                 <div class="absolute top-4 right-4">
                     <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
-                          style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 1px solid rgba(34,197,94,0.5); color: #22C55E; box-shadow: 0 0 10px rgba(34,197,94,0.2);">
+                          style="background: #16A34A; border: 1px solid #16A34A; color: #fff;">
                         {{ $announcement->badge }}
                     </span>
                 </div>
@@ -17,12 +17,11 @@
         </div>
     @else
         <!-- Placeholder -->
-        <div class="relative h-48 overflow-hidden bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900">
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0); background-size: 40px 40px;"></div>
+        <div class="relative h-48 overflow-hidden bg-[#263a57]">
             @if($announcement->badge)
                 <div class="absolute top-4 right-4">
                     <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
-                          style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 1px solid rgba(34,197,94,0.5); color: #22C55E; box-shadow: 0 0 10px rgba(34,197,94,0.2);">
+                          style="background: #16A34A; border: 1px solid #16A34A; color: #fff;">
                         {{ $announcement->badge }}
                     </span>
                 </div>

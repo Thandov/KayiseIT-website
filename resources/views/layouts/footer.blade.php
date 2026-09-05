@@ -70,6 +70,7 @@
                     <li><a href="{{ route('home') }}" class="text-slate-400 hover:text-white text-sm transition-colors">Home</a></li>
                     <li><a href="{{ route('services') }}" class="text-slate-400 hover:text-white text-sm transition-colors">Services</a></li>
                     <li><a href="{{ route('about') }}" class="text-slate-400 hover:text-white text-sm transition-colors">About Us</a></li>
+                    <li><a href="{{ route('case-studies.index') }}" class="text-slate-400 hover:text-white text-sm transition-colors">Case Studies</a></li>
                     <li><a href="{{ route('opportunities') }}" class="text-slate-400 hover:text-white text-sm transition-colors">Opportunities</a></li>
                     <li><a href="{{ route('contact') }}" class="text-slate-400 hover:text-white text-sm transition-colors">Contact</a></li>
                 </ul>
@@ -95,9 +96,9 @@
                     &copy; {{ date('Y') }} KAYISE IT. All rights reserved.
                 </p>
                 <div class="flex items-center gap-4 text-sm">
-                    <a href="#" class="text-slate-500 hover:text-slate-300 transition-colors">Privacy Policy</a>
+                    <a href="{{ route('privacy') }}" class="text-slate-500 hover:text-slate-300 transition-colors">Privacy Policy</a>
                     <span class="text-slate-600">|</span>
-                    <a href="#" class="text-slate-500 hover:text-slate-300 transition-colors">Terms &amp; Conditions</a>
+                    <a href="{{ route('terms') }}" class="text-slate-500 hover:text-slate-300 transition-colors">Terms &amp; Conditions</a>
                 </div>
             </div>
         </div>

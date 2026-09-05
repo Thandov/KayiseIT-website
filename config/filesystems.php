@@ -36,18 +36,6 @@ return [
             'throw' => false,
         ],
 
-        /*
-         * Certificate PDFs + temp CSVs (see config/certificates.php). Root may be
-         * overridden at runtime by GenerateCertificateJob::configureCertificateDiskRoot()
-         * when storage/app
-         * is not writable (e.g. disk quota).
-         */
-        'certificates_local' => [
-            'driver' => 'local',
-            'root' => storage_path('app'),
-            'throw' => false,
-        ],
-
         'public' => [
             'driver' => 'local',
             'root' => public_path(),

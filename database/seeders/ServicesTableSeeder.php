@@ -88,6 +88,15 @@ class ServicesTableSeeder extends Seeder
             'service_id' => 'S008',
             'service_type' => 'dynamic',
         ],
+        [
+            'name' => 'Automation Transformation',
+            'slug' => 'automation_transformation',
+            'description' => 'End-to-end business process automation and digital transformation services. We help organizations streamline workflows, reduce manual effort, and integrate intelligent automation across operations — from RPA and AI-assisted workflows to full enterprise digital transformation strategies.',
+            'price' => 0.00,
+            'icon' => 'software.svg',
+            'service_id' => 'S009',
+            'service_type' => 'dynamic',
+        ],
     ];
 
     foreach ($services as $service) {

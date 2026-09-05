@@ -36,4 +36,12 @@ return [
         'secret_key' => env('RECAPTCHA_SECRET_KEY'),
     ],
 
+    'google_maps' => [
+        'api_key' => env('GOOGLE_MAPS_API_KEY', ''),
+    ],
+
+    'harambean' => [
+        'video_url' => env('HARAMBEAN_VIDEO_URL'),
+    ],
+
 ];

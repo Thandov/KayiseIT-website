@@ -26,11 +26,70 @@
         </div>
 
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
-            <input type="email" name="email" id="email" required
-                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('email') border-red-500 @enderror"
-                   value="{{ old('email', $employee->email ?? '') }}">
+            <label for="job_title_id" class="block text-sm font-medium text-gray-700">Job Title *</label>
+            @php
+                $titleOptions = $jobTitles ?? \App\Models\JobTitle::with('permissionGroups')->active()->orderBy('name')->get();
+                $selectedTitleId = old('job_title_id', $employee->job_title_id ?? null);
+            @endphp
+            <select name="job_title_id" id="job_title_id" required
+                    class="ki-select mt-1 @error('job_title_id') border-red-500 @enderror">
+                <option value="">— Select title —</option>
+                @foreach($titleOptions as $title)
+                    <option value="{{ $title->id }}" @selected((string) $selectedTitleId === (string) $title->id)>
+                        {{ $title->name }}@if($title->groupLabels()) ({{ $title->groupLabels() }})@endif
+                    </option>
+                @endforeach
+            </select>
+            @if($titleOptions->isEmpty())
+                <p class="mt-1 text-sm text-amber-700">
+                    No titles yet.
+                    @if(auth()->user()?->isDashboardAdmin())
+                        <a href="{{ route('dashboard.access', ['tab' => 'titles']) }}" class="underline font-medium">Create job titles</a>
+                        first, then refresh this page.
+                    @endif
+                </p>
+            @else
+                <p class="mt-1 text-xs text-gray-500">Shown on the organogram. Permissions come from the title’s group.</p>
+            @endif
+            @error('job_title_id')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+            <input type="hidden" name="job_title" id="job_title_text" value="{{ old('job_title', $employee->job_title ?? '') }}">
+            <script>
+                (function () {
+                    const select = document.getElementById('job_title_id');
+                    const hidden = document.getElementById('job_title_text');
+                    if (!select || !hidden) return;
+                    const sync = () => {
+                        const opt = select.options[select.selectedIndex];
+                        hidden.value = opt && opt.value ? opt.textContent.replace(/\s*\(.*\)\s*$/, '').trim() : '';
+                    };
+                    select.addEventListener('change', sync);
+                    sync();
+                })();
+            </script>
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Work email</label>
+            <input type="email" name="email" id="email" required readonly
+                   class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm sm:text-sm @error('email') border-red-500 @enderror"
+                   value="{{ old('email', $employee->email ?? '') }}"
+                   placeholder="name@kayiseit.co.za">
+            <p class="mt-1 text-xs text-gray-500">Set automatically as firstname@kayiseit.co.za</p>
             @error('email')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div>
+            <label for="personal_email" class="block text-sm font-medium text-gray-700">Personal email</label>
+            <input type="email" name="personal_email" id="personal_email"
+                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kb-100 focus:ring-kb-100 sm:text-sm @error('personal_email') border-red-500 @enderror"
+                   value="{{ old('personal_email', $employee->personal_email ?? '') }}"
+                   placeholder="name@gmail.com">
+            <p class="mt-1 text-xs text-gray-500">Optional. Used when sending activation to a personal inbox.</p>
+            @error('personal_email')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
@@ -84,8 +143,8 @@
             @error('profile_picture')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
-            @if(isset($employee) && $employee->profile_picture)
-                <p class="mt-2 text-sm text-gray-500">Current: <a href="{{ asset('storage/' . $employee->profile_picture) }}" target="_blank" class="text-kb-100 hover:text-kb-200">View</a></p>
+            @if(isset($employee) && $employee->photo_url)
+                <p class="mt-2 text-sm text-gray-500">Current: <a href="{{ $employee->photo_url }}" target="_blank" class="text-kb-100 hover:text-kb-200">View</a></p>
             @endif
         </div>
 
@@ -98,6 +157,8 @@
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
             @enderror
         </div>
+
+        @include('admin.dashboard.staff._documents', ['employee' => $employee ?? null])
 
         <div class="md:col-span-2">
             <div class="space-y-3">

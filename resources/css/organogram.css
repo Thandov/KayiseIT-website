@@ -1,0 +1,196 @@
+/* Staff organogram — d3-org-chart (8px spacing scale) */
+.organogram-shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ki-space-stack);
+}
+
+.organogram-hint {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.organogram-chart {
+  width: 100%;
+  min-height: 36rem;
+  height: min(75vh, 48rem);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background:
+    radial-gradient(circle at 12% 18%, rgb(24 62 164 / 0.06), transparent 42%),
+    radial-gradient(circle at 88% 80%, rgb(24 62 164 / 0.04), transparent 40%),
+    #f8fafc;
+  overflow: hidden;
+  position: relative;
+}
+
+.organogram-chart svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Expand/collapse buttons from d3-org-chart */
+.organogram-chart .node-button-div {
+  font-size: 12px;
+}
+
+.organogram-empty {
+  margin: 0;
+  padding: var(--ki-space-6);
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.organogram-saving {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.organogram-saving.is-error {
+  color: #dc2626;
+}
+
+.organogram-saving.is-ok {
+  color: #15803d;
+}
+
+.org-node {
+  display: flex;
+  align-items: center;
+  gap: var(--ki-space-3);
+  width: 100%;
+  height: 100%;
+  padding: var(--ki-space-3);
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.org-node.is-selected {
+  border-color: #183ea4;
+  box-shadow: 0 0 0 3px rgb(24 62 164 / 0.2);
+}
+
+.org-node.is-org-root {
+  background: #183ea4;
+  border-color: #183ea4;
+  color: #fff;
+}
+
+.org-node-photo,
+.org-node-initials,
+.org-node-root-mark {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+.org-node-initials,
+.org-node-root-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f4ff;
+  color: #183ea4;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.org-node.is-org-root .org-node-root-mark {
+  background: rgb(255 255 255 / 0.18);
+  color: #fff;
+}
+
+.org-node-meta {
+  min-width: 0;
+  flex: 1;
+}
+
+.org-node-name,
+.org-node-title {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.org-node-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.org-node-title {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.org-node.is-org-root .org-node-name,
+.org-node.is-org-root .org-node-title {
+  color: #fff;
+}
+
+.org-node.is-org-root .org-node-title {
+  opacity: 0.85;
+}
+
+.org-node-edit {
+  flex-shrink: 0;
+  color: #183ea4;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.org-node-edit:hover {
+  text-decoration: underline;
+}
+
+.org-expand-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background: #183ea4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.12);
+}
+
+.staff-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ki-space-2);
+  padding: var(--ki-space-2) var(--ki-space-4);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.staff-tab-btn.is-active {
+  background: #fff;
+  color: #183ea4;
+  border-color: #e5e7eb;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.06);
+}
+
+.staff-tab-btn:hover:not(.is-active) {
+  color: #0f172a;
+  background: rgb(255 255 255 / 0.6);
+}

@@ -10,7 +10,7 @@ class MictBeneficiary extends Model
     use HasFactory;
 
     protected $fillable = [
-        'internship_application_id',
+        'person_id',
         'program_id',
         'learner_title',
         'first_name',
@@ -88,9 +88,15 @@ class MictBeneficiary extends Model
     ];
 
     // Relationships
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+
+    /** @deprecated Use person() */
     public function internshipApplication()
     {
-        return $this->belongsTo(InternshipApplication::class);
+        return $this->person();
     }
 
     public function program()

@@ -12,38 +12,38 @@
 
     @if (!empty($galleries))
         <!-- Fast, table-based gallery management -->
-        <div class="overflow-x-auto border border-gray-200 rounded-xl bg-white">
-            <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <div class="overflow-x-auto">
+            <table class="ki-table min-w-full divide-y divide-gray-200 text-sm">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Gallery</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Images</th>
-                        <th class="px-4 py-3 text-left font-semibold text-gray-700">Featured</th>
-                        <th class="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+                        <th class="text-left font-semibold text-gray-700">Gallery</th>
+                        <th class="text-left font-semibold text-gray-700 whitespace-nowrap">Images</th>
+                        <th class="text-left font-semibold text-gray-700 whitespace-nowrap">Featured</th>
+                        <th class="text-right font-semibold text-gray-700 whitespace-nowrap">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($galleries as $gallery)
                         <tr class="hover:bg-gray-50 transition-colors duration-150">
-                            <td class="px-4 py-3 align-top">
-                                <div class="flex flex-col">
+                            <td>
+                                <div class="flex flex-col gap-1">
                                     <span class="font-semibold text-gray-900">{{ $gallery['name'] }}</span>
                                     @if (!empty($gallery['description']))
-                                        <span class="text-xs text-gray-500 mt-1">
+                                        <span class="text-xs text-gray-500">
                                             {{ \Illuminate\Support\Str::limit($gallery['description'], 80) }}
                                         </span>
                                     @endif
                                 </div>
                             </td>
-                            <td class="px-4 py-3 align-top">
+                            <td class="whitespace-nowrap">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
                                     {{ count($gallery['photos']) }} images
                                 </span>
                             </td>
-                            <td class="px-4 py-3 align-top">
+                            <td class="whitespace-nowrap">
                                 @if($gallery['featured_on_homepage'] ?? false)
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-kg-50 text-kg-700">
-                                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-kg-50 text-kg-700">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                         </svg>
                                         Featured on homepage
@@ -52,30 +52,31 @@
                                     <span class="text-xs text-gray-400">Not featured</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 align-top text-right space-x-2">
+                            <td>
+                                <div class="ki-table-actions">
                                 <button
                                     type="button"
                                     @click="openGalleryId === {{ $gallery['gallery_id'] }} ? openGalleryId = null : openGalleryId = {{ $gallery['gallery_id'] }}"
-                                    class="inline-flex items-center px-3 py-2 rounded-lg text-xs font-medium border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
+                                    class="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors duration-150"
                                 >
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h10"></path>
                                     </svg>
-                                    Manage Images
+                                    Manage
                                 </button>
                                 <button
                                     type="button"
                                     onclick="openUploadModalForGallery({{ $gallery['gallery_id'] }})"
-                                    class="inline-flex items-center px-3 py-2 rounded-lg text-xs font-medium bg-kb-100 text-white hover:bg-kb-200 shadow-sm transition-colors duration-150"
+                                    class="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium bg-kb-100 text-white hover:bg-kb-200 shadow-sm transition-colors duration-150"
                                 >
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                     </svg>
-                                    Upload Images
+                                    Upload
                                 </button>
                                 <button
                                     type="button"
-                                    onclick="editCategory({{ $gallery['gallery_id'] }}, '{{ addslashes($gallery['name']) }}', '{{ addslashes($gallery['description'] ?? '') }}')"
+                                    onclick='editCategory({{ $gallery['gallery_id'] }}, @json($gallery['name']), @json($gallery['description'] ?? ''))'
                                     class="inline-flex items-center px-3 py-2 rounded-lg text-xs font-medium bg-white border border-kb-100 text-kb-100 hover:bg-kb-50 transition-colors duration-150"
                                 >
                                     Edit
@@ -87,34 +88,35 @@
                                 >
                                     Delete
                                 </button>
+                                </div>
                             </td>
                         </tr>
 
                         <!-- Nested images table for this gallery -->
                         <tr x-show="openGalleryId === {{ $gallery['gallery_id'] }}" x-cloak>
-                            <td colspan="4" class="px-4 pb-4 bg-gray-50">
+                            <td colspan="4" class="bg-gray-50">
                                 @if (count($gallery['photos']) === 0)
                                     <div class="py-6 text-center text-sm text-gray-500">
                                         No images in this gallery yet. Use "Upload Images" to add photos.
                                     </div>
                                 @else
-                                    <div class="mt-3 border border-gray-200 rounded-lg bg-white overflow-hidden">
-                                        <div class="px-4 py-2 border-b border-gray-200 flex items-center justify-between bg-gray-50">
-                                            <div class="flex items-center space-x-3">
-                                                <label class="inline-flex items-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                    <div class="mt-3 mx-4 mb-4 border border-gray-200 rounded-lg bg-white overflow-hidden">
+                                        <div class="ki-toolbar px-4 py-3 border-b border-gray-200 bg-gray-50">
+                                            <div class="ki-toolbar-start">
+                                                <label class="inline-flex items-center gap-2 text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                                     <input type="checkbox"
                                                            class="h-4 w-4 text-kb-100 border-gray-300 rounded"
                                                            data-gallery-select-all="{{ $gallery['gallery_id'] }}">
-                                                    <span class="ml-2">Images in "{{ $gallery['name'] }}"</span>
+                                                    <span>Images in "{{ $gallery['name'] }}"</span>
                                                 </label>
                                             </div>
-                                            <div class="flex items-center space-x-3">
+                                            <div class="ki-toolbar-end">
                                                 <span class="text-xs text-gray-500">
                                                     {{ count($gallery['photos']) }} total
                                                 </span>
                                                 <button
                                                     type="button"
-                                                    class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition-colors duration-150"
+                                                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-md text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 transition-colors duration-150"
                                                     onclick="deleteSelectedPhotos({{ $gallery['gallery_id'] }})"
                                                 >
                                                     <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -210,7 +212,7 @@
             </table>
         </div>
     @else
-        <div class="text-center py-12">
+        <div class="text-center py-12 px-6">
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>

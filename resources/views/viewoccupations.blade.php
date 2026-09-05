@@ -20,21 +20,14 @@
                     Typical entry salary: R{{ number_format($occupations->entry_salary_min) }} – R{{ number_format($occupations->entry_salary_max) }} per year
                 </p>
             @endif
-            @if ($embedUrl = $occupations->videoEmbedUrl())
-                <div class="mt-8 max-w-3xl mx-auto aspect-video rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/20">
-                    <iframe src="{{ $embedUrl }}" title="{{ $occupations->occupation_name }} video"
-                            class="w-full h-full" allowfullscreen loading="lazy"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                </motion>
-            @endif
-        </motion>
+        </div>
     </section>
 
     <section class="py-10 md:py-14 bg-white">
         <div class="container max-w-screen-xl mx-auto px-4 md:px-8">
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="md:col-span-1 space-y-6">
-                    <x-career.subjects-pill :subjects="$occupations->school_subjects" />
+                    <x-career.subjects-pill />
                     @if ($occupations->description)
                         <div class="bg-white rounded-2xl shadow-md p-5 border border-gray-100" data-aos="fade-right">
                             <h3 class="font-bold text-kb-700 mb-2">About this career</h3>

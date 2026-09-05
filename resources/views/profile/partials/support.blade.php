@@ -1,6 +1,6 @@
 <div class="space-y-6">
     <!-- Get Help -->
-    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+    <div class="bg-[#f0f4ff] rounded-lg p-6 border border-[#d5dde8]">
         <h4 class="text-lg font-semibold text-gray-900 mb-4">Get Help</h4>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="space-y-4">

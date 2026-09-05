@@ -4,7 +4,7 @@
     "src": "public/images/bg_dark.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-5f732de3.css",
+    "file": "assets/app-dff02e9d.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -26,7 +26,7 @@
     "src": "resources/js/app.js"
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-5473c78e.js",
+    "file": "assets/dashboard-678a1af1.js",
     "isEntry": true,
     "src": "resources/js/dashboard.js"
   },

@@ -1,18 +1,14 @@
-<x-app-layout
-    title="Insights and blog | KAYISE IT"
-    description="Read KAYISE IT articles on software delivery, digital skills, drone education, and technology trends for South African institutions."
-    keywords="KAYISE IT blog, ICT insights, drone education, software South Africa, digital skills"
->
+<x-app-layout>
     <x-breadcrumb></x-breadcrumb>
 
-    <h1 style="color: #64bc5c" class="text-center mb- font-bold text-4xl md:text-4xl">Insights and resources</h1>
+    <h1 style="color: #64bc5c" class="text-center mb- font-bold text-4xl md:text-4xl">Our Blogs</h1>
 
-    <p class="text-center font-semibold text-gray-800 dark:text-white mt-2 md:text-xl">A centre for our articles, resources, and insights</p>
+    <h1 class="text-center font-semibold text-gray-800 dark:text-white mt-2  md:text-xl">A Center of all our resources and insights</h1>                     
     <hr class="border-t-6 border-blue-900 my-4 mx-auto w-1/5">
     
     <div class="max-w-7xl mx-auto mt-16 sm:px-6 lg:px-8">   
         <div class="p-12">
-        <h2 style="color: #64bc5c" class="mb-6 font-bold text-4xl md:text-3xl">Latest post</h2>
+        <h1 style="color: #64bc5c" class="mb-6 font-bold text-4xl md:text-3xl">Latest Post</h1>
         @if($blogs->isNotEmpty())
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="max-w-2xl rounded-lg overflow-hidden shadow-sm border bg-white dark:bg-gray-800 relative mb-8">
@@ -22,14 +18,14 @@
                 <!-- Content for the second card -->
                 <div class="py-2">
                     <span class="inline-block bg-indigo-500 text-white text-xs px-2 py-1 rounded-full uppercase font-semibold">Category</span>                 
-                       <h2 class="text-4xl font-semibold text-gray-800 dark:text-white ">{{ $blogs->first()->title }}</h2>
+                       <h1 class="text-4xl font-semibold text-gray-800 dark:text-white ">{{ $blogs->first()->title }}</h1>
                     @if($blogs->isNotEmpty() && !empty(trim($blogs->first()->subtitle)))
                     <p class="text font-semibold text-gray-800 dark:text-white">{!! $blogs->first()->subtitle !!}</p>
                     <h6 style="color: #070707" class="text-center mb-5 font-italic text-2xl md:text-2xl">{!! $blogs->first()->subtitle !!}</h6>
 
                     @endif 
              
-                    <p class="text font-semibold text-gray-800 dark:text-white mt-2">Author: Mary Jane Doe · Created at: 27 August 2023</p>
+                    <h1 class="text font-semibold text-gray-800 dark:text-white mt-2">Author: Mary Jane Doe/ Created at: 27 August 2023</h1>                     
                 <div class="grid grid-cols-2 items-center justify-between mt-20">
                         <a href="{{ route('blogs.displayblog', $blogs->first()->id) }}" class="bg-white-600 px-3 py-2 text-sm font-semibold text-primary shadow-sm hover:bg-grey-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grey-600">Read More</a>
                     </div>
@@ -59,15 +55,14 @@
     </div>   
     <h3 style="color: #64bc5c" class=" text-center mb-8 font-bold text-3xl md:text-3xl">All Blogs</h3>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const sliderContent = document.querySelector('.slider-content');
-            if (!sliderContent) return;
-            sliderContent.addEventListener('animationiteration', () => {
-                void sliderContent.offsetWidth;
-                void sliderContent.offsetWidth;
-                sliderContent.style.animation = 'slideLoop 20s infinite linear';
-            });
-        });
-    </script>
+
 </x-app-layout>
+<script>
+    // JavaScript to update the slider after every set of 4 blogs
+    const sliderContent = document.querySelector('.slider-content');
+    sliderContent.addEventListener('animationiteration', () => {
+        void sliderContent.offsetWidth; // Trigger reflow to restart the animation
+        void sliderContent.offsetWidth; // Trigger reflow to restart the animation
+        sliderContent.style.animation = 'slideLoop 20s infinite linear';
+    });
+</script>

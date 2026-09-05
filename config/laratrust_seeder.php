@@ -27,7 +27,7 @@ return [
         'applicant' => [
             'profile' => 'r,u,d,c',
         ],
-        'student' => [
+        'staff' => [
             'profile' => 'r,u',
         ],
     ],

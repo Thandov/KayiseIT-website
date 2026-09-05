@@ -22,7 +22,9 @@
                 <!-- Logo & Brand -->
                 <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
                     <div class="flex items-center space-x-3">
-                        <img src="{{ asset('images/logo.svg') }}" alt="KAYISE IT" class="h-9 w-auto object-contain">
+                        <div class="w-8 h-8 bg-[#183ea4] rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">K</span>
+                        </div>
                         <h2 class="text-xl font-bold text-gray-900">KayiseIT</h2>
                     </div>
                     <button @click="sidebarOpen = false" class="md:hidden text-gray-500 hover:text-gray-700">
@@ -186,7 +188,7 @@
                     <div class="relative">
                         <button @click="userDropdownOpen = !userDropdownOpen" 
                                 class="flex items-center space-x-3 h-full text-sm rounded-lg p-2 hover:bg-gray-50 transition-colors duration-200">
-                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <div class="w-8 h-8 bg-[#183ea4] rounded-full flex items-center justify-center flex-shrink-0">
                                 <span class="text-white font-medium text-sm">{{ substr(auth()->user()->name ?? 'A', 0, 1) }}</span>
                             </div>
                             <div class="text-left hidden md:block">

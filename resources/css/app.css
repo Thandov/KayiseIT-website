@@ -1,3 +1,5 @@
+@import './ki-ui.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,6 +30,10 @@
 /*=================================================*/
 * {
   font-family: "Montserrat", sans-serif;
+}
+
+[x-cloak] {
+  display: none !important;
 }
 
 html,
@@ -248,7 +254,7 @@ body {
 .kayise-chatbot-whatsapp {
   border: 0;
   border-radius: 999px;
-  background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+  background: #16a34a;
   color: #fff;
   font-weight: 600;
   min-width: 148px;
@@ -266,7 +272,7 @@ body {
 .kayise-chatbot-whatsapp:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(22, 163, 74, 0.36);
-  background: linear-gradient(135deg, #15803d 0%, #16a34a 100%);
+  background: #15803d;
 }
 
 .kayise-chatbot-whatsapp-icon {
@@ -293,7 +299,7 @@ body {
 .kayise-chatbot-toggle {
   border: 0;
   border-radius: 999px;
-  background: linear-gradient(135deg, #183ea4 0%, #1d4ed8 100%);
+  background: #183ea4;
   color: #fff;
   font-weight: 600;
   min-width: 132px;
@@ -311,7 +317,7 @@ body {
 .kayise-chatbot-toggle:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(24, 62, 164, 0.36);
-  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+  background: #263a57;
 }
 
 .kayise-chatbot-toggle-icon {
@@ -509,4 +515,328 @@ body {
   .kayise-chatbot-quick-replies {
     gap: 4px;
   }
+}
+/* KAYISE public cards: editorial, navy-led, no SaaS-template chrome */
+.ki-kicker {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #183ea4;
+  margin-bottom: 0.85rem;
+}
+
+.ki-kicker::after {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  background: #28663d;
+  margin: 0.55rem auto 0;
+}
+
+.ki-kicker-left::after {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.ki-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid #d5dde8;
+  border-left: 3px solid #183ea4;
+  border-radius: 0;
+  padding: 1.6rem 1.4rem 1.4rem;
+  box-shadow: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.ki-card:hover,
+a.ki-card:hover {
+  background: #f6f8fc;
+  border-left-color: #28663d;
+}
+
+a.ki-card,
+a.ki-media-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ki-card-index {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #183ea4;
+  margin-bottom: 0.7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ki-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a2332;
+  line-height: 1.3;
+  margin: 0 0 0.7rem;
+}
+
+.ki-card-body {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.ki-card-list {
+  margin: 0 0 1.15rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ki-card-list li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.45;
+  margin-bottom: 0.4rem;
+}
+
+.ki-card-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.45rem;
+  height: 1.5px;
+  background: #183ea4;
+}
+
+.ki-card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-bottom: 0.85rem;
+}
+
+.ki-card-note {
+  font-size: 0.875rem;
+  color: #263a57;
+  background: #f0f4ff;
+  border: 1px solid #d5dde8;
+  padding: 0.85rem 1rem;
+  margin: 0 0 1.1rem;
+}
+
+.ki-card-link {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #183ea4;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+}
+
+.ki-card-link:hover,
+.ki-card:hover .ki-card-link {
+  color: #28663d;
+}
+
+.ki-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #fff;
+  background: #183ea4;
+  border: 2px solid #183ea4;
+  border-radius: 2px;
+  text-decoration: none;
+  box-shadow: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.ki-btn:hover {
+  background: #263a57;
+  border-color: #263a57;
+  color: #fff;
+}
+
+.ki-btn-ghost {
+  background: transparent;
+  color: #183ea4;
+}
+
+.ki-btn-ghost:hover {
+  background: #183ea4;
+  color: #fff;
+}
+
+.ki-btn-on-dark {
+  background: #fff;
+  border-color: #fff;
+  color: #183ea4;
+}
+
+.ki-btn-on-dark:hover {
+  background: transparent;
+  color: #fff;
+}
+
+.ki-btn-on-dark.ki-btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #fff;
+}
+
+.ki-btn-on-dark.ki-btn-ghost:hover {
+  background: #fff;
+  color: #183ea4;
+}
+
+.ki-btn-block {
+  width: 100%;
+}
+
+.ki-media-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid #d5dde8;
+  overflow: hidden;
+}
+
+.ki-media-card:hover {
+  border-color: #183ea4;
+}
+
+.ki-media-card img {
+  width: 100%;
+  height: 12.5rem;
+  object-fit: cover;
+  display: block;
+}
+
+.ki-media-card-bar {
+  height: 4px;
+  background: #183ea4;
+}
+
+.ki-media-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1.25rem 1.2rem 1.3rem;
+}
+
+.ki-media-date {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 0.45rem;
+}
+
+.ki-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #183ea4;
+  border-bottom: 1px solid #183ea4;
+  padding-bottom: 2px;
+}
+
+.ki-partner-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #d5dde8;
+  padding: 1.5rem 1.2rem 1.3rem;
+  text-align: center;
+}
+
+.ki-partner-card img {
+  height: 4.5rem;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 auto 1rem;
+}
+
+.ki-partner-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a2332;
+  margin: 0 0 0.4rem;
+}
+
+.ki-partner-card p {
+  font-size: 0.85rem;
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ki-stat {
+  text-align: left;
+  border-left: 3px solid #22c55e;
+  padding: 0.2rem 0 0.2rem 1rem;
+}
+
+.ki-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.ki-stat-label {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+.ki-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.ki-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ki-photo > .absolute.inset-0 {
+  pointer-events: none;
+}
+
+.ki-tech {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.ki-tech p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
 }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Anhskohbo\NoCaptcha\Facades\NoCaptcha;
 use Illuminate\Support\Facades\Http;
 use App\Models\Service;
+use App\Services\ClientLeadService;
 use App\Services\ServicesService;
 
 class ContactController extends Controller
@@ -73,7 +74,14 @@ class ContactController extends Controller
             $message->subject = $request->subject;
             $message->message = $request->message;
             $message->save();
-    
+
+            app(ClientLeadService::class)->captureInquiry([
+                'name' => $request->name,
+                'email' => $request->email,
+                'subject' => $request->subject,
+                'message' => $request->message,
+            ]);
+
             // Send the email
             Mail::to('info@kayiseit.com')->send(new ContactFormMail($validatedData));
 

@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-6">
     <!-- Header -->
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-t-xl shadow-lg p-8 text-white">
+    <div class="bg-[#183ea4] rounded-t-xl p-8 text-white">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold mb-2">Edit Internship Program</h1>
@@ -280,7 +280,7 @@
                 <a href="{{ route('dashboard.internship-programs.view', $program->id) }}" class="px-6 py-3 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 font-medium transition-all duration-200">
                     Cancel
                 </a>
-                <button type="submit" class="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg hover:from-indigo-700 hover:to-purple-700 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                <button type="submit" class="px-8 py-3 bg-[#183ea4] text-white rounded-lg hover:bg-[#263a57] font-medium transition-colors">
                     <span class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

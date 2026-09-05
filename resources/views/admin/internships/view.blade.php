@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="max-w-6xl mx-auto py-8">
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+            <div class="px-6 py-4 bg-[#183ea4] text-white">
                 <h2 class="text-2xl font-bold">Internship Application Details</h2>
                 <p class="text-blue-200">View and manage internship application details</p>
             </div>

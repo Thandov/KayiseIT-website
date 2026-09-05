@@ -1,52 +1,29 @@
-<section class="bg-white py-20">
-    <div class="container mx-auto px-4 max-w-7xl md:flex justify-center">
-        <!-- images -->
-        <div class="md:flex justify-center items-center md:w-1/2">
-            <!-- images 2 in 1 -->
-            <div>
-                <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-600 rounded-lg relative bg-no-repeat bg-center bg-contain hidden sm:block" style="background-image: url('{{ asset('images/logo.svg') }}')" role="img" aria-label="KAYISE IT"></div>
-                <div class="md:h-48 lg:h-72 md:w-40 lg:w-64 bg-green-600 rounded-lg relative bg-cover bg-center mt-2 hidden sm:block" style="background-image: url('../images/skills2.jpeg')" alt="Kayise IT:Soft Skills"></div>
-            </div>
-            <!-- single image -->
-            <div class="md:h-48 lg:h-80 md:w-40 lg:w-64 bg-green-600 rounded-lg relative bg-cover bg-center md:m-2 my-2 hidden sm:block" style="background-image: url('../images/touch.jpeg')" alt="Kayise IT:Technology Touch"></div>
-        </div>
-        <!-- content -->
-        <div class="flex items-center md:w-1/2">
-            <div class="">
-                <p class="smalltxt font-bold"><strong>About Us</strong></p>
-                <h2 class="text-kg-700 font-bold text-5xl mb-4">Profitable Innovation Meets Youth Empowerment</h2>
-                <p class="text-base mb-6">KAYISE IT delivers world-class IT solutions while developing South Africa's next generation of tech talent.</p>
-                <ul class="space-y-3 text-base">
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Enterprise-grade software, web development, and IT consulting</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Comprehensive internship and training programs</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Measurable ROI and sustainable business growth</span>
-                    </li>
-                    <li class="flex items-start">
-                        <svg class="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>Building skilled professionals for South Africa's tech industry</span>
-                    </li>
+{{-- Shared about intro; used on the About page --}}
+<section class="ki-about-intro" id="about-us">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <div class="ki-about-intro-grid">
+            <div class="ki-about-intro-copy ki-reveal">
+                <span class="ki-kicker ki-kicker-left">Who we are</span>
+                <h2 class="ki-about-heading">IT delivery that funds skills.</h2>
+                <p class="ki-about-lead">
+                    KAYISE IT builds and supports digital systems for organisations — and runs training and internship pathways that grow South Africa’s next ICT professionals.
+                </p>
+                <ul class="ki-about-points">
+                    <li>Software, web, and IT consulting for real operational needs</li>
+                    <li>Internship and workplace programmes tied to delivery work</li>
+                    <li>Partners across SETAs, colleges, and industry</li>
                 </ul>
-                @if(request()->path() !== 'about')
-                    <div class="mt-6">
-                        <x-front-end-btn linking="about" color="blue" showme="zzzzzzzz" name="Discover More" />
-                    </div>
-                @endif
+                <div class="ki-about-actions">
+                    <a href="{{ route('contact') }}" class="ki-about-btn ki-about-btn--primary">Talk to us</a>
+                    <a href="{{ route('opportunities') }}" class="ki-about-btn ki-about-btn--ghost">View opportunities</a>
+                </div>
+            </div>
+            <div class="ki-about-intro-media ki-reveal" style="animation-delay: 0.12s">
+                <img
+                    src="{{ asset('images/KayiseIT-Team.jpg') }}"
+                    alt="KAYISE IT team at work"
+                    loading="lazy"
+                >
             </div>
         </div>
     </div>

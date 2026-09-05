@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\UsinaRegistrationController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\OptionsController;
@@ -8,6 +8,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\StaffAccessController;
+use App\Http\Controllers\StaffProfileController;
+use App\Http\Controllers\StaffInviteController;
+use App\Http\Controllers\StaffOrganogramController;
 use App\Http\Controllers\SubServicesController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -62,9 +66,11 @@ Route::get('welcome', function () {
 
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 
-Route::get('about', function () {
-    return view('about');
-})->name('about');
+Route::get('about', [DashboardController::class, 'about'])->name('about');
+
+Route::get('harambean', function () {
+    return view('harambean');
+})->name('harambean');
 
 Route::get('contact', [ContactController::class, 'index'])->name('contact');
 
@@ -183,9 +189,15 @@ Route::post('programs/register', [App\Http\Controllers\PeopleController::class, 
 // Public Announcements Page
 Route::get('announcements', [App\Http\Controllers\AnnouncementController::class, 'publicIndex'])->name('announcements');
 
+Route::get('case-studies', [CaseStudyController::class, 'publicIndex'])->name('case-studies.index');
+Route::get('case-studies/{slug}', [CaseStudyController::class, 'publicShow'])->name('case-studies.show');
+
 // USINA registration
 Route::get('/usina', [UsinaRegistrationController::class, 'create'])->name('usina.create');
 Route::post('/usina/register', [UsinaRegistrationController::class, 'store'])->name('usina.store');
+
+Route::get('/staff/register/{token}', [StaffInviteController::class, 'showRegistrationForm'])->name('staff.register');
+Route::post('/staff/register/{token}', [StaffInviteController::class, 'submitRegistration'])->name('staff.register.submit');
 
 Route::GET('services', [ServicesController::class, 'services'])->name('services');
 
@@ -195,6 +207,11 @@ Route::GET('gallery', [GalleryController::class, 'gallery'])->name('gallery');
 Route::get('terms', function () {
     return view('terms');
 })->name('terms');
+
+//privacy policy (POPIA)
+Route::get('privacy', function () {
+    return view('privacy');
+})->name('privacy');
 
 //Drone registration
 Route::get('drones', function () {
@@ -239,6 +256,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 // LMS Certification (public) — request certificate by ID; eligibility from learner CSVs
 Route::get('lms/certification', [CertificationController::class, 'showForm'])->name('certification.form');
+Route::get('lms/certification/lookup', [CertificationController::class, 'lookupLearner'])->name('certification.lookup')->middleware('throttle:30,1');
 Route::post('lms/certification', [CertificationController::class, 'submit'])->name('certification.submit');
 Route::post('lms/certification/support', [CertificationController::class, 'sendSupportInquiry'])->name('certification.support')->middleware('throttle:8,1');
 Route::get('lms/certification/success', [CertificationController::class, 'success'])->name('certification.success');
@@ -257,9 +275,21 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/applications-partial', [ProfileController::class, 'applicationsPartial'])->name('profile.applications.partial');
+    Route::patch('/profile/personal-info', [ProfileController::class, 'updatePersonalInfo'])->name('profile.personal-info.update');
     Route::GET('profile/viewQuotation/{quote}', [QuotationController::class, 'quotationPDFview'])->name('profile.viewQuotation.quote');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // User application CRUD
+    Route::get('/my-applications/{id}/edit', [ApplicationsController::class, 'editUserApplication'])->name('user.applications.edit');
+    Route::put('/my-applications/{id}', [ApplicationsController::class, 'updateUserApplication'])->name('user.applications.update');
+    Route::delete('/my-applications/{id}', [ApplicationsController::class, 'destroyUserApplication'])->name('user.applications.destroy');
+
+    // User portfolio projects CRUD
+    Route::post('/my-projects', [ApplicationsController::class, 'storeProject'])->name('user.projects.store');
+    Route::put('/my-projects/{id}', [ApplicationsController::class, 'updateProject'])->name('user.projects.update');
+    Route::delete('/my-projects/{id}', [ApplicationsController::class, 'destroyProject'])->name('user.projects.destroy');
 });
 
 
@@ -293,13 +323,30 @@ Route::group(['middleware' => ['auth']], function () {
     // Staff CRUD Routes
     Route::GET('/dashboard/staff', [AdminController::class, 'all_employees'])->name('admin.dashboard.staff');
     Route::POST('/dashboard/staff/create', [AdminController::class, 'new_employee'])->name('dashboard.staff.create');
+    Route::POST('/dashboard/staff/sales', [AdminController::class, 'store_staff_sale'])->name('dashboard.staff.sales.store');
+    Route::PUT('/dashboard/staff/organogram', [StaffOrganogramController::class, 'update'])->name('dashboard.staff.organogram');
     Route::GET('/dashboard/staff/{id}', [AdminController::class, 'view_employee'])->name('dashboard.staff.view');
     Route::PUT('/dashboard/staff/{id}', [AdminController::class, 'update_employee'])->name('dashboard.staff.update');
     Route::DELETE('/dashboard/staff/delete/{id}', [AdminController::class, 'delete_employee'])->name('dashboard.staff.delete');
+    Route::POST('/dashboard/staff/invites', [StaffInviteController::class, 'sendInvites'])->name('dashboard.staff.invites');
+    Route::POST('/dashboard/staff/bulk', [AdminController::class, 'bulk_employees'])->name('dashboard.staff.bulk');
+    Route::POST('/dashboard/staff/{id}/activation', [AdminController::class, 'send_employee_activation'])->name('dashboard.staff.activation');
+
+    Route::GET('/dashboard/access', [StaffAccessController::class, 'index'])->name('dashboard.access');
+    Route::POST('/dashboard/access/groups', [StaffAccessController::class, 'storeGroup'])->name('dashboard.access.groups.store');
+    Route::PUT('/dashboard/access/groups/{group}', [StaffAccessController::class, 'updateGroup'])->name('dashboard.access.groups.update');
+    Route::DELETE('/dashboard/access/groups/{group}', [StaffAccessController::class, 'destroyGroup'])->name('dashboard.access.groups.destroy');
+    Route::POST('/dashboard/access/titles', [StaffAccessController::class, 'storeTitle'])->name('dashboard.access.titles.store');
+    Route::PUT('/dashboard/access/titles/{title}', [StaffAccessController::class, 'updateTitle'])->name('dashboard.access.titles.update');
+    Route::DELETE('/dashboard/access/titles/{title}', [StaffAccessController::class, 'destroyTitle'])->name('dashboard.access.titles.destroy');
+
+    Route::GET('/dashboard/profile', [StaffProfileController::class, 'show'])->name('dashboard.profile');
+    Route::PUT('/dashboard/profile', [StaffProfileController::class, 'update'])->name('dashboard.profile.update');
     
     Route::GET('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::GET('/dashboard/settings', [AdminController::class, 'settings'])->name('dashboard.settings');
     Route::POST('/dashboard/settings', [AdminController::class, 'updateSettings'])->name('dashboard.settings.update');
+    Route::POST('/dashboard/settings/lmis/test', [AdminController::class, 'testLmisConnection'])->name('dashboard.settings.lmis.test');
     Route::GET('/dashboard/nav-menu', [NavMenuController::class, 'index'])->name('dashboard.nav-menu');
     Route::POST('/dashboard/nav-menu', [NavMenuController::class, 'store'])->name('dashboard.nav-menu.store');
     Route::POST('/dashboard/nav-menu/reset', [NavMenuController::class, 'reset'])->name('dashboard.nav-menu.reset');
@@ -309,21 +356,35 @@ Route::group(['middleware' => ['auth']], function () {
     Route::GET('/dashboard/viewinvoice/{id}', [AdminController::class, 'viewinvoice'])->name('dashboard.viewinvoice');
     Route::GET('/dashboard/users', [AdminController::class, 'users'])->name('dashboard.users');
     Route::GET('/dashboard/viewuser/{id}', [AdminController::class, 'viewuser'])->name('dashboard.viewuser');
-    Route::GET('/dashboard/viewapplications/{id}', [AdminController::class, 'viewapplications'])->name('dashboard.viewapplications');
+    Route::GET('/dashboard/viewapplications/{id}', function ($id) {
+        $person = PeopleController::resolveApplication($id);
+        return redirect()->route('dashboard.people.view', $person);
+    })->name('dashboard.viewapplications');
     Route::GET('/dashboard/viewinternship/{id}', [AdminController::class, 'viewinternship'])->name('dashboard.viewinternship');
     Route::GET('/dashboard/viewinternship/{id}/download/{type}', [AdminController::class, 'downloadinternshipDocs'])->name('internship.download');
     Route::GET('/dashboard/applications/{id}/download/{type}', [AdminController::class, 'downloadinternshipDocs'])->name('download.internship.docs');
 
-    // Applications CRUD Routes
-    Route::GET('/dashboard/applications', [AdminController::class, 'applications'])->name('dashboard.applications');
-    Route::GET('/dashboard/applications/create', [AdminController::class, 'createApplication'])->name('dashboard.applications.create');
-    Route::POST('/dashboard/applications/store', [AdminController::class, 'storeApplication'])->name('dashboard.applications.store');
-    Route::GET('/dashboard/applications/edit/{id}', [AdminController::class, 'editApplication'])->name('dashboard.applications.edit');
-    Route::PUT('/dashboard/applications/update/{id}', [AdminController::class, 'updateApplication'])->name('dashboard.applications.update');
-    Route::DELETE('/dashboard/applications/delete/{id}', [AdminController::class, 'deleteApplication'])->name('dashboard.applications.delete');
+    // Applications — consolidated into People (redirect legacy URLs)
+    Route::GET('/dashboard/applications', fn () => redirect()->route('dashboard.people', ['type' => 'application']))->name('dashboard.applications');
+    Route::GET('/dashboard/applications/create', fn () => redirect()->route('dashboard.people.create'))->name('dashboard.applications.create');
+    Route::POST('/dashboard/applications/store', fn () => redirect()->route('dashboard.people'))->name('dashboard.applications.store');
+    Route::GET('/dashboard/applications/edit/{id}', function ($id) {
+        return redirect()->route('dashboard.people.view', PeopleController::resolveApplication($id));
+    })->name('dashboard.applications.edit');
+    Route::PUT('/dashboard/applications/update/{id}', function ($id) {
+        return redirect()->route('dashboard.people.view', PeopleController::resolveApplication($id));
+    })->name('dashboard.applications.update');
+    Route::DELETE('/dashboard/applications/delete/{id}', function ($id) {
+        PeopleController::resolveApplication($id)->delete();
+        return redirect()->route('dashboard.people', ['type' => 'application'])->with('success', 'Application deleted successfully.');
+    })->name('dashboard.applications.delete');
     Route::DELETE('/dashboard/applications/deleteSelected', [AdminController::class, 'deleteSelectedApplications'])->name('admin.dashboard.applications.deleteSelected');
-    Route::POST('/dashboard/applications/accept/{id}', [AdminController::class, 'acceptApplication'])->name('dashboard.applications.accept');
-    Route::POST('/dashboard/applications/reject/{id}', [AdminController::class, 'rejectApplication'])->name('dashboard.applications.reject');
+    Route::POST('/dashboard/applications/accept/{id}', function ($id) {
+        return redirect()->route('dashboard.people.view', PeopleController::resolveApplication($id));
+    })->name('dashboard.applications.accept');
+    Route::POST('/dashboard/applications/reject/{id}', function ($id) {
+        return redirect()->route('dashboard.people.view', PeopleController::resolveApplication($id));
+    })->name('dashboard.applications.reject');
     
     // Programs CRUD Routes (formerly Internships)
     Route::GET('/dashboard/programs', [AdminController::class, 'programs'])->name('dashboard.programs');
@@ -334,16 +395,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::PUT('/dashboard/programs/update/{id}', [AdminController::class, 'updateProgram'])->name('dashboard.programs.update');
     Route::DELETE('/dashboard/programs/delete/{id}', [AdminController::class, 'deleteProgram'])->name('dashboard.programs.delete');
     Route::DELETE('/dashboard/programs/deleteSelected', [AdminController::class, 'deleteSelectedPrograms'])->name('admin.dashboard.programs.deleteSelected');
+    Route::POST('/dashboard/programs/bulk', [AdminController::class, 'bulkPrograms'])->name('dashboard.programs.bulk');
     Route::POST('/dashboard/programs/{id}/toggle-enquiry', [AdminController::class, 'toggleProgramEnquiry'])->name('dashboard.programs.toggle-enquiry');
 
     // People
-    Route::GET('/dashboard/people', [App\Http\Controllers\PeopleController::class, 'index'])->name('dashboard.people');
-    Route::GET('/dashboard/people/create', [App\Http\Controllers\PeopleController::class, 'create'])->name('dashboard.people.create');
-    Route::POST('/dashboard/people/store', [App\Http\Controllers\PeopleController::class, 'store'])->name('dashboard.people.store');
-    Route::GET('/dashboard/people/view/{person}', [App\Http\Controllers\PeopleController::class, 'show'])->name('dashboard.people.view');
-    Route::GET('/dashboard/people/edit/{person}', [App\Http\Controllers\PeopleController::class, 'edit'])->name('dashboard.people.edit');
-    Route::PUT('/dashboard/people/update/{person}', [App\Http\Controllers\PeopleController::class, 'update'])->name('dashboard.people.update');
-    Route::DELETE('/dashboard/people/delete/{person}', [App\Http\Controllers\PeopleController::class, 'destroy'])->name('dashboard.people.delete');
+    Route::GET('/dashboard/people', [PeopleController::class, 'index'])->name('dashboard.people');
+    Route::GET('/dashboard/people/create', [PeopleController::class, 'create'])->name('dashboard.people.create');
+    Route::POST('/dashboard/people/store', [PeopleController::class, 'store'])->name('dashboard.people.store');
+    Route::GET('/dashboard/people/view/{person}', [PeopleController::class, 'show'])->name('dashboard.people.view');
+    Route::GET('/dashboard/people/edit/{person}', [PeopleController::class, 'edit'])->name('dashboard.people.edit');
+    Route::PUT('/dashboard/people/update/{person}', [PeopleController::class, 'update'])->name('dashboard.people.update');
+    Route::DELETE('/dashboard/people/delete/{person}', [PeopleController::class, 'destroy'])->name('dashboard.people.delete');
+    Route::POST('/dashboard/people/accept/{person}', [PeopleController::class, 'accept'])->name('dashboard.people.accept');
+    Route::POST('/dashboard/people/reject/{person}', [PeopleController::class, 'reject'])->name('dashboard.people.reject');
+    Route::GET('/dashboard/people/{person}/download/{type}', [PeopleController::class, 'downloadDocument'])->name('dashboard.people.download');
 
     // Academy (Training & Skills courses)
     Route::get('/dashboard/academy', [AcademyCourseController::class, 'index'])->name('dashboard.academy.index');
@@ -371,6 +436,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::GET('/dashboard/case-studies', [CaseStudyController::class, 'index'])->name('dashboard.case-studies.index');
     Route::GET('/dashboard/case-studies/create', [CaseStudyController::class, 'create'])->name('dashboard.case-studies.create');
     Route::POST('/dashboard/case-studies', [CaseStudyController::class, 'store'])->name('dashboard.case-studies.store');
+    Route::POST('/dashboard/case-studies/{id}/toggle-active', [CaseStudyController::class, 'toggleActive'])->name('dashboard.case-studies.toggle-active');
+    Route::POST('/dashboard/case-studies/{id}/toggle-featured', [CaseStudyController::class, 'toggleFeatured'])->name('dashboard.case-studies.toggle-featured');
     Route::GET('/dashboard/case-studies/{id}', [CaseStudyController::class, 'show'])->name('dashboard.case-studies.show');
     Route::GET('/dashboard/case-studies/{id}/edit', [CaseStudyController::class, 'edit'])->name('dashboard.case-studies.edit');
     Route::PUT('/dashboard/case-studies/{id}', [CaseStudyController::class, 'update'])->name('dashboard.case-studies.update');
@@ -581,14 +648,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/viewoptions/{id}', [OptionsController::class, 'viewoptions']);
 
     //blogs
-    Route::GET('/dashboard/blogs', function () {
-        $blogs = App\Models\Blog::all();
-        $isAdmin = true;
-        $pageTitle = 'Blogs Management';
-        return view('admin.dashboard.blogs.index', compact('blogs', 'isAdmin', 'pageTitle'));
-    })->name('dashboard.blogs');
+    Route::GET('/dashboard/blogs', [BlogController::class, 'index'])->name('dashboard.blogs');
     
-    Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('dashboard.blogs.storeblog-form');;
+    Route::post('/dashboard/blogs/storeblog-form', [BlogController::class, 'storeblog'])->name('dashboard.blogs.storeblog-form');
+    Route::post('/dashboard/blogs/{id}/carousel-slide', [BlogController::class, 'toggleCarouselSlide'])->name('dashboard.blogs.carousel-slide');
     Route::GET('/dashboard/blogs/addblog', [BlogController::class, 'addblog'])->name('dashboard.blogs.addblog');
     Route::GET('/blog', function () {
         $blogs = Blog::all();
@@ -682,6 +745,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::GET('/dashboard/announcements', [App\Http\Controllers\AnnouncementController::class, 'index'])->name('admin.dashboard.announcements.index');
     Route::GET('/dashboard/announcements/create', [App\Http\Controllers\AnnouncementController::class, 'create'])->name('admin.dashboard.announcements.create');
     Route::POST('/dashboard/announcements', [App\Http\Controllers\AnnouncementController::class, 'store'])->name('admin.dashboard.announcements.store');
+    Route::GET('/dashboard/announcements/archive', [App\Http\Controllers\AnnouncementController::class, 'archiveIndex'])->name('admin.dashboard.announcements.archive');
+    Route::POST('/dashboard/announcements/archive/run', [App\Http\Controllers\AnnouncementController::class, 'archiveRun'])->name('admin.dashboard.announcements.archive.run');
+    Route::POST('/dashboard/announcements/archive/{originalId}/restore', [App\Http\Controllers\AnnouncementController::class, 'restore'])
+        ->where('originalId', '[0-9]+')
+        ->name('admin.dashboard.announcements.archive.restore');
     Route::GET('/dashboard/announcements/{id}', [App\Http\Controllers\AnnouncementController::class, 'show'])->name('admin.dashboard.announcements.show');
     Route::GET('/dashboard/announcements/{id}/edit', [App\Http\Controllers\AnnouncementController::class, 'edit'])->name('admin.dashboard.announcements.edit');
     Route::PUT('/dashboard/announcements/{id}', [App\Http\Controllers\AnnouncementController::class, 'update'])->name('admin.dashboard.announcements.update');
@@ -763,5 +831,11 @@ Route::post('/store-selected-options', function (Illuminate\Http\Request $reques
 
 // Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+// Email preview (admin only – remove or restrict before production)
+Route::get('/email-preview/registration-confirmation', function () {
+    $person = App\Models\Person::with('program')->latest()->first();
+    return new App\Mail\RegistrationConfirmation($person);
+})->middleware(['auth'])->name('email.preview.registration-confirmation');
 
 require __DIR__ . '/auth.php';

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Services\AnnouncementArchiveService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +33,64 @@ class AnnouncementController extends Controller
         
         $isAdmin = true;
         $pageTitle = 'Announcements Management';
-        return view('admin.dashboard.announcements.index-wrapper', compact('announcements', 'isAdmin', 'pageTitle'));
+        try {
+            $archivedCount = count(app(AnnouncementArchiveService::class)->all());
+        } catch (\Exception $e) {
+            $archivedCount = 0;
+        }
+
+        return view('admin.dashboard.announcements.index-wrapper', compact(
+            'announcements',
+            'isAdmin',
+            'pageTitle',
+            'archivedCount'
+        ));
+    }
+
+    public function archiveIndex(AnnouncementArchiveService $archive)
+    {
+        $archived = $archive->all();
+        $isAdmin = true;
+        $pageTitle = 'Archived Announcements';
+
+        return view('admin.dashboard.announcements.archive', compact('archived', 'isAdmin', 'pageTitle'));
+    }
+
+    public function archiveRun(AnnouncementArchiveService $archive)
+    {
+        try {
+            $count = $archive->archiveDue();
+
+            if ($count === 0) {
+                $message = 'No announcements were due for archive.';
+            } elseif ($count === 1) {
+                $message = '1 announcement was archived to JSON.';
+            } else {
+                $message = $count . ' announcements were archived to JSON.';
+            }
+
+            return redirect()->route('admin.dashboard.announcements.index')
+                ->with('success', $message);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.dashboard.announcements.index')
+                ->with('error', 'Failed to archive announcements: ' . $e->getMessage());
+        }
+    }
+
+    public function restore(AnnouncementArchiveService $archive, $originalId)
+    {
+        try {
+            $archive->restore((int) $originalId);
+
+            return redirect()->route('admin.dashboard.announcements.index')
+                ->with('success', 'Announcement restored. It will expire again in 30 days unless you edit the date.');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('admin.dashboard.announcements.archive')
+                ->with('error', 'Archived announcement not found.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.dashboard.announcements.archive')
+                ->with('error', 'Failed to restore: ' . $e->getMessage());
+        }
     }
     
     /**
@@ -280,7 +339,7 @@ class AnnouncementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $id, AnnouncementArchiveService $archive)
     {
         try {
             $announcement = Announcement::findOrFail($id);
@@ -290,6 +349,8 @@ class AnnouncementController extends Controller
             if (File::exists($folderPath)) {
                 File::deleteDirectory($folderPath);
             }
+
+            $archive->forget((int) $announcement->id);
             
             $announcement->delete();
             

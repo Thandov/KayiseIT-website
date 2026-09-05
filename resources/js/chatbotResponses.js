@@ -113,7 +113,7 @@ export const kayiseChatbotResponses = [
       "get in touch"
     ],
     response:
-      "You can contact KAYISE IT at info@kayiseit.co.za, call +27 87 702 2625 or +27 12 345 6789, or use the Contact page form. On the Contact page there is a clickable map you can use to get directions to our office."
+      "You can contact KAYISE IT at info@kayiseit.co.za, call +27 87 702 2625, WhatsApp +27 69 390 7862, or use the Contact page form. On the Contact page there is a clickable map you can use to get directions to our office."
   },
   {
     intent: "location",

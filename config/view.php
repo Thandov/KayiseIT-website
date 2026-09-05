@@ -13,6 +13,7 @@ return [
     |
     */
 
+    // Single view root: ../resources symlinks to public/resources (git-tracked).
     'paths' => [
         resource_path('views'),
     ],
@@ -28,13 +29,9 @@ return [
     |
     */
 
-    /*
-     * Do not use realpath() here: if the directory is missing, realpath returns false
-     * and Blade compilation breaks with opaque 500s.
-     */
     'compiled' => env(
         'VIEW_COMPILED_PATH',
-        storage_path('framework/views')
+        realpath(storage_path('framework/views'))
     ),
 
 ];

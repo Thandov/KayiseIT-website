@@ -1,11 +1,17 @@
-<x-app-layout
-    title="Internship programme | KAYISE IT"
-    description="Learn about the KAYISE IT internship programme: who it is for, what you will work on, and how to apply for hands-on ICT experience."
-    keywords="KAYISE IT internship, ICT internship South Africa, Mbombela, software internship"
->
-    <section id="hero-banner">
-        <x-hero-banner hero="drone-hero" title="2024/2025 Internship Programme" />
-    </section>
+<x-app-layout>
+    @section('meta')
+    @php
+    $metaTitle = "About - We Specialize In Custom Tailored I.T Solutions.";
+    $metaDescription = "Empowering South African organizations and communities with an Integrated Digital Ecosystem through reliable IT Services.";
+    $metaKeywords = "IT Company, drones, kayiseit, kayise, mictseta, stem, robotics, science, technology, Computers and Information Technology, Software, Technology, ICT, Nelspruit, South Africa, Near Me, IT Companies South Africa";
+    @endphp
+    @endsection
+
+    <x-page-header
+        title="2024/2025 Internship Programme"
+        hero-id="internship-hero"
+        background-image="images/icons/drones.png"
+        height="h-96" />
 
     <div class="container py-5 px-4 md:px-8 max-w-screen-xl mx-auto">
         <div class="row">

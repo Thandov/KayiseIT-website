@@ -1,5 +1,7 @@
 @extends('admin.dashboard.layout')
 
+@section('page-title', $pageTitle ?? 'Announcement')
+
 @section('content')
     <div class="p-6">
         <div class="max-w-4xl mx-auto">
@@ -35,7 +37,7 @@
                 @if($announcement->badge)
                 <div class="mb-4">
                     <span class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
-                          style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 1px solid rgba(34,197,94,0.5); color: #22C55E;">
+                          style="background: #16A34A; border: 1px solid #16A34A; color: #fff;">
                         {{ $announcement->badge }}
                     </span>
                 </div>

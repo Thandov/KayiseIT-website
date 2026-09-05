@@ -1,53 +1,44 @@
-<x-app-layout>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-4">
-            <div class="p-6 bg-white border-b border-gray-200">
-                <nav class="flex" aria-label="Breadcrumb">
-                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                        <li class="inline-flex items-center">
-                            <a href="/admin/admin_dashboard" class="ml-1 text-sm font-medium inline-flex">
-                                <svg class="mr-2 w-4 h-4 inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
-                                    </path>
-                                </svg>
-                                Dashboard</a>
-                        </li>
-                        <a href="/admin/blogs/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                            </svg>
-                            Blogs
-                        </a>
-                        <li aria-current="page">
-                            <div class="flex items-center">
-                                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2 dark:text-gray-500">{{ $blog->title ?? '' }}</span>
-                            </div>
-                        </li>
-                    </ol>
-                </nav>
+@extends('admin.dashboard.layout')
+
+@section('page-title', 'Edit post')
+
+@section('content')
+    <div class="ki-page">
+        <div class="ki-toolbar">
+            <div class="ki-toolbar-start min-w-0">
+                <div>
+                    <a href="{{ route('dashboard.blogs') }}" class="text-sm font-medium text-kb-500 hover:text-kb-600">← Posts</a>
+                    <h1 class="text-2xl font-bold text-gray-900 mt-1">Edit post</h1>
+                    <p class="text-sm text-gray-600 mt-1">{{ $blog->title ?? '' }}</p>
+                </div>
             </div>
         </div>
-        <x-post-form
-            :action="route('admin.blogs.viewblog_edit.update_blog', ['id' => $blog->id])"
-            :post="$blog"
-            buttonlinking="/dashboard/update_blog/{{ $blog->id }}"
-            buttoncolor="submit"
-            buttonshowme="update_blogPost"
-            buttonname="Update"
-        />
-    </div>
-</x-app-layout>
 
+        @include('admin.dashboard.blogs._form', [
+            'blog' => $blog,
+            'postCategories' => $postCategories ?? collect(),
+            'isCarouselSlide' => $isCarouselSlide ?? false,
+            'formAction' => route('dashboard.blogs.viewblog_edit.update_blog', $blog->id),
+            'submitLabel' => 'Save post',
+        ])
+    </div>
+@endsection
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#task-textarea'), {
-        ckfinder: {
-            uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
-        }
-    }).catch(error => {
-        console.error(error);
-    });
+    ClassicEditor
+        .create(document.querySelector('#blog-content'), {
+            ckfinder: {
+                uploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}"
+            }
+        })
+        .then((editor) => {
+            const form = document.querySelector('#blog-content')?.closest('form');
+            if (form) {
+                form.addEventListener('submit', () => editor.updateSourceElement());
+            }
+        })
+        .catch((error) => console.error(error));
 </script>
+@endpush

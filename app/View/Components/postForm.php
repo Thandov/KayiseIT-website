@@ -12,13 +12,14 @@ class postForm extends Component
     public $buttoncolor;
     public $buttonshowme;
     public $buttonname;
+    public $isCarouselSlide;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($action, $post, $buttonlinking, $buttoncolor, $buttonshowme, $buttonname)
+    public function __construct($action, $post, $buttonlinking, $buttoncolor, $buttonshowme, $buttonname, $isCarouselSlide = false)
     {
         $this->action = $action;
         $this->post = $post;
@@ -26,6 +27,7 @@ class postForm extends Component
         $this->buttoncolor = $buttoncolor;
         $this->buttonshowme = $buttonshowme;
         $this->buttonname = $buttonname;
+        $this->isCarouselSlide = filter_var($isCarouselSlide, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**

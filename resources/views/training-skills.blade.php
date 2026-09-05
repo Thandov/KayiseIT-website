@@ -1,9 +1,13 @@
-<x-app-layout
-    title="Training and skills courses for schools and TVET | KAYISE IT"
-    description="Browse KAYISE IT training in ICT fundamentals, drone building, Microsoft Office, cyber security, and entrepreneurship—delivered for schools and TVET colleges in South Africa."
-    keywords="TVET training, ICT skills South Africa, drone building course, Microsoft Office training, cyber security training, KAYISE IT"
->
-    <x-page-hero
+<x-app-layout>
+    @section('meta')
+    @php
+        $metaTitle = 'Training & Skills Courses for Schools and TVET Colleges | KAYISE IT';
+        $metaDescription = 'Explore KAYISE IT training courses in ICT skills, drone building, Microsoft Office, computer productivity, cyber security, and entrepreneurship for schools and TVET colleges in South Africa.';
+        $metaKeywords = 'Training and Skills, ICT Skills Training, Build a Drone Course, Microsoft Office Training, Computer Productivity, Cyber Security Training, Entrepreneurship Training, TVET colleges South Africa';
+    @endphp
+    @endsection
+
+    <x-page-header
         title="Training & Skills"
         subtitle="Future-Ready Learning Programs"
         description="Practical, industry-relevant training designed for schools, TVET colleges, and institutions across South Africa."
@@ -12,16 +16,16 @@
         height="h-[70vh]">
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#courses" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-xl" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
+            <a href="#courses" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold transition-all duration-300" style="background: #16A34A;">
                 Explore Courses
             </a>
             <a href="{{ route('contact') }}" class="inline-flex items-center px-6 py-3 rounded-full text-white font-semibold ring-2 ring-white/30 hover:ring-white/60 transition-all duration-300 hover:bg-white/10">
                 Partner With Us
             </a>
         </div>
-    </x-page-hero>
+    </x-page-header>
 
-    <section id="courses" class="py-20 bg-gradient-to-b from-white to-gray-50">
+    <section id="courses" class="py-20 bg-white">
         <div class="container mx-auto px-4 max-w-7xl">
             <div class="text-center mb-14">
                 <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold mb-4" style="color:#22C55E;border:1px solid #22C55E;background-color: rgba(34, 197, 94, 0.10);">Training Programs</span>
@@ -49,12 +53,12 @@
         </div>
     </section>
 
-    <section class="py-16 text-white" style="background: radial-gradient(circle at top right, #1f2937 0%, #0f172a 55%, #020617 100%);">
+    <section class="py-16 text-white" style="background: #183ea4;">
         <div class="container mx-auto px-4 max-w-5xl text-center">
             <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4" style="color:#86efac;border:1px solid #22C55E;background-color: rgba(34, 197, 94, 0.14);">Partnership Invitation</span>
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Partner With KAYISE IT to Equip the Next Generation</h2>
             <p class="text-gray-200 text-lg mb-8">Schools and TVET colleges are invited to partner with KAYISE IT to deliver practical, future-ready training programs that improve learner outcomes and employability.</p>
-            <a href="{{ route('contact') }}" class="inline-flex items-center px-7 py-3 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5" style="background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);">
+            <a href="{{ route('contact') }}" class="inline-flex items-center px-7 py-3 rounded-full text-white font-semibold transition-colors" style="background: #16A34A;">
                 Start a Training Partnership
             </a>
         </div>

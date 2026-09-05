@@ -9,9 +9,12 @@
     'textColor' => 'text-white'
 ])
 
-<div class="relative {{ $height }} bg-cover bg-center bg-no-repeat" 
-     style="background-image: @if($overlay) linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), @endif url('{{ $backgroundImage ? asset($backgroundImage) : asset('images/landing-page/banner3.png') }}');"
+<div class="relative {{ $height }} bg-cover bg-center bg-no-repeat bg-[#183ea4]" 
+     style="background-image: url('{{ $backgroundImage ? asset($backgroundImage) : asset('images/landing-page/banner3.png') }}');"
      id="{{ $heroId }}">
+    @if($overlay)
+    <div class="absolute inset-0 bg-black/50"></div>
+    @endif
     
     <!-- Content Container -->
     <div class="absolute inset-0 flex items-center justify-center">

@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="jumbotron bg-gray-400 bg-gradient position-relative">
-        <img src="{{ asset('images/logo.svg') }}" alt="KAYISE IT" class="landinglogo animate__animated animate__fadeInUp">
+    <div class="jumbotron bg-gray-400 position-relative">
+        <img src="{{ asset('images/logo.png') }}" alt="logo" srcset="{{ asset('images/logo.png') }}" class="landinglogo animate__animated animate__fadeInUp">
         <div class="owl-carousel owl-theme" id="headercara">
             <x-carousel-item pic="{{ asset('images/landing-page/banner.jpeg') }}" topTitle="Aaaa" mainTitle="asasA" bottomTitle="dddd" />
             <x-carousel-item pic="{{ asset('images/landing-page/banner2.jpg') }}" topTitle="We specialize" mainTitle="Commercial Cleaning" bottomTitle="dddd" />

@@ -1,22 +1,19 @@
-<div class="md:col-span-2 rounded-lg border border-sky-200 bg-sky-50/50 p-4">
-    <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="allows_enquiry" value="1"
-               {{ old('allows_enquiry', $program->allows_enquiry ?? false) ? 'checked' : '' }}
-               class="mt-1 rounded border-gray-300 text-kb-600 focus:ring-kb-500">
-        <span>
-            <span class="block text-sm font-semibold text-gray-900">Enquire toggle</span>
-            <span class="block text-sm text-gray-600 mt-2 space-y-2">
-                <span class="block">
-                    <strong class="text-sky-800">On — collecting data (not started):</strong>
-                    Programme is <em>not</em> officially running. It appears on
-                    <a href="{{ route('programs') }}" target="_blank" class="text-kb-600 underline">kayiseit.com/programs</a>
-                    for interest registration only. KAYISE IT cannot promise placement, dates, or outcomes until launch.
-                </span>
-                <span class="block">
-                    <strong class="text-emerald-800">Off — programme active:</strong>
-                    Programme is officially running. It appears as a live programme on the public page; learners may apply via Opportunities where relevant.
-                </span>
-            </span>
-        </span>
-    </label>
+<div class="rounded border border-sky-200 bg-sky-50/60 px-2 py-2" x-data="{ open: false }">
+    <div class="flex items-center justify-between gap-2">
+        <label class="flex items-center gap-2 cursor-pointer min-w-0">
+            <input type="checkbox" name="allows_enquiry" value="1"
+                   {{ old('allows_enquiry', $program->allows_enquiry ?? false) ? 'checked' : '' }}
+                   class="rounded border-gray-300 text-kb-600 focus:ring-kb-500 shrink-0">
+            <span class="text-xs font-medium text-gray-900 truncate">Enquire mode</span>
+            <span class="text-[11px] text-gray-500 hidden sm:inline truncate">— interest only, not officially running</span>
+        </label>
+        <button type="button" @click="open = !open" class="text-[11px] text-sky-700 hover:underline shrink-0">
+            <span x-text="open ? 'Hide' : 'Info'"></span>
+        </button>
+    </div>
+    <p x-show="open" x-cloak class="text-[11px] text-gray-600 mt-2 leading-snug">
+        <strong class="text-sky-800">On:</strong> shown on
+        <a href="{{ route('programs') }}" target="_blank" class="text-kb-600 underline">/programs</a> for interest registration.
+        <strong class="text-emerald-800 ml-1">Off:</strong> live programme; learners apply via Opportunities.
+    </p>
 </div>

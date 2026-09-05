@@ -3,15 +3,16 @@
 @section('page-title', 'View Client')
 
 @section('content')
-    <div class="p-6">
-        <div class="mb-4">
-            <a href="{{ route('dashboard.clients') }}" class="text-blue-600 hover:text-blue-800 flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                </svg>
-                Back to Clients
-            </a>
-        </div>
-        <x-client-form :client="$client"/>
+<div class="ki-page">
+    <div class="ki-toolbar">
+        <a href="{{ route('dashboard.clients') }}" class="text-sm font-medium text-kb-100 hover:text-kb-200">← Back to clients</a>
     </div>
+    @if(session('success'))
+        <div class="ki-panel bg-green-50 border border-green-200 text-green-800 text-sm" role="status">{{ session('success') }}</div>
+    @endif
+    @if(session('error'))
+        <div class="ki-panel bg-red-50 border border-red-200 text-red-800 text-sm" role="alert">{{ session('error') }}</div>
+    @endif
+    <x-client-form :client="$client"/>
+</div>
 @endsection

@@ -102,7 +102,7 @@ h6 {
 
 #testimonial_background {
   width: 100%;
-  background: url("../images/pexels-marcelo-verfe-12954767.jpg"), radial-gradient(#444, #111);
+  background: url("../images/pexels-marcelo-verfe-12954767.jpg"), #111;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
@@ -651,7 +651,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #service-hero {
-    background: url("../images/banner/softwareDeveloper.png"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/softwareDeveloper.png"), #fff;
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -670,7 +670,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #career-mapping-hero {
-    background: url("../images/banner/CareerMapping.png"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/CareerMapping.png"), #fff;
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -689,7 +689,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #contact-hero {
-    background: url("../images/banner/contact.png"), radial-gradient(#444, #aaa);
+    background: url("../images/banner/contact.png"), #444;
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -714,7 +714,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #gallery-hero {
-    background: url("../images/banner/asdasd.png"), radial-gradient(#444, #aaa);
+    background: url("../images/banner/asdasd.png"), #444;
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -751,7 +751,7 @@ div.sticky {
 
 @supports (background-blend-mode: multiply) {
   #about-hero {
-    background: url("../images/banner/networking.png"), radial-gradient(#aaa, #fff);
+    background: url("../images/banner/networking.png"), #fff;
     background-blend-mode: multiply;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -762,7 +762,7 @@ div.sticky {
 }
 
 #drone-hero {
-  background: url("../images/icons/drones.png"), radial-gradient(#aaa, #fff);
+  background: url("../images/icons/drones.png"), #fff;
   background-blend-mode: multiply;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -773,7 +773,7 @@ div.sticky {
 
 #team_background {
   width: 100%;
-  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
+  background: url("../images/Big Zee.jpg"), #111;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
@@ -782,7 +782,7 @@ div.sticky {
 
 #our-services {
   width: 100%;
-  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
+  background: url("../images/Big Zee.jpg"), #111;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;
@@ -790,7 +790,7 @@ div.sticky {
 
 #CTA {
   width: 100%;
-  background: url("../images/Big Zee.jpg"), radial-gradient(#444, #111);
+  background: url("../images/Big Zee.jpg"), #111;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center center;

@@ -99,7 +99,7 @@
 
     <div class="header">
         <div class="logo" style="float: left;">
-            <img src="{{ asset('images/kayise-logo.png') }}" alt="KAYISE IT" width="100">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" width="100">
         </div>
         <div style="float: right; text-align: right;">
             <h2>Quotation Number: {{ $quotation->quotation_no }}</h2>

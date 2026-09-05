@@ -1,4 +1,4 @@
-<div class="bg-gradient-to-br from-kb-50 via-white to-kg-50 rounded-2xl p-6 md:p-8 shadow-lg border border-kb-100/20"
+<div class="bg-white rounded-2xl p-6 md:p-8 border border-[#d5dde8]"
      x-data="{
         step: 0,
         answers: [],

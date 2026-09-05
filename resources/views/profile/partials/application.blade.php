@@ -35,9 +35,23 @@
                 </td>
                 <td class="px-6 py-4">{{ $application->created_at->format('d M Y') }}</td>
                 <td class="px-6 py-4">
-                    <a href="#" onclick="viewApplicationDetail({{ $application->id }})" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
-                        View
-                    </a>
+                    <div class="flex items-center gap-3">
+                        <a href="#" onclick="viewApplicationDetail({{ $application->id }})" class="text-blue-600 hover:text-blue-800 font-medium text-sm">
+                            View
+                        </a>
+                        <a href="{{ route('user.applications.edit', $application->id) }}" class="text-gray-600 hover:text-gray-900 font-medium text-sm">
+                            Edit
+                        </a>
+                        <button onclick="confirmDeleteApplication({{ $application->id }}, '{{ $application->app_id }}')" class="text-red-500 hover:text-red-700 font-medium text-sm">
+                            Delete
+                        </button>
+                        <form id="delete-application-{{ $application->id }}"
+                              action="{{ route('user.applications.destroy', $application->id) }}"
+                              method="POST" class="hidden">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    </div>
                 </td>
             </tr>
             <!-- Application Details Row -->
@@ -139,13 +153,4 @@
 </div>
 @endif
 
-<script>
-function viewApplicationDetail(id) {
-    const detailRow = document.getElementById('detail-' + id);
-    if (detailRow.classList.contains('hidden')) {
-        detailRow.classList.remove('hidden');
-    } else {
-        detailRow.classList.add('hidden');
-    }
-}
-</script>
+{{-- viewApplicationDetail / confirmDeleteApplication are defined globally in edit.blade.php --}}

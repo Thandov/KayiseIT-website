@@ -1,33 +1,25 @@
-@php
-    $tierLabel = match ($tierKey) {
-        'small' => 'Small',
-        'medium' => 'Medium',
-        'enterprise' => 'Enterprise',
-        default => ucfirst((string) $tierKey),
-    };
-    $tierMetaTitle = $serviceTier->page?->meta_title
-        ?? (($serviceTier->page?->hero_heading ?? $service->name).' ('.$tierLabel.') | KAYISE IT');
-    $tierMetaDescription = $serviceTier->page?->meta_description
-        ?? \Illuminate\Support\Str::limit(
-            trim(strip_tags($serviceTier->page?->hero_subheading ?? $service->description ?? '')),
-            160
-        );
-    if ($tierMetaDescription === '') {
-        $tierMetaDescription = $service->name.' — '.$tierLabel.' tier pricing and packages from KAYISE IT. Request a consultation.';
-    }
-@endphp
-<x-app-layout
-    :title="$tierMetaTitle"
-    :description="$tierMetaDescription"
-    :keywords="($service->name ?? 'Service').', IT services, KAYISE IT, South Africa'"
->
+<x-app-layout>
+    @section('meta')
+        <title>{{ $serviceTier->page?->meta_title ?? $serviceTier->page?->hero_heading ?? $service->name }}</title>
+        @if($serviceTier->page?->meta_description)
+            <meta name="description" content="{{ e($serviceTier->page->meta_description) }}">
+        @endif
+    @endsection
+
     @php
-        $componentName = $service->componentViewName();
+        $slug = \Illuminate\Support\Str::slug($services['service']);
+        $componentNameSubfolder = 'components.services.' . $slug;
+        $componentNameFlat = 'components.' . $slug;
+        $componentName = view()->exists($componentNameSubfolder) ? $componentNameSubfolder : $componentNameFlat;
         $componentExists = view()->exists($componentName);
     @endphp
 
     <div id="service-tier" class="pb-12">
-        <x-hero-banner hero="service-hero" title="{{ $serviceTier->page?->hero_heading ?? $service->name }}"></x-hero-banner>
+        <x-page-header
+            :title="$serviceTier->page?->hero_heading ?? $service->name"
+            hero-id="service-hero"
+            background-image="images/banner/softwareDeveloper.png"
+            height="h-96" />
 
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
             <nav class="flex flex-wrap gap-2 mb-6" aria-label="Business size">

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Partner;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
 class PartnersSeeder extends Seeder
@@ -53,6 +52,15 @@ class PartnersSeeder extends Seeder
                 'display_order' => 4,
                 'is_active' => true,
             ],
+            [
+                'name' => 'UMP CFERI',
+                'logo_file' => 'ump-cferi.jpg',
+                'logo_path' => null,
+                'description' => 'University of Mpumalanga Centre for Entrepreneurship Rapid Incubator',
+                'website_url' => 'https://www.ump.ac.za/Engagement/CFERI.aspx',
+                'display_order' => 5,
+                'is_active' => true,
+            ],
         ];
 
         // Process each partner
@@ -63,21 +71,9 @@ class PartnersSeeder extends Seeder
             if ($existingPartner) {
                 $this->command->warn("Partner already exists: {$partnerData['name']}");
                 
-                // Update logo if it doesn't exist or is broken
                 $sourcePath = $publicPath . '/' . $partnerData['logo_file'];
                 if (File::exists($sourcePath)) {
-                    // Delete old logo if exists
-                    if ($existingPartner->logo_path) {
-                        Storage::disk('public')->delete($existingPartner->logo_path);
-                    }
-                    
-                    // Read file content and store it using Storage facade (same as controller logic)
-                    $fileContent = File::get($sourcePath);
-                    $logoPath = 'partners/' . $partnerData['logo_file'];
-                    
-                    // Store the file using Storage facade
-                    Storage::disk('public')->put($logoPath, $fileContent);
-                    
+                    $logoPath = 'images/partners/' . $partnerData['logo_file'];
                     $existingPartner->logo_path = $logoPath;
                     $existingPartner->save();
                     $this->command->info("Updated logo for: {$partnerData['name']}");
@@ -85,7 +81,6 @@ class PartnersSeeder extends Seeder
                 continue;
             }
             
-            // Upload logo file using Storage facade (same as controller logic)
             $sourcePath = $publicPath . '/' . $partnerData['logo_file'];
             
             if (!File::exists($sourcePath)) {
@@ -93,22 +88,14 @@ class PartnersSeeder extends Seeder
                 continue;
             }
             
-            // Read file content and store it using Storage facade (same as controller logic)
-            $fileContent = File::get($sourcePath);
-            $logoPath = 'partners/' . $partnerData['logo_file'];
-            
-            // Store the file using Storage facade
-            Storage::disk('public')->put($logoPath, $fileContent);
-            
-            // Set the logo path
-            $partnerData['logo_path'] = $logoPath;
+            $partnerData['logo_path'] = 'images/partners/' . $partnerData['logo_file'];
             
             // Remove logo_file from data before creating
             unset($partnerData['logo_file']);
             
             // Create partner
             Partner::create($partnerData);
-            $this->command->info("Created partner: {$partnerData['name']} with logo: {$logoPath}");
+            $this->command->info("Created partner: {$partnerData['name']} with logo: {$partnerData['logo_path']}");
         }
 
         $this->command->info('Partners seeding completed!');

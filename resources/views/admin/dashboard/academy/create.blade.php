@@ -1,5 +1,7 @@
 @extends('admin.dashboard.layout')
 
+@section('page-title', $pageTitle ?? 'Add Academy Course')
+
 @section('content')
     <div class="p-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 max-w-3xl">

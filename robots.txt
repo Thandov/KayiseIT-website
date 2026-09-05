@@ -1,2 +1,18 @@
 User-agent: *
-Disallow:
+Allow: /
+
+Sitemap: https://kayiseit.com/sitemap.xml
+
+# Private / non-indexable areas
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /checkout/
+Disallow: /student/
+Disallow: /my-applications/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /staff/register/
+Disallow: /lms/certification/success
+Disallow: /lms/certification/download
+Disallow: /email-preview/

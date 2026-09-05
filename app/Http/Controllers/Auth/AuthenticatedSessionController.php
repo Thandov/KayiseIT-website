@@ -47,7 +47,11 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('student.portal');
         }
 
-        return redirect(request()->input('intended', '/'));
+        if ($user->canAccessDashboard()) {
+            return redirect()->intended(route('dashboard'));
+        }
+
+        return redirect()->intended(route('profile.edit'));
     }
     
     public function storeapplicant(LoginRequest $request)
@@ -65,7 +69,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return view('internships/internship_application');
+        $programId = session('apply_program_id') ?: request('program');
+
+        return redirect()->route('internship_application', array_filter(['program' => $programId]));
     }
 
     /**

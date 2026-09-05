@@ -16,16 +16,16 @@
                 </div>
             </a>
 
-            <a href="tel:+27877022625" style="text-decoration: none; color: black" class=" border-none rounded-md bg-slate-100">
+            <div class="border-none rounded-md bg-slate-100">
                 <div class="flex justify-center p-2">
-                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="{{ asset('images/icons/ph.png') }}"></div>
+                    <div class="h-32 w-32 rounded-full bg-kg-700 flex items-center justify-center"><img class="w-12" src="{{ asset('images/icons/ph.png') }}" alt=""></div>
                 </div>
-                <div class="">
-                    <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Phone Numbers</h2>
-                    <p class="text-sm flex justify-center">+27 87 702 2625</p>
-                    <p class="text-sm flex justify-center">+27 12 345 6789</p>
+                <div>
+                    <h2 class="mb-2 text-lg font-bold smalltxt flex justify-center">Phone &amp; WhatsApp</h2>
+                    <a href="tel:+27877022625" class="text-sm flex justify-center text-black hover:underline">+27 87 702 2625</a>
+                    <a href="https://wa.me/27693907862" target="_blank" rel="noopener noreferrer" class="text-sm flex justify-center text-black hover:underline">WhatsApp +27 69 390 7862</a>
                 </div>
-            </a>
+            </div>
 
             <a href="https://maps.app.goo.gl/PANTYMHfVkWBoKSp7" style="text-decoration: none; color: black" class="border-none rounded-md bg-slate-100">
                 <div class="flex justify-center p-2">

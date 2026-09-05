@@ -1,5 +1,7 @@
 @extends('admin.dashboard.layout')
 
+@section('page-title', $pageTitle ?? 'Module')
+
 @section('content')
 @php
     $isEdit = $module->exists;

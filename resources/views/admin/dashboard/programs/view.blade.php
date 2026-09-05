@@ -115,6 +115,25 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Requirements</h3>
                     <p class="text-sm text-gray-900 whitespace-pre-wrap">{{ $program->requirements }}</p>
                 </div>
+
+                <div class="md:col-span-2 bg-indigo-50 rounded-lg p-4 border border-indigo-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Applicant form fields</h3>
+                    @php
+                        $formFields = collect($program->getFormFieldKeys())->map(function ($key) {
+                            $def = \App\Support\ProgramFormFields::definition($key);
+                            return $def['label'] ?? $key;
+                        });
+                    @endphp
+                    @if($formFields->isEmpty())
+                        <p class="text-sm text-gray-600">No custom applicant fields configured yet.</p>
+                    @else
+                        <div class="flex flex-wrap gap-2">
+                            @foreach($formFields as $label)
+                                <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium bg-white text-indigo-800 border border-indigo-200">{{ $label }}</span>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

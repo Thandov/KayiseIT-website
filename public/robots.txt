@@ -1,26 +1,18 @@
 User-agent: *
 Allow: /
 
-# Sitemap
 Sitemap: https://kayiseit.com/sitemap.xml
 
-# Disallow admin and dashboard areas
-Disallow: /dashboard/
-Disallow: /admin/
-Disallow: /profile/
+# Private / non-indexable areas
+Disallow: /dashboard
+Disallow: /profile
 Disallow: /checkout/
+Disallow: /student/
+Disallow: /my-applications/
+Disallow: /login
+Disallow: /register
+Disallow: /password/
+Disallow: /staff/register/
 Disallow: /lms/certification/success
-
-# Allow important public pages
-Allow: /
-Allow: /about
-Allow: /contact
-Allow: /services
-Allow: /gallery
-Allow: /blogs
-Allow: /career-mapping
-Allow: /opportunities
-Allow: /announcements
-Allow: /training-skills
-Allow: /events
-Allow: /lms/certification
+Disallow: /lms/certification/download
+Disallow: /email-preview/

@@ -46,6 +46,7 @@
                     <option value="{{ $category->id }}" @if(!empty($post->category_no) && $post->category_no == $category->id) selected @endif>{{ $category->category_name }}</option>
                     @endforeach
                 </select>
+                @include('admin.blogs._carousel-option', ['isCarouselSlide' => $isCarouselSlide ?? false])
                 <x-front-end-btn linking="services" color="submit" showme="" name="Post" />
             </div>
         </div>

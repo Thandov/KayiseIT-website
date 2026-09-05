@@ -26,10 +26,7 @@ class Occupations extends Model
         'is_published',
         'display_order',
         'occupation_banner',
-        'video_url',
         'image',
-        'quiz_tags',
-        'school_subjects',
     ];
 
     protected $casts = [
@@ -37,38 +34,7 @@ class Occupations extends Model
         'entry_salary_min' => 'integer',
         'entry_salary_max' => 'integer',
         'display_order' => 'integer',
-        'school_subjects' => 'array',
     ];
-
-    public function quizTagsList(): array
-    {
-        if (!$this->quiz_tags) {
-            return [];
-        }
-
-        return array_values(array_filter(array_map('trim', explode(',', $this->quiz_tags))));
-    }
-
-    public function videoEmbedUrl(): ?string
-    {
-        if (!$this->video_url) {
-            return null;
-        }
-
-        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $this->video_url, $matches)) {
-            return 'https://www.youtube.com/embed/'.$matches[1];
-        }
-
-        if (preg_match('/vimeo\.com\/(\d+)/', $this->video_url, $matches)) {
-            return 'https://player.vimeo.com/video/'.$matches[1];
-        }
-
-        if (str_contains($this->video_url, 'youtube.com/embed') || str_contains($this->video_url, 'player.vimeo.com')) {
-            return $this->video_url;
-        }
-
-        return null;
-    }
 
     public function getRouteKeyName(): string
     {

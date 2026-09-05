@@ -1,18 +1,14 @@
-@php
-    $subName = $subservice->name ?? 'Subservice';
-    $subMetaDesc = \Illuminate\Support\Str::limit(
-        trim(strip_tags($subservice->description ?? '')),
-        155
-    );
-    if ($subMetaDesc === '') {
-        $subMetaDesc = 'Explore '.$subName.' from KAYISE IT: scope, options, and pricing. Request a tailored quote for your organisation.';
-    }
-@endphp
-<x-app-layout
-    :title="$subName . ' | KAYISE IT'"
-    :description="$subMetaDesc"
-    :keywords="$subName . ', KAYISE IT, IT services, ICT, South Africa, Nelspruit'"
->
+<x-app-layout>
+   <!-- Meta tags -->
+   @section('meta')
+   @php
+
+   $metaTitle = "$subservice->name";
+   $metaDescription = "Transform Your Business with Our Comprehensive IT Services.";
+   $metaKeywords = "$subservice->name, IT Company, Computers and Information Technology, Software, Technology, ICT, IT Services, Nelspruit, Near Me";
+   @endphp
+   @endsection
+   <!-- Page Body -->
    <x-breadcrumb></x-breadcrumb>
 
    @if (session('success'))

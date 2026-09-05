@@ -19,6 +19,8 @@ return [
 
     'allowed_methods' => ['*'],
 
+    // Keep wide open until real API client origins are known; then replace with
+    // explicit hosts (required before enabling supports_credentials / cookie auth).
     'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],

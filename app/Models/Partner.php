@@ -55,6 +55,17 @@ class Partner extends Model
         return $query->where('partner_type', 'Skills Development');
     }
 
+    /** Active partners eligible for programme assignment (Skills Development + legacy untyped). */
+    public function scopeForPrograms($query)
+    {
+        return $query->active()
+            ->where(function ($q) {
+                $q->where('partner_type', 'Skills Development')
+                    ->orWhereNull('partner_type');
+            })
+            ->orderBy('name');
+    }
+
     // Scope for MOU partners
     public function scopeWithMou($query)
     {

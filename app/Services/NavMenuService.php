@@ -18,17 +18,17 @@ class NavMenuService
     public function availablePages(): array
     {
         $pages = [
-            ['route_name' => 'home', 'label' => 'Home', 'active_key' => 'home', 'active_patterns' => 'home', 'url_hash' => '#starfield'],
+            ['route_name' => 'home', 'label' => 'Home', 'active_key' => 'home', 'active_patterns' => 'home', 'url_hash' => '#hero-banner'],
             ['route_name' => 'about', 'label' => 'About', 'active_key' => 'about', 'active_patterns' => 'about'],
             ['route_name' => 'programs', 'label' => 'Programs', 'active_key' => 'programs', 'active_patterns' => 'programs'],
             ['route_name' => 'opportunities', 'label' => 'Opportunities', 'active_key' => 'opportunities', 'active_patterns' => 'opportunities'],
             ['route_name' => 'training-skills', 'label' => 'Training & Skills', 'active_key' => 'training-skills', 'active_patterns' => 'training-skills'],
             ['route_name' => 'career-mapping', 'label' => 'Career Mapping', 'active_key' => 'career-mapping', 'active_patterns' => 'career-mapping,careers.show,viewoccupations'],
-            ['route_name' => 'certification.form', 'label' => 'Certification', 'active_key' => 'certification', 'active_patterns' => 'certification.*', 'type' => 'certification', 'badge_label' => 'Urgent', 'title_attr' => 'UNISA Enterprise & NYDA — download your certificate'],
             ['route_name' => 'gallery', 'label' => 'Gallery', 'active_key' => 'gallery', 'active_patterns' => 'gallery'],
             ['route_name' => 'contact', 'label' => 'Contact', 'active_key' => 'contact', 'active_patterns' => 'contact'],
             ['route_name' => 'services', 'label' => 'Services', 'active_key' => 'services', 'active_patterns' => 'services,services.*'],
             ['route_name' => 'announcements', 'label' => 'Announcements', 'active_key' => 'announcements', 'active_patterns' => 'announcements'],
+            ['route_name' => 'case-studies.index', 'label' => 'Case Studies', 'active_key' => 'case-studies', 'active_patterns' => 'case-studies.index,case-studies.show'],
             ['route_name' => 'internship', 'label' => 'Internship', 'active_key' => 'internship', 'active_patterns' => 'internship'],
             ['route_name' => 'terms', 'label' => 'Terms', 'active_key' => 'terms', 'active_patterns' => 'terms'],
         ];
@@ -65,7 +65,7 @@ class NavMenuService
                 'label' => __('Home'),
                 'type' => 'link',
                 'route_name' => 'home',
-                'url_hash' => '#starfield',
+                'url_hash' => '#hero-banner',
                 'active_key' => 'home',
                 'active_patterns' => 'home',
                 'children' => [],
@@ -117,16 +117,6 @@ class NavMenuService
                         'children' => [],
                     ],
                 ],
-            ],
-            [
-                'label' => __('Certification'),
-                'type' => 'certification',
-                'route_name' => 'certification.form',
-                'active_key' => 'certification',
-                'active_patterns' => 'certification.*',
-                'badge_label' => __('Urgent'),
-                'title_attr' => __('UNISA Enterprise & NYDA — download your certificate'),
-                'children' => [],
             ],
             [
                 'label' => __('Gallery'),

@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-6">
     <!-- Header with Stats -->
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-t-xl shadow-lg p-8 text-white">
+    <div class="bg-[#183ea4] rounded-t-xl p-8 text-white">
         <div class="flex items-center justify-between">
             <div>
                 <h1 class="text-3xl font-bold mb-2">Internship Programs</h1>
@@ -26,7 +26,7 @@
         <div class="p-6 border-b border-gray-200">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4">
-                    <div class="bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg p-3">
+                    <div class="bg-[#16A34A] rounded-lg p-3">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="flex space-x-3">
-                    <a href="{{ route('dashboard.internship-programs.create') }}" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 border border-transparent rounded-xl font-medium text-sm text-white hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <a href="{{ route('dashboard.internship-programs.create') }}" class="inline-flex items-center px-6 py-3 bg-[#16A34A] border border-transparent rounded-xl font-medium text-sm text-white hover:bg-[#15803d] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>

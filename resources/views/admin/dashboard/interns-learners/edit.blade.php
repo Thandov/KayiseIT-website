@@ -90,11 +90,11 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Internship Application</label>
-                        <select name="internship_application_id" class="w-full rounded-md border-gray-300 shadow-sm focus:border-kb-500 focus:ring-kb-500">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Linked Application</label>
+                        <select name="person_id" class="w-full rounded-md border-gray-300 shadow-sm focus:border-kb-500 focus:ring-kb-500">
                             <option value="">None</option>
                             @foreach($applications as $application)
-                            <option value="{{ $application->id }}" {{ old('internship_application_id', $internLearner->internship_application_id) == $application->id ? 'selected' : '' }}>
+                            <option value="{{ $application->id }}" {{ old('person_id', $internLearner->person_id) == $application->id ? 'selected' : '' }}>
                                 {{ $application->name }} ({{ $application->email }})
                             </option>
                             @endforeach

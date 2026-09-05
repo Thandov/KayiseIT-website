@@ -2,185 +2,191 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\PostCategories;
 use App\Helpers\UploadHelper;
-
-
+use App\Services\BlogCarouselSyncService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    //
+    public function __construct(protected BlogCarouselSyncService $carouselSync)
+    {
+    }
+
+    public function index()
+    {
+        $blogs = Blog::query()
+            ->with(['carouselSlide', 'category'])
+            ->latest()
+            ->get();
+
+        return view('admin.dashboard.blogs.index', [
+            'blogs' => $blogs,
+            'isAdmin' => true,
+            'pageTitle' => 'Blogs',
+        ]);
+    }
+
     public function blog()
     {
-        $blogs = Blog::all();
-        $blog = Blog::first();
-        return view('admin.blogs.view_all_blogs', compact('blogs','blog'));
+        return $this->index();
     }
 
     public function addblog()
     {
-        $postCategories = PostCategories::all();
-        return view('admin/blogs/addblog', compact('postCategories'));
+        return view('admin.blogs.addblog', [
+            'postCategories' => PostCategories::query()->orderBy('category_name')->get(),
+            'isCarouselSlide' => false,
+            'blog' => null,
+        ]);
     }
 
     public function storeblog(Request $request)
     {
-
         $request->validate([
-            'profile_picture' => 'required|image|mimes:jpg,png,jpeg|max:5048',
+            'profile_picture' => 'required|image|mimes:jpg,png,jpeg,gif,webp|max:8192',
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'content' => 'required|string',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:2000',
+            'category_no' => 'nullable|exists:post_categories,id',
         ]);
 
-        $profilePicture = "";
         $name = $request->title;
+        $profilePicturePath = null;
 
-        if ($request->hasFile('profile_picture') && !empty($request->hasFile('profile_picture'))) {
-            $profilePicture = $request->file('profile_picture');
-            $path = 'images/categories/'; // Set the desired path dynamically here
-
+        if ($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
             try {
-                $profilePicturePath = UploadHelper::uploadProfilePicture($profilePicture, $path, $name);
+                $profilePicturePath = UploadHelper::uploadProfilePicture(
+                    $request->file('profile_picture'),
+                    'images/blogs/',
+                    $name
+                );
             } catch (\Exception $e) {
-                // Handle the exception here
-                return redirect()->back()->withErrors(['profile_picture' => $e->getMessage()]);
+                return redirect()->back()->withErrors(['profile_picture' => $e->getMessage()])->withInput();
             }
-
-            // Do something with the $profilePicturePath, like saving it to the database, etc.
-        } else {
-            $profilePicturePath = "null";
         }
+
         $blog = new Blog;
         $blog->icon = $profilePicturePath;
         $blog->title = $request->title;
         $blog->subtitle = $request->subtitle;
         $blog->content = $request->content;
-        $blog->category_no = $request->filled('subtitle2') ? (int) $request->subtitle2 : 1;
-        $blog->meta_title = $request->input('meta_title');
-        $blog->meta_description = $request->input('meta_description');
+        $blog->category_no = $request->filled('category_no') ? $request->input('category_no') : null;
         $blog->save();
-        $blogs = Blog::all();
-        return redirect()->route('blogs');
+
+        try {
+            $this->carouselSync->sync($blog, $request->boolean('as_carousel_slide'), Auth::id());
+        } catch (\RuntimeException $e) {
+            return redirect()->route('dashboard.blogs')->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('dashboard.blogs')->with('success', 'Post published.');
     }
+
     public function destroyblog($id)
     {
         $blog = Blog::find($id);
+
+        if (! $blog) {
+            return redirect()->route('dashboard.blogs')->with('error', 'Post not found.');
+        }
+
         $blog->delete();
-        return redirect()->back()->with('success', 'blog has been deleted!');
+
+        return redirect()->route('dashboard.blogs')->with('success', 'Post deleted. The carousel slide was removed too.');
     }
 
     public function updateblog(Request $request, $id)
     {
+        $blog = Blog::findOrFail($id);
+
         $request->validate([
+            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp|max:8192',
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
             'content' => 'required|string',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:2000',
+            'category_no' => 'nullable|exists:post_categories,id',
         ]);
 
-        // Find the blog by its ID
-        $blog = Blog::findOrFail($id);
-        // Get the new data from the request
-        $newTitle = $request->input('title');
-        $newSubtitle = $request->input('subtitle');
-        $newContent = $request->input('content');
-        $newMetaTitle = $request->input('meta_title');
-        $newMetaDescription = $request->input('meta_description');
-        $newCategory = $request->input('subtitle2');
+        $blog->title = $request->input('title');
+        $blog->subtitle = $request->input('subtitle');
+        $blog->content = $request->input('content');
+        $blog->category_no = $request->filled('category_no') ? $request->input('category_no') : null;
 
-        // Check if any of the values have changed
-        $hasChanged = false;
-        if ($blog->title !== $newTitle) {
-            $blog->title = $newTitle;
-            $hasChanged = true;
-        }
-
-        if ($blog->subtitle !== $newSubtitle) {
-            $blog->subtitle = $newSubtitle;
-            $hasChanged = true;
-        }
-
-        if ($blog->content !== $newContent) {
-            $blog->content = $newContent;
-            $hasChanged = true;
-        }
-
-        if (($blog->meta_title ?? null) !== $newMetaTitle) {
-            $blog->meta_title = $newMetaTitle;
-            $hasChanged = true;
-        }
-
-        if (($blog->meta_description ?? null) !== $newMetaDescription) {
-            $blog->meta_description = $newMetaDescription;
-            $hasChanged = true;
-        }
-
-        if ($request->filled('subtitle2') && (string) $blog->category_no !== (string) $newCategory) {
-            $blog->category_no = (int) $newCategory;
-            $hasChanged = true;
-        }
-
-        $name = $request->title;
-
-        if ($request->hasFile('profile_picture') && !empty($request->hasFile('profile_picture'))) {
-            $profilePicture = $request->file('profile_picture');
-            $path = 'images/blogs/'; // Set the desired path dynamically here
-            $hasChanged = true;
+        if ($request->hasFile('profile_picture') && $request->file('profile_picture')->isValid()) {
             try {
-                $profilePicturePath = UploadHelper::uploadProfilePicture($profilePicture, $path, $name);
+                $blog->icon = UploadHelper::uploadProfilePicture(
+                    $request->file('profile_picture'),
+                    'images/blogs/',
+                    $request->input('title')
+                );
             } catch (\Exception $e) {
-                // Handle the exception here
-                return redirect()->back()->withErrors(['profile_picture' => $e->getMessage()]);
+                return redirect()->back()->withErrors(['profile_picture' => $e->getMessage()])->withInput();
             }
+        }
 
-            // Do something with the $profilePicturePath, like saving it to the database, etc.
-            $blog->icon = $profilePicturePath;
-        } else {
-            $profilePicturePath = "null";
+        $blog->save();
+
+        try {
+            $this->carouselSync->sync($blog->fresh(), $request->boolean('as_carousel_slide'), Auth::id());
+        } catch (\RuntimeException $e) {
+            return redirect()->route('dashboard.blogs')->with('error', $e->getMessage());
         }
-        // If any of the values have changed, save the blog and return a success message
-        if ($hasChanged) {
-            $blog->save();
-            return redirect()->back()->with('success', 'Blog updated successfully');
-        } else {
-            // If none of the values have changed, return a message indicating that there were no changes
-            return redirect()->back()->with('error', 'No changes made to the blog');
-        }
+
+        return redirect()->route('dashboard.blogs')->with('success', 'Post saved.');
     }
 
+    public function toggleCarouselSlide(Request $request, $id)
+    {
+        $blog = Blog::findOrFail($id);
+
+        try {
+            $this->carouselSync->sync($blog, $request->boolean('as_carousel_slide'), Auth::id());
+        } catch (\RuntimeException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
+        $message = $request->boolean('as_carousel_slide')
+            ? 'This post is now a homepage carousel slide.'
+            : 'Carousel slide removed for this post.';
+
+        return redirect()->back()->with('success', $message);
+    }
 
     public function viewblog_edit($id)
     {
-        $blog = Blog::find($id);
-        return view('admin/blogs/viewblog_edit', compact('blog'));
+        $blog = Blog::with('carouselSlide')->findOrFail($id);
+
+        return view('admin.blogs.viewblog_edit', [
+            'blog' => $blog,
+            'isCarouselSlide' => $blog->isCarouselSlide(),
+            'postCategories' => PostCategories::query()->orderBy('category_name')->get(),
+        ]);
     }
 
     public function viewblog($id)
     {
         $blogs = Blog::where('id', '!=', $id)->take(3)->get();
         $blog = Blog::find($id);
+
         return view('admin/blogs/viewblog', compact('blog', 'blogs'));
     }
 
     public function upload(Request $request)
     {
         if ($request->hasFile('upload')) {
-
             $originName = $request->file('upload')->getClientOriginalName();
             $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
+            $fileName = $fileName.'_'.time().'.'.$extension;
 
             $request->file('upload')->move(public_path('media'), $fileName);
-            $url = asset('media/' . $fileName);
+            $url = asset('media/'.$fileName);
+
             return response()->json([
-                'fileName' => $fileName, 'uploaded' => 1, 'url' => $url
+                'fileName' => $fileName, 'uploaded' => 1, 'url' => $url,
             ]);
         }
     }

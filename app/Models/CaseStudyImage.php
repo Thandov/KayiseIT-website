@@ -19,4 +19,11 @@ class CaseStudyImage extends Model
     {
         return $this->belongsTo(CaseStudy::class);
     }
+
+    public function url(): string
+    {
+        $path = ltrim((string) $this->image_path, '/');
+
+        return asset($path);
+    }
 }

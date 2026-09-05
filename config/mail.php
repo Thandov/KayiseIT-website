@@ -41,7 +41,7 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'timeout' => (int) env('MAIL_TIMEOUT', 10),
             'local_domain' => env('MAIL_EHLO_DOMAIN'),
         ],
 
@@ -73,9 +73,11 @@ return [
 
         'failover' => [
             'transport' => 'failover',
+            // Local Exim first. GoDaddy SMTP often times out from this host.
+            // Never fall back to "log" — that reports success without delivering.
             'mailers' => [
+                'sendmail',
                 'smtp',
-                'log',
             ],
         ],
     ],

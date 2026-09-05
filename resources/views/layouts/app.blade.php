@@ -17,68 +17,17 @@
       gtag('config', 'G-HJTS8XQSPF');
     </script>
 
-    @php
-        $defaultMetaDescription = 'Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training.';
-        $defaultMetaKeywords = 'ICT, Technology, Computers and Information Technology, Software, IT Support, IT Company';
-        $resolvedTitle = $metaTitle ?? config('app.name', 'KAYISE IT');
-        $resolvedDescription = $metaDescription ?? $defaultMetaDescription;
-        $resolvedKeywords = $metaKeywords ?? $defaultMetaKeywords;
-        $canonicalUrl = url()->current();
-        $ogImagePath = $metaOgImage ?? 'images/banner/businessAnalyst.png';
-        $ogImageAbsolute = \Illuminate\Support\Str::startsWith($ogImagePath, ['http://', 'https://'])
-            ? $ogImagePath
-            : asset($ogImagePath);
-        $siteUrl = rtrim((string) config('app.url'), '/');
-        $organizationLd = [
-            '@context' => 'https://schema.org',
-            '@type' => 'Organization',
-            'name' => 'KAYISE IT',
-            'url' => $siteUrl ?: url('/'),
-            'logo' => asset('images/logo.svg'),
-            'email' => 'info@kayiseit.com',
-            'telephone' => '+27-87-702-2625',
-            'sameAs' => [
-                'https://www.facebook.com/KAYISEIT?mibextid=ZbWKwL',
-                'https://instagram.com/kayiseit?igshid=ZDdkNTZiNTM=',
-                'https://www.linkedin.com/company/kayise-it/',
-                'https://www.youtube.com/channel/UCrAixDqFR92LBqC7OBF3Eqw',
-            ],
-        ];
-    @endphp
-
     <!-- SEO META TAGS -->
-    <title>{{ $resolvedTitle }}</title>
-    <meta name="description" content="{{ e($resolvedDescription) }}">
-    @if($resolvedKeywords !== '')
-        <meta name="keywords" content="{{ e($resolvedKeywords) }}">
-    @endif
-    @if(!empty($metaNoindex))
-        <meta name="robots" content="noindex,follow">
-    @endif
-    <link rel="canonical" href="{{ $canonicalUrl }}">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="{{ config('app.name', 'KAYISE IT') }}">
-    <meta property="og:title" content="{{ e($resolvedTitle) }}">
-    <meta property="og:description" content="{{ e($resolvedDescription) }}">
-    <meta property="og:url" content="{{ $canonicalUrl }}">
-    <meta property="og:image" content="{{ $ogImageAbsolute }}">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ e($resolvedTitle) }}">
-    <meta name="twitter:description" content="{{ e($resolvedDescription) }}">
-    <meta name="twitter:image" content="{{ $ogImageAbsolute }}">
-
-    <script type="application/ld+json">{!! json_encode($organizationLd, JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) !!}</script>
-
-    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
-
+    <title>{{ $metaTitle ?? config('app.name', 'Kayise IT') }}</title>
+    <meta name="description" content="{{ $metaDescription ?? 'Welcome to KAYISE IT, a leading IT company specializing in software and web development, as well as providing 4IR skills training.' }}">
+    <meta name="keywords" content="{{ $metaKeywords ?? 'ICT, Technology, Computers and Information Technology, Software, IT Support, IT Company' }}">
+    <link rel="icon" type="image/png" sizes="684x365" href="{{ asset('images/kayise_IT_logo_No_Background.png') }}">
+    
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" href="{{ url('/sitemap.xml') }}">
 
-    @stack('meta')
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/ki-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <!-- Font Awesome for admin pages -->
     @if((isset($isAdmin) && $isAdmin) || request()->is('dashboard/*'))
@@ -94,28 +43,35 @@
                 content: ['./resources/views/admin/**/*.blade.php', './resources/views/**/*.blade.php'],
                 theme: {
                     extend: {
+                        spacing: {
+                            control: 'var(--ki-space-control)',
+                            cluster: 'var(--ki-space-cluster)',
+                            card: 'var(--ki-space-card)',
+                            stack: 'var(--ki-space-stack)',
+                            page: 'var(--ki-space-page)',
+                        },
                         colors: {
                             'kb': {
-                                50: '#f0f4ff',
-                                100: '#183ea4',
-                                200: '#0086c9',
-                                300: '#0070b6',
-                                400: '#0064ad',
-                                500: '#1d53a0',
-                                600: '#274698',
-                                700: '#263a57',
+                                50: 'var(--ki-blue-50)',
+                                100: 'var(--ki-blue)',
+                                200: 'var(--ki-blue-200)',
+                                300: 'var(--ki-blue-300)',
+                                400: 'var(--ki-blue-400)',
+                                500: 'var(--ki-blue-500)',
+                                600: 'var(--ki-blue-600)',
+                                700: 'var(--ki-blue-700)',
                             },
                             'kg': {
-                                50: '#f0fdf4',
-                                100: '#c7e0c2',
-                                200: '#a2cfa8',
-                                300: '#7cbd81',
-                                400: '#3fab5f',
-                                500: '#368e4f',
-                                600: '#28663d',
-                                700: '#22C55E',
-                                800: '#1a5a2f',
-                                900: '#0f3421',
+                                50: 'var(--ki-green-50)',
+                                100: 'var(--ki-green-100)',
+                                200: 'var(--ki-green-200)',
+                                300: 'var(--ki-green-300)',
+                                400: 'var(--ki-green-400)',
+                                500: 'var(--ki-green-500)',
+                                600: 'var(--ki-green)',
+                                700: 'var(--ki-green-bright)',
+                                800: 'var(--ki-green-800)',
+                                900: 'var(--ki-green-900)',
                             }
                         }
                     }

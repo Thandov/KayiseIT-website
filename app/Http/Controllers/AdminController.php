@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\PeopleController;
 use App\Models\User;
 use App\Models\Quotation;
 use App\Models\Service;
@@ -27,14 +28,31 @@ use App\Models\Blog;
 use App\Models\Application;
 use App\Models\InternshipApplication;
 use App\Models\InternshipProgram;
+use App\Support\ProgramFormFields;
 use App\Models\InternsLearner;
 use App\Models\MictBeneficiary;
 use App\Models\Partner;
 use App\Models\SiteSetting;
 use App\Models\Message;
+use App\Mail\StaffAccountActivation;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use App\Mail\ApplicationAccepted;
 use App\Mail\ApplicationRejected;
+use App\Helpers\StaffEmailHelper;
+use App\Helpers\StaffFolderHelper;
+use App\Models\StaffSale;
+use App\Models\Client;
+use App\Services\ClientLeadService;
+use App\Models\JobTitle;
+use App\Services\ProgramAnnouncementService;
+use App\Services\StaffPermissionSyncService;
+use App\Services\StaffSalesService;
+use App\Services\Lmis\LmisClient;
+use App\Services\Lmis\LmisProgramSyncService;
+use App\Services\Lmis\LmisRequestException;
 
 
 
@@ -47,119 +65,97 @@ class AdminController extends Controller
     {
         $this->subServicesService = $subServicesService;
     }
-    public function index()
+    public function index(StaffSalesService $staffSales)
     {
         $user = auth()->user();
         if ($user && $user->hasRole('student')) {
             return redirect()->route('student.portal');
         }
 
-        $clients = DB::table('clients')
-            ->join('users', 'users.id', '=', 'clients.user_id')
-            ->select('clients.name AS first_name', 'users.email', 'clients.*')
-            ->get();
-        $services = Service::paginate(5)->setPageName('servicePage');
-        $quotations = Quotation::paginate(5)->setPageName('quotationPage');
-        $invoices = Invoice::paginate(5)->setPageName('invoicePage');
-        $users = User::paginate(5);
-        $urlSegments = explode('/', request()->path());
-        $newClients = getNewClients();
+        $isAdmin = $user && $user->isDashboardAdmin();
+        $employee = $user ? $user->employee : null;
+        $isStaffView = ! $isAdmin && $employee;
 
-        /* Employees */
-        $employees = Employee::paginate(5)->setPageName('carouselPage');
-        /* Blogs */
-        $blogs = Blog::paginate(5);
-        /* Carousel */
-        //$carousels = Carousel::paginate(5);
-        $carousels = Carousel::paginate(2)->setPageName('carouselPage');
+        $fy = $staffSales->financialYearBounds();
+        $financialYearLabel = $fy['label'];
 
-        // Check if the request is AJAX
-        /*         if (request()->ajax()) {
-            return response()->json([
-                'html' => view('admin.dashboard.carousel._partial', compact('carousels'))->render(),
-                'pagination' => (string) $carousels->links()
-            ]);
-        } */
+        // Staff see their own attributed sales; admins keep company-wide invoice totals.
+        if ($isStaffView) {
+            $salesByMonth = $staffSales->salesByMonth((int) $employee->id);
+            $mySalesThisMonth = $staffSales->employeeMonthTotal((int) $employee->id);
+            $mySalesFyTotal = $staffSales->employeeFyTotal((int) $employee->id);
+            $myCommissionFy = $staffSales->employeeCommissionFyTotal((int) $employee->id);
+            $leaderboard = $staffSales->leaderboard();
+            $myRank = optional($leaderboard->firstWhere('employee_id', (int) $employee->id))->rank;
+            $staffTotal = null;
+            $staffNewThisMonth = null;
+        } else {
+            $today = now();
+            $financialYearStart = $fy['start'];
+            $financialYearEnd = $fy['end'];
 
-        /* Occupations */
-        $occupations = Occupations::all();
-        $applications = Application::all();
-        $internships = InternshipApplication::all();
-        /* Gallery */
-        $groups = Gallery::all();
-        $galleries = [];
-        foreach ($groups as $group) {
-            $group_photo_ids = GroupPhotos::where('group_id', $group->id)->get();
-            // Prepare an array to hold photo data for the current group
-            $photoData = [];
-            foreach ($group_photo_ids as $group_photo_id) {
-                // For each group photo, fetch the actual photo
-                $pic = Photos::where('id', $group_photo_id->photo_id)->first(); // Use first() if you expect a single photo
-                if ($pic) {
-                    // If a photo is found, add it to the photo data array
-                    $photoData[] = $pic; // You might want to use just the path or a specific attribute
+            $salesPerMonth = Invoice::query()
+                ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(COALESCE(total_price, 0)) as total')
+                ->whereBetween('created_at', [$financialYearStart, $financialYearEnd])
+                ->groupBy('year', 'month')
+                ->orderBy('year')
+                ->orderBy('month')
+                ->get()
+                ->keyBy(fn ($r) => sprintf('%04d-%02d', $r->year, $r->month));
+
+            $monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            $salesByMonth = [];
+            $prevTotal = null;
+            for ($i = 0; $i < 12; $i++) {
+                $date = $financialYearStart->copy()->addMonths($i);
+                $key = $date->format('Y-m');
+                $row = $salesPerMonth->get($key);
+                $total = (float) ($row->total ?? 0);
+                $trend = null;
+                if ($prevTotal !== null) {
+                    $trend = $total >= $prevTotal ? 'up' : 'down';
                 }
-            }
-            if (!empty($photoData)) {
-                // If photo data is not empty, add it to the galleries array with its corresponding group ID
-                $galleries[] = [
-                    'gallery_id' => $group->id,
-                    'name' => $group->name,
-                    'photos' => $photoData
+                $prevTotal = $total;
+                $salesByMonth[] = [
+                    'label' => $monthNames[(int) $date->format('n')] . ' ' . $date->format('Y'),
+                    'total' => $total,
+                    'trend' => $trend,
                 ];
             }
+
+            $mySalesThisMonth = null;
+            $mySalesFyTotal = null;
+            $myCommissionFy = null;
+            $myRank = null;
+            $staffTotal = Employee::count();
+            $staffNewThisMonth = Employee::whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->count();
         }
 
-        // Sales per month for the active financial year (April to March)
-        $today = now();
-        $financialYearStart = $today->copy()->month(4)->day(1)->startOfDay();
-        if ((int) $today->format('n') < 4) {
-            $financialYearStart->subYear();
-        }
-        $financialYearEnd = $financialYearStart->copy()->addYear()->subDay()->endOfDay();
-        $financialYearLabel = 'Apr ' . $financialYearStart->format('Y') . ' - Mar ' . $financialYearEnd->format('Y');
-
-        $salesPerMonth = Invoice::query()
-            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(COALESCE(total_price, 0)) as total')
-            ->whereBetween('created_at', [$financialYearStart, $financialYearEnd])
-            ->groupBy('year', 'month')
-            ->orderBy('year')
-            ->orderBy('month')
-            ->get()
-            ->keyBy(fn ($r) => sprintf('%04d-%02d', $r->year, $r->month));
-
-        $monthNames = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        $salesByMonth = [];
-        $prevTotal = null;
-        for ($i = 0; $i < 12; $i++) {
-            $date = $financialYearStart->copy()->addMonths($i);
-            $key = $date->format('Y-m');
-            $row = $salesPerMonth->get($key);
-            $total = (float) ($row->total ?? 0);
-            $trend = null; // 'up' = good (green), 'down' = bad (red)
-            if ($prevTotal !== null) {
-                $trend = $total >= $prevTotal ? 'up' : 'down';
-            }
-            $prevTotal = $total;
-            $salesByMonth[] = [
-                'label' => $monthNames[(int) $date->format('n')] . ' ' . $date->format('Y'),
-                'total' => $total,
-                'trend' => $trend,
-            ];
-        }
-
-        // Leads (contact form messages)
-        $leads = Message::latest('created_at')->take(15)->get();
-
-        // Staff stats
-        $staffTotal = Employee::count();
-        $staffNewThisMonth = Employee::whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->count();
+        $canClients = $user && method_exists($user, 'canAccessClients') && $user->canAccessClients();
+        $inquiries = $canClients
+            ? Client::leads()->latest('updated_at')->take(15)->get()
+            : collect();
 
         $pageTitle = 'Dashboard';
 
-        return view('admin.dashboard.overview', compact('users', 'employees', 'blogs', 'carousels', 'occupations', 'applications', 'internships', 'galleries', 'clients', 'services', 'quotations', 'invoices', 'newClients', 'urlSegments', 'salesByMonth', 'financialYearLabel', 'leads', 'staffTotal', 'staffNewThisMonth', 'pageTitle'));
+        return view('admin.dashboard.overview', compact(
+            'salesByMonth',
+            'financialYearLabel',
+            'inquiries',
+            'canClients',
+            'staffTotal',
+            'staffNewThisMonth',
+            'pageTitle',
+            'isAdmin',
+            'isStaffView',
+            'employee',
+            'mySalesThisMonth',
+            'mySalesFyTotal',
+            'myCommissionFy',
+            'myRank'
+        ));
     }
 
     public function remove($id)
@@ -226,8 +222,9 @@ class AdminController extends Controller
 
     public function viewapplications($id)
     {
-        $application = InternshipApplication::with('internshipProgram')->findOrFail($id);
-        return view('admin/applications/viewapplications', compact('application'));
+        $person = PeopleController::resolveApplication($id);
+
+        return redirect()->route('dashboard.people.view', $person);
     }
 
 
@@ -244,10 +241,18 @@ class AdminController extends Controller
 
     public function downloadinternshipDocs($id, $type)
     {
-        $application = InternshipApplication::findOrFail($id);
-        $filePath = $type === 'cv' ? $application->cv_path : ($type === 'id_copy' ? $application->id_copy_path : $application->qualification_copy_path);
+        $person = PeopleController::resolveApplication($id);
+        $filePath = match ($type) {
+            'cv' => $person->cv_path,
+            'id_copy' => $person->id_copy_path,
+            'qualification_copy' => $person->qualification_copy_path,
+            'proof_of_payment' => $person->proof_of_payment_path,
+            default => null,
+        };
 
-        return response()->download(public_path("{$filePath}"));
+        abort_unless($filePath, 404);
+
+        return response()->download(public_path($filePath));
     }
 
     public function viewquotations($id)
@@ -316,20 +321,121 @@ class AdminController extends Controller
     public function view_employee($id)
     {
         // Try to find by ID first, then by first_name
-        $employee = Employee::where('id', $id)->orWhere('first_name', $id)->first();
+        $employee = Employee::with(['user', 'assignedTitle.permissionGroups'])->where('id', $id)->orWhere('first_name', $id)->first();
         
         if (!$employee) {
             return redirect()->route('admin.dashboard.staff')->with('error', 'Staff member not found.');
         }
+
+        $jobTitles = JobTitle::with('permissionGroups')->active()->orderBy('name')->get();
         
-        return view('admin.dashboard.staff.view', compact('employee'));
+        return view('admin.dashboard.staff.view', compact('employee', 'jobTitles'));
     }
 
-    public function all_employees()
+    public function all_employees(StaffSalesService $staffSales)
     {
-        $employees = Employee::paginate(10);
+        $user = auth()->user();
+        $isAdmin = $user && $user->isDashboardAdmin();
+        $currentEmployee = $user ? $user->employee : null;
 
-        return view('admin.dashboard.staff.index', compact('employees'));
+        $employees = Employee::with(['user', 'assignedTitle'])->orderBy('first_name')->orderBy('last_name')->paginate(10);
+        $jobTitles = JobTitle::with('permissionGroups')->active()->orderBy('name')->get();
+
+        $organogramEmployees = Employee::query()
+            ->select([
+                'id',
+                'first_name',
+                'last_name',
+                'email',
+                'job_title',
+                'profile_picture',
+                'manager_id',
+                'sort_order',
+            ])
+            ->orderBy('sort_order')
+            ->orderBy('first_name')
+            ->orderBy('last_name')
+            ->get()
+            ->map(function (Employee $employee) {
+                return [
+                    'id' => $employee->id,
+                    'first_name' => $employee->first_name,
+                    'last_name' => $employee->last_name,
+                    'email' => $employee->email,
+                    'job_title' => $employee->job_title,
+                    'manager_id' => $employee->manager_id,
+                    'sort_order' => (int) $employee->sort_order,
+                    'profile_picture_url' => $employee->photo_url,
+                    'initials' => strtoupper(
+                        substr((string) $employee->first_name, 0, 1)
+                        . substr((string) $employee->last_name, 0, 1)
+                    ),
+                    'view_url' => route('dashboard.staff.view', $employee->id),
+                ];
+            })
+            ->values();
+
+        $fy = $staffSales->financialYearBounds();
+        $salesLeaderboard = $staffSales->leaderboard();
+        $salesEmployees = Employee::query()
+            ->orderBy('first_name')
+            ->orderBy('last_name')
+            ->get(['id', 'first_name', 'last_name', 'job_title']);
+
+        $salePeople = Client::query()
+            ->orderByRaw("CASE WHEN status = ? THEN 0 ELSE 1 END", [Client::STATUS_LEAD])
+            ->orderBy('name')
+            ->get();
+
+        return view('admin.dashboard.staff.index', compact(
+            'employees',
+            'organogramEmployees',
+            'salesLeaderboard',
+            'salesEmployees',
+            'salePeople',
+            'isAdmin',
+            'currentEmployee',
+            'fy',
+            'jobTitles'
+        ));
+    }
+
+    public function store_staff_sale(Request $request, ClientLeadService $leads)
+    {
+        $user = auth()->user();
+        if (! $user || ! $user->isDashboardAdmin()) {
+            abort(403, 'Only admins can record staff sales.');
+        }
+
+        $validated = $request->validate([
+            'employee_id' => 'required|integer|exists:employees,id',
+            'amount' => 'required|numeric|min:0',
+            'commission' => 'nullable|numeric|min:0',
+            'sale_date' => 'required|date',
+            'client_id' => 'nullable|integer|exists:clients,id',
+            'client_name' => 'nullable|string|max:255',
+            'notes' => 'nullable|string|max:255',
+        ]);
+
+        $client = $leads->convertFromSale(
+            isset($validated['client_id']) ? (int) $validated['client_id'] : null,
+            $validated['client_name'] ?? null
+        );
+
+        StaffSale::create([
+            'employee_id' => $validated['employee_id'],
+            'client_id' => $client?->id,
+            'amount' => $validated['amount'],
+            'commission' => $validated['commission'] ?? null,
+            'sale_date' => $validated['sale_date'],
+            'client_name' => $validated['client_name'] ?: $client?->displayName(),
+            'notes' => $validated['notes'] ?? null,
+            'recorded_by' => $user->id,
+        ]);
+
+        return redirect()
+            ->route('admin.dashboard.staff', ['tab' => 'leaderboard'])
+            ->with('success', 'Sale recorded. Commission is private and will not appear on the leaderboard.');
     }
 
     public function all_JSON_employees()
@@ -342,43 +448,54 @@ class AdminController extends Controller
 
     public function new_employee(Request $request)
     {
+        if (! auth()->user() || ! auth()->user()->isDashboardAdmin()) {
+            abort(403);
+        }
+
         try {
-            // Validate the form data
+            if ($request->filled('first_name')) {
+                $request->merge([
+                    'email' => StaffEmailHelper::fromFirstName($request->input('first_name')),
+                ]);
+            }
+
             $validatedData = $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
+                'job_title' => 'nullable|string|max:255',
+                'job_title_id' => 'required|exists:job_titles,id',
                 'email' => 'required|email|unique:employees,email',
+                'personal_email' => 'nullable|email|max:255',
                 'phone' => 'required|string|max:255',
                 'address' => 'required|string|max:255',
                 'province' => 'required|string|max:255',
                 'ID_number' => 'required|string|min:13|max:13|unique:employees,ID_number',
-                //'profile_picture' => 'nullable|image|max:2048',
-                //'id_verifi_doc' => 'nullable|boolean',
-                //'proof_address_verifi_doc' => 'nullable|boolean',
-                //'bank_confi_verifi' => 'nullable|boolean',
+                'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:10240',
+                'id_copy' => StaffFolderHelper::DOCUMENT_RULE,
+                'bank_confirmation' => StaffFolderHelper::DOCUMENT_RULE,
+                'cv' => StaffFolderHelper::DOCUMENT_RULE,
+                'sars_income_tax' => StaffFolderHelper::DOCUMENT_RULE,
                 'date_of_birth' => 'nullable|date',
             ]);
 
-            // Handle profile picture upload
+            $this->applyJobTitleFields($validatedData);
+
+            StaffFolderHelper::ensureDirectory($validatedData['first_name'], $validatedData['last_name']);
+
             $profilePicturePath = null;
-            if ($request->hasFile('profile_picture')) {
+            if ($request->file('profile_picture')) {
                 $profilePicture = $request->file('profile_picture');
-
-                if ($profilePicture->isValid()) {
-                    $firstName = strtolower($validatedData['first_name']);
-                    $lastName = strtolower($validatedData['last_name']);
-                    $id = strtolower($validatedData['ID_number']);
-
-                    $extension = $profilePicture->getClientOriginalExtension();
-                    $profilePictureName = $firstName . '_' . $lastName . '_' . $id . '.' . $extension;
-
-                    $profilePicturePath = 'images/employees/' . $profilePictureName;
-                    $profilePicture->storeAs('public/images/employees', $profilePictureName);
-                } else {
+                if (! $profilePicture->isValid()) {
                     throw ValidationException::withMessages([
-                        'profile_picture' => 'The profile picture is not valid.',
+                        'profile_picture' => StaffFolderHelper::uploadErrorMessage($profilePicture),
                     ]);
                 }
+
+                $profilePicturePath = StaffFolderHelper::storeUpload(
+                    $profilePicture,
+                    $validatedData['first_name'],
+                    $validatedData['last_name']
+                );
             }
 
             $user = new User;
@@ -386,23 +503,34 @@ class AdminController extends Controller
             $user->email = $validatedData['email'];
             $user->password = bcrypt('K@y1s31T'); // Set the temporary password
             $user->save();
+            try {
+                $user->attachRole('staff');
+            } catch (\Throwable $e) {
+                \Log::warning('Could not attach staff role on create: '.$e->getMessage());
+            }
 
             // Create a new employee record
             $employee = new Employee;
             $employee->user_id = $user->id;
             $employee->first_name = $validatedData['first_name'];
             $employee->last_name = $validatedData['last_name'];
+            $employee->job_title = $validatedData['job_title'] ?? null;
+            $employee->job_title_id = $validatedData['job_title_id'] ?? null;
             $employee->email = $validatedData['email'];
+            $employee->personal_email = $validatedData['personal_email'] ?? null;
             $employee->phone = $validatedData['phone'];
             $employee->address = $validatedData['address'];
             $employee->province = $validatedData['province'];
             $employee->ID_number = $validatedData['ID_number'];
             $employee->profile_picture = $profilePicturePath;
-            $employee->id_verifi_doc = $validatedData['id_verifi_doc'] ?? false;
+            $this->storeStaffDocuments($request, $employee, $validatedData['first_name'], $validatedData['last_name']);
+            $employee->id_verifi_doc = ($validatedData['id_verifi_doc'] ?? false) || (bool) $employee->id_verifi_doc;
             $employee->proof_address_verifi_doc = $validatedData['proof_address_verifi_doc'] ?? false;
-            $employee->bank_confi_verifi = $validatedData['bank_confi_verifi'] ?? false;
+            $employee->bank_confi_verifi = ($validatedData['bank_confi_verifi'] ?? false) || (bool) $employee->bank_confi_verifi;
             $employee->date_of_birth = $validatedData['date_of_birth'];
             $employee->save();
+            StaffEmailHelper::assignWorkEmail($employee->fresh());
+            app(StaffPermissionSyncService::class)->syncEmployee($employee->fresh(['user', 'assignedTitle']));
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json(['success' => true, 'message' => 'Staff member created successfully.', 'employee' => $employee]);
@@ -417,20 +545,7 @@ class AdminController extends Controller
     {
         try {
             $employee = Employee::findOrFail($id);
-            
-            if ($employee->user_id) {
-                $user = User::find($employee->user_id);
-                if ($user) {
-                    $user->delete();
-                }
-            }
-            
-            // Delete profile picture if exists
-            if ($employee->profile_picture && Storage::exists('public/' . $employee->profile_picture)) {
-                Storage::delete('public/' . $employee->profile_picture);
-            }
-            
-            $employee->delete();
+            $this->destroyEmployeeRecord($employee);
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json(['success' => true, 'message' => 'Staff member and associated user have been deleted.']);
@@ -445,61 +560,332 @@ class AdminController extends Controller
             return redirect()->route('admin.dashboard.staff')->with('error', 'Failed to delete staff member: ' . $e->getMessage());
         }
     }
+
+    public function bulk_employees(Request $request)
+    {
+        $validated = $request->validate([
+            'action' => 'required|in:activate,reset,delete',
+            'delivery' => 'nullable|in:work,personal',
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'integer|exists:employees,id',
+        ]);
+
+        $employees = Employee::with('user')->whereIn('id', $validated['ids'])->get();
+
+        if ($validated['action'] === 'delete') {
+            $deleted = 0;
+            $skipped = 0;
+
+            foreach ($employees as $employee) {
+                if ($employee->user_id && (int) $employee->user_id === (int) auth()->id()) {
+                    $skipped++;
+                    continue;
+                }
+
+                $this->destroyEmployeeRecord($employee);
+                $deleted++;
+            }
+
+            $message = "Deleted {$deleted} staff member(s).";
+            if ($skipped > 0) {
+                $message .= " Skipped {$skipped} (your own account).";
+            }
+
+            return redirect()->route('admin.dashboard.staff')->with('success', $message);
+        }
+
+        $delivery = $validated['delivery'] ?? 'work';
+        $sent = 0;
+        $failed = [];
+
+        foreach ($employees as $employee) {
+            try {
+                $this->sendStaffActivationEmail($employee, $delivery);
+                $sent++;
+            } catch (\Throwable $e) {
+                $failed[] = ($employee->email ?: $employee->full_name).' ('.$e->getMessage().')';
+                \Log::error('Staff activation email failed: '.$e->getMessage(), [
+                    'employee_id' => $employee->id,
+                ]);
+            }
+        }
+
+        $label = $validated['action'] === 'reset' ? 'password reset' : 'activation';
+        $message = "Sent {$label} emails to {$sent} staff member(s).";
+        if ($failed !== []) {
+            $message .= ' Could not send to: '.implode(', ', $failed).'.';
+        }
+
+        return redirect()->route('admin.dashboard.staff')->with(
+            $failed === [] ? 'success' : 'error',
+            $message
+        );
+    }
+
+    protected function destroyEmployeeRecord(Employee $employee): void
+    {
+        if ($employee->user_id) {
+            $user = User::find($employee->user_id);
+            if ($user) {
+                $user->delete();
+            }
+        }
+
+        StaffFolderHelper::deleteStored($employee->profile_picture);
+        StaffFolderHelper::deleteDirectory($employee->first_name, $employee->last_name);
+
+        $employee->delete();
+    }
+
+    /**
+     * Resolve job_title_id → denormalized job_title string for display.
+     *
+     * @param  array<string, mixed>  $validatedData
+     */
+    protected function applyJobTitleFields(array &$validatedData): void
+    {
+        $titleId = $validatedData['job_title_id'] ?? null;
+        if ($titleId) {
+            $title = JobTitle::find($titleId);
+            if ($title) {
+                $validatedData['job_title_id'] = $title->id;
+                $validatedData['job_title'] = $title->name;
+
+                return;
+            }
+        }
+
+        $validatedData['job_title_id'] = null;
+    }
+
+    protected function storeStaffDocuments(Request $request, Employee $employee, string $firstName, string $lastName): void
+    {
+        foreach (StaffFolderHelper::DOCUMENT_TYPES as $field => $meta) {
+            if (! $request->file($field)) {
+                continue;
+            }
+
+            $file = $request->file($field);
+            if (! $file->isValid()) {
+                throw ValidationException::withMessages([
+                    $field => StaffFolderHelper::uploadErrorMessage($file),
+                ]);
+            }
+
+            StaffFolderHelper::deleteStored($employee->{$meta['column']});
+            $employee->{$meta['column']} = StaffFolderHelper::storeDocument($file, $firstName, $lastName, $field);
+
+            if ($field === 'id_copy') {
+                $employee->id_verifi_doc = true;
+            }
+            if ($field === 'bank_confirmation') {
+                $employee->bank_confi_verifi = true;
+            }
+        }
+    }
+
+    public function send_employee_activation(Request $request, $id)
+    {
+        $employee = Employee::with('user')->findOrFail($id);
+
+        if ($employee->user && $employee->user->email_verified_at) {
+            return redirect()
+                ->route('dashboard.staff.view', $employee->id)
+                ->with('success', 'This staff account is already activated.');
+        }
+
+        $validated = $request->validate([
+            'delivery' => 'required|in:work,personal',
+        ]);
+
+        try {
+            $sentTo = $this->sendStaffActivationEmail($employee, $validated['delivery']);
+
+            return redirect()
+                ->route('dashboard.staff.view', $employee->id)
+                ->with('success', 'Activation email sent to '.$sentTo.'. Login remains '.$employee->fresh()->email.'.');
+        } catch (\Throwable $e) {
+            \Log::error('Staff activation email failed: '.$e->getMessage(), [
+                'employee_id' => $employee->id,
+            ]);
+
+            return redirect()
+                ->route('dashboard.staff.view', $employee->id)
+                ->with('error', 'Could not send activation email: '.$e->getMessage());
+        }
+    }
+
+    protected function sendStaffActivationEmail(Employee $employee, string $channel = 'work'): string
+    {
+        StaffEmailHelper::assignWorkEmail($employee);
+        $employee->refresh();
+
+        $delivery = StaffEmailHelper::deliveryAddress($employee, $channel);
+        $user = $this->ensureStaffUser($employee);
+        $token = Password::broker()->createToken($user);
+        $resetUrl = url(route('password.reset', [
+            'token' => $token,
+            'email' => $user->email,
+        ], false));
+
+        $mailer = StaffEmailHelper::outboundMailer();
+        Mail::mailer($mailer)->to($delivery)->send(new StaffAccountActivation($employee, $user, $resetUrl, $delivery));
+
+        \Log::info('Staff activation email sent', [
+            'employee_id' => $employee->id,
+            'to' => $delivery,
+            'mailer' => $mailer,
+        ]);
+
+        return $delivery;
+    }
+
+    protected function ensureStaffUser(Employee $employee): User
+    {
+        $user = $employee->user;
+
+        if (! $user && $employee->user_id) {
+            $user = User::find($employee->user_id);
+        }
+
+        if (! $user) {
+            $user = User::where('email', $employee->email)->first();
+        }
+
+        if (! $user) {
+            $user = User::create([
+                'name' => $employee->full_name,
+                'email' => $employee->email,
+                'password' => Hash::make(Str::random(32)),
+            ]);
+        }
+
+        if ((int) $employee->user_id !== (int) $user->id) {
+            $employee->user_id = $user->id;
+            $employee->save();
+        }
+
+        if (method_exists($user, 'hasRole') && ! $user->hasRole('staff') && ! $user->hasRole('admin')) {
+            try {
+                $user->attachRole('staff');
+            } catch (\Throwable $e) {
+                \Log::warning('Could not attach staff role: '.$e->getMessage(), [
+                    'user_id' => $user->id,
+                ]);
+            }
+        }
+
+        return $user;
+    }
     public function update_employee(Request $request, $id)
     {
         try {
             $employee = Employee::findOrFail($id);
 
+            if ($request->filled('first_name')) {
+                $request->merge([
+                    'email' => StaffEmailHelper::fromFirstName($request->input('first_name'), $employee->email),
+                ]);
+            }
+
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+                'job_title' => 'nullable|string|max:255',
+                'job_title_id' => 'required|exists:job_titles,id',
                 'email' => 'required|email|unique:employees,email,' . $employee->id,
+                'personal_email' => 'nullable|email|max:255',
             'phone' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'province' => 'required|string|max:255',
                 'ID_number' => 'required|string|min:13|max:13|unique:employees,ID_number,' . $employee->id,
                 'date_of_birth' => 'nullable|date',
-                'profile_picture' => 'nullable|image|max:2048',
+                'profile_picture' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:10240',
+                'id_copy' => StaffFolderHelper::DOCUMENT_RULE,
+                'bank_confirmation' => StaffFolderHelper::DOCUMENT_RULE,
+                'cv' => StaffFolderHelper::DOCUMENT_RULE,
+                'sars_income_tax' => StaffFolderHelper::DOCUMENT_RULE,
                 'id_verifi_doc' => 'nullable|boolean',
                 'proof_address_verifi_doc' => 'nullable|boolean',
                 'bank_confi_verifi' => 'nullable|boolean',
             ]);
 
-        // Handle profile picture upload
-        if ($request->hasFile('profile_picture')) {
-            $profilePicture = $request->file('profile_picture');
+            $this->applyJobTitleFields($validatedData);
 
-            if ($profilePicture->isValid()) {
-                    // Delete old profile picture if exists
-                    if ($employee->profile_picture && Storage::exists('public/' . $employee->profile_picture)) {
-                        Storage::delete('public/' . $employee->profile_picture);
+            $nameChanged = StaffFolderHelper::slug($employee->first_name, $employee->last_name)
+                !== StaffFolderHelper::slug($validatedData['first_name'], $validatedData['last_name']);
+
+            if ($nameChanged) {
+                StaffFolderHelper::renameDirectory(
+                    $employee->first_name,
+                    $employee->last_name,
+                    $validatedData['first_name'],
+                    $validatedData['last_name']
+                );
+                $relocated = StaffFolderHelper::relocateStaffPath(
+                    $employee->profile_picture,
+                    $validatedData['first_name'],
+                    $validatedData['last_name']
+                );
+                if ($relocated) {
+                    $validatedData['profile_picture'] = $relocated;
+                }
+                foreach (StaffFolderHelper::DOCUMENT_TYPES as $meta) {
+                    $relocatedDoc = StaffFolderHelper::relocateStaffPath(
+                        $employee->{$meta['column']},
+                        $validatedData['first_name'],
+                        $validatedData['last_name']
+                    );
+                    if ($relocatedDoc) {
+                        $validatedData[$meta['column']] = $relocatedDoc;
                     }
-                    
-                $firstName = strtolower($validatedData['first_name']);
-                $lastName = strtolower($validatedData['last_name']);
-                    $idNumber = strtolower($validatedData['ID_number']);
-
-                $extension = $profilePicture->getClientOriginalExtension();
-                    $profilePictureName = $firstName . '_' . $lastName . '_' . $idNumber . '.' . $extension;
-
-                $profilePicturePath = 'images/employees/' . $profilePictureName;
-                    $profilePicture->storeAs('public/images/employees', $profilePictureName);
-                    $validatedData['profile_picture'] = $profilePicturePath;
                 }
+            } else {
+                StaffFolderHelper::ensureDirectory($validatedData['first_name'], $validatedData['last_name']);
             }
 
-            // Update employee
+            if ($request->file('profile_picture')) {
+                $profilePicture = $request->file('profile_picture');
+                if (! $profilePicture->isValid()) {
+                    throw ValidationException::withMessages([
+                        'profile_picture' => StaffFolderHelper::uploadErrorMessage($profilePicture),
+                    ]);
+                }
+
+                StaffFolderHelper::deleteStored($employee->profile_picture);
+                $validatedData['profile_picture'] = StaffFolderHelper::storeUpload(
+                    $profilePicture,
+                    $validatedData['first_name'],
+                    $validatedData['last_name']
+                );
+            }
+
+            $this->storeStaffDocuments($request, $employee, $validatedData['first_name'], $validatedData['last_name']);
+            foreach (StaffFolderHelper::DOCUMENT_TYPES as $meta) {
+                if ($employee->{$meta['column']}) {
+                    $validatedData[$meta['column']] = $employee->{$meta['column']};
+                }
+            }
+            if ($employee->id_verifi_doc) {
+                $validatedData['id_verifi_doc'] = true;
+            }
+            if ($employee->bank_confi_verifi) {
+                $validatedData['bank_confi_verifi'] = true;
+            }
+
             $employee->update($validatedData);
-            
-            // Update associated user if exists
-            if ($employee->user_id) {
-                $user = User::find($employee->user_id);
-                if ($user) {
-                    $user->name = $validatedData['first_name'] . ' ' . $validatedData['last_name'];
-                    $user->email = $validatedData['email'];
-                    $user->save();
-                }
+            $employee->refresh();
+            $employee->first_name = $validatedData['first_name'];
+            $employee->last_name = $validatedData['last_name'];
+            StaffEmailHelper::assignWorkEmail($employee);
+
+            $employee->refresh();
+            if ($employee->user) {
+                $employee->user->name = $validatedData['first_name'].' '.$validatedData['last_name'];
+                $employee->user->save();
             }
+
+            app(StaffPermissionSyncService::class)->syncEmployee($employee->fresh(['user', 'assignedTitle']));
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json(['success' => true, 'message' => 'Staff member updated successfully.', 'employee' => $employee]);
@@ -578,9 +964,13 @@ class AdminController extends Controller
 
     public function deleteSelectedApplications(Request $request)
     {
-        $selectedIds = json_decode($request->input('selected_ids'));
-        InternshipApplication::whereIn('id', $selectedIds)->delete();
-        return redirect()->back()->with('success', 'Selected applications deleted successfully.');
+        $selectedIds = json_decode($request->input('selected_ids'), true) ?? [];
+
+        foreach ($selectedIds as $id) {
+            PeopleController::resolveApplication($id)->delete();
+        }
+
+        return redirect()->route('dashboard.people', ['type' => 'application'])->with('success', 'Selected applications deleted successfully.');
     }
 
     // Internships CRUD methods
@@ -825,22 +1215,19 @@ class AdminController extends Controller
     {
         try {
             $selectedIds = json_decode($request->input('selected_ids'));
-
+            
             if (empty($selectedIds)) {
                 return redirect()->back()->with('warning', 'No services selected for deletion.');
             }
-
+            
             $count = Service::whereIn('id', $selectedIds)->count();
-
-            DB::transaction(function () use ($selectedIds) {
-                Service::whereIn('id', $selectedIds)->get()->each->delete();
-            });
-
+            Service::whereIn('id', $selectedIds)->delete();
+            
             return redirect()->route('dashboard.services')
-                ->with('success', $count.' service(s) deleted successfully.');
+                ->with('success', $count . ' service(s) deleted successfully.');
         } catch (\Exception $e) {
             return redirect()->route('dashboard.services')
-                ->with('error', 'Failed to delete services: '.$e->getMessage());
+                ->with('error', 'Failed to delete services: ' . $e->getMessage());
         }
     }
 
@@ -849,7 +1236,7 @@ class AdminController extends Controller
     public function internsLearners()
     {
         try {
-            $internsLearners = InternsLearner::with(['program', 'internshipApplication'])->orderBy('created_at', 'desc')->paginate(10);
+            $internsLearners = InternsLearner::with(['program', 'person'])->orderBy('created_at', 'desc')->paginate(10);
         } catch (\Exception $e) {
             // If table doesn't exist, create empty collection
             $internsLearners = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 10);
@@ -873,7 +1260,7 @@ class AdminController extends Controller
     public function storeInternLearner(Request $request)
     {
         $validatedData = $request->validate([
-            'internship_application_id' => 'nullable|exists:internship_applications,id',
+            'person_id' => 'nullable|exists:people,id',
             'program_id' => 'nullable|exists:internship_programs,id',
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
@@ -898,7 +1285,7 @@ class AdminController extends Controller
     public function viewInternLearner($id)
     {
         // mict_beneficiary is a computed attribute, so we only eager load real relationships
-        $internLearner = InternsLearner::with(['program', 'internshipApplication'])->findOrFail($id);
+        $internLearner = InternsLearner::with(['program', 'person'])->findOrFail($id);
         return view('admin.dashboard.interns-learners.view', compact('internLearner'));
     }
 
@@ -907,7 +1294,7 @@ class AdminController extends Controller
         $internLearner = InternsLearner::findOrFail($id);
         $programs = InternshipProgram::all();
         try {
-            $applications = InternshipApplication::whereDoesntHave('internLearner')->orWhere('id', $internLearner->internship_application_id)->get();
+            $applications = InternshipApplication::whereDoesntHave('internLearner')->orWhere('id', $internLearner->person_id)->get();
         } catch (\Exception $e) {
             // If table doesn't exist yet, just get all applications
             $applications = InternshipApplication::all();
@@ -929,7 +1316,7 @@ class AdminController extends Controller
         $internLearner = InternsLearner::findOrFail($id);
 
         $validatedData = $request->validate([
-            'internship_application_id' => 'nullable|exists:internship_applications,id',
+            'person_id' => 'nullable|exists:people,id',
             'program_id' => 'nullable|exists:internship_programs,id',
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
@@ -1035,18 +1422,35 @@ class AdminController extends Controller
 
     public function programs()
     {
+        $user = auth()->user();
+        if (! $user || ! $user->hasAnyStaffPermission(['programs.read', 'programs.create', 'programs.update', 'programs.approve'])) {
+            abort(403);
+        }
+
         $programs = InternshipProgram::with('partner')->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.dashboard.programs.index', compact('programs'));
     }
 
     public function createProgram()
     {
-        $skillsDevPartners = Partner::where('partner_type', 'Skills Development')->where('is_active', true)->orderBy('name')->get();
-        return view('admin.dashboard.programs.create', compact('skillsDevPartners'));
+        $user = auth()->user();
+        if (! $user || ! $user->hasStaffPermission('programs.create')) {
+            abort(403);
+        }
+
+        $partners = Partner::forPrograms()->get();
+        return view('admin.dashboard.programs.create', compact('partners'));
     }
 
-    public function storeProgram(Request $request)
+    public function storeProgram(Request $request, ProgramAnnouncementService $announcementService)
     {
+        $user = auth()->user();
+        if (! $user || ! $user->hasStaffPermission('programs.create')) {
+            abort(403);
+        }
+
+        $canApprove = $user->hasStaffPermission('programs.approve');
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'program_type' => 'required|string|in:Internship,TVET Placement,Short Program',
@@ -1065,6 +1469,14 @@ class AdminController extends Controller
             'requirements' => 'required|string',
             'is_active' => 'boolean',
             'allows_enquiry' => 'boolean',
+            'create_announcement' => 'boolean',
+            'announcement_title' => 'exclude_unless:create_announcement,1|required_if:create_announcement,1|string|max:255',
+            'announcement_description' => 'exclude_unless:create_announcement,1|required_if:create_announcement,1|string',
+            'announcement_link' => 'exclude_unless:create_announcement,1|nullable|url|max:255',
+            'announcement_badge' => 'exclude_unless:create_announcement,1|nullable|string|max:50',
+            'announcement_expires_at' => 'exclude_unless:create_announcement,1|nullable|date',
+            'form_fields' => 'nullable|array',
+            'form_fields.*' => 'string',
         ]);
 
         $programData = [
@@ -1083,13 +1495,46 @@ class AdminController extends Controller
             'accreditation_details' => $validatedData['accreditation_details'],
             'youth_beneficiaries' => $validatedData['youth_beneficiaries'] ?? false,
             'requirements' => $validatedData['requirements'],
-            'is_active' => $validatedData['is_active'] ?? true,
+            'is_active' => $canApprove ? ($validatedData['is_active'] ?? false) : false,
             'allows_enquiry' => $validatedData['allows_enquiry'] ?? false,
+            'application_form_schema' => ProgramFormFields::normalizeSelected(
+                $request->input('form_fields'),
+                $validatedData['program_type'],
+                $request->boolean('allows_enquiry')
+            ),
         ];
 
-        InternshipProgram::create($programData);
+        $program = InternshipProgram::create($programData);
 
-        return redirect()->route('dashboard.programs')->with('success', 'Program created successfully.');
+        $message = $canApprove && ($programData['is_active'] ?? false)
+            ? 'Program created successfully.'
+            : 'Program saved as draft. A superadmin must approve it before it is shown publicly.';
+
+        if (SiteSetting::current()->lmis_enabled) {
+            try {
+                $lmisStatus = app(LmisProgramSyncService::class)->queueProgram($program);
+                if ($lmisStatus === LmisProgramSyncService::RESULT_SYNCED) {
+                    $message .= ' Pushed to LMIS.';
+                } elseif ($lmisStatus === LmisProgramSyncService::RESULT_PENDING) {
+                    $message .= ' LMIS is offline; the programme will be pushed when it is reachable.';
+                }
+            } catch (\Throwable $e) {
+                $message .= ' LMIS sync could not be queued; it can be retried later.';
+            }
+        }
+
+        if ($request->boolean('create_announcement') && $canApprove) {
+            $announcement = $announcementService->createForProgram($program, [
+                'title' => $validatedData['announcement_title'],
+                'description' => $validatedData['announcement_description'],
+                'link' => $validatedData['announcement_link'] ?? route('programs'),
+                'badge' => $validatedData['announcement_badge'] ?? 'OPPORTUNITY',
+                'expires_at' => $validatedData['announcement_expires_at'] ?? null,
+            ]);
+            $message .= ' Announcement published — <a href="' . route('admin.dashboard.announcements.edit', $announcement->id) . '" class="underline">edit announcement</a>.';
+        }
+
+        return redirect()->route('dashboard.programs')->with('success', $message);
     }
 
     public function viewProgram($id)
@@ -1100,14 +1545,25 @@ class AdminController extends Controller
 
     public function editProgram($id)
     {
-        $program = InternshipProgram::findOrFail($id);
-        $skillsDevPartners = Partner::where('partner_type', 'Skills Development')->where('is_active', true)->orderBy('name')->get();
-        return view('admin.dashboard.programs.edit', compact('program', 'skillsDevPartners'));
+        $user = auth()->user();
+        if (! $user || ! $user->hasStaffPermission('programs.update')) {
+            abort(403);
+        }
+
+        $program = InternshipProgram::with('announcement')->findOrFail($id);
+        $partners = Partner::forPrograms()->get();
+        return view('admin.dashboard.programs.edit', compact('program', 'partners'));
     }
 
-    public function updateProgram(Request $request, $id)
+    public function updateProgram(Request $request, $id, ProgramAnnouncementService $announcementService)
     {
-        $program = InternshipProgram::findOrFail($id);
+        $user = auth()->user();
+        if (! $user || ! $user->hasStaffPermission('programs.update')) {
+            abort(403);
+        }
+
+        $canApprove = $user->hasStaffPermission('programs.approve');
+        $program = InternshipProgram::with('announcement')->findOrFail($id);
 
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -1127,18 +1583,67 @@ class AdminController extends Controller
             'requirements' => 'required|string',
             'is_active' => 'boolean',
             'allows_enquiry' => 'boolean',
+            'create_announcement' => 'boolean',
+            'announcement_title' => 'exclude_unless:create_announcement,1|required_if:create_announcement,1|string|max:255',
+            'announcement_description' => 'exclude_unless:create_announcement,1|required_if:create_announcement,1|string',
+            'announcement_link' => 'exclude_unless:create_announcement,1|nullable|url|max:255',
+            'announcement_badge' => 'exclude_unless:create_announcement,1|nullable|string|max:50',
+            'announcement_expires_at' => 'exclude_unless:create_announcement,1|nullable|date',
+            'form_fields' => 'nullable|array',
+            'form_fields.*' => 'string',
         ]);
+
+        $publishAnnouncement = $request->boolean('create_announcement');
+        $announcementPayload = [
+            'title' => $validatedData['announcement_title'] ?? null,
+            'description' => $validatedData['announcement_description'] ?? null,
+            'link' => $validatedData['announcement_link'] ?? route('programs'),
+            'badge' => $validatedData['announcement_badge'] ?? 'OPPORTUNITY',
+            'expires_at' => $validatedData['announcement_expires_at'] ?? null,
+        ];
+
+        unset(
+            $validatedData['form_fields'],
+            $validatedData['create_announcement'],
+            $validatedData['announcement_title'],
+            $validatedData['announcement_description'],
+            $validatedData['announcement_link'],
+            $validatedData['announcement_badge'],
+            $validatedData['announcement_expires_at']
+        );
 
         $program->update([
             ...$validatedData,
             'has_stipend' => $validatedData['has_stipend'] ?? false,
             'has_accreditation' => $validatedData['has_accreditation'] ?? false,
             'youth_beneficiaries' => $validatedData['youth_beneficiaries'] ?? false,
-            'is_active' => $validatedData['is_active'] ?? false,
+            'is_active' => $canApprove
+                ? ($validatedData['is_active'] ?? false)
+                : (bool) $program->is_active,
             'allows_enquiry' => $validatedData['allows_enquiry'] ?? false,
+            'application_form_schema' => ProgramFormFields::normalizeSelected(
+                $request->input('form_fields'),
+                $validatedData['program_type'],
+                $request->boolean('allows_enquiry')
+            ),
         ]);
 
-        return redirect()->route('dashboard.programs')->with('success', 'Program updated successfully.');
+        $message = 'Program updated successfully.';
+        if (! $canApprove) {
+            $message .= ' Public visibility was not changed (approval required).';
+        }
+
+        if ($publishAnnouncement && $canApprove) {
+            $announcement = $announcementService->updateForProgram($program, $announcementPayload);
+            $message .= ' Announcement updated — <a href="' . route('admin.dashboard.announcements.edit', $announcement->id) . '" class="underline">edit announcement</a>.';
+        } elseif ($canApprove) {
+            $announcementService->unpublishForProgram($program);
+            if ($program->announcement_id) {
+                $message .= ' Announcement unpublished from the homepage and announcements page.';
+            }
+        }
+
+        return redirect()->route('dashboard.programs')->with('success', $message);
     }
 
     public function toggleProgramEnquiry($id)
@@ -1158,6 +1663,11 @@ class AdminController extends Controller
 
     public function deleteProgram($id)
     {
+        $user = auth()->user();
+        if (! $user || ! $user->hasStaffPermission('programs.delete')) {
+            abort(403);
+        }
+
         $program = InternshipProgram::findOrFail($id);
         $program->delete();
         
@@ -1166,16 +1676,77 @@ class AdminController extends Controller
 
     public function deleteSelectedPrograms(Request $request)
     {
-        $selectedIds = json_decode($request->input('selected_ids'));
-        InternshipProgram::whereIn('id', $selectedIds)->delete();
-        
-        return redirect()->back()->with('success', 'Selected programs deleted successfully.');
+        $request->merge(['action' => 'delete']);
+
+        return $this->bulkPrograms($request);
+    }
+
+    public function bulkPrograms(Request $request, ?ProgramAnnouncementService $announcementService = null)
+    {
+        $announcementService ??= app(ProgramAnnouncementService::class);
+
+        $ids = $request->input('selected_ids', $request->input('ids', []));
+        if (is_string($ids)) {
+            $decoded = json_decode($ids, true);
+            $ids = is_array($decoded) ? $decoded : [];
+        }
+        $ids = array_values(array_unique(array_filter(array_map('intval', (array) $ids))));
+
+        $request->merge(['ids' => $ids]);
+        $validated = $request->validate([
+            'action' => 'required|in:activate,deactivate,delete',
+            'ids' => 'required|array|min:1',
+            'ids.*' => 'integer|exists:internship_programs,id',
+        ]);
+
+        $count = count($validated['ids']);
+
+        if ($validated['action'] === 'activate') {
+            $user = auth()->user();
+            if (! $user || ! $user->hasStaffPermission('programs.approve')) {
+                abort(403, 'Only users with program approval permission can activate programs.');
+            }
+
+            InternshipProgram::whereIn('id', $validated['ids'])->update(['is_active' => true]);
+
+            return redirect()->route('dashboard.programs')
+                ->with('success', $count === 1 ? '1 program activated.' : $count.' programs activated.');
+        }
+
+        if ($validated['action'] === 'deactivate') {
+            $programs = InternshipProgram::with('announcement')->whereIn('id', $validated['ids'])->get();
+            InternshipProgram::whereIn('id', $validated['ids'])->update(['is_active' => false]);
+            foreach ($programs as $program) {
+                $announcementService->unpublishForProgram($program);
+            }
+
+            return redirect()->route('dashboard.programs')
+                ->with('success', $count === 1 ? '1 program set to inactive.' : $count.' programs set to inactive.');
+        }
+
+        InternshipProgram::whereIn('id', $validated['ids'])->delete();
+
+        return redirect()->route('dashboard.programs')
+            ->with('success', $count === 1 ? '1 program deleted.' : $count.' programs deleted.');
     }
 
     public function settings()
     {
-        $pageTitle = 'Settings';
         $user = auth()->user();
+        if (! $user) {
+            abort(403);
+        }
+
+        // Personal settings shortcut for staff; site settings only for site-settings.manage / admin.
+        if (! $user->hasStaffPermission('site-settings.manage') && $user->hasStaffPermission('settings.own')) {
+            return redirect()->route('dashboard.profile');
+        }
+
+        if (! $user->hasStaffPermission('site-settings.manage')) {
+            abort(403);
+        }
+
+        $pageTitle = 'Settings';
         $siteSettings = SiteSetting::current();
 
         return view('admin.dashboard.settings.index', compact('pageTitle', 'user', 'siteSettings'));
@@ -1183,12 +1754,59 @@ class AdminController extends Controller
 
     public function updateSettings(Request $request)
     {
+        $user = auth()->user();
+        if (! $user || ! $user->hasStaffPermission('site-settings.manage')) {
+            abort(403);
+        }
+
         $settings = SiteSetting::current();
+        $section = $request->input('section', 'floating');
+
+        if ($section === 'lmis') {
+            $validated = $request->validate([
+                'lmis_enabled' => 'nullable|boolean',
+                'lmis_base_url' => 'nullable|url|max:255',
+                'lmis_api_token' => 'nullable|string|max:2000',
+            ]);
+
+            $enabled = $request->boolean('lmis_enabled');
+            $baseUrl = rtrim((string) ($validated['lmis_base_url'] ?? ''), '/');
+
+            if ($enabled && $baseUrl === '') {
+                throw ValidationException::withMessages([
+                    'lmis_base_url' => 'A base URL is required when LMIS sync is enabled.',
+                ]);
+            }
+
+            $settings->lmis_enabled = $enabled;
+            $settings->lmis_base_url = $baseUrl !== '' ? $baseUrl : 'http://localhost:3010';
+
+            $token = $validated['lmis_api_token'] ?? '';
+            if ($token !== '') {
+                $settings->lmis_api_token = $token;
+            }
+
+            $settings->save();
+
+            return redirect()->route('dashboard.settings')->with('success', 'LMIS connection saved.');
+        }
+
         $settings->show_whatsapp_floating = $request->boolean('show_whatsapp_floating');
         $settings->show_chatbot_floating = $request->boolean('show_chatbot_floating');
         $settings->save();
 
         return redirect()->route('dashboard.settings')->with('success', 'Frontend floating buttons updated.');
+    }
+
+    public function testLmisConnection(LmisClient $client)
+    {
+        try {
+            $client->health();
+        } catch (LmisRequestException $e) {
+            return redirect()->route('dashboard.settings')->with('error', $e->getMessage());
+        }
+
+        return redirect()->route('dashboard.settings')->with('success', 'LMIS connection succeeded.');
     }
 
     // ==================== PARTNERS CRUD ====================

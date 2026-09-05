@@ -1,25 +1,32 @@
 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
     <div class="p-6 bg-white border-b border-gray-200">
-        <div class="flex items-center mb-4">
-            <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
-                </svg>
+        @php $archivedCount = $archivedCount ?? 0; @endphp
+        <div class="ki-toolbar mb-6">
+            <div class="ki-toolbar-start">
+                <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                    </svg>
+                </div>
+                <div class="min-w-0">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Announcement Management</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Manage announcements displayed on the homepage. Expired items move to the JSON archive.</p>
+                </div>
             </div>
-            <div class="ml-5 w-0 flex-1">
-                <dl>
-                    <dt class="text-sm font-medium text-gray-500 truncate">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">Announcement Management</h3>
-                    </dt>
-                    <dd>
-                        <div class="text-lg font-medium text-gray-900">
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500">Manage announcements displayed on the homepage.</p>
-                        </div>
-                    </dd>
-                </dl>
-            </div>
-            <div class="ml-auto space-x-2">
-                <a href="{{ route('admin.dashboard.announcements.create') }}" 
+            <div class="ki-toolbar-end">
+                <a href="{{ route('admin.dashboard.announcements.archive') }}"
+                   class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    View archive{{ $archivedCount > 0 ? ' (' . $archivedCount . ')' : '' }}
+                </a>
+                <form action="{{ route('admin.dashboard.announcements.archive.run') }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                            class="inline-flex items-center px-4 py-2 bg-amber-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                            onclick="return confirm('Move expired announcements to JSON?')">
+                        Archive now
+                    </button>
+                </form>
+                <a href="{{ route('admin.dashboard.announcements.create') }}"
                    class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>

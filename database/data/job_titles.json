@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Founder CEO",
+    "slug": "founder-ceo",
+    "permission_groups": ["leadership"],
+    "is_active": true
+  },
+  {
+    "name": "Business Developer",
+    "slug": "business-developer",
+    "permission_groups": ["sales"],
+    "is_active": true
+  },
+  {
+    "name": "Business Advisor",
+    "slug": "business-advisor",
+    "permission_groups": ["sales"],
+    "is_active": true
+  },
+  {
+    "name": "Communications",
+    "slug": "communications",
+    "permission_groups": ["sales"],
+    "is_active": true
+  },
+  {
+    "name": "Project Manager",
+    "slug": "project-manager",
+    "permission_groups": ["programme_officer"],
+    "is_active": true
+  },
+  {
+    "name": "IoT Specialist",
+    "slug": "iot-specialist",
+    "permission_groups": ["programme_officer"],
+    "is_active": true
+  },
+  {
+    "name": "Software Dev Intern",
+    "slug": "software-dev-intern",
+    "permission_groups": ["programme_officer"],
+    "is_active": true
+  },
+  {
+    "name": "Marketing Intern",
+    "slug": "marketing-intern",
+    "permission_groups": ["sales"],
+    "is_active": true
+  },
+  {
+    "name": "Sales Consultant",
+    "slug": "sales-consultant",
+    "permission_groups": ["sales"],
+    "is_active": true
+  },
+  {
+    "name": "Programme Manager",
+    "slug": "programme-manager",
+    "permission_groups": ["programme_officer", "sales"],
+    "is_active": true
+  },
+  {
+    "name": "Operations Manager",
+    "slug": "operations-manager",
+    "permission_groups": ["leadership", "programme_officer"],
+    "is_active": true
+  }
+]

@@ -16,18 +16,18 @@ class CertificateDownload extends Model
         'storage_path',
         'download_token',
         'expires_at',
+        'downloaded_at',
+        'certificate_pdf_emailed_at',
     ];
 
     protected $casts = [
         'expires_at' => 'datetime',
+        'downloaded_at' => 'datetime',
+        'certificate_pdf_emailed_at' => 'datetime',
     ];
 
     public function isExpired(): bool
     {
-        if ($this->expires_at === null) {
-            return false;
-        }
-
-        return $this->expires_at->isPast();
+        return $this->expires_at && $this->expires_at->isPast();
     }
 }

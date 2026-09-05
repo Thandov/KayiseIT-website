@@ -50,17 +50,18 @@
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Profile Picture</label>
                             <div class="flex items-center space-x-4">
-                                @if($employee->profile_picture)
-                                    <img src="{{ asset('storage/' . $employee->profile_picture) }}" alt="{{ $employee->first_name }}" class="h-24 w-24 rounded-full object-cover border-2 border-gray-200">
+                                @if($employee->photo_url)
+                                    <img id="profile_picture_preview" src="{{ $employee->photo_url }}" alt="{{ $employee->first_name }}" class="h-24 w-24 rounded-full object-cover border-2 border-gray-200">
                                 @else
-                                    <div class="h-24 w-24 rounded-full bg-kb-50 flex items-center justify-center border-2 border-gray-200">
+                                    <div id="profile_picture_placeholder" class="h-24 w-24 rounded-full bg-kb-50 flex items-center justify-center border-2 border-gray-200">
                                         <span class="text-kb-100 font-bold text-2xl">{{ substr($employee->first_name, 0, 1) }}{{ substr($employee->last_name ?? '', 0, 1) }}</span>
                                     </div>
+                                    <img id="profile_picture_preview" src="" alt="{{ $employee->first_name }}" class="h-24 w-24 rounded-full object-cover border-2 border-gray-200 hidden">
                                 @endif
                                 <div>
-                                    <input type="file" name="profile_picture" id="profile_picture" accept="image/*"
+                                    <input type="file" name="profile_picture" id="profile_picture" accept="image/jpeg,image/png,image/gif,image/webp"
                                            class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-kb-50 file:text-kb-100 hover:file:bg-kb-100">
-                                    <p class="mt-1 text-xs text-gray-500">PNG, JPG, GIF up to 2MB</p>
+                                    <p class="mt-1 text-xs text-gray-500">JPG, PNG, GIF, or WebP up to 10MB. Saved to Staff/{{ \Illuminate\Support\Str::slug($employee->first_name, '_') }}_{{ \Illuminate\Support\Str::slug($employee->last_name ?? '', '_') }}</p>
                                 </div>
                             </div>
                             @error('profile_picture')
@@ -90,13 +91,73 @@
                             @enderror
                         </div>
 
-                        <!-- Email -->
+                        <!-- Job Title -->
                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
-                            <input type="email" name="email" id="email" required
-                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kb-100 focus:ring-kb-100 sm:text-sm @error('email') border-red-500 @enderror"
+                            <label for="job_title_id" class="block text-sm font-medium text-gray-700">Job Title *</label>
+                            @php
+                                $titleOptions = $jobTitles ?? \App\Models\JobTitle::with('permissionGroups')->active()->orderBy('name')->get();
+                                $selectedTitleId = old('job_title_id', $employee->job_title_id);
+                            @endphp
+                            <select name="job_title_id" id="job_title_id" required
+                                    class="ki-select mt-1 @error('job_title_id') border-red-500 @enderror">
+                                <option value="">— Select title —</option>
+                                @foreach($titleOptions as $title)
+                                    <option value="{{ $title->id }}" @selected((string) $selectedTitleId === (string) $title->id)>
+                                        {{ $title->name }}@if($title->groupLabels()) ({{ $title->groupLabels() }})@endif
+                                    </option>
+                                @endforeach
+                            </select>
+                            @if($titleOptions->isEmpty())
+                                <p class="mt-1 text-sm text-amber-700">
+                                    No titles yet.
+                                    @if(auth()->user()?->isDashboardAdmin())
+                                        <a href="{{ route('dashboard.access', ['tab' => 'titles']) }}" class="underline font-medium">Create job titles</a>
+                                        first, then refresh this page.
+                                    @endif
+                                </p>
+                            @else
+                                <p class="mt-1 text-xs text-gray-500">Shown on the organogram. Permissions come from the title’s group.</p>
+                            @endif
+                            @error('job_title_id')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                            <input type="hidden" name="job_title" id="job_title_text" value="{{ old('job_title', $employee->job_title) }}">
+                            <script>
+                                (function () {
+                                    const select = document.getElementById('job_title_id');
+                                    const hidden = document.getElementById('job_title_text');
+                                    if (!select || !hidden) return;
+                                    const sync = () => {
+                                        const opt = select.options[select.selectedIndex];
+                                        hidden.value = opt && opt.value ? opt.textContent.replace(/\s*\(.*\)\s*$/, '').trim() : '';
+                                    };
+                                    select.addEventListener('change', sync);
+                                    sync();
+                                })();
+                            </script>
+                        </div>
+
+                        <!-- Work email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Work email</label>
+                            <input type="email" name="email" id="email" required readonly
+                                   class="mt-1 block w-full rounded-md border-gray-300 bg-gray-50 shadow-sm sm:text-sm @error('email') border-red-500 @enderror"
                                    value="{{ old('email', $employee->email) }}">
+                            <p class="mt-1 text-xs text-gray-500">Login address: firstname@kayiseit.co.za</p>
                             @error('email')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Personal email -->
+                        <div>
+                            <label for="personal_email" class="block text-sm font-medium text-gray-700">Personal email</label>
+                            <input type="email" name="personal_email" id="personal_email"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-kb-100 focus:ring-kb-100 sm:text-sm @error('personal_email') border-red-500 @enderror"
+                                   value="{{ old('personal_email', $employee->personal_email) }}"
+                                   placeholder="name@gmail.com">
+                            <p class="mt-1 text-xs text-gray-500">Optional. Activation can be sent here or to work email.</p>
+                            @error('personal_email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -154,7 +215,8 @@
                             @enderror
                         </div>
 
-                        <!-- Verification Status -->
+                        @include('admin.dashboard.staff._documents', ['employee' => $employee])
+
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-3">Verification Status</label>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -182,8 +244,7 @@
                         </div>
                     </div>
 
-                    <!-- Form Actions -->
-                    <div class="mt-6 flex justify-end space-x-3 pt-6 border-t border-gray-200">
+                    <div class="mt-6 flex flex-wrap items-center justify-end gap-3 pt-6 border-t border-gray-200">
                         <a href="{{ route('admin.dashboard.staff') }}" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kb-100">
                             Cancel
                         </a>
@@ -192,12 +253,84 @@
                         </button>
                     </div>
                 </form>
+
+                @php
+                    $staffUser = $employee->user;
+                    $accountActivated = $staffUser && $staffUser->email_verified_at;
+                    $activationDelivery = old('delivery', \App\Helpers\StaffEmailHelper::preferredChannel($employee));
+                @endphp
+                @if($accountActivated)
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <h3 class="text-sm font-semibold text-gray-900">Account status</h3>
+                        <p class="mt-1 text-sm text-gray-600">
+                            This staff profile is activated.
+                            <span class="ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                        </p>
+                        <p class="mt-2 text-sm text-gray-500">Login: {{ $staffUser->email }}. Use Password reset on the staff list if they need a new link.</p>
+                    </div>
+                @else
+                <form action="{{ route('dashboard.staff.activation', $employee->id) }}" method="POST" class="mt-6 pt-6 border-t border-gray-200" id="staffActivationForm">
+                    @csrf
+                    <h3 class="text-sm font-semibold text-gray-900">Send activation email</h3>
+                    <p class="mt-1 text-sm text-gray-600">Sends a set-password link. Prefer Work email — this server delivers to @kayiseit.co.za. External personal addresses are blocked by the host. Login stays the work email.</p>
+                    <div class="mt-4 ki-cluster">
+                        <label class="inline-flex items-center gap-2 text-sm text-gray-800">
+                            <input type="radio" name="delivery" value="work" class="text-kb-100 focus:ring-kb-100" {{ $activationDelivery === 'work' ? 'checked' : '' }}>
+                            Work ({{ $employee->email }})
+                        </label>
+                        <label class="inline-flex items-center gap-2 text-sm text-gray-800 {{ $employee->personal_email ? '' : 'opacity-50' }}">
+                            <input type="radio" name="delivery" value="personal" class="text-kb-100 focus:ring-kb-100" {{ $employee->personal_email ? '' : 'disabled' }} {{ $activationDelivery === 'personal' ? 'checked' : '' }}>
+                            Personal{{ $employee->personal_email ? ' ('.$employee->personal_email.')' : ' (add a personal email first)' }}
+                        </label>
+                    </div>
+                    @error('delivery')
+                        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                    <div class="mt-4">
+                        <button type="submit" id="staffActivationSubmit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-kb-100 hover:bg-kb-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-kb-100 disabled:opacity-50">
+                            Send activation email
+                        </button>
+                    </div>
+                </form>
+                @endif
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const pictureInput = document.getElementById('profile_picture');
+            const preview = document.getElementById('profile_picture_preview');
+            const placeholder = document.getElementById('profile_picture_placeholder');
+            if (pictureInput && preview) {
+                pictureInput.addEventListener('change', function() {
+                    const file = pictureInput.files && pictureInput.files[0];
+                    if (!file) {
+                        return;
+                    }
+                    preview.src = URL.createObjectURL(file);
+                    preview.classList.remove('hidden');
+                    if (placeholder) {
+                        placeholder.classList.add('hidden');
+                    }
+                });
+            }
+
+            const firstNameInput = document.getElementById('first_name');
+            const emailInput = document.getElementById('email');
+            if (firstNameInput && emailInput) {
+                const keepDotCom = (emailInput.value || '').toLowerCase().endsWith('@kayiseit.com');
+                const syncWorkEmail = function() {
+                    const local = firstNameInput.value
+                        .toLowerCase()
+                        .trim()
+                        .replace(/[^a-z0-9]+/g, '');
+                    const domain = keepDotCom ? 'kayiseit.com' : 'kayiseit.co.za';
+                    emailInput.value = local ? local + '@' + domain : '';
+                };
+                firstNameInput.addEventListener('input', syncWorkEmail);
+            }
+
             const idNumberInput = document.getElementById('ID_number');
             const dateInput = document.getElementById('date_of_birth');
 
@@ -214,6 +347,15 @@
                         // Format the date as 'YYYY-MM-DD' and set it as the value of the date input
                         dateInput.value = `${year}-${month}-${day}`;
                     }
+                });
+            }
+
+            const activationForm = document.getElementById('staffActivationForm');
+            const activationSubmit = document.getElementById('staffActivationSubmit');
+            if (activationForm && activationSubmit) {
+                activationForm.addEventListener('submit', function() {
+                    activationSubmit.disabled = true;
+                    activationSubmit.textContent = 'Sending…';
                 });
             }
         });

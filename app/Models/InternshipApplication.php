@@ -2,58 +2,53 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
-class InternshipApplication extends Model
+class InternshipApplication extends Person
 {
-    use HasFactory;
+    protected $table = 'people';
 
-    protected $casts = [
-        'responded_at' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-
-    protected $fillable = [
-        'app_id',
-        'user_id',
-        'name',
-        'email',
-        'id_no',
-        'age',
-        'address',
-        'high_school',
-        'year_of_completion',
-        'qualification',
-        'year_obtained',
-        'institution',
-        'app_type',
-        'field',
-        'internship_program_id',
-        'program_partner',
-        'status',
-        'cv_path',
-        'id_copy_path',
-        'qualification_copy_path',
-        'admin_message',
-        'responded_at',
-        'responded_by',
-    ];
-
-    // Relationships
-    public function internLearner()
+    protected static function booted(): void
     {
-        return $this->hasOne(InternsLearner::class, 'internship_application_id');
+        static::addGlobalScope('application', function (Builder $builder) {
+            $builder->where('record_type', self::TYPE_APPLICATION);
+        });
+
+        static::creating(function (self $model) {
+            $model->record_type = self::TYPE_APPLICATION;
+            $model->source = $model->source ?: 'application';
+            $model->status = $model->status ?: 'pending';
+        });
     }
 
-    public function mictBeneficiary()
+    public function getIdNoAttribute(): ?string
     {
-        return $this->hasOne(MictBeneficiary::class, 'internship_application_id');
+        return $this->id_number;
+    }
+
+    public function setIdNoAttribute(?string $value): void
+    {
+        $this->attributes['id_number'] = $value;
+    }
+
+    public function getNameAttribute(?string $value): string
+    {
+        if (! empty($this->attributes['surname'])) {
+            return trim(($value ?? '').' '.$this->attributes['surname']);
+        }
+
+        return $value ?? '';
+    }
+
+    public function setNameAttribute(?string $value): void
+    {
+        $parts = preg_split('/\s+/', trim((string) $value), 2);
+        $this->attributes['name'] = $parts[0] ?? '';
+        $this->attributes['surname'] = $parts[1] ?? '';
     }
 
     public function internshipProgram()
     {
-        return $this->belongsTo(InternshipProgram::class, 'internship_program_id');
+        return $this->program();
     }
 }

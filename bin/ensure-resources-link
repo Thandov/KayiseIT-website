@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Keeps Laravel runtime paths aligned with this git repo (public/).
+set -euo pipefail
+
+PUBLIC_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+APP_ROOT="$(cd "$PUBLIC_ROOT/.." && pwd)"
+
+ensure_symlink() {
+    local link_path="$1"
+    local target_path="$2"
+    local label="$3"
+
+    if [[ ! -e "$target_path" ]]; then
+        echo "error: missing $label target at $target_path" >&2
+        exit 1
+    fi
+
+    if [[ -L "$link_path" ]]; then
+        local current expected
+        current="$(readlink -f "$link_path")"
+        expected="$(readlink -f "$target_path")"
+        if [[ "$current" == "$expected" ]]; then
+            return 0
+        fi
+        echo "repairing $label symlink ($link_path)" >&2
+        rm -f "$link_path"
+        ln -sfn "$target_path" "$link_path"
+        return 0
+    fi
+
+    if [[ -e "$link_path" ]]; then
+        echo "error: $link_path exists but is not a symlink to $target_path" >&2
+        exit 1
+    fi
+
+    echo "creating $label symlink ($link_path)" >&2
+    ln -sfn "$target_path" "$link_path"
+}
+
+# Laravel loads views/assets from ../resources; git tracks public/resources.
+ensure_symlink "$APP_ROOT/resources" "$PUBLIC_ROOT/resources" "resources"
+
+# Vite manifest lives under nested public/public/build in this repo layout.
+if [[ -f "$PUBLIC_ROOT/public/build/manifest.json" ]]; then
+    ensure_symlink "$PUBLIC_ROOT/build" "$PUBLIC_ROOT/public/build" "build"
+fi

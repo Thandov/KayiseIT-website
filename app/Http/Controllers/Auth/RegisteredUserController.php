@@ -41,9 +41,12 @@ class RegisteredUserController extends Controller
     }
     public function createintern()
     {
-        // Create a cookie with the SameSite attribute
+        if ($programId = request()->integer('program')) {
+            session(['apply_program_id' => $programId]);
+        }
+
         $cookie = Cookie::make('my_cookie', 'cookie_value', 60)
-            ->withSameSite('None'); // Specify SameSite attribute here
+            ->withSameSite('None');
 
         return view('auth.registerintern')->withCookie($cookie);
     }
@@ -169,9 +172,6 @@ class RegisteredUserController extends Controller
 
         //event(new Registered($user));
 
-
-
-        // Do not log in or send email. Redirect to login page with success message.
-        return redirect()->route('login')->with('success', 'Registration successful. Please log in.');
+        return redirect()->route('loginintern')->with('success', 'Registration successful. Please log in to complete your application.');
     }
 }

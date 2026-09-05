@@ -4,7 +4,7 @@
     $navMenu = app(NavMenuService::class)->buildFrontendConfig(request());
     $menuItems = $navMenu['menuItems'];
     $activeRoutes = $navMenu['activeRoutes'];
-    $homeUrl = route('home') . '#starfield';
+    $homeUrl = route('home') . '#hero-banner';
 @endphp
 
 <nav
@@ -48,7 +48,7 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            @if (Auth::user()->hasRole('admin') && Route::has('dashboard'))
+                            @if ((Auth::user()->hasRole('admin') || Auth::user()->isStaffMember()) && Route::has('dashboard'))
                                 <x-dropdown-link :href="route('dashboard')">{{ __('Dashboard') }}</x-dropdown-link>
                             @endif
                             @if (Auth::user()->hasRole('student') && Route::has('student.portal'))
@@ -125,7 +125,7 @@
                     <p class="text-xs text-white/60 truncate">{{ Auth::user()->email }}</p>
                 </div>
                 <div class="space-y-0.5">
-                    @if (Auth::user()->hasRole('admin') && Route::has('dashboard'))
+                    @if ((Auth::user()->hasRole('admin') || Auth::user()->isStaffMember()) && Route::has('dashboard'))
                         <a href="{{ route('dashboard') }}" class="kayise-nav-link-mobile {{ request()->routeIs('dashboard') ? 'is-active' : '' }}">{{ __('Dashboard') }}</a>
                     @endif
                     @if (Auth::user()->hasRole('student') && Route::has('student.portal'))

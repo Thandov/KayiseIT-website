@@ -1,33 +1,9 @@
+@php
+    $partners = \App\Models\Partner::active()->ordered()->get();
+@endphp
+
+@if($partners->isNotEmpty())
 <div class="flex flex-wrap items-center justify-center gap-10 md:gap-12" id="client_logo_carousel">
-    <img
-        class="h-12 sm:h-14 md:h-16 lg:h-20 object-contain filter grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition"
-        src="{{ asset('images/partners/mict.png') }}"
-        alt="MICT SETA"
-        loading="lazy"
-    >
-    <img
-        class="h-12 sm:h-14 md:h-16 lg:h-20 object-contain filter grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition"
-        src="{{ asset('images/partners/Ehlanzeni.png') }}"
-        alt="Ehlanzeni TVET College"
-        loading="lazy"
-    >
-    <img
-        class="h-12 sm:h-14 md:h-16 lg:h-20 object-contain filter grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition"
-        src="{{ asset('images/partners/tarsus.png') }}"
-        alt="Tarsus on Demand"
-        loading="lazy"
-    >
-    <img
-        class="h-12 sm:h-14 md:h-16 lg:h-20 object-contain filter grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition"
-        src="{{ asset('images/partners/scg.png') }}"
-        alt="SCG South Africa"
-        loading="lazy"
-    >
-
-    @php
-        $partners = \App\Models\Partner::active()->ordered()->get();
-    @endphp
-
     @foreach($partners as $partner)
         @if($partner->logo_path)
             @php
@@ -54,3 +30,4 @@
         @endif
     @endforeach
 </div>
+@endif

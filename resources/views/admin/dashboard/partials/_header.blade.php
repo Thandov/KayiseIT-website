@@ -7,8 +7,19 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
-            <h1 class="text-xl font-semibold text-gray-900 leading-none my-0">@yield('page-title', 'Dashboard')</h1>
+            <h1 class="text-xl font-semibold text-gray-900 leading-none my-0">{{ $resolvedPageTitle ?? 'Dashboard' }}</h1>
         </div>
+
+        <div class="flex items-center gap-2">
+            <a href="{{ route('home') }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md border border-gray-300 text-gray-700 hover:bg-gray-50">
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+                <span class="hidden sm:inline">View website</span>
+            </a>
 
         <!-- User Dropdown -->
         <div class="relative" x-data="{ userDropdownOpen: false }">
@@ -36,11 +47,11 @@
                  x-transition:leave-end="transform opacity-0 scale-95"
                  @click.away="userDropdownOpen = false"
                  class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50">
+                <a href="{{ route('dashboard.profile') }}" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 no-underline">
                     <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                     </svg>
-                    Profile Settings
+                    My profile
                 </a>
                 <a href="{{ route('dashboard.settings') }}" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 no-underline">
                     <svg class="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,6 +72,7 @@
                     @csrf
                 </form>
             </div>
+        </div>
         </div>
     </div>
 </header>

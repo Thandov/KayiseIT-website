@@ -5,10 +5,31 @@
             <input type="hidden" name="action" value="update_client">
             <input type="hidden" name="user_id" value="{{ $client->user_id ?? ''}}">
             <input type="hidden" name="client_id" value="{{ $client->id ?? ''}}">
-            <div class="mb-4">
-                <h2 class="text-3xl font-bold">{{ $client->company ??'' }}</h2>
+            <div class="mb-4 ki-toolbar">
+                <h2 class="text-3xl font-bold m-0">{{ $client->displayName() }}</h2>
+                @if($client->isConvertedClient())
+                    <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">Client</span>
+                @else
+                    <span class="px-2 inline-flex text-xs font-semibold rounded-full bg-amber-100 text-amber-800">Lead</span>
+                @endif
             </div>
+            @if($client->inquiry_subject || $client->inquiry_message)
+                <div class="mb-6 rounded-lg border border-amber-100 bg-amber-50 p-4">
+                    <p class="text-sm font-medium text-gray-800 m-0">{{ $client->inquiry_subject ?: 'Inquiry' }}</p>
+                    @if($client->inquiry_message)
+                        <p class="text-sm text-gray-600 mt-2 whitespace-pre-line m-0">{{ $client->inquiry_message }}</p>
+                    @endif
+                </div>
+            @endif
             <div class="grid grid-cols-6 gap-6">
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                        <option value="lead" @selected(old('status', $client->status) === 'lead')>Lead</option>
+                        <option value="client" @selected(old('status', $client->status) === 'client')>Client</option>
+                    </select>
+                    <p class="mt-1 text-xs text-gray-500">Recording a sale also sets this to Client.</p>
+                </div>
                 <div class="col-span-6 sm:col-span-6">
                     <label for="company" class="block text-sm font-medium text-gray-700">Company Name</label>
                     <input type="text" name="company" id="company" autocomplete="company" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('company') border-red-500 @enderror" value="{{ old('company', $client->company ?? '') }}">
@@ -65,20 +86,20 @@
                 </div>
             </div>
             <!-- Footer of the form -->
-            <div class="px-4 py-3 bg-gray-50 text-right flex justify-between items-center">
-                <form action="{{ route('admin.dashboard.clients.delete', $client->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this client? This action cannot be undone.')" class="inline">
+            <div class="px-4 py-3 bg-gray-50 text-right flex justify-between items-center gap-3">
+                <form action="{{ route('admin.dashboard.clients.delete', $client->id) }}" method="POST" onsubmit="return confirm('Delete this record?')" class="inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                        Delete Client
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700">
+                        Delete
                     </button>
                 </form>
-                <div class="flex space-x-3">
-                    <a href="{{ route('dashboard.clients') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <div class="ki-table-actions">
+                    <a href="{{ route('dashboard.clients') }}" class="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                         Cancel
                     </a>
-                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Update Client
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-kb-100 hover:bg-kb-200">
+                        Save
                     </button>
                 </div>
             </div>

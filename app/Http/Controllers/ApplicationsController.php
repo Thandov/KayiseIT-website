@@ -15,96 +15,71 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use App\Mail\ApplicationNotification;
 use App\Mail\ApplicationSummary;
 use App\Mail\InternshipConfirmation;
 use App\Mail\NewIntenshipNotification;
 use App\Helpers\UserFolderHelper;
 use App\Models\InternshipProgram;
+use App\Models\Person;
+use App\Models\UserProject;
+use App\Services\ProgramApplicationService;
 
 class ApplicationsController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, ProgramApplicationService $applicationService)
     {
-        $validatedData = $request->validate([
-            'cv' => 'required|file|mimes:pdf|max:2048',
-            'id_copy' => 'required|file|mimes:pdf|max:2048',
-            'qualification_copy' => 'required|file|mimes:pdf|max:2048',
-            'selected_program_id' => 'nullable|exists:internship_programs,id',
-        ]);
-
         $user = Auth::user();
-        $selectedProgram = null;
 
-        if (!empty($validatedData['selected_program_id'])) {
-            $selectedProgram = InternshipProgram::active()->find($validatedData['selected_program_id']);
-            if (!$selectedProgram) {
-                return redirect()->route('opportunities')->with('error', 'This program is no longer available for applications.');
+        if ($request->filled('selected_program_id') && ! $request->filled('internship_program_id')) {
+            $request->merge(['internship_program_id' => $request->input('selected_program_id')]);
+        }
+
+        $programId = $request->input('internship_program_id') ?? $request->input('selected_program_id');
+        if (! $programId) {
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => 'Please select a programme to apply for.'], 422);
             }
+
+            return redirect()->route('opportunities')->with('error', 'Please select a programme to apply for.');
         }
 
-        $existingApplicationQuery = InternshipApplication::where('user_id', $user->id);
+        $selectedProgram = InternshipProgram::active()->find($programId);
+        if (! $selectedProgram) {
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => 'This programme is no longer available for applications.'], 422);
+            }
 
-        if ($selectedProgram) {
-            $existingApplicationQuery->where('internship_program_id', $selectedProgram->id);
-        } else {
-            $existingApplicationQuery->whereNull('internship_program_id');
+            return redirect()->route('opportunities')->with('error', 'This program is no longer available for applications.');
         }
 
-        if ($existingApplicationQuery->exists()) {
+        try {
+            $applicationService->assertNoDuplicateApplication($user, $selectedProgram);
+        } catch (ValidationException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => $e->getMessage(), 'errors' => $e->errors()], 422);
+            }
+
             return redirect('/profile')->with('error', 'You have already applied for this programme. Find your application details on your profile.');
         }
 
-        $folderName = UserFolderHelper::generateFolderName($user);
+        $validated = $applicationService->validateSubmission($request, $selectedProgram, $user);
 
-        // Create a directory in the appropriate folder based on application type
-        $opportunityType = 'internship'; // Default for internship applications
-        $folderPath = UserFolderHelper::createUserFolder($user, $opportunityType);
+        if ($request->filled('phone')) {
+            User::where('id', $user->id)->update(['phone' => $request->phone]);
+        }
 
-        // Handle file uploads using the new helper
-        $cvFileName = 'cv_' . $folderName . '.' . $request->file('cv')->getClientOriginalExtension();
-        $cvPath = UserFolderHelper::storeUserFile($user, $request->file('cv'), $cvFileName, $opportunityType);
+        $internship = $applicationService->createSubmission(
+            $validated,
+            $selectedProgram,
+            Person::TYPE_APPLICATION,
+            $user,
+            'application'
+        );
 
-        $idCopyFileName = 'id_copy_' . $folderName . '.' . $request->file('id_copy')->getClientOriginalExtension();
-        $idCopyPath = UserFolderHelper::storeUserFile($user, $request->file('id_copy'), $idCopyFileName, $opportunityType);
-
-        $qualificationCopyFileName = 'qualification_copy_' . $folderName . '.' . $request->file('qualification_copy')->getClientOriginalExtension();
-        $qualificationCopyPath = UserFolderHelper::storeUserFile($user, $request->file('qualification_copy'), $qualificationCopyFileName, $opportunityType);
-        
-        /* Update the user phone number in user table */
-        User::where('id', $user->id)->update(['phone' => $request->phone]);
-
-        // Create internship application
-        $internship = new InternshipApplication();
-        $internship->app_id = $folderName;
-        $internship->user_id = $user->id;
-        $internship->name = $user->name;
-        $internship->email = $user->email;
-        $internship->id_no = $request->id_number;
-        $internship->age = $request->age;
-        
-        $internship->app_type = $request->app_type;
-        $internship->field = $request->field;
-        $internship->internship_program_id = $selectedProgram?->id;
-        $internship->program_partner = $selectedProgram?->partner?->name;
-        $internship->status = 'pending';
-
-        /* High School */
-        $internship->address = $request->address;
-        $internship->high_school = $request->high_school;
-        $internship->year_of_completion = $request->year_of_completion;
-
-        /* Tertiary */
-        $internship->qualification = $request->qualification;
-        $internship->year_obtained = $request->year_obtained;
-        $internship->institution = $request->institution;
-
-        /* Doc Verification */
-        $internship->cv_path = $cvPath;
-        $internship->id_copy_path = $idCopyPath;
-        $internship->qualification_copy_path = $qualificationCopyPath;
-        
-        $internship->save();
+        $idCopyPath = $internship->id_copy_path;
+        $proofOfPaymentPath = $internship->proof_of_payment_path;
 
         $mailFailed = false;
 
@@ -121,7 +96,7 @@ class ApplicationsController extends Controller
 
         $adminEmails = ['info@kayiseit.com', 'thapelo@kayiseit.com', 'thando@kayiseit.com'];
         try {
-            Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $user->name, $cvPath, $idCopyPath, $qualificationCopyPath));
+            Mail::to($adminEmails)->send(new NewIntenshipNotification($internship, $user->name, $idCopyPath, $proofOfPaymentPath));
         } catch (\Throwable $e) {
             $mailFailed = true;
             Log::warning('Failed to send internship admin notification email.', [
@@ -131,11 +106,15 @@ class ApplicationsController extends Controller
             ]);
         }
 
-        if ($mailFailed) {
-            return redirect('/profile')->with('success', 'Application submitted successfully. Email notification is temporarily unavailable.');
+        $successMessage = $mailFailed
+            ? 'Application submitted successfully. Email notification is temporarily unavailable.'
+            : 'Application submitted successfully!';
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => $successMessage]);
         }
 
-        return redirect('/profile')->with('success', 'Application submitted successfully!');
+        return redirect('/profile')->with('success', $successMessage);
     }
 
     public function drone_registration(Request $request)
@@ -239,5 +218,151 @@ class ApplicationsController extends Controller
     public function banking_details()
     {
         return view('drone_application/summary');
+    }
+
+    public function editUserApplication($id)
+    {
+        $user = Auth::user();
+        $application = InternshipApplication::where('id', $id)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        return view('profile.partials.edit_application', compact('application'));
+    }
+
+    public function updateUserApplication(Request $request, $id)
+    {
+        $user = Auth::user();
+        $application = InternshipApplication::where('id', $id)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        $request->validate([
+            'age'                    => 'required|integer|min:1|max:120',
+            'address'                => 'nullable|string|max:500',
+            'app_type'               => 'required|string|max:100',
+            'field'                  => 'required|string|max:100',
+            'high_school'            => 'nullable|string|max:255',
+            'year_of_completion'     => 'nullable|string|max:4',
+            'qualification'          => 'nullable|string|max:255',
+            'year_obtained'          => 'nullable|string|max:4',
+            'institution'            => 'nullable|string|max:255',
+            'cv'                     => 'nullable|file|mimes:pdf|max:2048',
+            'id_copy'                => 'nullable|file|mimes:pdf|max:2048',
+            'qualification_copy'     => 'nullable|file|mimes:pdf|max:2048',
+        ]);
+
+        $folderName      = UserFolderHelper::generateFolderName($user);
+        $opportunityType = 'internship';
+
+        if ($request->hasFile('cv')) {
+            $cvFileName      = 'cv_' . $folderName . '.' . $request->file('cv')->getClientOriginalExtension();
+            $application->cv_path = UserFolderHelper::storeUserFile($user, $request->file('cv'), $cvFileName, $opportunityType);
+        }
+
+        if ($request->hasFile('id_copy')) {
+            $idCopyFileName        = 'id_copy_' . $folderName . '.' . $request->file('id_copy')->getClientOriginalExtension();
+            $application->id_copy_path = UserFolderHelper::storeUserFile($user, $request->file('id_copy'), $idCopyFileName, $opportunityType);
+        }
+
+        if ($request->hasFile('qualification_copy')) {
+            $qualFileName                  = 'qualification_copy_' . $folderName . '.' . $request->file('qualification_copy')->getClientOriginalExtension();
+            $application->qualification_copy_path = UserFolderHelper::storeUserFile($user, $request->file('qualification_copy'), $qualFileName, $opportunityType);
+        }
+
+        $application->age                = $request->age;
+        $application->address            = $request->address;
+        $application->app_type           = $request->app_type;
+        $application->field              = $request->field;
+        $application->high_school        = $request->high_school;
+        $application->year_of_completion = $request->year_of_completion;
+        $application->qualification      = $request->qualification;
+        $application->year_obtained      = $request->year_obtained;
+        $application->institution        = $request->institution;
+        $application->save();
+
+        return redirect()->route('profile.edit')->with('success', 'Application updated successfully.');
+    }
+
+    public function destroyUserApplication($id)
+    {
+        $user = Auth::user();
+        $application = InternshipApplication::where('id', $id)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        $application->delete();
+
+        return redirect()->route('profile.edit')->with('success', 'Application deleted.');
+    }
+
+    // ── User Portfolio Projects ──────────────────────────────────────────────
+
+    public function storeProject(Request $request)
+    {
+        $request->validate([
+            'title'                 => 'required|string|max:255',
+            'description'           => 'nullable|string|max:1000',
+            'status'                => 'required|in:published,in_progress',
+            'live_url'              => 'nullable|url|max:500',
+            'github_url'            => 'nullable|url|max:500',
+            'gitlab_url'            => 'nullable|url|max:500',
+            'bitbucket_url'         => 'nullable|url|max:500',
+            'other_platform_label'  => 'nullable|string|max:100',
+            'other_platform_url'    => 'nullable|url|max:500',
+        ]);
+
+        UserProject::create([
+            'user_id'               => Auth::id(),
+            'title'                 => $request->title,
+            'description'           => $request->description,
+            'status'                => $request->status,
+            'live_url'              => $request->live_url ?: null,
+            'github_url'            => $request->github_url ?: null,
+            'gitlab_url'            => $request->gitlab_url ?: null,
+            'bitbucket_url'         => $request->bitbucket_url ?: null,
+            'other_platform_label'  => $request->other_platform_label ?: null,
+            'other_platform_url'    => $request->other_platform_url ?: null,
+        ]);
+
+        return redirect()->route('profile.edit', ['#tab-portfolio'])->with('success', 'Project added.');
+    }
+
+    public function updateProject(Request $request, $id)
+    {
+        $project = UserProject::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+
+        $request->validate([
+            'title'                 => 'required|string|max:255',
+            'description'           => 'nullable|string|max:1000',
+            'status'                => 'required|in:published,in_progress',
+            'live_url'              => 'nullable|url|max:500',
+            'github_url'            => 'nullable|url|max:500',
+            'gitlab_url'            => 'nullable|url|max:500',
+            'bitbucket_url'         => 'nullable|url|max:500',
+            'other_platform_label'  => 'nullable|string|max:100',
+            'other_platform_url'    => 'nullable|url|max:500',
+        ]);
+
+        $project->update([
+            'title'                 => $request->title,
+            'description'           => $request->description,
+            'status'                => $request->status,
+            'live_url'              => $request->live_url ?: null,
+            'github_url'            => $request->github_url ?: null,
+            'gitlab_url'            => $request->gitlab_url ?: null,
+            'bitbucket_url'         => $request->bitbucket_url ?: null,
+            'other_platform_label'  => $request->other_platform_label ?: null,
+            'other_platform_url'    => $request->other_platform_url ?: null,
+        ]);
+
+        return redirect()->route('profile.edit', ['#tab-portfolio'])->with('success', 'Project updated.');
+    }
+
+    public function destroyProject($id)
+    {
+        UserProject::where('id', $id)->where('user_id', Auth::id())->firstOrFail()->delete();
+
+        return redirect()->route('profile.edit', ['#tab-portfolio'])->with('success', 'Project removed.');
     }
 }

@@ -1,7 +1,15 @@
 @props(['career'])
 
 @php
-    $tags = $career->quiz_tags ?: 'solve';
+    $tags = match ($career->slug ?? '') {
+        'software-developer', 'developer-programmer', 'programmer-analyst' => 'build,creative',
+        'network-systems-engineer', 'ict-systems-analyst' => 'solve,organize',
+        'ict-security-specialist' => 'protect,solve',
+        'multimedia-specialist' => 'creative,build',
+        'ict-project-manager' => 'lead,organize',
+        'ict-sales-representative' => 'people,organize',
+        default => 'solve',
+    };
     $href = $career->slug
         ? route('careers.show', $career->slug)
         : url('viewoccupations/'.$career->occup_id);
@@ -10,7 +18,7 @@
 <a href="{{ $href }}"
    data-career-tags="{{ $tags }}"
    class="group relative block bg-white rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition duration-300 overflow-hidden ring-1 ring-gray-100 hover:ring-kg-700/40">
-    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-kb-100 via-kg-700 to-kb-100 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+    <div class="absolute inset-x-0 top-0 h-1 bg-[#183ea4] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
     <div class="p-6 flex flex-col h-full relative">
         <div class="flex justify-center mb-4">
             @if($career->image && !str_starts_with(trim($career->image), '<'))
